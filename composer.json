@@ -12,7 +12,7 @@
         "doctrine/orm": "*",
         "doctrine/doctrine-bundle": "1.6.*",
         "doctrine/migrations": "dev-master",
-        "doctrine/doctrine-migrations-bundle": "2.1.*@dev",
+        "doctrine/doctrine-migrations-bundle": "@stable",
         "twig/extensions": "1.2.*",
         "symfony/assetic-bundle": "2.7.*",
         "symfony/swiftmailer-bundle": "2.3.*",
