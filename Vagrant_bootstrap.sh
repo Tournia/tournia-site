@@ -130,17 +130,17 @@ fi
 service apache2 restart
 
 # Install GitHub token
-if [ ! -f /home/vagrant/.composer/auth.json ]; then
-    mkdir -p /home/vagrant/.composer
-    cat >/home/vagrant/.composer/auth.json <<EOL
-{
-    "github-oauth": {
-        "github.com": "e22d0c304cb141bcfb1d57160226f9ba084e3c49"
-    }
-}
-
-EOL
-fi
+#if [ ! -f /home/vagrant/.composer/auth.json ]; then
+#    mkdir -p /home/vagrant/.composer
+#    cat >/home/vagrant/.composer/auth.json <<EOL
+#{
+#    "github-oauth": {
+#        "github.com": "1234567890"
+#    }
+#}
+#
+#EOL
+#fi
 
 # Update composer
 cd /var/www
