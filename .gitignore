@@ -8,10 +8,6 @@
 /seleniumTest/test-output/*
 /testing/app/history/*
 /.vagrant/*
-.idea/*
-
+/.idea/*
 /app/mailspool/
 /public_html/captcha
-
-/src/TS/ControlBundle/Resources/public/template/*
-/src/TS/FrontBundle/Resources/public/template/*

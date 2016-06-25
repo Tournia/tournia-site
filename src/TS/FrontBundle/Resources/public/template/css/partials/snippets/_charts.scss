@@ -1,0 +1,46 @@
+.charts {
+
+    &.row {
+	    margin-bottom: 20px;
+    }
+	
+	@media (max-width: 991px) {
+		margin-top: 10px;
+	}
+
+	.chart {
+		background-color: #fff;
+		border-radius: 0.2em;
+		box-shadow: 0 0 0.5em rgba(181, 181, 181, 0.35);
+		padding: 20px 40px;
+		position: relative;
+		position: relative;
+		margin-top: 25px;
+
+		@media (max-width: 991px) {
+			float: none !important;
+			left: 0px !important;
+			top: 0px !important;
+			margin: 0 auto;
+			margin-bottom: 25px !important;
+
+			&.last {
+				margin-bottom: 0px !important;
+			}
+		}
+
+		@media (max-width: 600px) {
+			width: 90% !important;
+		}
+		
+
+		&.first {
+			float: right;
+			left: 12px;
+		}
+
+		&.last {
+			left: -12px;
+		}
+	}
+}

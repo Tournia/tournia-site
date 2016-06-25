@@ -1,0 +1,173 @@
+@media (min-width: 1200px) {
+/*
+	.container {
+		width: 970px;
+	}
+*/
+}
+
+body {
+    font-size: 13px;
+}
+
+/*ul,
+li {
+	list-style: none;
+	list-style-position: outside;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}*/
+
+ul {
+	&.justified {
+        li {
+        	display: table-cell;
+            width: 1%;
+            
+            a {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+	}    
+}
+/*
+
+li {
+	display: inline-block;
+
+	&:first-child a{
+    	padding-left: 0;
+	}
+
+	&:last-child a{
+    	padding-right: 0;
+	}
+}
+*/
+
+h3,
+h4 {
+    font-weight: normal !important;
+}
+
+a {
+	color: $themeColor;
+	
+	&:hover {
+    	color: darken($themeColor, 5%);
+	}
+}
+
+.nav {
+    &.nav-pills {
+        li {
+            a {
+                border-radius: 0.2em; 
+                color: #333;
+            }
+            
+            &.active a {
+                background: $themeColor !important;                    
+                padding: 10px 15px;
+                color: #fff;
+            }
+        }
+    }
+    
+    &.nav-tabs {
+        border-bottom: 0;
+        margin-bottom: 30px;
+        
+        li {
+            border-bottom: 0.2em solid transparent;
+            max-height: 40px;
+            @include transition(all 0.2s linear);
+            
+            a {
+                color: #888;
+                padding: 10px 15px;
+
+                &:hover {
+                    border-color: transparent;
+                    background: transparent;
+                }
+            }
+
+            &:hover {
+                border-color: #aaa;
+            }
+
+            &.active {
+                font-weight: bold;
+                border-bottom: 0.2em solid $themeColor;
+                a {
+                    border: 0;
+                    color: $themeColor;
+                }
+            }
+        }
+    }
+}
+
+.pagination>.active {
+	>a,
+	>span, 
+	>a:hover, 
+	>span:hover, 
+	>a:focus, 
+	>span:focus { 
+		background-color: #5585B3;
+		border-color: #4477A3;
+	}
+}
+.pagination>li>a, 
+.pagination>li>span {
+	@include transition(all 0.25s linear);
+}
+
+
+/* --- Bugfix for glyphicons --- */
+.glyphicon-nonescaped {
+    &.glyphicon-calendar:before { 
+        content: "\d83d\dcc5";
+    }
+    &.glyphicon-bell:before {
+      content: "\d83d\dd14";
+    }
+    &.glyphicon-bookmark:before {
+      content: "\d83d\dd16";
+    }
+    &.glyphicon-briefcase:before {
+      content: "\d83d\dcbc";
+    }
+    &.glyphicon-calendar:before {
+      content: "\d83d\dcc5";
+    }
+    &.glyphicon-camera:before {
+      content: "\d83d\dcf7";
+    }
+    &.glyphicon-fire:before {
+      content: "\d83d\dd25";
+    }
+    &.glyphicon-lock:before {
+      content: "\d83d\dd12";
+    }
+    &.glyphicon-paperclip:before {
+      content: "\d83d\dcce";
+    }
+    &.glyphicon-pushpin:before {
+      content: "\d83d\dccc";
+    }
+    &.glyphicon-wrench:before {
+      content: "\d83d\dd27";
+    }   
+}
+
+.notification.red {
+    a {
+        color: #fff;
+        text-decoration: underline;
+    }
+}

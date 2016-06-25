@@ -1,0 +1,206 @@
+.editor {
+    border-top: 0 !important;
+
+    @include backgroundImage();
+
+	min-height: 300px;
+	padding-top: 55px;
+	padding-bottom: 100px;
+	
+	.chart {
+  	    float: left;    	
+	    width: 100%;
+        overflow:hidden;
+        position:relative;
+    	padding: 0;
+    	
+    	/* FAUX BACKGROUND THROUGH CSS */
+    	.wrapper {
+    	    float: left;
+    	    width: 100%;
+        	position: relative;
+        	right: 80%;
+        	background: $backgroundColorSoft;
+        	border-right: 1px solid darken($backgroundColorSoft, 10%);
+        /* END */
+    	
+        	.sidebar,
+        	.content {
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        	    position: relative;
+        	    float: left;
+        	    left: 80%;
+        	}
+        	
+        	.sidebar {
+        	    width: 20%;
+        	    
+            	header {
+                	padding: 30px;
+                	text-align: center;
+                	
+                	.user-avatar,
+                	.tournament-logo {
+                    	img {
+                    	    border-radius: 0.2em;
+                        	width: 80px;
+                        	height: 80px;
+                    	}
+                    }
+            	}
+            	
+            	nav {
+                   	margin-bottom: 30px;
+                	ul {
+                    	li {
+                    	    position: relative;
+                        	display: block;
+                            border-top: 1px solid darken($backgroundColorSoft, 10%);
+                            
+                            font-size: 1.1em;
+                        	
+                            &.space-bottom {
+                                margin-bottom: 40px !important;
+                                border-bottom: 1px solid darken($backgroundColorSoft, 10%);
+                            }
+                            
+                        	&:last-child {
+                                border-bottom: 1px solid darken($backgroundColorSoft, 10%);
+                        	}
+                        	
+                        	&.active {
+                        	    font-weight: 500;
+                            	background: #fff;
+
+                        	    &:after {
+                                    content: " ";
+                                    display: block;
+                                    position: absolute;
+                                    top: 0px;
+                                    right: -1px;
+                                    bottom: 1px;
+                                    left: auto;
+                                    width: 1px;
+                                    background: #fff;
+                                }
+                                
+                                a {
+                                    color: $themeColor !important;
+
+                                    &:hover,
+                                    &:active {
+                                        background: #fff;
+                                    }
+
+                                }
+                        	}
+
+                        	a {
+                        	    color: #888 !important;
+                            	display: block;
+                                padding: 10px 30px;
+
+                                -moz-transition: all .2s ease-in;
+                                -o-transition: all .2s ease-in;
+                                -webkit-transition: all .2s ease-in;
+
+                                
+                                &:hover,
+                                &:active {
+                                    text-decoration: none;
+                                    background: darken($backgroundColorSoft, 3%);
+                                }
+                        	}
+                    	}
+                	}
+            	}
+        	}
+        	.content {
+            	padding: 30px 60px;
+        	    width: 80%;
+
+                header {
+                    margin-bottom: 60px;
+                    padding-bottom: 30px;
+                    border-bottom: 1px solid #ccc;
+                    
+                    .tab-subtitle {
+                        margin-top: 15px;
+                        color: #888;
+                        font-size: 1.4em;
+                    }
+                }
+                
+                form {
+                    .form-group {
+                        margin-bottom: 20px;
+                        
+                        label {
+                            color: #888;
+                        }
+                        
+                        input {
+                            color: #333 !important;
+                            font-size: 1em; 
+                        }
+                        
+                        .feedback {
+                            display: inline-block;
+                            position: relative;
+                            
+                            .feedback-icon {
+                                position: absolute;
+                                right: 25px;
+                                top: 10px;
+                            }
+                        }
+                        
+                        &.image-upload {
+                            .image-preview {
+                                img {
+                                    max-width: 100%;
+                                    max-height: 100px;
+                                }
+                                
+                                span.glyphicon {
+                                    font-size: 40px;
+                                    color: darken($backgroundColor, 5%);
+                                    
+                                    position: absolute;
+                                    left: 50%;
+                                    top: 50%;
+                                    margin: -25px 0 0 -20px;
+                                }
+                            }
+                            
+                            input {
+                                font-size: 1em; 
+                            }
+                        }
+
+                        &.actions {
+                            margin-top: 60px;
+                        }
+
+                    }
+                }
+        	}
+    	}
+
+        .wrapper#newTournamentWrapper {
+            background: none;
+            border-right: none;
+
+            .content {
+                width: 100%;
+                padding: 0px 0px;
+
+                .tab-content {
+                    margin-bottom: 0px;
+                }
+            }
+        }
+	}
+}

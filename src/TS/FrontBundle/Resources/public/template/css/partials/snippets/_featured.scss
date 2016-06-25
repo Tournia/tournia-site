@@ -1,0 +1,186 @@
+.featured {
+	margin-top: 50px;
+	margin-bottom: 100px;
+	-webkit-font-smoothing: antialiased;
+	.header {
+		h3 {
+			font-size: 23px;
+			color: #444;
+			line-height: 25px;
+			font-weight: 500;
+			margin-bottom: 7px;
+			
+			small {
+                line-height: 25px;
+				font-size: 16px;
+				font-weight: 400;
+				color: #888;
+			}
+		}
+		p {
+			font-size: 16px;
+			font-weight: 400;
+			color: #888;
+		}
+	}
+	.charts {
+		.chart {
+            margin-top: 0;
+            				
+            &.tournament {
+                margin-top: 25px;
+    			padding: 0;
+                color: #777;
+                text-align: left;
+    			
+    			header {
+    				border-radius: 0.2em;
+    			    background-clip: border-box;
+    			    background-size: cover;
+    			    overflow: hidden;
+    			    height: 120px;
+    			    position: relative;
+    			    
+    			    .date{
+    			        color: #fff;
+    			        font-size: 1.4em;
+    			        font-weight: 500;
+    			        text-align: center;
+    			        padding: 5px;
+        			    width: 100%;
+        			    background: rgba(0,0,0,0.6);
+        			    position: absolute;
+        			    left: 0;
+        			    bottom: 0;
+    			    }
+    			}
+    			
+    			main {
+                    padding: 10px 15px;
+                
+                    .title {
+                        
+                        h3{
+                            color: #333;
+                            font-weight: 400;
+                            margin-top: 0;
+                            margin-bottom: 0;
+                            font-size: 1.5em;
+                            text-align: left;
+                            display: inline-block;
+                        }
+                        
+                        small{
+                            a {
+                                font-weight: bold;
+                            }
+                        }
+                    }
+        			
+        			p {
+        			    line-height: 18px;
+            			margin-top: 10px;
+                        display: inline-block;
+            			max-height: 90px;
+            			overflow: hidden;
+        			}
+        			
+        			.location {
+            			margin-bottom: 5px;
+                        margin-right: 5px;
+        			}
+    			}
+    			
+    			footer {
+                    padding: 0 15px 10px 15px;
+                    
+                    li {
+                        padding: 0 5px;
+
+                        .btn {
+                            min-width: 12em;
+                        }
+                    }
+
+                }
+            }
+		}
+    }
+
+	.message {
+		p {
+			text-align: center;
+			font-size: 13px;
+			color: #656565;
+			margin-top: 23px;
+		}
+	}
+	.faq {
+		margin-top: 40px;
+		.header h3 {
+			font-size: 20px;
+			color: #454545;
+			text-align: left;
+		}
+		.questions {
+			margin-top: 25px;
+			.question {
+				margin-bottom: 40px;
+				
+				@media(min-width: 992px) {
+					width: 90%;
+				}
+
+				strong {
+					font-weight: 500;
+					font-size: 16px;
+					color: #454545;
+				}
+				p {
+					color: #555;
+					margin-top: 10px;
+					font-size: 13px;
+					line-height: 22px;
+				}
+			}
+		}
+	}
+	.contact {
+		margin-top: 40px;
+
+		.wrapper {
+			background: #F7F8FB;
+			border: 1px solid #EAEDF7;
+			border-radius: 8px;
+			padding: 25px 60px;
+			box-shadow: inset rgba(100, 100, 100, 0.25) 0 1px 1px;			
+			margin: 0 auto;
+		}
+		h4 {
+			font-size: 15px;
+			position: relative;
+			color: #696E72;
+			text-align: center;
+			font-weight: 500;
+			text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
+			
+			@media (max-width: 991px) {
+				line-height: 26px;
+			}
+
+			span {
+				position: absolute;
+				font-size: 23px;
+				top: -5px;
+				left: 72px;
+				color: #626E7A;
+
+				@media (max-width: 991px) {
+					position: relative;
+					left: 0px;
+					top: 5px;
+				}
+			}
+		}
+	}
+}

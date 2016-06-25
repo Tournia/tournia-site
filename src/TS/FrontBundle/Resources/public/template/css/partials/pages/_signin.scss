@@ -1,0 +1,46 @@
+#signin {
+	#hero {
+	    @include backgroundImage();
+	    
+		min-height: 300px;
+    	padding-top: 55px;
+    	padding-bottom: 100px;
+    }
+
+	form {
+    	h3,
+    	h4 {
+        	line-height: 1.5em;
+        	
+        	input {
+            	border: 0;
+            	border-bottom: 1px solid #B1B1B1;
+            	
+            	&:focus {
+                	border-bottom-color: $themeColor;
+            	}
+        	}
+    	}
+    	        	
+    	.divider {
+        	position: relative;
+        	margin: 50px 0;
+        	
+        	span {
+        	    text-align: center;
+        	    color: #aaa;
+            	position: absolute;
+            	top: -10px;
+            	left: 50%;
+            	margin: 0 0 0 -30px;
+            	width: 60px;
+            	line-height: 20px;
+            	background: #fff;
+        	}
+    	}
+
+        .btn {
+            padding: 0.8em 1.6em !important;
+        }
+    }
+}

@@ -43,8 +43,17 @@ Some tips for when you've got things working:
 By now you should be able to see http://192.168.50.4/app.php/ and have a fully working website. 
 The data is used from the file testDump.sql, which is imported in the MySQL database. You can check this at http://192.168.50.4/phpmyadmin/ in the *tournament* table.
 
-**Because of licensing reasons, the external templates used for Tournia.net are not in this repository. Therefore it's not possible to re-create the Assetic files in public_html/css and public_html/js**
+### Assetic
+You are normally working in the development environment (url contains app_dev.php). This way, assetic re-creates CSS and JavaScript files automatically when changes have been made. You can also manually run Assetic. To do this, run the command:
 
+    php app/console assetic:dump --env=prod --no-debug
+This command can also be useful when changing SASS files, because Assetic might not re-generate the corresponding CSS files. In that case, you can also delete the cache files in app/cache/dev/*
+
+
+It is advisable to create a symbolic link (shortcut), with the command
+
+    php app/console assets:install public_html --symlink
+This is useful because if you change something in src/TS/*Bundle/Resources/public, it will automatically be changed in public_html/bundles/
 
 ### Development tips
 When changing from one branch to the other, you might run into some problems.

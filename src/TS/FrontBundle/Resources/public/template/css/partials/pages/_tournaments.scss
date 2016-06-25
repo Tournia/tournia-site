@@ -1,0 +1,58 @@
+#home {
+    .tournaments {
+        &.search {
+            border-top: 0 !important;
+
+            padding: 10px 15px;
+
+            h3,
+            h4 {
+                transform: rotate(270deg);
+                -ms-transform: rotate(270deg); /* IE 9 */
+                -webkit-transform: rotate(270deg); /* Opera, Chrome, and Safari */
+
+                font-size: 1em;
+                font-weight: normal;
+                text-transform: uppercase;
+
+                display: inline-block;
+            }
+
+            form.form-inline {
+                display: inline-block;
+
+                .form-group {
+                    padding: 0 15px;
+                    border-left: 0.1em solid darken($backgroundColor, 10%);
+
+                    .form-input {
+                        margin-bottom: 5px;
+                    }
+
+                    .feedback {
+                        display: inline-block;
+                        position: relative;
+
+                        .feedback-icon {
+                            position: absolute;
+                            right: 10px;
+                            top: 10px;
+                        }
+                    }
+
+                    label {
+                        margin: 0;
+                        font-weight: normal;
+                        font-size: 0.8em;
+                        text-transform: uppercase;
+                        color: #888;
+                    }
+
+                    input {
+                        border-radius: 0.2em;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,126 @@
+$wizardBorderColor: darken(#e7e7da, 5%);
+$wizardBackgroundColor: darken(#fbfbf9, 5%);
+
+.wizard {
+  background-color: #fff !important;
+  border: 0 !important;
+
+  .steps-container {
+    ul.steps {
+      display: table !important;
+      width: 100% !important;
+      table-layout: fixed !important;
+      border-collapse: separate !important;
+      background: $wizardBackgroundColor !important;
+
+      li {
+        display: table-cell !important;
+        float: none !important;
+        width: 1% !important;
+        background-color: $wizardBackgroundColor !important;
+
+        &.complete {
+          color: $themeColor !important;
+
+          &.formError {
+            color: #ce4844 !important;
+          }
+        }
+
+        &.active {
+          color: #555 !important;
+
+          .badge-info {
+            background-color: #555 !important;
+          }
+        }
+
+        .chevron {
+          border-left: 14px solid darken($wizardBorderColor, 15%) !important;
+
+          &:before {
+            border-left: 14px solid $wizardBackgroundColor !important;
+          }
+        }
+      }
+    }
+  }
+  .steps-content {
+    border-top: 1px solid $wizardBorderColor !important;
+  }
+
+  .optionButtons {
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    padding: 0;
+    margin: 50px 0 50px 0;
+
+    li {
+      list-style-image: none;
+      list-style-position: outside;
+      list-style-type: none;
+      padding: 15px;
+      margin: 0;
+      border: 1px solid transparent;
+      text-align: center;
+
+      display: table-cell !important;
+      float: none !important;
+      width: 1% !important;
+
+      button {
+        border: 1px solid #ccc;
+        background: #ddd;
+        border-radius: 5px;
+        padding: 10px;
+
+        &:hover {
+          border: 1px solid lighten($themeColor, 30%);
+          background: lighten($themeColor, 40%);
+        }
+
+        span {
+          display: block;
+          color: $themeColor;
+        }
+      }
+
+      &.inactive {
+        color: #888;
+
+        button{
+          border: 1px solid #e0e0e0;
+          background: #f0f0f0;
+
+          span {
+            color: #aaa;
+            //color: lighten($themeColor, 30%);
+          }
+        }
+      }
+
+      &:hover,
+      &.selected{
+        color: $themeColor;
+        button {
+          border: 1px solid lighten($themeColor, 35%);
+          background: lighten($themeColor, 45%);
+        }
+      }
+
+      p {
+        min-height: 120px;
+      }
+    }
+  }
+
+  .actionsButtons {
+    #goToFinish {
+      position: absolute;
+      left: 45%;
+      padding-top: 10px;
+    }
+  }
+
+}

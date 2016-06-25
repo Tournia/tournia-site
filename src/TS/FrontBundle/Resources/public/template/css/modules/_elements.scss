@@ -1,0 +1,191 @@
+*:focus {
+    outline: 0;
+}
+
+.btn-group {
+    margin: 0 1em;
+    .btn {
+        margin: 0;
+        border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
+
+        &:last-child {
+            border-right: 0;
+        }
+    }
+    .btn-group {
+        margin: 0;
+    }
+
+    &.no-margin {
+        margin: 0 !important;
+    }
+}
+
+.btn-lg {
+    padding: 0.8em 1.6em !important;
+}
+
+
+*[class*='btn-custom-'] {
+
+    &.justified {
+        display: table-cell;
+        width: 1%;
+        padding: 0.45em 0.55em !important;
+
+        &.btn-lg {
+            padding-top: 0.8em !important;
+            padding-bottom: 0.8em !important;
+        }
+    }
+
+    &.btn-custom-theme {
+        background: $themeColor; /* #5ba4e5 */
+
+        &:hover,
+        &:focus {
+            background: darken($themeColor, 5%) !important;
+        }
+    }
+
+    &.btn-custom-green,
+    &.btn-custom-confirm {
+        background: $green;
+
+        &:hover,
+        &:focus {
+            background: darken($green, 5%) !important;
+        }
+    }
+
+    &.btn-custom-gray,
+    &.btn-custom-default,
+    &.btn-custom-alt,
+    &.btn-custom-cancel {
+        background: #eeefef;
+        border-color: rgba(0, 0, 0, 0.0470588);
+        color: #4c5355 !important;
+
+        &:hover,
+        &:focus {
+            background: rgba(0, 0, 0, 0.1) !important;
+            color: #4c5355 !important;
+        }
+    }
+
+    &.btn-custom-dark,
+    &.btn-custom-inverse {
+        background: #4c5355;
+
+        &:hover,
+        &:focus {
+            background: darken(#4c5355, 10%) !important;
+        }
+    }
+
+    &.btn-custom-red,
+    &.btn-custom-delete,
+    &.btn-custom-danger {
+        background: lighten($red, 5%);
+
+        &:hover,
+        &:focus {
+            background: $red !important;
+        }
+    }
+
+    /* social media buttons */
+
+    &.btn-custom-facebook {
+        background: #3B5998;
+        border-color: rgba(0, 0, 0, 0.0470588);
+        color: #fff !important;
+
+        &:hover,
+        &:focus {
+            background: lighten(#3B5998, 5%) !important;
+        }
+    }
+
+    &.btn-custom-google-plus {
+        background: #d34836;
+        border-color: rgba(0, 0, 0, 0.0470588);
+        color: #fff !important;
+
+        &:hover,
+        &:focus {
+            background: lighten(#d34836, 5%) !important;
+        }
+    }
+}
+
+/* social media icons */
+
+.social-media {
+    .icons {
+        font-size: 3em;
+
+        a {
+            margin: 0 5px;
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            &.facebook {
+                color: #3B5998;
+            }
+
+            &.twitter {
+                color: #55acee;
+            }
+
+            &.google-plus {
+                color: #d34836;
+            }
+        }
+    }
+}
+
+/* form controls */
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    border-radius: 0.2em;
+
+    &.form-control {
+        @include placeholder {
+            color: #B1B1B1;
+            font-weight: 400;
+            font-size: 14px;
+        }
+        &:focus {
+            border-color: lighten($themeColor, 20%);
+            outline: 0;
+            box-shadow: 0 !important;
+            box-shadow: none;
+        }
+    }
+}
+
+input[type="checkbox"] {
+    position: relative;
+    //    top: -2px;
+}
+
+textarea {
+    &.form-control {
+        @include placeholder {
+            color: #B1B1B1;
+            font-weight: 400;
+            font-size: 14px;
+        }
+        &:focus {
+            border-color: lighten($themeColor, 20%);
+            outline: 0;
+            box-shadow: none;
+        }
+    }
+}
+

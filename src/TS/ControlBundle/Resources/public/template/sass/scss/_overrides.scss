@@ -1,0 +1,51 @@
+// need to override just one or two small stylistic things and don't want to edit the main .less files?  Add those overrides here
+
+.smart-style-4 .alert-danger a {
+    color: #3276b1;
+}
+
+#main .row {
+    margin-right: 0px;
+}
+
+header {
+    display: block;
+    height: inherit;
+    margin: 0;
+    padding: 0 13px 0 0;
+    position: relative;
+    z-index: 905;
+}
+
+#site-head.navbar .navbar-nav > li.btn-header {
+    padding-right: 5px;
+    top: -5px;
+}
+#logo-group {
+    padding-left: 20px;
+}
+
+.modal-dialog {
+    z-index: 9999;
+}
+
+aside nav {
+    margin-top: 14px;
+}
+
+.ajax-dropdown {
+    left: -150px;
+    top: 60px;
+}
+
+.btn {
+    font-size: 12px !important;
+}
+
+.notification-body {
+    text-align: left;
+}
+
+.btn-group {
+    width: 100%;
+}

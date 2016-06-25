@@ -1,0 +1,267 @@
+.tournaments {
+	-webkit-font-smoothing: antialiased;
+	padding-top: 55px;
+	padding-bottom: 60px;
+	
+        
+    &.live {
+    	padding-top: 10px;
+        padding-bottom: 0px;
+    }
+
+    &.features {
+        &.first-option {
+        	padding-top: 0;
+        }
+    }
+
+	.header {
+		@media (max-width: 991px) {
+			margin-bottom: 25px;
+		}
+
+		h3 {
+            font-size: 23px;
+			color: #444;
+			line-height: 25px;
+			font-weight: 500;
+
+            &.no-margin {
+                padding: 0;
+                margin: 0;
+            }
+
+			@media(max-width: 767px) {
+				font-size: 24px;
+				line-height: 29px;
+			}
+
+    		small {
+    		    line-height: 25px;
+    			font-size: 16px;
+    			margin-top: 15px;
+   				color: #888;
+    			font-weight: 400;
+    			line-height: 25px;
+    		}
+		}
+		p {
+			font-size: 16px;
+			margin-top: 15px;
+			color: #F0F0F0;
+			font-weight: 400;
+			line-height: 25px;
+			text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+		}
+	}
+    
+    .charts {
+		.chart {
+			min-height: 315px;
+
+			&.tournament {
+    			padding: 0;
+                overflow: hidden;
+                color: #777;
+    			
+    			header {
+    				border-radius: 0.2em;
+    			    background-clip: border-box;
+    			    background-size: cover;
+    			    overflow: hidden;
+    			    height: 160px;
+    			    position: relative;
+                    cursor: pointer;
+    			    
+    			    .date{
+    			        color: #fff;
+    			        font-size: 1.2em;
+    			        font-weight: 400;
+    			        text-align: center;
+    			        padding: 5px;
+        			    width: 100%;
+        			    background: rgba(0,0,0,0.6);
+        			    position: absolute;
+        			    left: 0;
+        			    bottom: 0;
+    			    }
+    			}
+    			
+    			.details {
+                    padding: 10px 15px;
+                
+                    .title {
+                        
+                        h3{
+                            color: #333;
+                            font-weight: 400;
+                            margin-top: 0;
+                            margin-bottom: 0;
+                            font-size: 1.5em;
+                            text-align: left;
+
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            
+                            a {
+	                            color: #333;
+                            }
+                        }
+
+                        .organizer {
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+
+                            small{
+                                a {
+                                    font-weight: bold;
+                                }
+                            }
+                        }
+                    }
+        			
+        			p {
+        			    line-height: 18px;
+            			margin-top: 10px;
+                        display: inline-block;
+            			max-height: 72px;
+            			overflow: hidden;
+        			}
+        			
+        			.location {
+            			margin-bottom: 5px;
+                        margin-right: 5px;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+        			}
+        			
+        			.info {
+        			    margin: 10px;
+           			    text-align: center;
+           			    font-size: 20px;
+           			    font-weight: 500;
+           			    color: #555;
+            			li {
+            			    display: table-cell;
+                            vertical-align: middle;
+                            small {
+                                display: block;
+                                font-size: 10px;
+                                line-height: 10px;
+                                text-transform: uppercase;
+                            }
+                			&:first-child {
+                    			border-right: 1px solid #777;
+                			}
+            			}
+        			}
+    			}
+    			
+    			footer {
+                    padding: 0 15px 10px 15px;
+
+                    ul {
+                        padding: 0px;
+                    }
+
+                    li {
+                        padding: 0 5px;
+
+                        .btn {
+                            width: 100%;
+                        }
+                    }
+                }
+			}
+        }
+    }
+	
+	.table {
+	    margin-top: 10px;
+    	&.tournament {
+        	&.table {
+        	    display: table;
+        	    background-color: transparent !important;
+            	.table-row {
+            	    display: table-row;
+                	.table-cell {
+                	    border-top: 0.1em solid #ccc;
+                    	display: table-cell;
+                    	vertical-align: middle;
+                    	padding: 1em;
+                    	margin-top: 1em;
+                	}
+
+                	&:last-child {
+                	    .table-cell {
+                	    border-bottom: 0.1em solid #ccc;
+                        }
+                	}
+
+
+            	}
+        	}
+        	
+        	&.live {
+                margin-top: 20px;
+            	.table-cell.actions {
+                	min-width: 250px;
+            	}
+                .table-cell.date {
+                    min-width: 220px;
+                }
+
+        	}
+        	
+        	.header {
+			    background-clip: border-box;
+			    background-size: auto 50px;
+                background-position: center center;
+                background-repeat:no-repeat;
+			    overflow: hidden;
+			    max-height: 50px;
+			    width: 50px;
+			    position: relative;
+			    
+			    img{
+    			    max-height: 50px;
+    			    width: 50px;
+			    }
+        	}
+        	
+        	
+            h3{
+                color: #333;
+                font-weight: 400;
+                margin-top: 0;
+                margin-bottom: 0;
+                font-size: 1.5em;
+                text-align: left;
+            }
+            
+            small{               
+                a {
+                    font-weight: bold;
+                }
+            }
+
+        	.btn {
+            	margin: 1.0em 0.5em;
+        	}
+
+            .date {
+/*                 font-weight: bold; */
+                
+                small {
+                    color: #888;
+                    font-size: 0.8em;
+                    line-height: 1.2em;
+                    font-variant: small-caps;
+                }
+            }
+    	}
+	}
+}

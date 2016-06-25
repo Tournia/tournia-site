@@ -1,0 +1,59 @@
+/* config variables */
+@import "partials/config";
+
+/* modules */
+@import "modules/mixins";
+@import "modules/elements_header";
+@import "modules/elements";
+
+/* vendor */
+@import "bootstrap/bootstrap.css";
+@import "bootstrap/bootstrap-overrides";
+
+/* layout */
+//@import "partials/layout";
+
+/* snippets */
+@import "partials/snippets/blocks";
+@import "partials/snippets/charts";
+@import "partials/snippets/tabs";
+@import "partials/snippets/features";
+@import "partials/snippets/featured";
+@import "partials/snippets/tournaments";
+@import "partials/snippets/editor";
+@import "partials/snippets/testimonials";
+@import "partials/snippets/partners";
+@import "partials/snippets/slider";
+//@import "partials/snippets/header";
+@import "partials/snippets/notifications";
+@import "partials/snippets/wizard";
+@import "partials/snippets/footer";
+
+
+/* pages */
+@import "partials/pages/home";
+@import "partials/pages/tournaments";
+@import "partials/pages/features";
+@import "partials/pages/docs";
+@import "partials/pages/start";
+@import "partials/pages/charts";
+
+@import "partials/pages/tournament-detail";
+@import "partials/pages/subscribe";
+
+@import "partials/pages/aboutus";
+@import "partials/pages/contactus";
+
+@import "partials/pages/signin";
+@import "partials/pages/my-tournaments";
+
+@import "partials/pages/settings";
+
+@import "partials/pages/pricing";
+@import "partials/pages/services";
+//@import "vendor/brankic.css";
+//@import "vendor/animate.css";
+
+
+
+

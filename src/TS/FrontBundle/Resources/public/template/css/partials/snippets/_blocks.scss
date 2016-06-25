@@ -1,0 +1,11 @@
+.block {
+    &.alt {
+    	border-top: 1px solid darken($backgroundColor, 5%);
+    /* 	border-bottom: 1px solid darken($backgroundColor, 5%); */
+    	background: $backgroundColor;
+    	background: -webkit-linear-gradient(top, $backgroundColor 100%, darken($backgroundColor, 60%) 0%);
+    	background: -moz-linear-gradient(top, $backgroundColor 100%, darken($backgroundColor, 60%) 0%);
+    	background: -o-linear-gradient(top, $backgroundColor 100%, darken($backgroundColor, 60%) 0%);
+    	background: linear-gradient(top, $backgroundColor 100%, darken($backgroundColor, 60%) 0%);
+    }
+}

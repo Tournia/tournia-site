@@ -1,0 +1,42 @@
+/*----------- notifications -----------*/
+
+.notification {
+    font-weight: 300;
+    font-size: 0.9em; 
+    line-height: 32px;
+    
+    .notification-icon {
+        padding: 11px 15px;
+        margin-right: 15px;
+    }
+    
+    &.blue,
+    &.info {
+        background: $blue;
+        color: #fff;
+
+        .notification-icon {
+            background: darken($blue, 5%);
+        }
+    }
+
+    &.green,
+    &.success {
+        background: $green;
+        color: #fff;
+
+        .notification-icon {
+            background: darken($green, 5%);
+        }
+    }
+
+    &.red,
+    &.error {
+        background: $red;
+        color: #fff;
+
+        .notification-icon {
+            background: darken($red, 5%);
+        }
+    }
+}
