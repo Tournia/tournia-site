@@ -108,7 +108,7 @@ class CommandsController extends ApiV2MainController
             if (array_key_exists('setCommandKey', $command)) {
                 $controllerArray['command'] = $command['setCommandKey'];
             }
-            $controllerArray['_route'] = 'aa';
+            //$controllerArray['_route'] = 'aa';
             //unset($controllerArray['command']);
 
             $response = $this->forward($forwardController .':'. $function, $controllerArray, $controllerArray);
