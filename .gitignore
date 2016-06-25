@@ -8,8 +8,7 @@
 /seleniumTest/test-output/*
 /testing/app/history/*
 /.vagrant/*
-/.idea/*
-/.htpasswd
+.idea/*
 
 /app/mailspool/
 /public_html/captcha
