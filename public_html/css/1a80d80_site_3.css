@@ -1,0 +1,91 @@
+
+#contentBlock {
+    padding-left: initial;
+}
+
+.liveIcon {
+	height: 13px;
+	padding-bottom: 3px;
+}
+
+
+/** Tournament website page info block **/
+
+	
+#mapCanvas {
+	height: 120px;
+}
+
+#mapCanvas img { 
+	max-width: none;
+}
+
+#mapCanvas label { 
+	width: auto;
+	display:inline; 
+}
+
+.sidebar .statistics .table-stats td {
+    border: none;
+    padding: 4px;
+}
+.sidebar .statistics .table-stats td a {
+    font-weight: bold;
+}
+
+
+
+/* Customize the navbar links to be fill the entire space of the #navbarSite*/
+
+  
+.titleHead h3 {
+  	float: left;
+}
+  
+.titleHead .userBtn {
+  	top: -10px;
+  	position: relative;
+}
+
+#rankingTypeBox, #searchTypeBox {
+    margin-top: 10px;
+}
+
+
+
+.dt-top-row {
+    margin-top: 50px;
+}
+
+div.dataTables_filter label {
+    float: left;
+    display: inline-flex;
+}
+
+.dataTables_filter .input-group-addon {
+    width: 35px;
+    float: left;
+}
+
+.dataTables_filter .input-group-addon i {
+    top: 4px;
+    height: 20px;
+}
+
+.dataTables_filter .form-control {
+    width: 16em;
+}
+
+div.dataTables_length label {
+    float: right;
+}
+
+
+#siteContentBlock {
+    padding-bottom: 30px;
+}
+
+
+#siteContentBlock {
+    padding-bottom: 30px;
+}

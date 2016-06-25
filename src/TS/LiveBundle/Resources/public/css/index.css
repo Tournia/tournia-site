@@ -1,0 +1,598 @@
+/* ==========================================================================
+   Table of Contents
+   ========================================================================== */
+/*
+
+    -1. LESS Variables
+    
+    0.  General
+    1.  Bootstrap overrides
+    2.  Bootstrap additions
+    
+    3. Header
+        3.2. Navbar
+        3.1. Sub header
+    
+    4. Main
+        4.1. Select navbar
+        4.2. Loadingpane
+        4.3. Content tabs
+        4.4. Pool selector
+    
+    5.Footer
+        5.1. Main navbar
+      
+    6.  Tables
+    7.  Forms
+    8.  Media Queries
+    
+    9. Misc
+        9.1 Cards
+        9.2 Presentation screen
+
+*/
+/* ==========================================================================
+   -1. LESS Variables
+   ========================================================================== */
+/* Special colors */
+/* ======================================================================== */
+/* Related LESS COLORS */
+/* ======================================================================== */
+/* ==========================================================================
+   0. General
+   ========================================================================== */
+html,
+body,
+main {
+  background: #f3f2f0;
+  /* #FFF */
+  font-size: 13px !important;
+}
+a,
+a:link {
+  color: #333333;
+}
+a.themecolor,
+a.themecolor:link {
+  color: #6bb50b;
+}
+/* ==========================================================================
+   1 Bootstrap overrides
+   ========================================================================== */
+.container,
+.col-md-12 {
+  padding-left: 0;
+  padding-right: 0;
+}
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.navbar-form input:focus {
+  border-color: #65ab0a;
+}
+/* ==========================================================================
+   2. Bootstrap additions
+   ========================================================================== */
+.caret-right {
+  border-left: 4px solid #333333;
+  border-right: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+.vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.muted {
+  color: #b3b3b3;
+}
+.caret-right.muted {
+  border-left: 4px solid #b3b3b3;
+  border-right: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+/* ==========================================================================
+   3. Header
+   ========================================================================== */
+#site-header {
+  margin-bottom: 20px;
+}
+#site-header,
+#site-header a,
+#site-header .glyphicon {
+  color: #ffffff;
+  font-size: 1.1em;
+}
+#site-header .muted {
+  color: #ebebeb !important;
+}
+/* ==========================================================================
+   3.1. Navbar
+   ========================================================================== */
+/*
+    #header-navbar {
+        background: rgba(0,0,0,.4); /* if used add 15px to top-margin jumbotron wrapper *
+    }
+    */
+#header-navbar {
+  margin-bottom: 0;
+  border-bottom: 0;
+  background: #6bb50b;
+  border-bottom: 1px solid #65ab0a;
+}
+/* Navbar title */
+/* ======================================================================== */
+#header-navbar .navbar-title {
+  position: absolute;
+  height: 50px;
+  width: 100%;
+  font-size: 1.25em;
+  line-height: 50px;
+  text-align: center;
+}
+#header-navbar .navbar-title > div {
+  display: inline;
+  padding: 0 10px;
+}
+.navbar-title .title {
+  border-right: 2px solid #ffffff;
+}
+#header-navbar .navbar-title .brand {
+  position: relative;
+  top: 2px;
+  font-size: 0.8em;
+}
+#header-navbar .navbar-title .brand .poweredBy {
+  position: absolute;
+  top: -28px;
+  width: 100%;
+  text-align: left;
+  font-size: 0.55em !important;
+  text-transform: uppercase;
+}
+/* Navbar buttons */
+/* ======================================================================== */
+.navbar-btn {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: 50px;
+  border: 0;
+  background: transparent;
+}
+.navbar-btn .glyphicon {
+  display: block;
+  font-size: 1.25em;
+  line-height: 20px;
+  padding: 15px 17px;
+}
+/* Navbar drawer button */
+/* ======================================================================== */
+#header-navbar .drawer-toggle {
+  padding: 19px 17px;
+}
+#header-navbar .drawer-toggle .icon-bar {
+  background: #ffffff;
+  width: 18px;
+  display: block;
+  width: 16px;
+  height: 2px;
+  border-radius: 1px;
+}
+#header-navbar .drawer-toggle .icon-bar + .icon-bar {
+  margin-top: 3px;
+}
+/* ==========================================================================
+   3.2. Sub header
+   ========================================================================== */
+#sub-header {
+  margin-top: 50px;
+  background: #eeedea;
+  border-bottom: 1px solid #d8d5ce;
+  height: 50px;
+  color: #222;
+}
+#sub-header h1 {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 1.25em;
+  color: #70726d;
+  line-height: 50px;
+}
+/* ==========================================================================
+   4. Main
+   ========================================================================== */
+#content {
+  margin-bottom: 55px;
+}
+/* ==========================================================================
+   4.1. Select navbar
+   ========================================================================== */
+#nav-select {
+  display: block;
+  padding: 0 15px;
+  margin-bottom: 20px;
+}
+#nav-select ul {
+  background: transparent;
+  border: 1px solid #70726d;
+  border-radius: 6px;
+  overflow: hidden;
+}
+#nav-select li {
+  display: table-cell;
+  width: 1%;
+  border-right: 1px solid #70726d;
+}
+#nav-select li:last-child {
+  border-right: 0;
+}
+#nav-select li a {
+  color: #70726d;
+  border-radius: 0;
+  padding: 6px 15px;
+  margin-bottom: 0;
+}
+#nav-select li.active a {
+  color: #f3f2f0;
+  background: #70726d;
+}
+/* ==========================================================================
+   4.2. Loading pane
+   ========================================================================== */
+.loadingpane {
+  position: absolute;
+  background: #f3f2f0;
+  width: 100%;
+  height: 100%;
+}
+/* Logo */
+/* ======================================================================== */
+.loadingpane .logo {
+  width: 200px;
+  height: 30px;
+  /*             background-color: @defaultColor; */
+  font-size: 1.5em;
+  color: #6bb50b;
+  text-align: center;
+  margin: 100px auto;
+}
+/* Spinner */
+/* ======================================================================== */
+/* Source: http://tobiasahlin.com/spinkit/ */
+.spinner {
+  -webkit-animation: rotateplane 1.5s infinite ease-in-out;
+  animation: rotateplane 2.2s infinite ease-in-out;
+}
+@-webkit-keyframes rotateplane {
+  0% {
+    -webkit-transform: perspective(0px);
+  }
+  50% {
+    -webkit-transform: perspective(0px) rotateX(180deg);
+  }
+  100% {
+    -webkit-transform: perspective(0px);
+  }
+}
+@keyframes rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+/* ==========================================================================
+   4.3. Content tabs
+   ========================================================================== */
+.content-tabs .content-tab {
+  display: none;
+}
+.content-tabs .content-tab.active {
+  display: block;
+}
+/* ==========================================================================
+   4.4. Pool selector
+   ========================================================================== */
+#pool-select {
+  cursor: pointer;
+}
+/* Current */
+/* ======================================================================== */
+#pool-select .current {
+  padding: 15px;
+}
+#pool-select .current div {
+  display: table-cell;
+  width: 1%;
+}
+#pool-select .current div.pool,
+#pool-select .current div.poule {
+  width: 2% !important;
+}
+#pool-select .current div small {
+  margin-right: 15px;
+}
+/* List */
+/* ======================================================================== */
+#pool-select .list {
+  display: none;
+}
+#pool-select .list > div {
+  border-top: 1px solid #d8d5ce;
+  padding: 15px;
+}
+/* ==========================================================================
+   5. Footer
+   ========================================================================== */
+footer {
+  position: fixed;
+  bottom: 0;
+}
+/* ==========================================================================
+   5.1. Main navbar
+   ========================================================================== */
+#main-navbar {
+  background: #eeedea;
+  border-top: 1px solid #d8d5ce;
+  border-width: 1px 0 0 0;
+  margin-bottom: 0;
+}
+#main-navbar ul li {
+  display: table-cell;
+  width: 1%;
+  text-align: center;
+  border-right: 1px solid #d8d5ce;
+}
+#main-navbar ul li:last-child {
+  border-right: 0;
+}
+#main-navbar ul li a {
+  line-height: 22px;
+  color: #70726d;
+  padding: 5px 15px;
+}
+#main-navbar ul li a span {
+  display: block;
+  font-size: 1.5em;
+  margin-bottom: 3px;
+}
+#main-navbar ul li.active a {
+  color: #6bb50b;
+}
+/* ==========================================================================
+   6. Tables
+   ========================================================================== */
+table {
+  background: #ffffff;
+}
+h2.table-title {
+  margin: 0 0 0 15px;
+  padding: 0;
+  font-size: 1.25em;
+  color: #70726d;
+  line-height: 30px;
+}
+#ranking-table {
+  cursor: pointer;
+}
+/* ==========================================================================
+   6.1 Team table
+   ========================================================================== */
+.team-table span.player,
+.team-table span.set-score {
+  display: block;
+}
+.team-table tr td {
+  vertical-align: middle !important;
+}
+.team-table tr th.status,
+.team-table tr td.status,
+.team-table tr th.pool,
+.team-table tr td.pool {
+  text-align: center;
+  font-size: 0.85em;
+}
+/* Status */
+/* ======================================================================== */
+.team-table tr th.status,
+.team-table tr td.status {
+  padding: 15px 2px !important;
+}
+.team-table tr td.status.match-playing {
+  background: #47a847;
+  border-right: 1px solid #378437;
+}
+.team-table tr td.status.match-playing,
+.team-table tr td.status.match-playing .glyphicon {
+  color: #2d572d;
+}
+.team-table tr td.status.match-playing span.sub {
+  display: block;
+  font-size: 0.6em;
+  padding: 0;
+  margin: 0;
+}
+/* Pool */
+/* ======================================================================== */
+.team-table tr th.pool,
+.team-table tr td.pool {
+  padding: 15px 4px !important;
+}
+.team-table tr td.pool {
+  padding: 15px 4px !important;
+  color: #fff;
+  background: #999;
+}
+/* Delayed/postponed matches */
+/* ======================================================================== */
+.team-table tr.delayed-rows,
+.team-table tr.postponed-rows {
+  display: none;
+}
+.team-table tr.delayed-stacked td,
+.team-table tr.postponed-stacked td {
+  padding: 10px 15px !important;
+}
+.team-table tr td.status.delayed,
+.team-table tr.delayed-stacked td {
+  background: #f9a42c;
+  border-color: #a16004;
+}
+.team-table tr td.status.delayed,
+.team-table tr td.status.delayed .glyphicon,
+.team-table tr.delayed-stacked td,
+.team-table tr.delayed-stacked td .glyphicon {
+  color: #ba6f05;
+}
+.team-table tr.delayed-stacked td .caret {
+  border-top-color: #ba6f05;
+}
+.team-table tr.delayed-stacked td .caret.caret-right {
+  border-left-color: #ba6f05;
+  border-top-color: transparent;
+}
+.team-table tr td.status.postponed,
+.team-table tr.postponed-stacked td {
+  background: #d13e39;
+  border-color: #701d1a;
+  border-top-color: transparent;
+}
+.team-table tr td.status.postponed,
+.team-table tr td.status.postponed .glyphicon,
+.team-table tr.postponed-stacked td,
+.team-table tr.postponed-stacked td .glyphicon {
+  color: #85221f;
+}
+.team-table tr.postponed-stacked td .caret {
+  border-top-color: #85221f;
+}
+.team-table tr.postponed-stacked td .caret.caret-right {
+  border-left-color: #85221f !important;
+  border-top-color: transparent;
+}
+/* Loadmore */
+/* ======================================================================== */
+.team-table tr td.loadmore-row {
+  background: #f3f2f0 !important;
+}
+/* ==========================================================================
+   7. Forms
+   ========================================================================== */
+.navbar-form {
+  display: none;
+  position: absolute;
+  z-index: 99;
+  width: 100%;
+}
+.navbar-form .form-control {
+  width: 100%;
+}
+/* ==========================================================================
+   8. Media Queries
+   ========================================================================== */
+/* Large desktop */
+/* Portrait tablet to landscape and desktop */
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  .team-table span.set-score {
+    white-space: nowrap;
+  }
+  .navbar-form {
+    padding: 0 10px;
+    margin-left: 0;
+  }
+}
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  .team-table span.player {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  #rankings .team-table span.player {
+    max-width: 175px;
+  }
+  #upcoming-matches-table.team-table span.player {
+    max-width: 120px;
+  }
+  #current-matches-table.team-table span.player {
+    max-width: 105px;
+  }
+  #finished-matches-table.team-table span.player {
+    max-width: 100px;
+  }
+  #search .team-table span.player {
+    max-width: 100px;
+  }
+  .team-table td.team1 {
+    padding-right: 5px !important;
+  }
+  .team-table td.team2 {
+    padding-left: 5px !important;
+  }
+}
+/* ==========================================================================
+   9. Misc
+   ========================================================================== */
+/* ==========================================================================
+   9.1 Cards
+   ========================================================================== */
+.card,
+.table-card {
+  background: #fff;
+  border: 1px solid #d8d5ce;
+  border-radius: 6px;
+  margin: 15px;
+  /*         padding: 10px 15px; */
+}
+/* Basic cards */
+/* ======================================================================== */
+.card .card-header,
+.card .card-content,
+.table-card th,
+.table-card td {
+  padding: 15px !important;
+  border-bottom: 1px solid #d8d5ce !important;
+}
+.card .card-content:last-child {
+  border-bottom: 0;
+}
+.card .card-header,
+.table-card th {
+  color: #8d8985;
+  font-weight: normal;
+}
+.card .card-footer {
+  border-top: 1px solid #d8d5ce;
+}
+/* ==========================================================================
+   9.2 Presentation screen
+   ========================================================================== */
+.presentationscreen footer {
+  width: 100%;
+  height: 40px;
+  /* Safari 4-5, Chrome 1-9 */
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(transparent), to(#f3f2f0));
+  /* Safari 5.1, Chrome 10+ */
+  background: -webkit-linear-gradient(top, transparent, #f3f2f0);
+  /* Firefox 3.6+ */
+  background: -moz-linear-gradient(top, #f3f2f0, transparent);
+  /* IE 10 */
+  background: -ms-linear-gradient(top, #f3f2f0, transparent);
+  /* Opera 11.10+ */
+  background: -o-linear-gradient(top, #f3f2f0, transparent);
+}

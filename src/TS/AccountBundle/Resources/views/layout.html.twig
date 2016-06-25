@@ -1,0 +1,25 @@
+{# layout for FOSUserBundle #}
+
+{% extends "TSFrontBundle::base.html.twig" %}
+
+
+
+{% block content %}
+
+<div class="container">
+	{% for type, messages in app.session.flashbag.all() %}
+            {% for key, message in messages %}
+                <div class="flash-{{ type }}">
+                    {{ message|trans({}, 'FOSUserBundle') }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div>
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+        </div>
+</div>
+
+
+{% endblock %}

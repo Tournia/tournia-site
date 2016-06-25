@@ -1,0 +1,127 @@
+{% trans_default_domain "front" %}
+{% extends "TSFrontBundle::base.html.twig" %}
+
+{% set footerClass = "alt" %}
+
+{% block title 'allTournaments.title'|trans %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    'bundles/tsfront/template/css/vendor/daterangepicker.css'
+    filter='cssrewrite,?yui_css'  %}
+         <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@TSFrontBundle/Resources/public/template/js/index-slider.js' filter='?yui_js'
+        '@TSFrontBundle/Resources/public/template/js/moment.min.js'
+        '@TSFrontBundle/Resources/public/template/js/jquery.daterangepicker.js'
+    %}
+		<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{% endblock %}
+
+{% block jQuery %}
+    $('.chart.tournament header').on('click', function() {
+        window.location = $(this).data("url");
+    });
+
+    $('#{{ form.startDate.vars.id }},#{{ form.endDate.vars.id }}').dateRangePicker({
+        separator: ' ~ ',
+        format: 'DD-MM-YYYY',
+        //startDate: '10-06-2014',
+        startOfWeek: 'monday',
+        getValue: function() {
+            if ($('#{{ form.startDate.vars.id }}').val() && $('#{{ form.endDate.vars.id }}').val() )
+                return $('#{{ form.startDate.vars.id }}').val() + ' to ' + $('#{{ form.endDate.vars.id }}').val();
+            else
+            return '';
+        },
+        setValue: function(s,s1,s2) {
+            $('#{{ form.startDate.vars.id }}').val(s1);
+            $('#{{ form.endDate.vars.id }}').val(s2);
+        },
+        autoClose: true,
+        showShortcuts:false
+    });
+
+    $('#tournament-limit li').on('click', function() {
+        var limit = $(this).data('limit');
+        $('#tournament_filter_limit').val(limit);
+        $('#filter-form').submit();
+    });
+{% endblock %}
+
+{% block content %}
+    <div class="tournaments search block alt">
+        <div class="container">
+            <h4>{{ 'allTournaments.filter.title'|trans }}</h4>
+            <form id="filter-form" class="form-inline" role="form" method="post">
+                {{ form_errors(form) }}
+                <div class="form-group">
+                    <label for="{{ form.keyword.vars.id }}">{{ 'allTournaments.filter.keyword'|trans }}</label>
+                    <div class="form-input">
+                        {{ form_row(form.keyword, {'attr': {'class': 'form-control', 'style': 'width: 270px;', 'placeholder': 'allTournaments.filter.placeholder.keyword'|trans}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.startDate.vars.id }}">{{ 'allTournaments.filter.period'|trans }}</label>
+                    <div class="form-input">
+                        <div class="feedback">
+                            {{ form_row(form.startDate, {'attr': {'class': 'form-control', 'placeholder': 'allTournaments.filter.placeholder.startDate'|trans}}) }}
+                            <span class="fa fa-calendar fa-nonescaped feedback-icon"></span>
+                        </div>
+                        <div class="feedback">
+                            {{ form_row(form.endDate, {'attr': {'class': 'form-control', 'placeholder': 'allTournaments.filter.placeholder.endDate'|trans}}) }}
+                            <span class="fa fa-calendar fa-nonescaped feedback-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.location.vars.id }}">{{ 'allTournaments.filter.location'|trans }}</label>
+                    <div class="form-input">
+                        <div class="feedback">
+                            {{ form_row(form.location, {'attr': {'class': 'form-control', 'style': 'width: 220px;', 'placeholder': 'allTournaments.filter.placeholder.location'|trans}}) }}
+                            <span class="glyphicon glyphicon-map-marker feedback-icon"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label></label>
+                    <div class="form-input">
+                        <div class="feedback">
+                            {{ form_rest(form) }}
+                            <input type="submit" class="btn btn-custom-primary" value="{{ 'allTournaments.filter.submit'|trans }}">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="tournaments block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <div class="btn-group no-margin">
+                        <button type="button" class="btn btn-custom-alt dropdown-toggle" data-toggle="dropdown">
+                            {{ 'index.upcoming.pagination'|trans({'%results%': form.limit.vars.value }) }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul id="tournament-limit" class="dropdown-menu">
+                            {% for numberOfResultsOption in numberOfResultsOptions %}
+                                <li data-limit="{{ numberOfResultsOption }}"><a href="#">{{ 'index.upcoming.pagination'|trans({'%results%': numberOfResultsOption}) }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row charts">
+                {{ macros.tournamentsBlock(tournaments) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

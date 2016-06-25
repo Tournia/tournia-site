@@ -1,0 +1,260 @@
+{% trans_default_domain "front" %}
+{% extends "TSFrontBundle::base.html.twig" %}
+
+{% set enableChatSupport = true %}
+
+{% block title 'start.title'|trans %}
+
+{% set pageClass = "features" %}
+{% set useDefaultFlashbagNotifications = false %}
+
+{% set footerClass = '' %}
+
+{% block jQuery %}
+    $("#{{ form.name.vars.id }}").focus();
+
+    $(".signupBtn").on("click", function(event) {
+        event.preventDefault();
+        $("body").animate({ scrollTop: 0 }, "slow");
+        $("#{{ form.name.vars.id }}").focus();
+    });
+
+    $(".disabledLink").on("click", function(event) {
+        event.preventDefault();
+    });
+{% endblock %}
+
+{% block content %}
+
+    <div id="hero" class="block alt" style="background-image: url('{{ asset('bundles/tsfront/img/background/bg9.jpg') }}');">
+        <div class="container">
+            {{ macros.flashbagNotifications(useDefaultFlashbagNotifications) }}
+
+            <div class="row charts">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="chart tournament">
+                        <form class="form-inline" action="{{ path('front_start_tournament') }}" method="post" {{ form_enctype(form) }} role="form">
+                            <div id="startTournamentForm">
+                                {{ 'start.header.title'|trans|raw }}
+                                {{ form_row(form.name, {'attr': {'class': 'tournamentName'}}) }}
+                                <button type="submit" class="btn btn-custom-primary"><span class="fa fa-play"></span> {{ 'start.header.button'|trans }}</button>
+                                {{ form_rest(form) }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="block">
+        <div id="tabs">
+            <div class="container">
+                <div class="row header">
+                    <h3>{{ 'start.features.title'|trans }}</h3>
+                    <p>{{ 'start.features.subtitle'|trans }}</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 tabs-wrapper">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tabSite" data-toggle="tab">{{ 'start.features.1.button'|trans }}</a></li>
+                            <li><a href="#tabRegistrations" data-toggle="tab">{{ 'start.features.2.button'|trans|raw }}</a></li>
+                            <li><a href="#tabLive" data-toggle="tab">{{ 'start.features.3.button'|trans }}</a></li>
+                            <li><a href="#settings" data-toggle="tab">{{ 'start.features.4.button'|trans|raw }}</a></li>
+                        </ul>
+    
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="tabSite">
+                                <div class="col-md-6 info">
+                                    <h4>{{ 'start.features.1.title'|trans }}</h4>
+                                    <p>
+                                        {{ 'start.features.1.text1'|trans }}
+                                    </p>
+                                    <p>
+                                        {{ 'start.features.1.text2'|trans }}
+                                    </p>
+                                </div>
+                                <div class="col-md-6 image">
+                                    <img src="{{ asset('bundles/tsfront/img/tab1.png') }}" class="img-responsive" alt="picture1" />
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tabRegistrations">
+                                <div class="col-md-6 image">
+                                    <img src="{{ asset('bundles/tsfront/img/tab3.png') }}" class="img-responsive" alt="" />
+                                </div>
+                                <div class="col-md-6 info">
+                                    <h4>{{ 'start.features.2.title'|trans }}</h4>
+                                    <p>
+                                        {{ 'start.features.2.text1'|trans }}
+                                    </p>
+                                    <p>
+                                        {{ 'start.features.2.text2'|trans }}
+                                    </p>
+                                    <p>
+                                        {{ 'start.features.2.text3'|trans }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tabLive">
+                                <div class="col-md-6 info">
+                                    <h4>{{ 'start.features.3.title'|trans }}</h4>
+                                    <p>
+                                        {{ 'start.features.3.text1'|trans }}
+                                    </p>
+                                    <p>
+                                        {{ 'start.features.3.text2'|trans }}
+                                    </p>
+                                </div>
+                                <div class="col-md-6 image">
+                                    <img src="{{ asset('bundles/tsfront/img/tab2.png') }}" class="img-responsive" style="position: relative;top: 15px;" alt="picture3" />
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="settings">
+                                <div class="col-md-6 image">
+                                    <img src="{{ asset('bundles/tsfront/img/tab4.png') }}" class="img-responsive" alt="picture4" />
+                                </div>
+                                <div class="col-md-6 info">
+                                    <h4>{{ 'start.features.4.title'|trans }}</h4>
+                                    <p>
+                                        {{ 'start.features.4.text1'|trans }}
+                                    </p>
+                                    <p>
+                                        {{ 'start.features.4.text2'|trans }}
+                                    </p>
+                                    <p>
+                                        {{ 'start.features.4.text3'|trans({'%linkStart%': '<a href="http://en.wikipedia.org/wiki/Swiss-system_tournament" target="_blank">', '%linkEnd%': '</a>'})|raw }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tournaments block alt">
+        <div id="charts">
+            <div id="chart-option">
+                <div class="container">
+                    <div class="row header">
+                        <h3>{{ 'start.pricing.title'|trans }}</h3>
+                        <p>
+                            {{ 'start.pricing.subtitle'|trans|raw }}
+                        </p>
+                    </div>
+    
+                    <div class="col-md-offset-1 col-md-10">
+                        <p>
+                            {{ 'start.pricing.explain1'|trans|raw }}
+                        </p>
+                        <p>
+                            {{ 'start.pricing.explain2'|trans|raw }}
+                        </p>
+                        <p>
+                            {{ 'start.pricing.explain3'|trans|raw }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tournaments block">
+        <div id="charts">
+            <div id="chart-option">
+                <div class="container">
+                    <div class="row faq" id="faq">
+                        <div class="col-md-12">
+                            <div class="row header">
+                                <div class="col-md-12">
+                                    <h3>{{ 'start.faq.title'|trans }}</h3>
+                                </div>
+                            </div>
+                            <div class="row questions">
+                                <div class="col-md-6">
+                                    <div class="question">
+                                        <strong>{{ 'start.faq.1.title'|trans }}</strong>
+                                        <p>
+                                            {{ 'start.faq.1.text'|trans|raw }}
+                                        </p>
+                                    </div>
+                                    <div class="question">
+                                        <strong>{{ 'start.faq.2.title'|trans }}</strong>
+                                        <p>
+                                            {{ 'start.faq.2.text'|trans|raw }}
+                                        </p>
+                                    </div>
+                                    <div class="question">
+                                        <strong>{{ 'start.faq.3.title'|trans }}</strong>
+                                        <p>
+                                            {{ 'start.faq.3.text'|trans|raw }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="question">
+                                        <strong>{{ 'start.faq.4.title'|trans }}</strong>
+                                        <p>
+                                            {{ 'start.faq.4.text'|trans|raw }}
+                                        </p>
+                                    </div>
+                                    <div class="question">
+                                        <strong>{{ 'start.faq.5.title'|trans }}</strong>
+                                        <p>
+                                            {{ 'start.faq.5.text'|trans|raw }}
+                                        </p>
+                                    </div>
+                                    <div class="question">
+                                        <strong>{{ 'start.faq.6.title'|trans }}</strong>
+                                        <p>
+                                            {{ 'start.faq.6.text'|trans|raw }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="block alt">
+            <div id="slider">
+            <div class="container">
+                <div class="row header">
+                    <h3>{{ 'start.screenshots.title'|trans }}</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 slide-wrapper">
+                        <div class="slideshow">
+                            <div class="btn-nav prev"></div>
+                            <div class="btn-nav next"></div>
+                            <div class="slide">
+                                <img src="{{ asset('bundles/tsfront/img/slider/slide4.png') }}" alt="" />
+                            </div>
+                            <div class="slide active">
+                                <img src="{{ asset('bundles/tsfront/img/slider/slide3.png') }}" alt="" />
+                            </div>
+                            <div class="slide">
+                                <img src="{{ asset('bundles/tsfront/img/slider/slide6.png') }}" alt="" />
+                            </div>
+                            <div class="slide">
+                                <img src="{{ asset('bundles/tsfront/img/slider/slide1.png') }}" alt="" />
+                            </div>
+                            <div class="slide">
+                                <img src="{{ asset('bundles/tsfront/img/slider/slide5.png') }}" alt="" />
+                            </div>
+                            <div class="slide">
+                                <img src="{{ asset('bundles/tsfront/img/slider/slide2.png') }}" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+
+{% endblock %}

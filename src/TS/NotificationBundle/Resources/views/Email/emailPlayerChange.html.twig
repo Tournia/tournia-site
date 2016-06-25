@@ -1,0 +1,84 @@
+{% trans_default_domain "notificationEmail" %}
+{% extends "TSNotificationBundle:Email:emailBase.html.twig" %}
+
+{% block subject %}{{ 'email.player.change.subject'|trans }}{% endblock %}
+
+{% block mailTextBody %}{% import 'TSNotificationBundle:Email:macro.html.twig' as macro %}
+{{ 'email.player.change.start'|trans({'%name%': name|raw, '%tournament%': tournament.name|raw}) }}
+
+{% if changesMadeBy is defined %}
+{{ 'email.player.changesMadeBy'|trans({'%changesMadeBy%': changesMadeBy|raw}) }}
+{% endif %}
+
+{{ 'email.player.change.changes'|trans }} {{ 'email.change.markedStar'|trans }}
+{{ macro.changeTxt('email.player.status'|trans, newPlayer.status, oldPlayer.status) }}
+{{ macro.changeTxt('email.player.registrationDate'|trans, newPlayer.registrationDate|date('d-M-Y H:i'), oldPlayer.registrationDate|date('d-M-Y H:i')) }}
+{% if newPlayer.registrationGroup is not empty %}
+{{ macro.changeTxt('email.player.group'|trans, newPlayer.registrationGroup.name, oldPlayer.registrationGroup.name) }}
+{{ macro.changeTxt('email.player.contactPerson'|trans, macro.yesNoVal(newPlayer.isContactPlayer), macro.yesNoVal(oldPlayer.isContactPlayer)) }}
+{% endif %}
+{{ macro.changeTxt('email.player.firstName'|trans, newPlayer.firstName, oldPlayer.firstName) }}
+{{ macro.changeTxt('email.player.lastName'|trans, newPlayer.lastName, oldPlayer.lastName) }}
+{{ macro.changeTxt('email.player.gender'|trans, macro.genderVal(newPlayer.gender), macro.genderVal(oldPlayer.gender)) }}
+{% for disciplineType,discipline in oldNewPlayer.disciplines %}
+{{ macro.changeTxt(disciplineType, discipline.new, discipline.old) }}
+{% if discipline.partner is defined %}
+{{ macro.changeTxt(disciplineType ~' '~ 'email.player.partner'|trans, macro.wantedVal(discipline.partner.new), macro.wantedVal(discipline.partner.old)) }}
+{% endif %}
+{% endfor %}
+{% for field,formValue in oldNewPlayer.registrationFormValues %}
+{% if formValue.type == "checkbox" %}
+{{ macro.changeTxt(field, macro.yesNoVal(formValue.new), macro.yesNoVal(formValue.old)) }}
+{% else %}
+{{ macro.changeTxt(field, formValue.new, formValue.old) }}
+{% endif %}
+{% endfor %}
+
+{{ 'email.player.change.end'|trans }}
+{% endblock %}
+
+{% block mailHtmlBody %}
+    {% import 'TSNotificationBundle:Email:macro.html.twig' as macro %}
+    {{ 'email.player.change.start'|trans({'%name%': name, '%tournament%': tournament.name})|nl2br }}
+
+    {% if changesMadeBy is defined %}
+        {{ 'email.player.changesMadeBy'|trans({'%changesMadeBy%': changesMadeBy}) }}<br />
+    {% endif %}
+    <br /><br />
+    {{ 'email.player.change.changes'|trans }} {{ 'email.change.markedBold'|trans }}
+    <table style="border:1px">
+        <tr>
+            <td>&nbsp;</td>
+            <td>{{ 'email.change.new'|trans }}</td>
+            <td>{{ 'email.change.old'|trans }}</td>
+        </tr>
+
+        {{ macro.changeHtml('email.player.status'|trans, newPlayer.status, oldPlayer.status) }}
+        {{ macro.changeHtml('email.player.registrationDate'|trans, newPlayer.registrationDate|date('d-M-Y H:i'), oldPlayer.registrationDate|date('d-M-Y H:i')) }}
+        {% if newPlayer.registrationGroup is not empty %}
+            {{ macro.changeHtml('email.player.group'|trans, newPlayer.registrationGroup.name, oldPlayer.registrationGroup.name) }}
+            {{ macro.changeHtml('email.player.contactPerson'|trans, macro.yesNoVal(newPlayer.isContactPlayer), macro.yesNoVal(oldPlayer.isContactPlayer)) }}
+        {% endif %}
+        {{ macro.changeHtml('email.player.firstName'|trans, newPlayer.firstName, oldPlayer.firstName) }}
+        {{ macro.changeHtml('email.player.lastName'|trans, newPlayer.lastName, oldPlayer.lastName) }}
+        {{ macro.changeHtml('email.player.gender'|trans, macro.genderVal(newPlayer.gender), macro.genderVal(oldPlayer.gender)) }}
+
+        {% for disciplineType,discipline in oldNewPlayer.disciplines %}
+            {{ macro.changeHtml(disciplineType, discipline.new, discipline.old) }}
+            {% if discipline.partner is defined %}
+            {{ macro.changeHtml(disciplineType ~' '~ 'email.player.partner'|trans, macro.wantedVal(discipline.partner.new), macro.wantedVal(discipline.partner.old)) }}
+            {% endif %}
+        {% endfor %}
+        {% for field,formValue in oldNewPlayer.registrationFormValues %}
+            {% if formValue.type == "checkbox" %}
+                {{ macro.changeHtml(field, macro.yesNoVal(formValue.new), macro.yesNoVal(formValue.old)) }}
+            {% else %}
+                {{ macro.changeHtml(field, formValue.new, formValue.old) }}
+            {% endif %}
+        {% endfor %}
+    </table>
+    <br />
+    {{ 'email.player.change.end'|trans|nl2br }}
+{% endblock %}
+
+

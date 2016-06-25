@@ -1,0 +1,74 @@
+# Login
+login.title: Inloggen
+login.faq.title: Veel gestelde vragen
+login.faq.1.question: Waarom moet ik een account aanmaken?
+login.faq.1.answer: Met je account kun je inschrijven voor toernooien, je scores bekijken en toernooien aanmaken. Door gebruik te maken van accounts wordt voorkomen dat spam-bots zich inschrijven voor toernooien en is direct (indien gewenst) je contactinformatie beschikbaar voor toernooiorganisatoren.
+login.faq.2.question: Ik ben mijn wachtwoord vergeten
+login.faq.2.answer: Als je al een account hebt aangemaakt kun je je %startLink%wachtwoord resetten%endLink%. Als je je Facebook of Google wachtwoord kwijtbent dien je deze bij de betreffend dienst te resetten.
+login.faq.3.question: Ik heb een andere vraag...
+login.faq.3.answer: Neem %startLink%contact met ons op%endLink%!
+login.with: Met:
+login.facebook: Facebook
+login.google: Google
+login.or: of
+login.haveaccount: Ik heb een account
+login.createaccount: Maak een account
+login.rememberMe: Onthoud mij
+login.submit: Inloggen
+login.username.label: Gebruikersnaam
+login.username.placeholder: Gebruikersnaam or e-mailadress
+login.password.label: Wachtwoord
+login.password.placeholder: Wachtwoord
+login.forgotPassword: Wachtwoord vergeten?
+
+# Reset password
+reset.checkEmail.title: Wachtwoord resetten
+reset.checkEmail.text: Er is een e-mail gestuurd naar %email%. Hierin staat een link die je moet gebruiken om je wachtwoord te wijzigen.
+reset.email.subject: Aanvraag reset wachtwoord
+reset.email.text: |
+  Beste %name%,
+
+  Je hebt aangegeven je wachtwoord te willen resetten.
+  Je kan dat doen door te gaan naar: %confirmationUrl%
+
+  Je gebruikersnaam is: %username%
+
+  Als je niet een wachtwoord reset hebt aangevraagd, kun je deze e-mail negeren. Er zijn geen wijzigingen aan je account aangebracht.
+
+  Met vriendelijke groet,
+  Tournia.net
+reset.alreadyRequested.title: Reset wachtwoord
+reset.alreadyRequested.text: Het wachtwoord van deze gebruiker is in de afgelopen 24 uur al opgevraagd.
+reset.request.title: Reset wachtwoord
+reset.request.text: Vul je wachtwoord hieronder in om instructies te krijgen hoe je je wachtwoord kan wijzigen.
+reset.request.emailNotexist: Het e-mailadress "%email%" bestaat niet.
+reset.request.placeholder: e-mailadress
+reset.request.submit: Reset wachtwoord
+reset.request.login: Weet je je wachtwoord? %startLink%Log in%endLink%
+reset.content.submit: Verstuur
+reset.change.submit: Opslaan
+
+# Registration
+confirmed.title: Account aangemaakt
+confirmed.text1: Gefeliciteerd %name%, je account is nu aangemaakt.
+confirmed.text2: Ga naar %startLink%je profiel%endLink% om je account verder in te stellen.
+register.name: Naam
+register.username: Gebruikersnaam
+register.email: E-mail
+register.password: Wachtwoord
+register.confirmPassword: Herhaal wachtwoord
+register.signUp: Registreer
+
+# Flash messages
+flash.account.saved: Account opgeslagen
+flash.account.addAccount.error: Vul eerst een e-mailadres in op de %startLink%profiel pagina%endLink%.
+flash.account.addAccount.success: Er is een e-mail  e-mail has been sent to %email% with your account details
+flash.account.removeAccount.error: Dit account is niet gevonden
+flash.account.removeAccount.success: De verbinding is verbroken
+flash.authentication.login.error: De ingevulde gebruikersnaam of wachtwoord is niet juist
+flash.authentication.registration.error: Het registratieformulier bevat fouten, kijk s.v.p. naar de ingevulde velden
+flash.authentication.alreadyLoggedin: Je bent al ingelogd
+flash.changePassword.noEmailAccount: Er is geen e-mail account, maak eerst een normaal account aan
+flash.settings.profile.saved: Profiel opgeslagen
+
+

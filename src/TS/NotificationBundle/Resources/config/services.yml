@@ -1,0 +1,45 @@
+services:
+#    ts_notification.example:
+#        class: TS\NotificationBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    ts_notification.tournament:
+        class: TS\NotificationBundle\EventListener\TournamentListener
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: ts.tournament.new, method: onTournamentNew }
+
+    ts_notification.person:
+        class: TS\NotificationBundle\EventListener\PersonListener
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: ts.person.new, method: onPersonNew }
+            - { name: kernel.event_listener, event: ts.person.authorized, method: onPersonAuthorized }
+
+    ts_notification.match:
+            class: TS\NotificationBundle\EventListener\MatchListener
+            arguments: [@service_container]
+            tags:
+                - { name: kernel.event_listener, event: ts.match.new, method: onMatchNew }
+                - { name: kernel.event_listener, event: ts.match.score, method: onMatchScore }
+                - { name: kernel.event_listener, event: ts.match.status, method: onMatchStatus }
+
+    ts_notification.player:
+            class: TS\NotificationBundle\EventListener\PlayerListener
+            arguments: [@service_container]
+            tags:
+                - { name: kernel.event_listener, event: ts.player.new, method: onPlayerNew }
+                - { name: kernel.event_listener, event: ts.player.change, method: onPlayerChange }
+                - { name: kernel.event_listener, event: ts.player.delete_before, method: onPlayerDeleteBefore }
+
+    ts_notification.registrationgroup:
+                class: TS\NotificationBundle\EventListener\RegistrationGroupListener
+                arguments: [@service_container]
+                tags:
+                    - { name: kernel.event_listener, event: ts.registrationGroup.change, method: onRegistrationGroupChange }
+
+    ts_notification.invoice:
+        class: TS\NotificationBundle\EventListener\InvoiceListener
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: ts.invoice.new, method: onInvoiceNew }

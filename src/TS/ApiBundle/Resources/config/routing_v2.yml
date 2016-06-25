@@ -1,0 +1,427 @@
+api_v2_announcements_list:
+    pattern: /{tournamentUrl}/announcements
+    defaults: { _controller: TSApiBundle:v2/Announcements:list }
+    methods:  [GET]
+api_v2_announcement_remove:
+    pattern: /{tournamentUrl}/announcements/{announcementId}
+    defaults: { _controller: TSApiBundle:v2/Announcements:remove }
+    methods:  [DELETE]
+    requirements:
+        announcementId: \d+
+
+api_v2_commands:
+    pattern: /{tournamentUrl}/commands
+    defaults: { _controller: TSApiBundle:v2/Commands:commands }
+    methods:  [POST]
+api_v2_updates:
+    pattern: /{tournamentUrl}/updates
+    defaults: { _controller: TSApiBundle:v2/Commands:updates }
+    methods:  [GET]
+
+api_v2_disciplines_list:
+    pattern: /{tournamentUrl}/disciplines
+    defaults: { _controller: TSApiBundle:v2/Disciplines:list }
+    methods:  [GET]
+api_v2_disciplines_get:
+    pattern: /{tournamentUrl}/disciplines/{disciplineId}
+    defaults: { _controller: TSApiBundle:v2/Disciplines:get }
+    methods:  [GET]
+    requirements:
+        disciplineId: \d+
+
+api_v2_groups_list:
+    pattern: /{tournamentUrl}/groups
+    defaults: { _controller: TSApiBundle:v2/Groups:list }
+    methods:  [GET]
+api_v2_groups_get:
+    pattern: /{tournamentUrl}/groups/{groupId}
+    defaults: { _controller: TSApiBundle:v2/Groups:get }
+    methods:  [GET]
+    requirements:
+        groupId: \d+
+api_v2_groups_create:
+    pattern: /{tournamentUrl}/groups
+    defaults: { _controller: TSApiBundle:v2/Groups:create }
+    methods:  [POST]
+api_v2_groups_edit:
+    pattern: /{tournamentUrl}/groups/{groupId}
+    defaults: { _controller: TSApiBundle:v2/Groups:edit }
+    methods:  [PUT]
+    requirements:
+        groupId: \d+
+api_v2_groups_remove:
+    pattern: /{tournamentUrl}/groups/{groupId}
+    defaults: { _controller: TSApiBundle:v2/Groups:remove }
+    methods:  [DELETE]
+    requirements:
+        groupId: \d+
+
+api_v2_inconsistencies_list:
+    pattern: /{tournamentUrl}/inconsistencies
+    defaults: { _controller: TSApiBundle:v2/Inconsistencies:list }
+    methods:  [GET]
+api_v2_inconsistencies_playerregisterednotinpool:
+    pattern: /{tournamentUrl}/inconsistencies/playerregisterednotinpool
+    defaults: { _controller: TSApiBundle:v2/Inconsistencies:playerRegisteredNotInPool }
+    methods:  [GET]
+
+api_v2_locations_list:
+    pattern: /{tournamentUrl}/locations
+    defaults: { _controller: TSApiBundle:v2/Locations:list }
+    methods:  [GET]
+api_v2_locations_get:
+    pattern: /{tournamentUrl}/locations/{locationId}
+    defaults: { _controller: TSApiBundle:v2/Locations:get }
+    methods:  [GET]
+    requirements:
+        locationId: \d+
+api_v2_locations_create:
+    pattern: /{tournamentUrl}/locations
+    defaults: { _controller: TSApiBundle:v2/Locations:create }
+    methods:  [POST]
+api_v2_locations_edit:
+    pattern: /{tournamentUrl}/locations/{locationId}
+    defaults: { _controller: TSApiBundle:v2/Locations:edit }
+    methods:  [PUT]
+    requirements:
+        locationId: \d+
+api_v2_locations_remove:
+    pattern: /{tournamentUrl}/locations/{locationId}
+    defaults: { _controller: TSApiBundle:v2/Locations:remove }
+    methods:  [DELETE]
+    requirements:
+        locationId: \d+
+api_v2_locations_setonhold:
+    pattern: /{tournamentUrl}/locations/{locationId}/setonhold
+    defaults: { _controller: TSApiBundle:v2/Locations:setOnHold }
+    methods:  [PUT]
+    requirements:
+        locationId: \d+
+
+api_v2_matches_list_all:
+    pattern: /{tournamentUrl}/matches
+    defaults: { _controller: TSApiBundle:v2/Matches:listAll }
+    methods:  [GET]
+api_v2_matches_create:
+    pattern: /{tournamentUrl}/matches
+    defaults: { _controller: TSApiBundle:v2/Matches:create }
+    methods:  [POST]
+api_v2_matches_get:
+    pattern: /{tournamentUrl}/matches/{matchId}
+    defaults: { _controller: TSApiBundle:v2/Matches:get }
+    methods:  [GET]
+    requirements:
+        matchId: \d+
+api_v2_matches_edit:
+    pattern: /{tournamentUrl}/matches/{matchId}
+    defaults: { _controller: TSApiBundle:v2/Matches:edit }
+    methods:  [PUT]
+    requirements:
+        matchId: \d+
+api_v2_matches_remove:
+    pattern: /{tournamentUrl}/matches/{matchId}
+    defaults: { _controller: TSApiBundle:v2/Matches:remove }
+    methods:  [DELETE]
+    requirements:
+        matchId: \d+
+api_v2_matches_list_pool:
+    pattern: /{tournamentUrl}/matches/listdiscipline/{poolId}/{round}
+    defaults: { _controller: TSApiBundle:v2/Matches:listPool }
+    methods:  [GET]
+    requirements:
+        poolId: \d+
+api_v2_matches_list_status:
+    pattern: /{tournamentUrl}/matches/liststatus
+    defaults: { _controller: TSApiBundle:v2/Matches:listStatus }
+    methods:  [GET]
+api_v2_matches_list_player:
+    pattern: /{tournamentUrl}/matches/listplayer/{playerId}
+    defaults: { _controller: TSApiBundle:v2/Matches:listPlayer }
+    methods:  [GET]
+    requirements:
+        playerId: \d+
+api_v2_matches_list_playing:
+    pattern: /{tournamentUrl}/matches/listplaying
+    defaults: { _controller: TSApiBundle:v2/Matches:listPlaying }
+    methods:  [GET]
+api_v2_matches_list_search:
+    pattern: /{tournamentUrl}/matches/listsearch
+    defaults: { _controller: TSApiBundle:v2/Matches:listSearch }
+    methods:  [GET]
+api_v2_matches_start:
+    pattern: /{tournamentUrl}/matches/{matchId}/start
+    defaults: { _controller: TSApiBundle:v2/Matches:start }
+    methods:  [PUT]
+    requirements:
+        matchId: \d+
+api_v2_matches_stop:
+    pattern: /{tournamentUrl}/matches/{matchId}/stop
+    defaults: { _controller: TSApiBundle:v2/Matches:stop }
+    methods:  [PUT]
+    requirements:
+        matchId: \d+
+api_v2_matches_finish:
+    pattern: /{tournamentUrl}/matches/{matchId}/finish
+    defaults: { _controller: TSApiBundle:v2/Matches:finish }
+    methods:  [PUT]
+    requirements:
+        matchId: \d+
+api_v2_matches_score:
+    pattern: /{tournamentUrl}/matches/{matchId}/score
+    defaults: { _controller: TSApiBundle:v2/Matches:score }
+    methods:  [PUT]
+    requirements:
+        matchId: \d+
+api_v2_matches_set_status:
+    pattern: /{tournamentUrl}/matches/{matchId}/setstatus
+    defaults: { _controller: TSApiBundle:v2/Matches:setStatus }
+    methods:  [PUT]
+    requirements:
+        matchId: \d+
+api_v2_matches_already_played:
+    pattern: /{tournamentUrl}/matches/{matchId}/alreadyplayed
+    defaults: { _controller: TSApiBundle:v2/Matches:alreadyPlayed }
+    methods:  [GET]
+    requirements:
+        matchId: \d+
+api_v2_matches_second_call:
+    pattern: /{tournamentUrl}/matches/{matchId}/secondcall
+    defaults: { _controller: TSApiBundle:v2/Matches:secondCall }
+    methods:  [PUT]
+    requirements:
+        matchId: \d+
+
+api_v2_messages_list:
+    pattern: /{tournamentUrl}/messages/{pageNr}
+    defaults: { _controller: TSApiBundle:v2/Messages:list, pageNr:1 }
+    methods:  [GET]
+    requirements:
+        pageNr: \d+
+
+api_v2_notifications_list:
+    pattern: /notifications
+    defaults: { _controller: TSApiBundle:v2/Notifications:list }
+    methods:  [GET]
+api_v2_notifications_get:
+    pattern: /notifications/{deviceToken}
+    defaults: { _controller: TSApiBundle:v2/Notifications:get }
+    methods:  [GET]
+api_v2_notifications_post:
+    pattern: /notifications/{deviceToken}
+    defaults: { _controller: TSApiBundle:v2/Notifications:post }
+    methods:  [POST]
+api_v2_notifications_enabled:
+    pattern: /notifications/{deviceToken}/enabled
+    defaults: { _controller: TSApiBundle:v2/Notifications:enabled }
+    methods:  [POST]
+api_v2_notifications_upcomingmatch:
+    pattern: /notifications/{deviceToken}/upcomingmatch
+    defaults: { _controller: TSApiBundle:v2/Notifications:upcomingMatch }
+    methods:  [POST]
+api_v2_notifications_newmatch:
+    pattern: /notifications/{deviceToken}/newmatch
+    defaults: { _controller: TSApiBundle:v2/Notifications:newMatch }
+    methods:  [POST]
+api_v2_notifications_startmatch:
+    pattern: /notifications/{deviceToken}/startmatch
+    defaults: { _controller: TSApiBundle:v2/Notifications:startMatch }
+    methods:  [POST]
+api_v2_notifications_scorematch:
+    pattern: /notifications/{deviceToken}/scorematch
+    defaults: { _controller: TSApiBundle:v2/Notifications:scoreMatch }
+    methods:  [POST]
+
+api_v2_oauth_token:
+    pattern:  /oauth/token
+    methods:  [GET, POST, OPTIONS]
+    defaults: { _controller: TSApiBundle:v2/Oauth:token }
+api_v2_oauth_authorize:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
+
+api_v2_players_list:
+    pattern: /{tournamentUrl}/players
+    defaults: { _controller: TSApiBundle:v2/Players:list }
+    methods:  [GET]
+api_v2_players_create:
+    pattern: /{tournamentUrl}/players
+    defaults: { _controller: TSApiBundle:v2/Players:create }
+    methods:  [POST]
+api_v2_players_get:
+    pattern: /{tournamentUrl}/players/{playerId}
+    defaults: { _controller: TSApiBundle:v2/Players:get }
+    methods:  [GET]
+    requirements:
+        playerId: \d+
+api_v2_players_matches:
+    pattern: /{tournamentUrl}/players/{playerId}/matches
+    defaults: { _controller: TSApiBundle:v2/Players:matches }
+    methods:  [GET]
+    requirements:
+        playerId: \d+
+api_v2_players_ready:
+    pattern: /{tournamentUrl}/players/{playerId}/setready
+    defaults: { _controller: TSApiBundle:v2/Players:setReady }
+    methods:  [PUT]
+    requirements:
+        playerId: \d+
+
+api_v2_pools_list:
+    pattern: /{tournamentUrl}/pools
+    defaults: { _controller: TSApiBundle:v2/Pools:list }
+    methods:  [GET]
+api_v2_pools_get:
+    pattern: /{tournamentUrl}/pools/{poolId}
+    defaults: { _controller: TSApiBundle:v2/Pools:get }
+    methods:  [GET]
+    requirements:
+        poolId: \d+
+api_v2_pools_create:
+    pattern: /{tournamentUrl}/pools
+    defaults: { _controller: TSApiBundle:v2/Pools:create }
+    methods:  [POST]
+api_v2_pools_edit:
+    pattern: /{tournamentUrl}/pools/{poolId}
+    defaults: { _controller: TSApiBundle:v2/Pools:edit }
+    methods:  [PUT]
+    requirements:
+        poolId: \d+
+api_v2_pools_remove:
+    pattern: /{tournamentUrl}/pools/{poolId}
+    defaults: { _controller: TSApiBundle:v2/Pools:remove }
+    methods:  [DELETE]
+    requirements:
+        poolId: \d+
+api_v2_pools_checkfinishedplaying:
+    pattern: /{tournamentUrl}/pools/checkfinishedplaying/{poolId}
+    defaults: { _controller: TSApiBundle:v2/Pools:checkFinishedPlaying }
+    methods:  [GET]
+    requirements:
+        poolId: \d+
+api_v2_pools_importregistrations:
+    pattern: /{tournamentUrl}/pools/importregistrations
+    defaults: { _controller: TSApiBundle:v2/Pools:importRegistrations }
+    methods:  [POST]
+api_v2_pools_autoassign:
+    pattern: /{tournamentUrl}/pools/autoassign
+    defaults: { _controller: TSApiBundle:v2/Pools:autoAssign }
+    methods:  [POST]
+
+api_v2_rankings_pool:
+    pattern: /{tournamentUrl}/rankings/pool/{poolId}
+    defaults: { _controller: TSApiBundle:v2/Rankings:pool }
+    methods:  [GET]
+    requirements:
+        poolId: \d+
+api_v2_rankings_pool_winners:
+    pattern: /{tournamentUrl}/rankings/poolwinners
+    defaults: { _controller: TSApiBundle:v2/Rankings:poolWinners }
+    methods:  [GET]
+api_v2_rankings_players:
+    pattern: /{tournamentUrl}/rankings/players
+    defaults: { _controller: TSApiBundle:v2/Rankings:players }
+    methods:  [GET]
+api_v2_rankings_groups:
+    pattern: /{tournamentUrl}/rankings/groups
+    defaults: { _controller: TSApiBundle:v2/Rankings:groups }
+    methods:  [GET]
+
+api_v2_rounds_list:
+    pattern: /{tournamentUrl}/rounds/{poolId}
+    defaults: { _controller: TSApiBundle:v2/Rounds:list, poolId:all }
+    methods:  [GET]
+    requirements:
+        poolId: \d+
+api_v2_rounds_create:
+    pattern: /{tournamentUrl}/rounds
+    defaults: { _controller: TSApiBundle:v2/Rounds:create }
+    methods:  [POST]
+api_v2_rounds_remove:
+    pattern: /{tournamentUrl}/rounds/{roundId}
+    defaults: { _controller: TSApiBundle:v2/Rounds:remove }
+    methods:  [DELETE]
+
+api_v2_teams_list:
+    pattern: /{tournamentUrl}/teams/pools/{poolId}
+    defaults: { _controller: TSApiBundle:v2/Teams:list, poolId:all }
+    methods:  [GET]
+    requirements:
+        poolId: \d+
+api_v2_teams_get:
+    pattern: /{tournamentUrl}/teams/{teamId}
+    defaults: { _controller: TSApiBundle:v2/Teams:get }
+    methods:  [GET]
+    requirements:
+        teamId: \d+
+api_v2_teams_addplayer:
+    pattern: /{tournamentUrl}/teams/addplayer
+    defaults: { _controller: TSApiBundle:v2/Teams:addPlayer }
+    methods:  [POST]
+api_v2_teams_removeplayer:
+    pattern: /{tournamentUrl}/teams/{teamId}/removeplayer/{playerId}
+    defaults: { _controller: TSApiBundle:v2/Teams:removePlayer }
+    methods:  [DELETE]
+    requirements:
+        teamId: \d+
+        playerId: \d+
+api_v2_teams_removeallplayers:
+    pattern: /{tournamentUrl}/teams/{teamId}/removeallplayers
+    defaults: { _controller: TSApiBundle:v2/Teams:removeAllPlayers }
+    methods:  [DELETE]
+    requirements:
+        teamId: \d+
+api_v2_teams_remove:
+    pattern: /{tournamentUrl}/teams/{teamId}
+    defaults: { _controller: TSApiBundle:v2/Teams:remove }
+    methods:  [DELETE]
+    requirements:
+        teamId: \d+
+api_v2_teams_giveup:
+    pattern: /{tournamentUrl}/teams/{teamId}/giveup
+    defaults: { _controller: TSApiBundle:v2/Teams:giveUp }
+    methods:  [PUT]
+    requirements:
+        teamId: \d+
+api_v2_teams_setreplacementplayer:
+    pattern: /{tournamentUrl}/teams/{teamId}/setreplacementplayer
+    defaults: { _controller: TSApiBundle:v2/Teams:setReplacementPlayer }
+    methods:  [PUT]
+    requirements:
+        teamId: \d+
+
+api_v2_tournaments_list:
+    pattern: /tournaments
+    defaults: { _controller: TSApiBundle:v2/Tournaments:list }
+    methods:  [GET]
+api_v2_tournaments_mylist:
+    pattern: /tournaments/my
+    defaults: { _controller: TSApiBundle:v2/Tournaments:myList }
+    methods:  [GET]
+api_v2_tournaments_get:
+    pattern: /{tournamentUrl}/tournament
+    defaults: { _controller: TSApiBundle:v2/Tournaments:get }
+    methods:  [GET]
+api_v2_tournaments_possible_status_options:
+    pattern: /{tournamentUrl}/tournament/possiblestatusoptions
+    defaults: { _controller: TSApiBundle:v2/Tournaments:possibleStatusOptions }
+    methods:  [GET]
+api_v2_tournaments_used_status_options:
+    pattern: /{tournamentUrl}/tournament/usedstatusoptions
+    defaults: { _controller: TSApiBundle:v2/Tournaments:usedStatusOptions }
+    methods:  [GET]
+
+api_v2_options1:
+    pattern: /{param1}
+    defaults: { _controller: TSApiBundle:v2/Commands:options }
+    methods:  [OPTIONS]
+api_v2_options2:
+    pattern: /{param1}/{param2}
+    defaults: { _controller: TSApiBundle:v2/Commands:options }
+    methods:  [OPTIONS]
+api_v2_options3:
+    pattern: /{param1}/{param2}/{param3}
+    defaults: { _controller: TSApiBundle:v2/Commands:options }
+    methods:  [OPTIONS]
+api_v2_options4:
+    pattern: /{param1}/{param2}/{param3}/{param4}
+    defaults: { _controller: TSApiBundle:v2/Commands:options }
+    methods:  [OPTIONS]

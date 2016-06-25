@@ -1,0 +1,75 @@
+{% trans_default_domain "live" %}
+{% extends "TSSiteBundle:Live:index.html.twig" %}
+
+{% block title "allMatches.title"|trans %}
+
+{% block head %}
+{{ parent() }}
+
+<style>
+#filterMatches label {
+	display: inline;
+	margin-left: 5px;
+}
+
+#locationMatchesTitle {
+	margin-bottom: 0px;
+	padding-bottom: 15px;
+	padding-top: 15px;
+}
+
+#locationMatchesTitle i {
+	margin-top: 3px;
+}
+
+.well {
+	border-radius: 0px;
+}
+</style>
+
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+<script type="text/javascript">
+
+// setting datatable options
+columns = [
+    { "mData": "localId" },
+    { "mData": "team1"},
+    { "mData": "team2"},
+    { "mData": "pool" },
+    { "mData": "round" },
+    { "mData": "score", bSortable: false },
+    { "mData": "status"},
+];
+ajaxDataTableOptions.matchesTable = {};
+ajaxDataTableOptions.matchesTable.aaSorting = [[0, 'desc']];
+ajaxDataTableOptions.matchesTable.aoColumns = columns;
+ajaxDataTableOptions.matchesTable.sAjaxSource = '{{ path('api_v2_matches_list_all', {'tournamentUrl':tournament.url}) }}';
+ajaxDataTableOptions.matchesTable.bServerSide = true;
+ajaxDataTableOptions.matchesTable.bProcessing = true;
+
+</script>
+{% endblock %}
+
+{% block content %}
+{{ parent() }}
+<div class="row">
+	<table class="table table-hover table-bordered ajaxDataTable" id="matchesTable">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>{{ 'table.team1'|trans }}</th>
+				<th>{{ 'table.team2'|trans }}</th>
+				<th>{{ 'table.pool'|trans }}</th>
+				<th>{{ 'table.round'|trans }}</th>
+				<th>{{ 'table.score'|trans }}</th>
+				<th>{{ 'table.status'|trans }}</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
+{% endblock %}

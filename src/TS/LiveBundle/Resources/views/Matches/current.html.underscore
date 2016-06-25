@@ -1,0 +1,21 @@
+<script id="CurrentMatchView" type="text/template">
+
+    <td class="match-playing status<% if(locationOnHold) { %> postponed<% } %>">
+<!--         <span class="sub">court</span> -->
+        <strong><%= location %></strong>
+    </td>
+    <td class="pool">
+        <%= pool %>
+    </td>
+    <td class="team team1 text-right">
+    <% _.each(team1Players, function(player) { %>
+        <span class="player"><%= player %></span>
+    <% }); %>
+    </td>
+    <td class="team team2">
+    <% _.each(team2Players, function(player) { %>
+        <span class="player"><%= player %></span>
+    <% }); %>
+    </td>
+
+</script>

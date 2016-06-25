@@ -1,0 +1,146 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "messages.title"|trans %}
+
+{% block javascript %}
+<script type="text/javascript">
+
+///// post and receive server messages /////
+
+// setting commands for refresh of server data
+var currentPage = 1;
+function getRefreshCommands() {
+	command = {
+		command : 'Messages.list',
+		pageNr: currentPage,
+	}
+	return new Array(command);
+}
+
+// setting datatable options
+ajaxDataTableOptions.messagesTable = {};
+ajaxDataTableOptions.messagesTable.bFilter = false;
+ajaxDataTableOptions.messagesTable.bInfo = false;
+ajaxDataTableOptions.messagesTable.bPaginate = false;
+ajaxDataTableOptions.messagesTable.bSort = false;
+
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+	if (commandKey == "Messages.list") {
+		maxDisciplines = 0;
+		$.each(commandResponse, function(key, val) {
+			if (key == "nrPages") {
+				// setting pagination (val == number of pages available)
+				pageHtml = "";
+				if (currentPage == 1) {
+					pageHtml += '<li class="disabled"><span>&laquo;</span></li>';
+				} else {
+					pageHtml += '<li><a href="javascript:openPage(1)">&laquo;</a></li>';
+				}
+				nrPagesBack = 3;
+				if ((val - currentPage) < 3) {
+					nrPagesBack += 3 - (val - currentPage);
+				}
+				startPage = Math.max(1, currentPage-nrPagesBack);
+				nrPagesForward = 3;
+				if (currentPage < 4) {
+					nrPagesForward += 4 - currentPage;
+				}
+				lastPage = Math.min(val, currentPage+nrPagesForward);
+				for (var i = startPage; i <= lastPage; i++) {
+					if (currentPage == i) {
+						pageHtml += '<li class="disabled"><span>'+ i +'</span></li>';
+					} else {
+						pageHtml += '<li><a href="javascript:openPage('+ i +')">'+ i +'</a></li>';
+					}
+				}
+				if (currentPage == val) {
+					pageHtml += '<li class="disabled"><span>&raquo;</span></li>';
+				} else {
+					pageHtml += '<li><a href="javascript:openPage('+ val +')">&raquo;</a></li>';
+				}
+				$("#pagination ul").html(pageHtml);
+			} else if (key == "messages") {
+				// go through messages
+				$('#messagesTable').dataTable().fnClearTable();
+
+				$.each(val, function(key2, messageObject) {
+					icon = '';
+					if (messageObject['type'] == 'success') {
+						icon = "fa fa-check";
+					} else if (messageObject['type'] == 'notice') {
+						icon = "fa fa-exclamation";
+					} else if (messageObject['type'] == 'error') {
+						icon = "fa fa-warning";
+					} else if (messageObject['type'] == 'info') {
+						icon = "fa fa-info";
+					}
+					if (icon != '') {
+						icon = '<i class="'+ icon +'"></i> ';
+					}
+					
+					$('#messagesTable').dataTable().fnAddData( [
+						icon + messageObject['title'],
+						messageObject['person'],
+						messageObject['text'],
+						messageObject['datetime']
+					]);
+				});
+				dataTableFinishedLoading("messagesTable");
+			}
+		});
+	}
+}
+
+// process a new row in datatable
+function datatableProcessRow(row, table) {
+	// add row color code, dependent on the type of message
+	iconMessage = $('td:first i', row).prop("class");
+	if (iconMessage == "fa fa-check") {
+		$(row).addClass("success");
+	} else if (iconMessage == "fa fa-exclamation") {
+		$(row).addClass("warning");
+	} else if (iconMessage == "fa fa-warning") {
+		$(row).addClass("error");
+	} else if (iconMessage == "fa fa-info") {
+		$(row).addClass("info");
+	}
+}
+
+function openPage(pageNr) {
+	currentPage = pageNr;
+	sendServerCommands(true);
+	$("html, body").animate({ scrollTop: 0 }, "fast");
+}
+
+</script>
+
+{% endblock %}
+
+{% block jQuery %}
+
+// retrieving initial data from server
+sendServerCommands(true);
+{% endblock %}
+
+{% block content %}
+<div class="well">
+	<table class="table table-hover ajaxDataTable" id="messagesTable">
+		<thead>
+			<tr>
+				<th>{{ 'messages.table.title'|trans }}</th>
+				<th>{{ 'messages.table.person'|trans }}</th>
+				<th>{{ 'messages.table.message'|trans }}</th>
+				<th>{{ 'messages.table.date'|trans }}</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<div id="pagination">
+		<ul class="pagination">
+		</ul>
+	</div>
+</div>
+{% endblock %}

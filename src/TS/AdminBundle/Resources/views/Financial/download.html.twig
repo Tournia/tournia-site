@@ -1,0 +1,36 @@
+{% import "TSAdminBundle:Financial:daterangeMacros.html.twig" as daterangeMacros %}
+
+{% extends "TSAdminBundle::baseAdmin.html.twig" %}
+
+{% block title "Download" %}
+
+{% block jQuery %}
+    {{ parent() }}
+
+    {{ daterangeMacros.jquery(form) }}
+
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Download</h2>
+                <fieldset>
+                    <legend>Invoices</legend>
+                    <form class="form-horizontal" action="{{ path('admin_financial_download') }}" method="post" {{ form_enctype(form) }} role="form">
+                    {{ form_errors(form) }}
+                    <div class="form-group ">
+                        {{ daterangeMacros.html(form) }}
+                        <div class="col-sm-2">
+                            {{ form_rest(form) }}
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-download"></i> Download</button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endblock %}

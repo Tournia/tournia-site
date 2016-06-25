@@ -1,0 +1,394 @@
+# Create
+create.title: Nieuw toernooi - Instellingen
+create.tab.title: %name% klinkt goed!
+create.tab.subtitle: Welkom bij je nieuwe toernooi. Stel je hier nieuwe toernooi in door het volgen van een paar simpele stappen.
+create.tournament.step: Toernooi
+create.tournament.date: Toernooi datum
+create.sport.step: Sport
+create.sport.heading: Sport
+create.financial.step: Financieel
+create.financial.heading: Financieel
+create.financial.payments.title: Ik kies voor betalingen via Tournia
+create.financial.payments.text: Tournia kan betalingen afhandelen die spelers maken voor jouw toernooi. We bieden diverse betaalmogelijkheden, die het de speler makkelijk maken om te betalen het jou makkelijker maken. Om dit te gebruiken rekent &euro;0,50 per speler. Leun achterover en geniet van het gemak!
+create.financial.free.title: Mijn toernooi is gratis
+create.financial.free.text: Je bent een echte mensenvriend! Wij respecteren dat en daarvoor brengen we voor het gebruik van Tournia niks in rekening. We hopen dat ons systeem door jou goed gebruikt kan worden.
+create.financial.invoice.title: Ik regel betalingen zelf
+create.financial.invoice.text: Wij denken dat het een stuk makkelijker en veiliger is om betalingen via Tournia te laten verlopen. Als je kosten van spelers zelf wil incasseren kan je natuurlijk nog steeds ons systeem gebruiken, maar we brengen wel servicekosten in rekening (zie hieronder).
+create.finish.step: Finish
+create.finish.heading: Finish
+create.conditions.title: Voorwaarden
+create.conditionsAgree.text: Ik ga akkoord met de voorwaarden hierboven
+create.previous: Vorige
+create.next: Volgende
+create.tournament: Toernooi aanmaken!
+create.skip: Sla over, dit doe ik later
+
+# Poules
+disciplines.title: Poules - Instellingen
+disciplines.tab.title: Poules
+disciplines.tab.subtitle: Beheer de poules waarvoor spelers kunnen registreren en welke worden gebruikt voor het aanmaken van wedstrijden.
+disciplines.types.tab: Poule types
+disciplines.types.legend: Poule types
+disciplines.types.add: Nieuwe poule type
+disciplines.disciplines.tab: Poules
+disciplines.disciplines.legend: Poules
+disciplines.disciplines.add: Nieuwe poule
+disciplines.maxRegistrationDisciplines.legend: Registratie maximum
+
+# Financial
+financial.title: Financieel - Instellingen
+financial.tab.title: Financiële instellingen
+financial.tab.subtitle: Instellen van je producten en uitbetaling
+financial.product.add: Nieuw product
+financial.general.tab: Algemeen
+financial.general.legend: Algemene informatie
+financial.general.text: Het is voor organisatoren gratis om Tournia te gebruiken, zolang je geen geld vraagt voor deelname. Er zijn geen maandelijkse kosten, aanmeldkosten of installatie kosten. Voor toernooien waar deelnamekosten worden gerekend, brengt Tournia servicekosten in rekening.
+financial.general.invoice: |
+  Je kunt er natuurlijk voor kiezen om betalingen zelf af te handelen. Onze ervaring is echter dat het makkelijker is om dit via Tournia te doen. Je hebt dan zekerheid dat een speler heeft betaald voor het toernooi, en credit-cards, PayPal en iDeal werken meteen. De betalingen van spelers worden naar de toernooiorganisatie overgemaakt.
+    Indien je kost voor deze optie brengen we wel servicekosten voor het gebruik van Tournia in rekening. Dit bedrag is afhankelijk van het het aantal spelers tijdens het toernooi.
+financial.general.readMore.button: Lees verder
+financial.general.readMore.1: Als je een toernooi organiseert die gratis is (bijv. interne competitie, vriendschappelijke wedstrijden, etc.) kan je Tournia gratis gebruiken, inclusief alle functies die je nodig hebt om een toernooi te organiseren. We bieden dit gratis aan, omdat we er in geloven dat sport beschikbaar zou moeten zijn voor iedereen.
+financial.general.readMore.2: Echter, als je geld vraagt voor je toernooi, vragen we een kleine bijdrage voor het gebruik van Tournia. We vragen &euro; 0.50 voor servicekosten aan de speler voor elke transacitie. Afhankelijk van de gekozen betalingsmethode (credit card, iDeal, etc.) worden de transactiekosten ook in rekening gebracht aan de speler. Natuurlijk kan je er voor kiezen om geld te vragen aan spelers zodra ze arriveren voor het toernooi, maar (om servicekosten te voorkomen), maar weet je zeker dat de speler komt opdagen? Door geld aan de speler van te voren te vragen heb je de garantie dat de speler komt voor je toernooi (of je hebt tenminste je geld).
+financial.general.readMore.3: Dus hoe werken betalingen? Tournia.net biedt de mogelijkheid voor spelers om bepaalde "producten" te kopen. Deze producten kunnen bijvoorbeeld een aanbetaling, t-shirt of volledige inschrijfkosten zijn. Spelers kopen deze producten op je toernooi website, en Tournia handelt het gehele betaalproces af. Dus geen zorgen over een PayPal rekening, credit cards of iDeal rekening; Tournia regelt dit. Het geld van de spelers wordt overgemaakt naar jouw bankrekening of PayPal rekening, die je kan instellen in de uitbetaling tab.
+financial.serviceFee.legend: Servicekosten
+financial.products.tab: Producten
+financial.products.legend: Producten
+financial.paymentInfo.tab: Betaling informatie
+financial.paymentInfo.legend: Betaling informatie
+financial.paymentInfo.statusUpdate: Automatische status update
+financial.payout.tab: Uitbetaling
+financial.payout.legend: Uitbetaling informatie
+financial.payout.text: |
+  Betalingen van spelers worden elke maand overgemaakt naar een account van jouw keuze.
+  Het huidige uitstaande bedrag is %outstanding%
+
+# Organizers
+organizers.title: Organisatoren - Instellingen
+organizers.tab.title: Organisatoren instellingen
+organizers.tab.subtitle: Je kan meerdere organisatoren hebben
+organizers.add: Organisator toevoegen
+
+# Authorizations
+authorizations.title: Autorisaties - Instellingen
+authorizations.tab.title: Autorisatie instellingen
+authorizations.tab.subtitle: Beheer de toegang tot je toernooi
+authorizations.explanation: |
+  Je kan bepaalde opties voor het toernooi uitzetten of de toegang instellen voor spelers.
+  Het is mogelijk om toegang te geven voor bepaalde data; de start en eind datum kan leeggelaten worden.
+authorizations.heading.features: Opties
+authorizations.heading.access: Toegang
+authorizationsauthorizations.heading.organizers: Organisatie
+authorizations.access.createRegistration: Nieuwe registratie
+authorizations.access.createRegistration.popover: Zijn nieuwe registraties zijn toegestaan?
+authorizations.access.changeRegistration: Wijzig registratie
+authorizations.access.changeRegistration.popover: Kunnen bestaande registraties gewijzigd worden?
+authorizations.access.apiAccess: Live/API toegang voor wedstrijden, spelers, etc.
+authorizations.access.apiAccess.popover: Is de Live pagina toegankelijk? Hiermee wordt automatisch ook de API beschikbaar.
+authorizations.access.liveScore: Score invullen in Live
+authorizations.access.liveScore.popover: Is het toegestaan dat spelers de stand van een wedstrijd in Live kunnen invullen?
+authorizations.access.live2ndCall: 2<sup>e</sup> oproep in Live
+authorizations.access.live2ndCall.popover: Is het toegestaan dat spelers een 2e oproep aanvragen in Live? Deze 2e oproep wordt in het beheer gedeelte getoond op de mededelingen pagina.
+authorizations.start: Start
+authorizations.end: Einde
+authorizations.livePassword.label: Live wachtwoord
+authorizations.livePassword.info: Wachtwoord voor toegang tot Live voor niet-ingelogde of niet-deelnemende gebruikers. Laat leeg om iedereen toegang te geven.
+authorizations.error.startBeforeEndDate: De startdatum moet voor de einddatum liggen
+
+# API
+api.title: API - Instellingen
+api.tab.title: API instellingen
+api.tab.subtitle: Met andere systemen data verkrijgen van jouw toernooi
+api.apiKeys.add: Nieuwe API key
+api.explanation: |
+  Als je een (web) ontwikkelaar bent, kan je de API van Tournia gebruiken om toernooinformatie in andere systemen te krijgen. Je kan bijvoorbeeld je eigen (tv) scherm gebruiken tijdens het toernooi met daarop de volgende wedstrijden, of spelers hun eigen score laten invullen.
+  Bekijk de %startLink1%API documentatie</a> en onze %startLink2%GitHub repository</a> voor voorbeelden.
+  Vul de secret waarde in de header in als <code>X-API-KEY: secret</code>. <b>Houd je secret veilig!</b> Anderen kunnen deze gebruiken om alles in jouw toernooi aan te passen. Als je de API key gebruikt voor bijvoorbeeld het tonen van komende wedstrijden, gebruik dan alleen lezen toegang, die vanwege de veiligheid alleen toegang geeft tot GET requests.
+  De secret wordt gegenereerd na het opslaan, en het is niet mogelijk om deze te wijzigen.
+
+# Site
+site.title: Website - Instellingen
+site.tab.title: Website instellingen
+site.tab.subtitle: Je eigen toernooi website
+site.preview.noSelected: Geen afbeelding geselecteerd
+site.page.add: Nieuwe pagina
+site.general.tab: Algemene informatie
+site.general.legend: Algemene informatie
+site.general.screen: Presentatie scherm
+site.general.screen.open: Open
+site.pages.tab: Pagina's
+site.pages.legend: Pagina's
+site.files.tab: Betanden
+site.files.legend: Betanden
+site.files.text: Bij het aanpassen van een pagina kan je de link naar het bestand opnemen als afbeelding of bestand.
+site.files.fileAddress: Bestand locatie
+site.files.size: Grootte
+site.files.delete: Verwijder
+site.files.noFiles: Er zijn op dit moment geen bestanden
+site.advanced.tab: Geavanceerd
+site.advanced.legend: Geavanceerd
+site.images.tab: Afbeeldingen
+site.images.legend: Afbeeldingen
+site.images.frontImage: Deze afbeelding wordt weergegeven op de startpagina van tournia.net. De afbeelding kan verschillende breedtes hebben, afhankelijk van op welk apparaat het wordt weergegeven (probeer het venster bij de %linkStart%index page%linkEnd% te verkleinen). Je kan hieronder zien hoe de afbeelding eruit ziet wanneer je de positie aanpast.
+site.images.headerBackgroundImage: Dit is de achtergrond afbeelding voor de balk bovenaan op de toernooi website. Je kan hieronder zien hoe de afbeelding eruit ziet wanneer je de positie aanpast.
+site.images.infoBlockImage: Deze afbeelding wordt bovenin het info blok (optioneel voor specifieke pagina's) rechts op de pagina getoond.
+site.images.facebookImage: Deze verkleinde afbeelding wordt weergegeven wanneer een link op Facebook wordt gepost.
+site.images.upload: Je kan eigen afbeeldingen selecteren nadat deze is %linkStart%geüpload%linkEnd%.
+site.images.desktoplarge: Desktop groot
+site.images.desktopsmall: Desktop klein
+site.images.tablet: Tablet
+site.images.mobile: Mobiel
+site.images.preview: Voorbeeld
+
+# Toernooi
+tournament.title: Toernooi - Instellingen
+tournament.tab.title: Toernooi instellingen
+tournament.tab.subtitle: Alle instellingen voor het beheren van je toernooi
+tournament.status.add: Nieuwe status
+tournament.status.formFields: Voeg een veld toe
+tournament.general.tab: Algemene informatie
+tournament.general.legend: Algemene toernooi informatie
+tournament.registration.tab: Registratie opties
+tournament.registration.status: Registratie status
+tournament.registration.groups: Groepen
+tournament.registration.formFields: Registratie formulier velden
+tournament.registration.email: E-mail registratie wijzigingen
+tournament.tournament.tab: Toernooi
+tournament.tournament.legend: Toernooi
+tournament.delete.confirm: Weet je zeker dat je dit toernooi wilt verwijderen?\nDit zal het volledige toernooi verwijderen en kan niet ongedaan worden gemaakt!
+tournament.delete.btn: Verwijder toernooi
+
+# Algemene
+save: Opslaan
+
+# Base
+base.website: Website
+base.tournament: Toernooi
+base.disciplines: Poules
+base.financial: Financieel
+base.organizers: Organisatoren
+base.authorizations: Autorisaties
+base.api: API
+base.goOnline: Ga LIVE
+base.preview: Bekijk
+base.control: Beheer
+
+# DisciplinesType
+disciplinesType.disciplineTypes.label: Poule type
+disciplinesType.disciplines.label: Poule
+
+# DisciplineType
+disciplineType.name.label: Naam
+disciplineType.gender.label: Geslacht
+disciplineType.gender.male: Man
+disciplineType.gender.female: Vrouw
+disciplineType.gender.both: Beide (gemengd)
+disciplineType.disciplineType.label: Poule type
+disciplineType.isHidden.label: Verborgen
+disciplineType.isHidden.info: Wanneer aangevinkt is deze poule verborgen bij registraties. Dit is nuttig wanneer de poule niet kan worden verwijderd, omdat het wordt gebruikt.
+
+# DisciplineTypeType
+disciplineTypeType.name.label: Naam
+disciplineTypeType.partnerRegistration.label: Partner registratie
+disciplineTypeType.partnerRegistration.info: Gebruik partner registratie voor poules.
+
+# FinancialProductType
+financialProductType.name.label: Naam
+financialProductType.description.label: Beschrijving
+financialProductType.isHidden.label: Verborgen
+financialProductType.isHidden.info: Wanneer aangevinkt is dit product verborgen. Dit is nuttig wanneer het product niet kan worden verwijderd, omdat het is gebruikt.
+financialProductType.initiallySelected.label: Standaard geselecteerd
+financialProductType.initiallySelected.info: Wanneer aangevinkt is dit product standaard aangevinkt wanneer een speler registreert voor het toernooi. We kunnen niet afdwingen dat een speler dit product koopt, maar dit maakt het wat makkelijker.
+
+# FinancialType
+financialType.products.label: Producten
+financialType.product.label: Product
+financialType.paymentCurrency.label: Valuta
+financialType.paymentCurrency.currency.eur: Euro
+financialType.paymentCurrency.currency.gbp: GBP
+financialType.paymentCurrency.currency.nok: Noorweegse Kroon
+financialType.paymentUpdateStatus.label: Automatisch updaten van status bij nieuwe betaling
+financialType.paymentUpdateFromStatus.label: Van status
+financialType.paymentUpdateToStatus.label: Naar status
+financialType.financialPayoutBankAccount.label: IBAN bankrekening nummer voor uitbetaling
+financialType.financialPayoutBankAccount.info: Het uitstaande bedrag wordt naar deze bankrekening overgemaakt. Wees er zeker van dat het juist is.
+financialType.financialPayoutPaypalEmail.label: E-mailadres voor PayPal uitbetaling
+financialType.financialPayoutPaypalEmail.info: Het uitstaande bedrag wordt naar de PayPal rekening op dit e-mailadres overgemaakt. Wees er zeker van dat het juist is.
+financialType.financialPayoutPaypalEmail.formComment: Omdat je een andere valuta dan euro's hebt geselecteerd, geven we de voorkeur aan uitbetaling via PayPal. Neem in overweging dat PayPal 0,5% transactiekosten in rekening brengt. Neem contact met ons op om alternatieve uitbetalingsopties te bespreken.
+financialType.financialMethod.free: Dit toernooi is kostenloos.
+financialType.financialMethod.invoice: Dit toernooi vraagt geld voor deelname, maar we willen niet Tournia gebruiken voor betalingen.
+financialType.financialMethod.payments: Dit toernooi vraagt geld voor deelname, en we willen spelers de mogelijkheid bieden om direct te betalen via Tournia.
+financialType.financialMethod.label: Betalingen
+financialType.financialMethod.formComment: Je kan dit later nog wijzigen.
+financialType.organizationPaysServiceFee.no: Speler betaalt de servicekosten
+financialType.organizationPaysServiceFee.yes: Toernooi organisatie betaalt de servicekosten
+financialType.organizationPaysServiceFee.label: Servicekosten
+financialType.organizationPaysServiceFee.formComment: Je kan er voor kiezen om de servicekosten van de speler te betalen.
+
+# OrganizerPersonType
+organizerPersonType.email.label: E-mailadres
+
+# RegistratieFormFieldType
+registrationFormFieldType.name.label: Naam
+registrationFormFieldType.infoText.label: Informatie tekst
+registrationFormFieldType.formComment.label: Extra tekst
+registrationFormFieldType.isRequired.label: Vereist
+registrationFormFieldType.isHidden.label: Verborgen
+registrationFormFieldType.isHidden.info: Wanneer aangevinkt is dit formulier veld verborgen. Dit is nuttig wanneer het formulier veld niet kan worden verwijderd, omdat het is gebruikt.
+registrationFormFieldType.type.info: Formulier type
+registrationFormFieldType.type.choices.text: Tekst
+registrationFormFieldType.type.choices.textarea: Tekst veld
+registrationFormFieldType.type.choices.checkbox: Waar of Onwaar
+registrationFormFieldType.type.choices.choice: Keuze
+registrationFormFieldType.choiceExpanded.label: Keuze selectie
+registrationFormFieldType.choiceExpanded.choices.dropdown: Selectiekeuze
+registrationFormFieldType.choiceExpanded.choices.radio: Radio selectie
+registrationFormFieldType.choiceOptions.label: Keuze opties
+registrationFormFieldType.choiceOptions.name: Naam
+registrationFormFieldType.formOptions.label: Keuze lijst
+registrationFormFieldType.formOptions.choices.dropdown: Drop down
+registrationFormFieldType.formOptions.choices.radio: Radio
+
+# SitePageType
+sitePageType.title.label: Naam
+sitePageType.title.info: Titel wordt weergegeven in het navigatie en browser naam
+sitePageType.url.label: Url
+sitePageType.url.info: Het laatste deel van het internet adres voor deze pagina
+sitePageType.showInfoBlock.label: Toon info blok
+sitePageType.showInfoBlock.info: Of de contact informatie en statistieken moeten worden weergegeven op deze pagina
+sitePageType.html.label: Inhoud
+
+# SiteType
+sitePageType.locationAddress.label: Locatie adres
+sitePageType.htmlTitle.label: Titel
+sitePageType.htmlTitle.info: Tekst in de balk bovenaan de pagina (kan html-code bevatten)
+sitePageType.htmlSubtitle.label: Ondertitel
+sitePageType.htmlSubtitle.info: Tekst in de balk onder de hoofdtitel (kan html-code bevatten)
+sitePageType.upload.label: Upload nieuw bestand
+sitePageType.sitePages.label: Website pagina's
+sitePageType.sitePages.options.label: Veld informatie
+sitePageType.metaKeywords.label: Meta keywords
+sitePageType.metaKeywords.info: Keywords worden gebruikt door zoekmachines (bijv. Google) en beschrijven je toernooi website. Woorden zijn gescheiden door komma's.
+sitePageType.metaDescription.label: Meta beschrijving
+sitePageType.metaDescription.info: Een of twee zinnen waarin je toernooi wordt beschreven, wat gebruikt wordt door zoekmachines (bijv. Google).
+sitePageType.isPublished.label: Site online?
+sitePageType.isPublished.info: Is dit toernooi website online zichtbaar?
+sitePageType.choices.closed: Gesloten
+sitePageType.choices.open: Open
+sitePageType.choices.allowed: Toegestaan
+sitePageType.choices.notallowed: Niet toegestaan
+sitePageType.position.lefttop: Linksboven
+sitePageType.position.leftcenter: Linksmidden
+sitePageType.position.leftbottom: Linksonder
+sitePageType.position.centertop: Middenboven
+sitePageType.position.centercenter: Midden-midden
+sitePageType.position.centerbottom: Middenonder
+sitePageType.position.righttop: Rechtsboven
+sitePageType.position.rightcenter: Rechtsmidden
+sitePageType.position.rightbottom: Rechtsonder
+sitePageType.position.label: Positie
+sitePageType.image.label: Afbeelding
+sitePageType.frontImage.emptyvalue: Standaard achtergrond
+sitePageType.headerBackgroundImage.emptyvalue: Standaard achtergrond
+sitePageType.infoBlockImage.emptyvalue: Geen
+sitePageType.facebookImage.emptyvalue: Geen
+sitePageType.editImage.frontImage: Hofodpagina afbeelding
+sitePageType.editImage.headerBackgroundImage: Toernooisite header afbeelding
+sitePageType.editImage.infoBlockImage: Toernooisite info blok afbeelding
+sitePageType.editImage.facebookImage: Facebook afbeelding
+
+# CreateTournamentType
+createTournamentType.copyTournament.label: Kopieer toernooi
+createTournamentType.copyTournament.placeholder: Nieuw toernooi
+createTournamentType.copyTournament.formComment: Je hebt eerder een toernooi georganiseerd, wil je deze instellingen overnemen?
+createTournamentType.name.label: Toernooi naam
+createTournamentType.name.placeholder: Bijvoorbeeld ISBT Olympia
+createTournamentType.tournamentUrl.label: Toernooi url
+createTournamentType.tournamentUrl.placeholder: Bijvoorbeeld olympia2015
+createTournamentType.tournamentUrl.info: Dit zal de locatie van je toernooi worden: www.tournia.net/url
+createTournamentType.emailFrom.label: Van e-mailadres
+createTournamentType.emailFrom.info: E-mailadres van de organisatie voor vragen van spelers
+createTournamentType.contactName.label: Contact naam
+createTournamentType.contactName.info: Naam van de organisatie die als afzender wordt gebruikt bij het sturen van e-mails
+createTournamentType.registrationGroupEnabled.label: Gebruik groepen
+createTournamentType.registrationGroupEnabled.info: Maak het mogelijk voor spelers om te registreren in een groep. Dit activeert ook de pagina voor het tonen van spelers van dezelfde groep.
+createTournamentType.paymentCurrency.label: Valuta
+createTournamentType.paymentCurrency.currency.eur: Euro
+createTournamentType.paymentCurrency.currency.gbp: GBP
+createTournamentType.paymentCurrency.currency.nok: Noorweegse Kroon
+createTournamentType.url.notUnique: Deze toernooi url wordt al gebruikt
+
+createTournamentType.sport.badminton: Badminton
+createTournamentType.sport.tennis: Tennis
+createTournamentType.sport.other: Overige sport
+createTournamentType.sport.label: Sport
+createTournamentType.sport.formComment: Selecteer de sport van dit toernooi. Dit wordt gebruikt om automatisch de correcte regels voor wedstrijden in te stellen, maar dit kan je ook handmatig doen door Overige sport te selecteren.
+createTournamentType.financialEnabled.label: Gebruik betalingen
+createTournamentType.locationAddress.info: Dit adres wordt gebruikt om te tonen waar het toernooi is.
+createTournamentType.financialPayoutBankAccount.formComment: Het deelnamegeld wordt overgemaakt naar deze rekening. Controleer over het correct is. We schrijven geen geld van deze rekening af, en het is niet noodzakelijk om dit nu in te vullen.
+createTournamentType.financialPayoutPaypalEmail.formComment: Omdat je geen euro's accepteert, is de enige betaalmogelijkheid PayPal. Het deelnamegeld wordt overgemaakt naar dit PayPal account. Controleer of het correct is. We schrijven geen geld van deze rekening af, en het is niet noodzakelijk om dit nu in te vullen.
+
+# AuthorizationType
+authorizationType.choice.allowed: Toegestaan
+authorizationType.choice.notAllowed: Niet toegestaan
+authorizationType.choice.dateSpecific: Datum specifiek
+
+# ApiType
+apiKeyType.name.label: Naam
+apiKeyType.writeAccess.label: Toegang
+apiKeyType.writeAccess.read: Alleen lezen
+apiKeyType.writeAccess.readWrite: Lezen & schrijven
+apiKeyType.secret.label: Secret
+apiKeyType.secret.empty: Wordt automatisch ingevuld na opslaan
+
+# TournamentType
+tournamentType.url.label: Url
+tournamentType.url.info: Dit wordt de locatie voor je toernooi website: www.tournia.net/url
+tournamentType.emailFrom.label: Van e-mailadres
+tournamentType.contactName.label: Contact naam
+tournamentType.organizationEmailOnChange.label: E-mailadres of registratie wijzigingen op te ontvangen
+tournamentType.organizationEmailOnChange.info: Optioneel. Spelers ontvangen een e-mail wanneer er wijzigingen aan de registratie zijn aangebracht. Vul hier een e-mailadres is om een kopie (BCC) van deze email te krijgen.
+tournamentType.registrationGroupEnabled.label: Gebruik groepen
+tournamentType.registrationGroupEnabled.info: Maak het mogelijk voor spelers om te registreren in een groep. Dit activeert ook de pagina voor het tonen van spelers van dezelfde groep.
+tournamentType.registrationGroupRequired.label: Vereis groep
+tournamentType.registrationGroupRequired.info: Verplicht speler om te registreren in een groep.
+tournamentType.newPlayerStatus.label: Status voor nieuwe speler
+tournamentType.statusOptions.label: Status optie
+tournamentType.statusOptions.options.label: Naam
+tournamentType.registrationFormFields.label: Registratie formulier velden
+tournamentType.registrationFormFields.options.label: Veld informatie
+tournamentType.nrSets.label: Aantal sets spelen
+tournamentType.startDateTime.label: Start van toernooi
+tournamentType.startDateTime.info: Start datum van het toernooi.
+tournamentType.endDateTime.label: Eind van toernooi
+tournamentType.endDateTime.info: Eind datum van het toernooi.
+tournamentType.checkScoreMin.label: Minimale stand
+tournamentType.checkScoreMin.info: Wanneer de stand van een wedstrijd wordt ingevuld, moet de stand tenminste dit getal zijn. Laat leeg om niet op te controleren.
+tournamentType.checkScoreMax.label: Maximale stand
+tournamentType.checkScoreMax.info: Wanneer de stand van een wedstrijd wordt ingevuld, moet de stand onder dit getal zijn. Laat leeg om niet op te controleren.
+tournamentType.maxRegistrationDisciplines.label: Max poules
+tournamentType.maxRegistrationDisciplines.formComment: Beperk het aantal poules waar een speler voor kan registreren
+tournamentType.maxRegistrationDisciplines.noLimit: Geen beperking
+
+
+# Flash messages
+flash.form.error: Er mist informatie in het formulier
+flash.createTournament.success: Top, je nieuwe toernooi is aangemaakt! Dit is de instellingen pagina. Hier kun je alles van je toernooi instellen en zo maken als jij dat wilt. Vergeet niet op de GA LIVE knop te drukken als je klaar bent. Veel plezier!
+flash.discipline.delete.error: Poule %name% kon niet worden verwijderd, omdat er speler(s) voor zijn geregistreerd. Je kan het echter wel verbergen.
+flash.disciplineType.delete.error: Poule type %name% kon niet worden verwijderd, omdat er poules zijn die deze gebruiken.
+flash.discipline.saved: Poule instellingen gewijzigd
+flash.product.delete.error: Product %name% kon niet worden verwijderd, omdat het is gekocht door een speler. Je kan het echter wel verbergen.
+flash.financial.saved: Financiële instellingen gewijzigd
+flash.api.saved: API instellingen gewijzigd
+flash.organizers.hasaccess: %email% heeft al toegang voor het toernooi
+flash.organizers.added: %email% heeft nu toegang voor het toernooi
+flash.organizers.saved: Organisatoren gewijzigd
+flash.authorizations.saved: Autorisaties gewijzigd
+flash.site.saved: Website instellingen gewijzigd
+flash.file.deleted: Bestand verwijderd
+flash.site.published: Je toernooi website is nu online!
+flash.registrationFormField.delete.error: Registratie formulier veld %name% kon niet worden verwijderd, omdat het is gebruikt door een speler. Je kan het echter wel verbergen.
+flash.tournament.saved: Toernooi instellingen gewijzigd
+flash.tournament.delete.error: Er zijn spelers in het toernooi, die eerst moeten worden verwijderd
+flash.tournament.deleted: Toernooi verwijderd
+
+

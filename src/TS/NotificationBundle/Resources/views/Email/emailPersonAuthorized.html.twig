@@ -1,0 +1,35 @@
+{% trans_default_domain "notificationEmail" %}
+{% extends "TSNotificationBundle:Email:emailBase.html.twig" %}
+
+{% block subject %}{{ 'email.personAuthorized.subject'|trans }}{% endblock %}
+
+{% block mailTextBody %}
+{{ 'email.personAuthorized.start'|trans({'%name%': person.informalName|raw}) }}
+
+{% if authorizationType == "player" %}
+{% set playerLink = url('player_edit', {'tournamentUrl': tournament.url, 'playerId': authorizationObject.id}) %}
+{{ 'email.personAuthorized.accessPlayer'|trans({'%name%': authorizationTo|raw, '%link%': playerLink})|raw }}{% endif %}
+{% if authorizationType == "tournament" %}
+{% set tournamentLink = url('settings_index', {'tournamentUrl': tournament.url}) %}
+{{ 'email.personAuthorized.accessTournament'|trans({'%name%': authorizationTo|raw, '%link%': tournamentLink})|raw }}{% endif %}
+
+
+{{ 'email.personAuthorized.end'|trans }}
+{% endblock %}
+
+{% block mailHtmlBody %}
+    {{ 'email.personAuthorized.start'|trans({'%name%': person.informalName})|nl2br }}
+    <br />
+    {% if authorizationType == "player" %}
+        {% set playerLink = url('player_edit', {'tournamentUrl': tournament.url, 'playerId': authorizationObject.id}) %}
+        {% set playerA = '<a href="'~ playerLink ~'">'~ playerLink ~'</a>' %}
+        {{ 'email.personAuthorized.accessPlayer'|trans({'%name%': authorizationTo, '%link%': playerA})|raw }}
+    {% endif %}
+    {% if authorizationType == "tournament" %}
+        {% set tournamentLink = url('settings_index', {'tournamentUrl': tournament.url}) %}
+        {% set tournamentA = '<a href="'~ tournamentLink ~'">'~ tournamentLink ~'</a>' %}
+        {{ 'email.personAuthorized.accessTournament'|trans({'%name%': authorizationTo, '%link%': tournamentA})|raw }}
+    {% endif %}
+    <br /><br />
+    {{ 'email.personAuthorized.end'|trans|nl2br }}
+{% endblock %}

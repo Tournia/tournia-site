@@ -1,0 +1,176 @@
+{% trans_default_domain "live" %}
+{% extends "TSSiteBundle:Live:index.html.twig" %}
+
+{% block title "player.title"|trans %}
+
+{% block head %}
+{{ parent() }}
+
+<style>
+
+#searchPlayerLabel {
+	display: inline;
+	margin-bottom: 0px;
+	margin-right: 10px;
+	font-weight: bold;
+	position: relative;
+	top: 5px;
+}
+
+#searchPlayerId {
+	width: 250px;
+	display: inline;
+}
+
+</style>
+<script type="text/javascript">
+///// post and receive server messages /////
+// getting data from server
+function getRefreshCommands() {
+	command1 = {
+		command : 'Players.get',
+		playerId: $("#selectedPlayerId").val(),
+	}
+	command2 = {
+		command : 'Players.matches',
+		playerId: $("#selectedPlayerId").val(),
+	}
+	
+	if ($("#selectedPlayerId").val() == "") {
+		// no player selected
+		return new Array();
+	} else {
+		return new Array(command1, command2);
+	}
+}
+
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+	if (commandKey == "Players.get") {
+		$("#selectedPlayerId").val(commandResponse['playerId']);
+		$("#searchPlayerId").val(commandResponse['name']);
+	} else if (commandKey == "Players.matches") {
+		// go through matches
+		selectedPlayerId = $("#selectedPlayerId").val();
+		$('#matchesTable').dataTable().fnClearTable();
+		$.each(commandResponse, function(key2, matchObject) {
+			if (matchObject['team1Players'].length == 0) {
+				team1 = "-";
+			} else {
+				// write down name of players
+				team1 = renderPlayerNames(matchObject['team1Players'], false);
+			}
+			
+			if (matchObject['team2Players'].length == 0) {
+				team2 = "-";
+			} else {
+				// write down name of players
+				team2 = renderPlayerNames(matchObject['team2Players'], false);
+			}
+			
+			if (matchObject['score'] == '') {
+				score = "{{ 'player.noscore'|trans }}";
+			} else {
+				score = matchObject['score'];
+			}
+			
+			statusTxt = '';
+			if (matchObject['status'] == "priority") {
+				statusTxt += '<span class="label label-info">{{ 'label.priority'|trans }}</span>';
+			} else if (matchObject['status'] == "queued") {
+				statusTxt += '<span class="label label-success">{{ 'label.queued'|trans }}</span>';
+			} else if (matchObject['status'] == "postponed") {
+				statusTxt += "<span class=\"label label-important\">{{ 'label.postponed'|trans }}</span>";
+			} else if (matchObject['status'] == "played") {
+				statusTxt += "<span class=\"label label-important\">{{ 'label.played'|trans }}</span>";
+			} else if (matchObject['status'] == "playing") {
+				locationName = matchObject['location'];
+				if (typeof matchObject['location'] == "undefined") {
+					locationName = "{{ 'label.undefinedlocation'|trans }}";
+				}
+				statusTxt += "<span class=\"label label-warning\">{{ 'label.playing'|trans }} - "+ locationName +"</span>";
+			} else {
+				statusTxt += "<span class=\"label label-default\">"+ matchObject['status'] +"</span>";
+			}
+			
+			$('#matchesTable').dataTable().fnAddData([
+				matchObject['localId'],
+				team1,
+				team2,
+				matchObject['pool'],
+				matchObject['round'],
+				score,
+				statusTxt
+			]);
+    
+		});
+		dataTableFinishedLoading("matchesTable");
+	}
+}
+
+// process a new row in datatable
+function datatableProcessRow(row, table) {
+	stylePlayerNames(row);
+}
+
+
+</script>
+
+{% endblock %}
+
+{% block jQuery %}
+{{ parent() }}
+
+$("#selectedPlayerId").on("change", function() {
+	// retrieving data from server
+	location.hash = $(this).val();
+});
+
+$(window).on('hashchange', function() {
+	hash = location.hash.slice(1);
+	$("#selectedPlayerId").val(hash);
+	sendServerCommands(true);
+});
+
+// look for playerId in hash of url
+if (location.hash.length > 1) {
+	$(window).triggerHandler("hashchange");
+} else {
+	$("#selectedPlayerId").val('');
+}
+
+$("#searchPlayerId").val('');
+$("#searchPlayerId").focus();
+
+dataTableFinishedLoading("matchesTable");
+
+setPlayersTypeahead();
+
+{% endblock %}
+
+{% block content %}
+{{ parent() }}
+<div class="row">
+	<div id="searchTypeBox" class="alert alert-custom-default">
+		<label for="searchPlayerId" id="searchPlayerLabel">{{ 'player.searchplayer.label'|trans }}: </label>
+		<input type="text" id="searchPlayerId" class="playersTypeahead form-control" placeholder="{{ 'player.searchplayer.placeholder'|trans }}">
+		<input type="hidden" id="selectedPlayerId" class="selectedPlayerIdTypeahead" />
+	</div>
+	
+	<table class="table table-hover table-striped ajaxDataTable" id="matchesTable">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>{{ 'table.team1'|trans }}</th>
+				<th>{{ 'table.team2'|trans }}</th>
+				<th>{{ 'table.pool'|trans }}</th>
+				<th>{{ 'table.round'|trans }}</th>
+				<th>{{ 'table.score'|trans }}</th>
+				<th>{{ 'table.status'|trans }}</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
+{% endblock %}

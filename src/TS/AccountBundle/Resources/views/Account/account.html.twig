@@ -1,0 +1,95 @@
+{% trans_default_domain "profile" %}
+{% extends "TSAccountBundle::baseAccount.html.twig" %}
+
+{% block title "account.title"|trans %}
+
+{% block css %}
+    {{ parent() }}
+
+    .disabledBtn {
+        background-color: #428bca;
+        border-color: #357ebd;
+        cursor: not-allowed;
+        filter: alpha(opacity=65);
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        opacity: .65;
+    }
+
+{% endblock %}
+
+{% block jQuery %}
+    {{ parent() }}
+
+    $(".disabledBtn").click(function(e) {
+        e.preventDefault();
+    });
+
+{% endblock %}
+
+
+{% block accountContent %}
+    <header>
+        <h1 class="tab-title">{{ 'account.title'|trans }}</h1>
+        <p class="tab-subtitle">{{ 'account.subtitle'|trans }}</p>
+    </header>
+
+    <form class="form-horizontal static-content" action="{{ path('account_settings_account') }}" method="post" {{ form_enctype(form) }} role="form">
+        {{ form_errors(form) }}
+        <fieldset>
+            <legend>{{ 'account.login.legend'|trans }}</legend>
+            {{ form_rest(form) }}
+            {% if emailLoginAccount is empty %}
+                <p>{{ 'account.login.createLoginAccount'|trans }}</p>
+                <a href="{{ path('account_settings_account_add') }}" class="btn btn-success" role="button">{{ 'account.login.createAccount'|trans }}</a>
+            {% else %}
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">{{ 'account.login.password'|trans }}</label>
+                    <div class="col-sm-10 form-values">
+                        <p class="form-control-static">
+                            <a href="{{ path('fos_user_change_password') }}">{{ 'account.login.changePassword'|trans }}</a>
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+        </fieldset>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i> {{ 'account.login.save'|trans }}</button>
+        </div>
+        <br />
+        <fieldset>
+            <legend>{{ 'account.socialLogins.legend'|trans }}</legend>
+            <p>{{ 'account.socialLogins.text'|trans|nl2br }}</p>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><i class="fa fa-google-plus"></i> {{ 'account.socialLogins.google'|trans }}</label>
+                <div class="col-sm-10 form-values">
+                    <p class="form-control-static">
+                        {% if googleLoginAccount is empty %}
+                            <a href="{{ path('hwi_oauth_service_redirect', {'service': 'google'}) }}">{{ 'account.socialLogins.connect'|trans }}</a><br />
+                        {% else %}
+                            <a href="{{ googleLoginAccount.socialUrl }}" target="_blank">{{ googleLoginAccount.socialUrl }}</a>
+                            <a href="{{ path('account_settings_account_remove', {'loginAccountId': googleLoginAccount.id}) }}" class="btn btn-danger pull-right" role="button"><i class="fa fa-remove"></i> {{ 'account.socialLogins.removeConnection'|trans }}</a>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><i class="fa fa-facebook"></i> {{ 'account.socialLogins.facebook'|trans }}</label>
+                <div class="col-sm-10 form-values">
+                    <p class="form-control-static">
+                        {% if facebookLoginAccount is empty %}
+                            <a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook'}) }}">{{ 'account.socialLogins.connect'|trans }}</a><br />
+                        {% else %}
+                            <a href="{{ facebookLoginAccount.socialUrl }}" target="_blank">{{ facebookLoginAccount.socialUrl }}</a>
+                            <a href="{{ path('account_settings_account_remove', {'loginAccountId': facebookLoginAccount.id}) }}" class="btn btn-danger pull-right" role="button"><i class="fa fa-remove"></i> {{ 'account.socialLogins.removeConnection'|trans }}</a>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+        </fieldset>
+
+        {{ form_end(form) }}
+    </form>
+
+{% endblock %}

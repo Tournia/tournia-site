@@ -1,0 +1,10 @@
+# PlayerType
+playerType.registrationEmail.notvalid: This is not a valid email address
+playerType.registrationEmail.notblank: Please fill in an email address to be able to receive information about the tournament, and for the tournament organization to contact you.
+playerType.group.notblank: Choose a group
+playerType.notempty: Value cannot be empty
+playerType.notchecked: This field is required
+
+
+
+

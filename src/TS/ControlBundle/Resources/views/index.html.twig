@@ -1,0 +1,429 @@
+{% trans_default_domain "control" %}
+{% import 'TSControlBundle::macro.html.twig' as macro %}
+{% use "TSControlBundle:Matches:scoreBlocks.html.twig" %}
+
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}" class="smart-style-4">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}{{ 'index.title'|trans }}{% endblock %}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta name="description" content="Tournia.net control">
+        <meta name="author" content="Tournia.net">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        {#
+        <!--Start of Zopim Live Chat Script-->
+        <script type="text/javascript">
+            window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+                    d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+                    _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+                $.src='//v2.zopim.com/?2SERWURUzg9L4BhDJdtNAVipFyqI0VVG';z.t=+new Date;$.
+                        type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+        </script>
+        <!--End of Zopim Live Chat Script-->
+        #}
+
+        <!-- Styles -->
+        {% block stylesheets %}
+            <!-- start sass -->
+            {% stylesheets
+                'bundles/tsfront/template/css/header.scss'
+                'bundles/tsfront/template/css/player.scss'
+                'bundles/tscontrol/template/sass/scss/smartadmin-production-plugins.scss'
+                'bundles/tscontrol/template/sass/scss/smartadmin-production.scss'
+                'bundles/tscontrol/template/sass/scss/smartadmin-skins.scss'
+                filter='compass,cssrewrite,?yui_css'
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+            <!-- end sass -->
+
+            {% stylesheets
+                'bundles/tscontrol/css/fonts.css'
+                'bundles/tscontrol/template/css/bootstrap.css'
+                'bundles/tscontrol/template/css/font-awesome.css'
+                'bundles/tscontrol/css/bootstrap-switch.css'
+                'bundles/tscontrol/css/offline-theme-default.css'
+                'bundles/tscontrol/css/offline-language-english.css'
+
+                'bundles/tsfront/css/everywhere.css'
+                'bundles/tscontrol/css/control.css'
+
+                filter='cssrewrite,?yui_css' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+
+            <style type="text/css">
+                {% block css %}{% endblock %}
+            </style>
+        {% endblock %}
+        
+
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-144-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-114-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-72-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-57-precomposed.png') }}">
+        <link rel="shortcut icon" href="{{ asset('bundles/tsfront/img/ico/favicon.png') }}" type="image/x-icon">
+        <link rel="icon" href="{{ asset('bundles/tsfront/img/ico/favicon.png') }}" type="image/x-icon">
+
+        {% block head %}{% endblock %}
+    </head>
+    <body class="smart-style-4">
+        <!-- possible classes: minified, fixed-ribbon, fixed-header, fixed-width-->
+        <div class="offline-ui offline-ui-down offline-ui-waiting">
+            <div class="offline-ui-content"></div>
+        </div>
+
+        {% include "TSFrontBundle::header.html.twig" with {'isControl': true} %}
+
+        <!-- Left panel : Navigation area -->
+        <!-- Note: This width of the aside area can be adjusted through LESS variables -->
+        <aside id="left-panel" class="hidden-print">
+            <!-- NAVIGATION : This navigation is also responsive
+
+            To make this navigation dynamic please make sure to link the node
+            (the reference to the nav > ul) after page load. Or the navigation
+            will not initialize.
+            -->
+            <nav>
+                <!-- NOTE: Notice the gaps after each icon usage <i></i>..
+                Please note that these links work a bit different than
+                traditional href="" links. See documentation for details.
+                -->
+
+                <ul>
+                    <li>
+                        <a href="{{ path('control_dashboard', {'tournamentUrl': tournament.url}) }}"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">{{ 'index.navigation.dashboard'|trans }}</span></a>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-edit">{{ 'index.navigation.registrations'|trans }}</span></a>
+                        <ul>
+                            <li>
+                                <a href="{{ path('control_email', {'tournamentUrl': tournament.url}) }}">{{ 'index.navigation.email'|trans }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('control_payment_overview', {'tournamentUrl': tournament.url}) }}">{{ 'index.navigation.payments'|trans }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('control_export', {'tournamentUrl': tournament.url}) }}">{{ 'index.navigation.export'|trans }}</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('control_player_overview', {'tournamentUrl': tournament.url}) }}"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">{{ 'index.navigation.playersOverview'|trans }}</span></a>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-lg fa-fw fa-sitemap"></i> <span class="menu-item-edit">{{ 'index.navigation.pools'|trans }}</span></a>
+                        <ul>
+                            <li>
+                                <a href="{{ path('control_pools', {'tournamentUrl': tournament.url}) }}">{{ 'index.navigation.pools'|trans }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('control_player_pools', {'tournamentUrl': tournament.url}) }}">{{ 'index.navigation.playersInPools'|trans }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('control_teams', {'tournamentUrl': tournament.url}) }}">{{ 'index.navigation.teams'|trans }}</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    {% if app.debug %}
+                    <li>
+                        <a href="{{ path('control_inconsistencies', {'tournamentUrl': tournament.url}) }}"><i class="fa fa-lg fa-fw fa-exclamation-triangle"></i> <span class="menu-item-parent">{{ 'index.navigation.inconsistencies'|trans }}</span></a>
+                    </li>
+                    {% endif %}
+
+                    <li>
+                        <a href="{{ path('control_plan_matches', {'tournamentUrl': tournament.url}) }}"><i class="fa fa-lg fa-fw fa-puzzle-piece"></i> <span class="menu-item-parent">{{ 'index.navigation.planMatches'|trans }}</span></a>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('control_current_matches', {'tournamentUrl': tournament.url}) }}"><i class="fa fa-lg fa-fw fa-clock-o"></i> <span class="menu-item-parent">{{ 'index.navigation.currentMatches'|trans }}</span></a>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('control_all_matches', {'tournamentUrl': tournament.url}) }}"><i class="fa fa-lg fa-fw fa-list-alt"></i> <span class="menu-item-parent">{{ 'index.navigation.allMatches'|trans }}</span></a>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('control_announcements', {'tournamentUrl': tournament.url}) }}"><i class="fa fa-lg fa-fw fa-bullhorn"></i> <span class="menu-item-parent">{{ 'index.navigation.announcements'|trans }}</span></a>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('control_print', {'tournamentUrl': tournament.url}) }}"><i class="fa fa-lg fa-fw fa-print"></i> <span class="menu-item-parent">{{ 'index.navigation.print'|trans }}</span></a>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-lg fa-fw fa-trophy"></i> <span class="menu-item-edit">{{ 'index.navigation.rankings'|trans }}</span></a>
+                        <ul>
+                            <li>
+                                <a href="{{ path('control_ranking_pool', {'tournamentUrl': tournament.url}) }}">{{ 'index.navigation.poolRanking'|trans }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('control_ranking_pool_winners', {'tournamentUrl': tournament.url}) }}">{{ 'index.navigation.poolWinners'|trans }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('control_ranking_players', {'tournamentUrl': tournament.url}) }}">{{ 'index.navigation.playersRanking'|trans }}</a>
+                            </li>
+                            {% if tournament.registrationGroupEnabled %}
+                            <li>
+                                <a href="{{ path('control_ranking_groups', {'tournamentUrl': tournament.url}) }}">{{ 'index.navigation.groupsRanking'|trans }}</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="#"><i class="fa fa-lg fa-fw fa-gears"></i> <span class="menu-item-edit">{{ 'index.navigation.settings'|trans }}</span></a>
+                        <ul>
+                            <li>
+                                <a href="{{ path('control_locations', {'tournamentUrl': tournament.url}) }}">{{ 'index.navigation.locations'|trans }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('control_messages', {'tournamentUrl': tournament.url}) }}">{{ 'index.navigation.messages'|trans }} <span class="badge pull-right inbox-badge lastMessagesCount">0</span></a>
+                            </li>
+                            <li>
+                                <a href="{{ path('settings_index', {'tournamentUrl': tournament.url}) }}" class="notReplaceLink" target="_blank">{{ 'index.navigation.otherSettings'|trans }}</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </nav>
+            <span class="minifyme" data-action="minifyMenu"> <i class="fa fa-arrow-circle-left hit"></i> </span>
+
+        </aside>
+        <!-- END NAVIGATION -->
+
+        <!-- MAIN PANEL -->
+        <div id="main" role="main">
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                    <h1 class="page-title txt-color-blueDark"><i class="fa fa-bookmark-o fa-fw"></i> Tournia</h1>
+                </div>
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+                    <!--<ul id="sparks" class="">
+                        <li class="sparks-info">
+                            <h5> Total payments <span class="txt-color-blue">$47,171</span></h5>
+                            <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                                1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+                            </div>
+                        </li>
+                        <li class="sparks-info">
+                            <h5> Registration status <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;45%</span></h5>
+                            <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm" data-sparkline-type="pie" data-sparkline-offset="90" data-sparkline-piesize="35px">
+                                3,5,2
+                            </div>
+                        </li>
+                        <li class="sparks-info">
+                            <h5> Registrations <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
+                            <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                                110,150,300,130,400,240,220,310,220,300, 270, 210
+                            </div>
+                        </li>
+                    </ul>-->
+                </div>
+            </div>
+
+            <!-- MAIN CONTENT -->
+            <div id="content">
+
+            </div>
+            <!-- END MAIN CONTENT -->
+
+        </div>
+        <!-- END MAIN PANEL -->
+
+        <!-- scripts -->
+
+        <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)
+        <script data-pace-options='{ "restartOnRequestAfter": true }' src="js/plugin/pace/pace.min.js"></script>-->
+
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
+    <script src="{{ url('bazinga_jstranslation_js', {'domain':'javascript'}) }}?locales={{ app.request.locale }}"></script>
+
+    <script type="text/javascript">
+        var urlApiCommand = '{{ path('api_v2_commands', {'tournamentUrl':tournament.url}) }}';
+        var urlApiUpdates = '{{ path('api_v2_updates', {'tournamentUrl':tournament.url}) }}';
+        var urlApiPlayerList = '{{ path('api_v2_players_list', {'tournamentUrl':tournament.url}) }}';
+        var urlApiPoolsList = '{{ path('api_v2_pools_list', {'tournamentUrl':tournament.url}) }}';
+        var urlFrontLogin = '{{ path('account_login') }}';
+        var tournamentUrl = '{{ tournament.url }}';
+        var controlBaseUrl = '{{ path('control_index', {'tournamentUrl': tournament.url}) }}';
+        var locale = '{{ app.request.locale }}';
+        var isControl = true;
+        var isDebug = {% if app.debug %}true{% else %}false{% endif %};
+        var webSocketUri = "ws{% if app.request.isSecure %}s{% endif %}://{{ app.request.getHttpHost() }}:{{ websocketPort_external }}";
+        var loginAccountId = '{{ app.user.id }}';
+
+        {% if app.debug %}
+            var hideGoogleAnalytics = true;
+        {% endif %}
+    </script>
+
+    {% javascripts
+        'bundles/fosjsrouting/js/router.js'
+        '@TSControlBundle/Resources/public/template/js/libs/jquery-2.1.1.min.js'
+        '@TSControlBundle/Resources/public/template/js/libs/jquery-ui-1.10.3.min.js'
+        '@TSControlBundle/Resources/public/template/js/bootstrap/bootstrap.js'
+        '@TSControlBundle/Resources/public/template/js/app.config.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/jquery-touch/jquery.ui.touch-punch.js'
+        '@TSControlBundle/Resources/public/template/js/notification/SmartNotification.js'
+        '@TSControlBundle/Resources/public/template/js/smartwidgets/jarvis.widget.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/easy-pie-chart/jquery.easy-pie-chart.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/sparkline/jquery.sparkline.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/jquery-validate/jquery.validate.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/masked-input/jquery.maskedinput.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/select2/select2.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/bootstrap-slider/bootstrap-slider.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/msie-fix/jquery.mb.browser.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/fastclick/fastclick.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/bootstrap-slider/bootstrap-slider.js'
+
+        '@TSControlBundle/Resources/public/template/js/plugin/datatables/jquery.dataTables.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/datatables/dataTables.colReorder.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/datatables/dataTables.colVis.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/datatables/dataTables.bootstrap.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/datatables/dataTables.tableTools.js'
+
+        '@GosWebSocketBundle/Resources/public/js/vendor/autobahn.min.js'
+        '@GosWebSocketBundle/Resources/public/js/gos_web_socket_client.js'
+        
+        '@TSControlBundle/Resources/public/js/typeahead.bundle.js'
+        '@TSControlBundle/Resources/public/js/bootstrap-switch.js'
+        '@TSControlBundle/Resources/public/js/jquery.checkboxes.js'
+
+        '@TSFrontBundle/Resources/public/js/everywhere.js'
+        '@TSControlBundle/Resources/public/js/serverCommandFunctions.js'
+        '@TSControlBundle/Resources/public/js/control.js'
+
+        '@TSControlBundle/Resources/public/template/js/app.js'
+        
+
+        filter='?yui_js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+    <!--[if lt IE 9]>
+        <script src="{{ asset('bundles/tsfront/js/html5shiv.js') }}"></script>
+        <h1>You're using an old browser (Internet Explorer 8 or older), and therefore most functionality will not work correctly.<br />Please update your browser by going to www.microsoft.com/download or www.getfirefox.com.</h1>
+    <![endif]-->
+
+    {% block javascript %}{% endblock %}
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            afterPageLoad(true);
+
+            {% block jQuery %}{% endblock %}
+
+            {% include "TSFrontBundle::header.js.twig" %}
+        });
+
+        {{ block('scoreJavascript') }}
+    </script>
+{% endblock %}
+
+    <div class="suggestions-footer hidden-xs">
+        <a href="javascript:showFeedbackPopover()"><i class="fa fa-bullhorn"></i> {{ 'index.questionOrIdea'|trans }}</a>
+    </div>
+
+    <div id="loadingIndicator"><i class="fa fa-spinner fa-spin fa-3x"></i></div>
+
+    <!-- Edit match modal -->
+    {% set modalContent %}
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="editMatchLocalId">{{ 'matchModal.number'|trans }}</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="editMatchLocalId">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="editMatchPool">{{ 'table.pool'|trans }}</label>
+            <div class="col-sm-8">
+                <select class="form-control poolSelector" id="editMatchPool"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="editMatchRound">{{ 'table.round'|trans }}</label>
+            <div class="col-sm-8">
+                <select class="form-control roundSelector" id="editMatchRound"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="editMatchTeam1">{{ 'table.team1'|trans }}</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="editMatchTeam1">
+                    <option value="" selected="selected"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="editMatchTeam2">{{ 'table.team2'|trans }}</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="editMatchTeam2">
+                    <option value="" selected="selected"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="editMatchPrioritize">{{ 'matchModal.priorityMatch'|trans }}</label>
+            <div class="col-sm-8">
+                <input type="checkbox" id="editMatchPrioritize">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="editMatchStatus">{{ 'table.status'|trans }}</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="editMatchStatus">
+                    <option value="postponed">{{ 'matchModal.status.postponed'|trans }}</option>
+                    <option value="ready">{{ 'matchModal.status.ready'|trans }}</option>
+                    <option value="finished">{{ 'matchModal.status.finished'|trans }}</option>
+                    <option value="played">{{ 'matchModal.status.played'|trans }}</option>
+                </select>
+                <input type="hidden" id="editMatchStatusOriginal" value="" />
+            </div>
+        </div>
+        <div class="form-group" id="editMatchNonreadyReasonBox">
+            <label class="control-label col-sm-4" for="editMatchNonreadyReason">{{ 'matchModal.reason'|trans }}</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" value="" id="editMatchNonreadyReason" />
+                <input type="hidden" id="editMatchNonreadyReasonOriginal" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="editMatchScore">{{ 'matchModal.score'|trans }}</label>
+            <div class="col-sm-8" id="editMatchScore">
+
+            </div>
+        </div>
+        <input type="hidden" id="editMatchId" value="" />
+        <input type="hidden" id="editMatchTeam1Selected" value="" />
+        <input type="hidden" id="editMatchTeam2Selected" value="" />
+        <input type="hidden" id="editMatchPoolSelected" value="" />
+    </div>
+    {% endset %}
+    {% set modalFooter %}
+    <button type="button" class="btn btn-danger pull-left" id="editMatchDelete"><i class="fa fa-trash-o"></i> {{ 'matchModal.deleteMatch'|trans }}</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+    <button type="button" class="btn btn-primary" id="editMatchSaveButton">Save/Add</button>
+    {% endset %}
+    {{ macro.modal("editMatchModal", "matchModal.editMatch.title"|trans, modalContent, modalFooter) }}
+
+    {{block('scoreHtml') }}
+    </body>
+
+</html>

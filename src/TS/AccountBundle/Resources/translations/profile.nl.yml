@@ -1,0 +1,68 @@
+# My Accounts
+account.title: Mijn accounts
+account.subtitle: Beheer je accounts om mee in te loggen
+account.login.legend: Login
+account.login.createLoginAccount: Je hebt geen Tournia account met gebruikersnaam/wachtwoord, maar logt nu in met een social media account. Dat is op zich geen probleem, maar je kan ook een normaal gebruikersnaam/wachtwoord account aanmaken. De login details zullen naar je gemaild worden, en deze kun je later wijzigen.
+account.login.createAccount: Nieuw account
+account.login.password: Wachtwoord
+account.login.changePassword: Wijzig wachtwoord
+account.login.save: Opslaan
+account.socialLogins.legend: Social logins
+account.socialLogins.text: |
+  Het is mogelijk om in te loggen met een Facebook of Google account.
+  Nadat je bent verbonden met je social media account, kan je simpelweg met één klik op Tournia inloggen.
+account.socialLogins.google: Google
+account.socialLogins.facebook: Facebook
+account.socialLogins.connect: Verbind
+account.socialLogins.removeConnection: Verwijder verbinding
+accountType.username.label: Gebruikersnaam
+
+# Base template
+base.title: Profiel
+base.tournaments: Mijn toernooien
+base.profile: Profiel
+base.account: Accounts
+base.financial: Financieel
+
+# Financial
+financial.title: Mijn facturen
+financial.subtitle: Download je facturen voor je persoonlijke administratie
+financial.table.date: Datum
+financial.table.tournament: Toernooi
+financial.table.invoiceNr: Factuurnummer
+financial.table.amount: Bedrag
+financial.table.open: Openen
+financial.open: Openen
+financial.noInvoices: Je hebt geen facturen. Dit kan zijn omdat iemand anders voor je betaald heeft (deze persoon heeft de factuur), of simpelweg omdat geen financiële transacties hebt.
+finacial.tournamentInvoices: Toernooi facturen
+
+# My toernoois
+tournaments.title: Mijn toernooien
+tournaments.subtitle:  Hi %name%, welkom op je toernooien pagina. Vanuit hier kun je jouw toernooien inzien.
+tournaments.startTournament: Start je eigen toernooi
+tournaments.table.name: Toernooi naam
+tournaments.table.period: Periode
+tournaments.table.role: Rol
+tournaments.table.status: Status
+tournaments.table.options: Opties
+tournaments.organizer: Organizer
+tournaments.settings: Instellingen
+tournaments.control: Beheer
+tournaments.player: Speler
+tournaments.edit: wijzig
+
+# My profile
+profile.title: Mijn profiel
+profile.subtitle: Wijzig je persoonlijke informatie
+profile.profileInfo.legend: Profiel info
+profile.prefilled.legend: Vooringevuld voor nieuwe registraties
+profile.prefilled.text: De informatie hieronder wordt gebruikt voor nieuwe registraties.
+profile.submit: Opslaan
+profileType.name.label: Naam
+profileType.email.label: E-mailadres
+profileType.email.info: Dit e-mailadres wordt gebruikt om je te informeren over toernooien waar je voor bent ingeschreven.
+profileType.firstName.label: Voornaam
+profileType.lastName.label: Achternaam
+profileType.gender.label: Geslacht
+profileType.gender.male: Man
+profileType.gender.female: Vrouw

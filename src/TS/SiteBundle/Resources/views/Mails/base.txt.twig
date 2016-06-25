@@ -1,0 +1,13 @@
+{% block content %}{% endblock %}
+{% if tournament is defined %}
+
+This message has been send automatically; you can check your information on {{ url('tournament_index', {'tournamentUrl': tournament.url}) }}
+If you have any questions, please contact the organization by sending an email to {{ tournament.emailFrom }}
+
+Kind regards,
+{{ tournament.contactName|raw }}
+{% else %}
+
+This message has been send automatically, please do not reply directly.
+
+{% endif %}

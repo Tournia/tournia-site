@@ -1,0 +1,112 @@
+security:
+    #acl:
+    #    connection: default
+    encoders:
+        TS\ApiBundle\Entity\LoginAccount: sha512
+        FOS\UserBundle\Model\UserInterface: sha512
+    
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        #administrators:
+        #    entity: { class: TSApiBundle:User }
+        chain_provider:
+            chain:
+                providers: [fos_userbundle]
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+        #my_fos_facebook_provider:
+        #    id: my.facebook.user
+        #google:
+        #    id: google.user
+
+    firewalls:
+        #admin_area:
+        #    pattern: ^/admin
+        #    http_basic: ~
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        oauth_token:
+            pattern:    ^/oauth/v2/token
+            security:   false
+
+        oauth_authorize:
+            pattern:    ^/oauth/v2/auth
+            form_login:
+                provider: fos_userbundle
+                check_path: fos_user_security_check
+                login_path: account_login
+            anonymous: true
+
+        api:
+            pattern:    ^/api
+            fos_oauth:  true
+            stateless:  false
+            anonymous:  true
+            context: default_context
+
+        #main:
+        #    remember_me:
+        #        key: "%secret%"
+        #        lifetime: 31536000 # 365 days in seconds
+        #        path: /
+        #        domain: ~ # Defaults to the current domain from $_SERVER
+        main:
+            pattern: ^/
+            switch_user: { role: ROLE_SUPER_ADMIN, parameter: _impersonate_user }
+            access_denied_handler: my_access_denied_handler
+            entry_point: entry_point.user_login
+            form_login:
+                provider: fos_userbundle
+                check_path: fos_user_security_check
+                csrf_provider: form.csrf_provider
+                login_path: account_login
+            anonymous:    true
+            context: default_context
+            logout: 
+                path: account_logout
+                target: ts_root
+            remember_me:
+                secret: "%secret%"
+                lifetime: 31536000 # 365 days in seconds
+                path: /
+                domain: ~ # Defaults to the current domain from $_SERVER
+            oauth:
+                resource_owners:
+                    facebook: "/login/check-facebook"
+                    google: "/login/check-google"
+                    twitter: "/login/check-twitter"
+                login_path: /login
+                use_forward: false
+                failure_path: /login
+                success_handler: social_auth_success_handler
+                provider: fos_userbundle
+                oauth_user_provider:
+                    service: my.oauth_aware.user_provider.service
+            #fos_facebook:
+            #    login_path: account_login
+            #    check_path: facebook_security_check
+            #    default_target_path: ts_root
+            #    provider: my_fos_facebook_provider
+            #    success_handler: social_auth_success_handler
+            #bit_google:
+            #    provider: google
+            #    login_path: account_login
+            #    check_path: google_security_check
+            #    success_handler: social_auth_success_handler
+            #    default_target_path: /
+            #    always_use_default_target_path: true
+            #    failure_path: /
+            #    failure_forward: true
+    access_control:
+        #- { path: ^/admin, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        #- { path: ^/admin, roles: ROLE_ADMIN }
+    access_decision_manager:
+        # Strategy can be: affirmative, consensus or unanimous
+        strategy: unanimous
+        allow_if_all_abstain: false
+        allow_if_equal_granted_denied: false

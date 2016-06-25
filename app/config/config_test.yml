@@ -1,0 +1,21 @@
+imports:
+    - { resource: config_dev.yml }
+
+framework:
+    test: ~
+    session:
+        storage_id: 'session.storage.native'
+        handler_id: 'session.handler.native_file'
+    profiler:
+        enabled: true
+        only_exceptions: false
+
+gregwar_captcha:
+    disabled: true
+
+web_profiler:
+    toolbar: true
+    intercept_redirects: false
+
+swiftmailer:
+    disable_delivery: true

@@ -1,0 +1,11 @@
+form.missing: There is some information missing in the form
+player.created: New player created
+form.newPersonEmail.label: Change person
+form.newPersonEmail.placeholder: New player's email address
+form.newPersonEmail.info: You can change whose registration this is. By entering an email address, the person with this email address 'takes over' this registration.
+form.newPersonEmail.invalid: This is not a valid email address
+form.max2disciplines: Maximum of two disciplines allowed
+access.granted: %email% has now access to this player
+player.updated: Player updated
+player.changeRegistrationAllowed: You cannot make changes anymore. Contact the organization for questions.
+basket.added: Your selected items have been added to your basket. You can now finish the payment, or add more items first.

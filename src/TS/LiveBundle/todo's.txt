@@ -1,0 +1,22 @@
+Mobile site (on priority)
+- Add other pages
+    - Player search
+    - Rankings
+-Add ranking selector
+- Error handling
+- Group empty courts/postponed/delayed
+- Group server requests
+- Reorder teams (above eachother) in finished matches
+- Move javascript/jQuery to backbone
+- Create templates for default elements (loadmore button, loadingpane, main pages)
+- Add shorts to courts and pools (wait untill branch is merged in development branch to avoid merge conflicts)
+    - Fix scorepanel css (Best way is by added shorts for courts & finished matches)
+- Autoload views
+- Error message if tempalte not found
+- Introduce .table-wrapper on every page (now just in rankings)
+- Improve consistency template naming
+(- Pull-to-refresh)
+
+API
+- Improve consistency api
+- Possibility to view postponed/delayed matches

@@ -1,0 +1,8 @@
+# AccountType
+accountType.username.notBlank: Please enter a username
+
+# ProfileType
+profileType.email.notBlank: Please enter an email address
+
+# RegistrationFormType
+registrationFormType.registrationName.notBlank: Please enter your name

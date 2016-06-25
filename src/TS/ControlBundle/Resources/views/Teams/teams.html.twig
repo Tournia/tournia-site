@@ -1,0 +1,860 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "teams.title"|trans %}
+
+{% block css %}
+
+.playerBlock {
+	width: 230px;
+	float:left;
+	margin: 5px;
+/* 	border: 1px solid #AAAAAA; */
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+
+.playerBlock-header {
+	padding-left: 10px;
+	min-width: 230px;
+	font-size: 13px;
+	height: 27px;
+	padding-top: 7px;
+	white-space: normal;
+}
+
+.playerBlock-male {
+	background-color: #3A87AD;
+}
+
+.playerBlock-female {
+	background-color: #E34777;
+}
+
+
+.playerBlock-content { 
+	padding: 0.4em; 
+}
+
+
+.playerBlock-header .chevron { 
+	float: right;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+.playerBlock-replacementIcon {
+	float: right;
+	margin-right: 5px;
+}
+
+.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; width: 20px !important; display:none; }
+.uis-sortable-placeholder * { visibility: hidden;display:none; }
+
+
+#withTeamTable .playerCellHover {
+	background-color: #DFF0D8;
+}
+
+.playerCellHover .playerBlock {
+	background-color: yellow;
+}
+
+.playerCellHover .playerBlock-header {
+	color: yellow;
+}
+
+#withTeamTable thead th {
+	text-align: center;
+/* 	width: 50%; */
+}
+
+/*.newTeam {
+	background-color: #5efa95;
+}*/
+
+.newTeam .playerCell {
+	text-align: center;
+}
+
+#importRegistrationsModal input {
+	margin-left: 5px;
+}
+
+#importRegistrationsModal label {
+	display: inline;
+	margin: 0px 15px 0px 5px;
+}
+
+#addNewPlayerModal .modal-body {
+	height: 250px;
+}
+
+#playerMoreOptionsModal .modal-body {
+	height: 350px;
+}
+
+#withTeamTable .optionsCell {
+	width: 310px;
+	vertical-align: middle;
+}
+
+.replacementPlayerId, .replacementPlayerName {
+	display: none;
+}
+
+#playerMoreOptionsModal .twitter-typeahead, #addNewPlayerModal .twitter-typeahead {
+	width: 100%;
+	top: 2px;
+}
+
+#deleteTeamModal label {
+    display: inline;
+}
+
+#registeredNotInPoolAlert, #addPlayersNotInPoolBox {
+	display: none;
+}
+
+.wellSidebar-sidebar .btn {
+	text-align: left;
+}
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+
+// change the visibility of all player blocks
+function changeSizePlayerBlock(visible) {
+	if (visible) {
+		$(".playerBlock-header .chevron").each(function() {
+			$(this).removeClass('fa fa-chevron-down').addClass('fa fa-chevron-up');
+			$(this).parents(".playerBlock:first").find(".playerBlock-content").show();
+			$(this).parents(".playerBlock:first").css('border', '1px solid #AAAAAA');
+		});
+	} else {
+		$(".playerBlock-header .chevron").each(function() {
+			$(this).removeClass('fa fa-chevron-up').addClass('fa fa-chevron-down');
+			$(this).parents(".playerBlock:first").find(".playerBlock-content").hide();
+			$(this).parents(".playerBlock:first").css('border', '0px');
+		});
+	}
+    localStorage.setItem("sizePlayerBlock", visible);
+}
+
+var playerBlocksExpanded;
+
+
+// make playerCell droppable
+function definePlayerCellsDroppable() { // redefine player cells droppable every time a new team is created
+	$(".playerCell").droppable({
+		accept: ".playerBlock",
+		hoverClass: "playerCellHover",
+		drop: function( event, ui ) {
+			poolId = $("#poolSelector").val();
+			dropPlayerCell = $(this);
+			dropPlayerBlock = dropPlayerCell.find(".playerBlock");
+			draggableRow = ui.draggable.closest('tr');
+			dragTeamId = 0;
+			if (draggableRow.length > 0) {
+				dragTeamId = getId(draggableRow.attr('id'));
+			}
+			if (dropPlayerBlock.attr('id') == ui.draggable.attr('id')) {
+				// playerBlock is dropped in cell where it was coming from -> don't do anything
+				return;
+			}
+			if (dropPlayerCell.parent().hasClass('newTeam')) {
+				// create a new team by adding a row
+				addPlayerToTeam(poolId, null, dropPlayerCell.attr('data-player-position'), getId(ui.draggable.attr('id')));
+				if (dragTeamId != 0) {
+					// move player from a team
+					removePlayerFromTeam(dragTeamId, getId(ui.draggable.attr('id')));
+					checkForEmptyTeam(dragTeamId);
+				}
+			} else {
+				if (dropPlayerBlock.length > 0) {
+					// there is already a player in this block -> switch players
+					if (draggableRow.length > 0) { 
+						// draggable player has a team
+						removePlayerFromTeam(getId(dropPlayerCell.closest('tr').attr('id')), getId(dropPlayerBlock.attr('id')));
+						addPlayerToTeam(poolId, dragTeamId, ui.draggable.parent().attr('data-player-position'), getId(dropPlayerBlock.attr('id')));
+					} else {
+						// draggable player has no team -> add to players without a team
+						removePlayerFromTeam(getId(dropPlayerCell.closest('tr').attr('id')), getId(dropPlayerBlock.attr('id')));
+					}
+				}
+				if (dragTeamId != 0) { // draggable player has a team
+					/*TODO: do it like this (but gives layout problems)
+					if (dropPlayerBlock.length == 0) {
+						// only remove player if there is no player is this block (because if it is, the player has been removed via addPlayerToTeam)
+						removePlayerFromTeam(dragTeamId, getId(ui.draggable.attr('id')), false);
+					}*/
+					removePlayerFromTeam(dragTeamId, getId(ui.draggable.attr('id')));
+					if (getId(dropPlayerCell.closest('tr').attr('id')) != dragTeamId) {
+						// only check for empty if it's not moving to the same team
+						checkForEmptyTeam(dragTeamId);
+					}
+				}
+				addPlayerToTeam(poolId, getId(dropPlayerCell.closest('tr').attr('id')), $(this).attr('data-player-position'), getId(ui.draggable.attr('id')));
+			}
+			sendServerCommands(true);
+		},
+	});
+	$( ".playerBlock" ).disableSelection();
+}
+
+function updateDraggableDroppable() {
+	$(".playerBlock").draggable({
+		revert: true,
+		revertDuration: 0,
+		cursor: "move",
+	});
+	
+	
+	// when start dragging player, minimize content box
+	$('.playerBlock :not(a)').on("mousedown", function(event) {
+		if (!$(event.target).hasClass('chevron') && (typeof $(event.target).attr('href') == "undefined") && ($(this).parent().find(".playerBlock-content").is(":visible"))){
+			$(this).parent().find(".playerBlock-content").hide();
+			$(this).parent().find(".playerBlock-content").addClass('wasVisisble');
+			$(this).parent().css('border', '0px');
+		}
+	});
+	$('.playerBlock :not(a)').on("mouseup", function(event) {
+		if (!$(event.target).hasClass('chevron') && (typeof $(event.target).attr('href') == "undefined") && ($(this).parent().find(".playerBlock-content").hasClass("wasVisisble"))) {
+			var lastMouseup = $(this).parent();
+			setTimeout(function(){ // timeout necessary because otherwise the player block will (sometimes) have the wrong coordinates for droppable
+				lastMouseup.find(".playerBlock-content").show();
+				lastMouseup.find(".playerBlock-content").removeClass('wasVisisble');
+				lastMouseup.css('border', '1px solid #AAAAAA');
+			}, 100);
+		}
+	});
+	// when clicking plus or minus, close/open content box of player
+	// expand already expaned players, or otherwise collapse (default) them
+	$(".playerBlock").each(function() {
+		expanded = false;
+		for (var i = 0; !expanded && i < playerBlocksExpanded.length; i++) {
+			expanded = $(this).attr('id') == playerBlocksExpanded[i];
+		}	
+		if (expanded) {
+			$(this).find(".playerBlock-header .playerName").after("<span class='chevron fa fa-chevron-up'></span>");
+			$(this).css('border', '1px solid #AAAAAA');
+		} else {
+			$(this).find(".playerBlock-header .playerName").after("<span class='chevron fa fa-chevron-down'></span>");
+			$(this).css('border', '0px');
+			$(this).find(".playerBlock-content").hide();
+		}
+	});
+	$(".playerBlock-header .chevron").unbind();
+	$(".playerBlock-header .chevron").click(function() {
+		$( this ).toggleClass( "fa fa-chevron-up" ).toggleClass( "fa fa-chevron-down" );
+		$( this ).parents( ".playerBlock:first" ).find( ".playerBlock-content" ).toggle();
+		if ($(this).hasClass('fa fa-chevron-down')) {
+			$(this).parents(".playerBlock:first").css('border', '0px');
+		} else {
+			$(this).parents(".playerBlock:first").css('border', '1px solid #AAAAAA');
+		}
+	});
+	
+	definePlayerCellsDroppable();
+}
+
+// Sending to server that a player is added to a team. If teamId == null -> new team is created 
+var newTeamId = 1;
+function addPlayerToTeam(poolId, teamId, position, playerId) {
+	//setTimeout(function(){ // prevents weird bug that players are added to the wrong cell
+	if (teamId == null) {
+		// create a new team
+		html = '<tr id="teamId-x'+ newTeamId +'">';
+		for (var i = 0; i < ($(".newTeam td").length-1); i++) {
+			html += '<td class="playerCell" data-player-position="'+ i +'"></td>';
+		}
+		html += '<td>&nbsp;</td></tr>';
+		$(".newTeam").before(html);
+		newTeamRow = $(".newTeam").prev();
+		playerCell = newTeamRow.find("[data-player-position='"+ position +"']");
+		//definePlayerCellsDroppable();
+		newTeamId++;
+	} else {
+		playerCell = $('#teamId-'+ teamId +' [data-player-position="'+ position +'"]');
+	}
+	
+	playerBlock = $('#playerId-'+ playerId).clone().css('position', '');
+	playerCell.append(playerBlock).show("normal");
+	
+	command = {
+		command : 'Teams.addPlayer',
+		poolId : poolId,
+		teamId: teamId,
+		position: position,
+		playerId: playerId,
+	}
+	addServerCommand(command);
+}
+
+// Sending to server that a player is removed from a team. If teamId == null -> new team is created 
+function removePlayerFromTeam(teamId, playerId) {
+	playerBlock = $('#teamId-'+ teamId +' #playerId-'+ playerId);
+	playerBlock.hide("normal");
+	
+	command = {
+		command : 'Teams.removePlayer',
+		teamId: teamId,
+		playerId: playerId
+	}
+	addServerCommand(command);
+}
+
+// Sending to server that team should be checked if has no players. If team is empty -> team will be deleted 
+function checkForEmptyTeam(teamId) {
+	teamRow = $("#withTeamTable #teamId-"+ teamId);
+	if (teamRow.find(".playerBlock").length == 1) {
+		// no players in team
+		teamRow.hide("normal");
+	}
+	command = {
+		command : 'Teams.remove',
+		teamId: teamId,
+		onlyIfEmpty: true,
+	}
+	addServerCommand(command);
+}
+
+function openDeleteTeam(teamId) {
+	$("#deleteTeamId").val(teamId);
+	$("#deleteTeamModal").modal("show");
+}
+
+// Sending to server that a team is deleted
+function deleteTeam(teamId, deleteTeamMethod) {
+    $("#deleteTeamModal").modal("hide");
+
+    if (deleteTeamMethod == "remove") {
+        command = {
+            command : 'Teams.remove',
+            teamId: teamId,
+            onlyIfEmpty: false,
+        }
+        $("#teamId-"+ teamId).hide("normal");
+    } else {
+        command = {
+            command : 'Teams.removeAllPlayers',
+            teamId: teamId,
+        }
+    }
+
+	addServerCommand(command);
+	sendServerCommands(true);
+}
+
+// Sending to server that a player is added to a pool
+function addPlayerToPool(poolId, playerId) {
+	playerBlock = $('#playerId-'+ playerId).clone().css('position', '');
+	
+	command = {
+		command : 'Teams.addPlayer',
+		teamId : 0,
+		poolId : poolId,
+		playerId: playerId,
+		position: 0,
+	}
+	addServerCommand(command);
+}
+
+
+function afterUpdatePoolSelector() {
+	// look for poolId in hash of url
+	if (getUrlParam("cid") != null) {
+	    $("#poolSelector option[value='"+ getUrlParam("cid") +"']").prop("selected", true);
+	}
+	
+	// retrieve server data
+	sendServerCommands(true);
+	
+	$("#playerMoreOptionsMoveToPool").prepend('<option value="" selected="selected"></option>');
+}
+
+////////// Functionality for server data //////////////
+
+// setting commands for refresh of server data
+function getRefreshCommands() {
+    poolIdVal = $("#poolSelector").val();
+    if (isNaN(poolIdVal)) {
+        return new Array();
+    } else {
+        command1 = {
+            command : 'Pools.get',
+            poolId : poolIdVal
+        }
+		command2 = {
+			command: 'Inconsistencies.playerRegisteredNotInPool',
+			poolId: poolIdVal
+		}
+        return new Array(command1, command2);
+    }
+}
+// setting on which updates data should be refreshed
+observerUpdateSection.push('team');
+observerUpdateSection.push('pool');
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+	if (commandKey == "Pools.get") {
+		poolObject = commandResponse;
+
+		// save whether playerBlocks are currently expanded
+		playerBlocksExpanded = new Array();
+		$(".playerBlock").each(function() {
+			if ($(this).find('span').attr('class') == 'fa fa-chevron-up') {
+				playerBlocksExpanded.push($(this).attr('id'));
+			}
+		});
+		
+		// go through players
+		$("#teams").html('');
+		teamHtml = " \
+	<h4>Teams in pool "+ poolObject['name'] +"</h4>\
+	<table class=\"table table-bordered table-striped\" id=\"withTeamTable\">\
+		<thead>\
+			<tr>";
+				for (var i = 0; i < poolObject['nrPlayersInTeam']; i++) {
+					teamHtml += "<th>Player "+ (i+1) +"</th>";
+				}
+				teamHtml += "\
+				<th>Options</th>\
+			</tr>\
+		</thead>\
+		<tbody>";
+			$.each(poolObject['teams'], function (teamId, teamObject) {
+				teamHtml += "\
+			<tr id=\"teamId-" + teamId + "\">";
+				teamWithoutPlayers = true;
+				playersHtml = '';
+				$.each(teamObject['players'], function (position, playerObject) {
+					playersHtml += "<td class=\"playerCell\" data-player-position=\"" + position + "\">";
+					if (playerObject != null) {
+						playersHtml += "\
+						<div class=\"playerBlock\" id=\"playerId-" + playerObject['id'] + "\">\
+						<div class=\"badge ";
+						playersHtml += (playerObject['gender'] == 'M') ? 'playerBlock-male' : 'playerBlock-female';
+						if (playerObject['hasReplacementPlayer']) {
+							playersHtml += " playerBlock-header\"><span class=\"playerName\">" + playerObject['replacementPlayerName'] + "</span>";
+							playersHtml += " <i class=\"playerBlock-replacementIcon fa fa-random\" title=\"{{ 'teams.replacementPlayer'|trans }}\"></i>";
+						} else {
+							playersHtml += " playerBlock-header\"><span class=\"playerName\">" + playerObject['name'] + "</span>";
+						}
+						playersHtml += "</div><div class=\"playerBlock-content\">{{ 'teams.gender'|trans }}: ";
+						playersHtml += (playerObject['gender'] == 'M') ? "{{ 'general.male'|trans }}" : "{{ 'general.female'|trans }}";
+						playersHtml += "<br />Team: " + playerObject['registrationGroup'] + "<br />";
+						if (typeof playerObject['partnerName'] != "undefined") {
+							playersHtml += "{{ 'teams.partner'|trans }}: " + playerObject['partnerName'] + "<br />";
+						}
+						if (playerObject['hasReplacementPlayer']) {
+							playersHtml += "<i class=\"fa fa-random\"></i> {{ 'teams.playerReplaces'|trans }}: " + playerObject['name'] + "<span class=\"replacementPlayerName\">" + playerObject['replacementPlayerName'] + "</span><span class=\"replacementPlayerId\">" + playerObject['replacementPlayerId'] + "</span><br />";
+						}
+						playersHtml += "<a href=\"#\" class=\"openPlayerMoreOptions\">{{ 'teams.openMoreOptions'|trans }}</a></div>\
+						</div>";
+						teamWithoutPlayers = false;
+					}
+					playersHtml += "</td>";
+				});
+				if (teamWithoutPlayers) {
+					{% set startDeleteLink = '<a href=\\\"#\\\" onClick=\\\"openDeleteTeam("+ teamId +");return false;\\\">' %}
+					teamHtml += "<td class=\"playerCell\" data-player-position=\"0\" colspan=\"" + teamObject['players'].length + "\">{{ 'teams.noPlayersForTeam'|trans({'%startLink%': startDeleteLink, '%endLink%': '</a>'})|raw }}</td>";
+				} else {
+					teamHtml += playersHtml;
+				}
+				teamHtml += "\
+				<td class=\"optionsCell\"><input type=\"checkbox\" class=\"formSwitch\" data-on-color=\"success\" data-off-color=\"danger\" data-on-text=\"{{ 'playerInfo.pool.ready'|trans }}\" data-off-text=\"{{ 'playerInfo.pool.givenUp'|trans }}\" id=\"formSwitch-" + teamId + "\"";
+				if (!teamObject['givenUp']) {
+					teamHtml += ' checked';
+				}
+				teamHtml += "/>";
+				if (teamObject['givenUp']) {
+					currentNonreadyReason = teamObject['nonreadyReason'] == null ? '' : teamObject['nonreadyReason'].replace(/"/g, '&quot;');
+					teamHtml += ' <span class="nonreadyReasonTooltip" rel="tooltip" data-placement="right" data-reason="' + currentNonreadyReason + '" data-objectId="' + teamObject['id'] + '"><i class="fa fa-info-circle"></i></span> ';
+				}
+				teamHtml += "<button class=\"btn btn-danger\" onClick=\"openDeleteTeam(" + teamId + ")\"><i class=\"fa fa-trash-o\"></i> {{ 'teams.delete'|trans }}</button></td>\
+				</tr>";
+			});
+			teamHtml += "\
+			<tr class=\"newTeam\" id=\"newTeam-poolId-"+ poolObject['id'] +"\">";
+				if (poolObject['nrPlayersInTeam'] == 2) {
+					teamHtml += "\
+				<td class=\"playerCell\" data-player-position=\"0\" style=\"text-align:right\">{{ 'teams.drop.1'|trans }}</td>\
+				<td class=\"playerCell\" data-player-position=\"1\" style=\"text-align:left\">{{ 'teams.drop.2'|trans }}</td>";
+				} else {
+					teamHtml += "<td class=\"playerCell\" data-player-position=\"0\" style=\"text-align:center\">{{ 'teams.drop'|trans }}</td>";
+				}
+			teamHtml += "\
+				<td class=\"optionsCell\">&nbsp;</td>\
+			</tr>\
+		</tbody>\
+	</table>";
+		$("#teams").append(teamHtml);
+
+        enableNonreadyReasonTooltip("#teams", editNonreadyReason);
+		updateDraggableDroppable();
+		updateFunctionalityAfterUpdate();
+	} else if (commandKey == "Tournaments.usedStatusOptions") {
+		$("#importRegistrationsStatusOptions").html('');
+		$.each(commandResponse, function(index, statusOption) {
+			optionHtml = '<input id="importRegistrationStatusOption_'+ index +'" type="checkbox"> <label for="importRegistrationStatusOption_'+ index +'">'+ statusOption +'</label><br />';
+			$("#importRegistrationsStatusOptions").append(optionHtml);
+		});
+	} else if (commandKey == "Inconsistencies.playerRegisteredNotInPool") {
+		if (commandResponse.length > 0) {
+			transText = Translator.transChoice('teams.registeredNotInPool', commandResponse.length, {'nrPlayers': '<b>'+commandResponse.length +'</b>', 'startLink': '<a href="#" class="alert-link" data-toggle="modal" data-target="#addNewPlayerModal">', 'endLink': '</a>'});
+			$("#registeredNotInPoolTrans").html(transText);
+
+			$("#registeredNotInPoolAlert").show();
+			$("#addPlayersNotInPoolBox").show();
+
+			$("#addPlayersNotInPool").html('');
+			$.each(commandResponse, function(index, inconsistency) {
+				optionHtml = '<input id="addPlayer-'+ inconsistency['playerId'] +'" type="checkbox"> <label for="addPlayer-'+ inconsistency['playerId'] +'">'+ inconsistency['name'] +' ('+ inconsistency['status'] +')</label><br />';
+				$("#addPlayersNotInPool").append(optionHtml);
+			});
+		} else {
+			$("#registeredNotInPoolAlert").hide();
+			$("#addPlayersNotInPoolBox").hide();
+		}
+	}
+    useLocalSettings();
+}
+
+function updateFunctionalityAfterUpdate() {
+	// on clicking of postponing/ready player
+	$("#teams .formSwitch").bootstrapSwitch();
+	$('#teams .formSwitch').on('switchChange.bootstrapSwitch', function (event, state) {
+ 		// change readyness of team
+		command = {
+			command : 'Teams.giveUp',
+			teamId: getId($(this).attr('id')),
+			givenUp: !state,
+		}
+		addServerCommand(command);
+		sendServerCommands(true);
+	});
+	
+	// open player more options modal
+	$(".openPlayerMoreOptions").on('click', function(event) {
+		event.preventDefault();
+		$("#playerMoreOptionsModal").modal('show');
+		
+		// now set values
+		playerBlock = $(this).closest('.playerBlock');
+		playerId = getId(playerBlock.attr('id'));
+		$("#playerMoreOptionsPlayerId").val(playerId);
+		$("#playerMoreOptionsMoveToPool").val('');
+
+        playerName = $(playerBlock).find(".playerName").text();
+        playerLink = Routing.generate('control_player_info', {'tournamentUrl': tournamentUrl, 'playerId': playerId, '_locale': locale });
+        $("#playerMoreOptionsPlayerName").html('<a href="'+ convertUrlToHash(playerLink) +'">'+ playerName +'</a>');
+
+		$("#playerMoreOptionsReplacementPlayerBox").show();
+
+		teamId = getId(playerBlock.closest('tr').attr('id'));
+		$("#playerMoreOptionsTeamId").val(teamId);
+		position = playerBlock.parent().attr('data-player-position');
+		$("#playerMoreOptionsPosition").val(position);
+
+		if (playerBlock.find('.replacementPlayerName').length == 0) {
+			$("#playerMoreOptionsReplacementPlayer").val('');
+			$("#playerMoreOptionsReplacementPlayerId").val('');
+		} else {
+			// original player set (i.e. this is a replacement player)
+			$("#playerMoreOptionsReplacementPlayer").val(playerBlock.find(".replacementPlayerName").text());
+			$("#playerMoreOptionsReplacementPlayerId").val(playerBlock.find(".replacementPlayerId").text());
+		}
+	});
+}
+
+function editNonreadyReason(teamId, newReason) {
+    command = {
+        command : 'Teams.giveUp',
+        teamId: teamId,
+        givenUp: true,
+        nonreadyReason: newReason,
+    }
+    addServerCommand(command);
+    sendServerCommands(true);
+}
+
+function useLocalSettings() {
+    // set size player block as it was before
+    if (localStorage.getItem("sizePlayerBlock") != null) {
+        changeSizePlayerBlock(localStorage.getItem("sizePlayerBlock"));
+    }
+}
+</script>
+
+{% endblock %}
+
+{% block jQuery %}
+{# <script> #}
+
+// get pool selection (which retrieves initial data from server)
+updatePoolSelector(afterUpdatePoolSelector);
+
+$("#poolSelector").on("change", function() {
+	// get new data from server
+	setUrlParam('cid', $(this).val());
+	sendServerCommands(true);
+});
+
+// on opening import registrations, load status options
+$('#importRegistrationsModal').on('show.bs.modal', function () {
+	command = {
+		command : 'Tournaments.usedStatusOptions',
+	}
+	addServerCommand(command);
+	sendServerCommands(false);
+});
+
+// add new player modal functions
+$('#addNewPlayerModal').on('shown.bs.modal', function () {
+	$("#addNewPlayerName").focus();
+});
+$('#addNewPlayerModal').on('show.bs.modal', function() {
+	// clear input field
+	$("#addNewPlayerName").val('');
+	$("#addNewPlayerId").val('');
+});
+$('#addNewPlayerModal #addNewPlayerAddButton').on('click', function () {
+	$('#addNewPlayerModal').modal('hide');
+	playerId = $('#addNewPlayerId').val();
+	if (playerId != '') {
+		addPlayerToPool($("#poolSelector").val(), playerId);
+	}
+	$("#addPlayersNotInPool :checked").each(function() {
+		playerId = getId($(this).attr('id'));
+		addPlayerToPool($("#poolSelector").val(), playerId);
+	});
+	sendServerCommands(true);
+});
+
+// player more options buttons
+$("#playerMoreOptionsRemoveFromPoolBtn").on("click", function() {
+	playerId = $("#playerMoreOptionsPlayerId").val();
+	teamId = $("#playerMoreOptionsTeamId").val();
+	removePlayerFromTeam(teamId, playerId);
+	sendServerCommands(true);
+	$("#playerMoreOptionsModal").modal('hide');
+});
+$("#playerMoreOptionsReplacementPlayerSet").on("click", function() {
+	replacementPlayerId = $("#playerMoreOptionsReplacementPlayerId").val();
+	if ($("#playerMoreOptionsReplacementPlayer").val() == '') {
+		// remove replacement
+		replacementPlayerId = 0;
+	}
+	playerId = $("#playerMoreOptionsPlayerId").val();
+	teamId = $("#playerMoreOptionsTeamId").val();
+	position = $("#playerMoreOptionsPosition").val();
+	command = {
+		command : 'Teams.setReplacementPlayer',
+		position: position,
+		teamId: teamId,
+		playerId: playerId,
+		replacementPlayerId: replacementPlayerId,
+	}
+	addServerCommand(command);
+	sendServerCommands(true);
+	$("#playerMoreOptionsModal").modal('hide');
+});
+
+$("#importRegistrationsSubmitBtn").on("click", function() {
+	statusArray = new Array();
+	$("#importRegistrationsStatusOptions :checked").each(function() {
+		statusArray.push($("#importRegistrationsStatusOptions [for='"+ $(this).attr('id') +"']").text());
+	});
+	if (statusArray.length == 0) {
+		alert("Select at least one status");
+	} else {
+		command = {
+			command : 'Pools.importRegistrations',
+			status: statusArray,
+		}
+		addServerCommand(command);
+		sendServerCommands(true);
+		$("#importRegistrationsModal").modal('hide');
+	}
+});
+
+$("#autoAssignPlayersSubmitBtn").on("click", function() {
+	command = {
+		command : 'Pools.autoAssign',
+	}
+	addServerCommand(command);
+	sendServerCommands(true);
+	$("#autoAssignPlayersModal").modal('hide');
+});
+	
+$("#playerMoreOptionsReplacementMoveToPoolSet").on("click", function() {
+	playerId = $("#playerMoreOptionsPlayerId").val();
+	teamId = $("#playerMoreOptionsTeamId").val();
+	newPoolId = $("#playerMoreOptionsMoveToPool").val();
+	removePlayerFromTeam(teamId, playerId);
+	addPlayerToPool(newPoolId, playerId);
+	sendServerCommands(true);
+	$("#playerMoreOptionsModal").modal('hide');
+});
+
+setPlayersTypeahead();
+useLocalSettings();
+
+{# </script> #}
+{% endblock %}
+
+{% block content %}
+{% set content %}
+	<div class="alert alert-info fade in" id="registeredNotInPoolAlert">
+        <button class="close" data-dismiss="alert">
+            ×
+        </button>
+        <i class="fa-fw fa fa-info-circle"></i>
+        <span id="registeredNotInPoolTrans">
+		</span>
+    </div>
+<div id="teams">
+</div>
+{% endset %}
+{% set sidebar %}
+    <p>
+    <div class="field-box">
+        <label for="poolSelector">{{ 'general.selectPool'|trans }}:</label>
+        <select class="poolSelector" id="poolSelector"></select>
+    </div>
+    </p>
+    <p><button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addNewPlayerModal"><i class="fa fa-plus"></i> {{ 'teams.sidebar.addPlayer'|trans }}</button></p>
+    <p><button class="btn btn-warning btn-block" type="button" onClick="changeSizePlayerBlock(false);"><i class="fa fa-chevron-up"></i> {{ 'teams.sidebar.collapsePlayers'|trans }}</button></p>
+    <p><button class="btn btn-warning btn-block" type="button" onClick="changeSizePlayerBlock(true);"><i class="fa fa-chevron-down"></i> {{ 'teams.sidebar.expandPlayers'|trans }}</button></p>
+    <p><a href="#importRegistrationsModal" class="btn btn-danger btn-block" role="button" data-toggle="modal"><i class="fa fa-arrow-down"></i> {{ 'teams.sidebar.import'|trans }}</a></p>
+    <p><a href="#autoAssignPlayersModal" class="btn btn-danger btn-block" role="button" data-toggle="modal"><i class="fa fa-tags"></i> {{ 'teams.sidebar.autoAssign'|trans }}</a></p>
+{% endset %}
+{{ macro.well(content, sidebar) }}
+ 
+<!-- Add new player modal -->
+{% set modalContent %}
+	<div class="form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="addNewPlayerName">{{ 'teams.addPlayer.playerName'|trans }}</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control playersTypeahead" id="addNewPlayerName">
+			</div>
+		</div>
+		<input type="hidden" name="playerId" id="addNewPlayerId" class="selectedPlayerIdTypeahead" />
+		<div class="form-group" id="addPlayersNotInPoolBox">
+			<label class="col-sm-4 control-label" for="addNewPlayerName">{{ 'teams.addPlayer.playersNotInPool'|trans }}</label>
+			<div class="col-sm-8" id="addPlayersNotInPool">
+			</div>
+		</div>
+	</div>
+{% endset %}
+{% set modalFooter %}
+	<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+	<button type="button" class="btn btn-primary" id="addNewPlayerAddButton"><i class="fa fa-plus"></i> {{ 'modal.add'|trans }}</button>
+{% endset %}
+{{ macro.modal("addNewPlayerModal", "teams.addPlayer.title"|trans, modalContent, modalFooter) }}
+
+<!-- Import registrations modal -->
+{% set modalContent %}
+	<p>
+		{{ 'teams.import.text'|trans|raw }}
+	</p>
+	<p>{{ 'teams.import.status'|trans }}:</p>
+	<p id="importRegistrationsStatusOptions"></p>
+{% endset %}
+{% set modalFooter %}
+	<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+	<button type="button" class="btn btn-primary" id="importRegistrationsSubmitBtn"><i class="fa fa-arrow-down"></i> {{ 'teams.import.submit'|trans }}</button>
+{% endset %}
+{{ macro.modal("importRegistrationsModal", "teams.import.title"|trans, modalContent, modalFooter) }}
+
+<!-- Auto assign players modal -->
+{% set modalContent %}
+	<p>{{ 'teams.autoAssign.text1'|trans }}</p>
+	<p>{{ 'teams.autoAssign.text2'|trans }}</p>
+{% endset %}
+{% set modalFooter %}
+	<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+	<button type="button" class="btn btn-primary" id="autoAssignPlayersSubmitBtn"><i class="fa fa-tags"></i> {{ 'teams.autoAssign.submit'|trans }}</button>
+{% endset %}
+{{ macro.modal("autoAssignPlayersModal", "teams.autoAssign.title"|trans, modalContent, modalFooter) }}
+
+
+<!-- Player more options modal -->
+{% set modalContent %}
+	<div class="form-horizontal">
+		<div class="form-group" id="playerMoreOptionsPlayerNameBox">
+			<label class="col-sm-4 control-label" for="playerMoreOptionsPlayerName">{{ 'teams.moreOptions.player'|trans }}</label>
+			<div class="col-sm-8">
+                <p class="form-control-static" id="playerMoreOptionsPlayerName"></p>
+			</div>
+		</div>
+        <div class="form-group" id="playerMoreOptionsReplacementPlayerBox">
+			<label class="col-sm-4 control-label" for="playerMoreOptionsReplacementPlayer">{{ 'teams.moreOptions.replacementPlayer'|trans }}</label>
+			<div class="col-sm-8">
+				<div class="input-group">
+					<input type="text" class="form-control playersTypeahead" id="playerMoreOptionsReplacementPlayer">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" id="playerMoreOptionsReplacementPlayerSet">{{ 'teams.moreOptions.submitSet'|trans }}</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="playerMoreOptionsMoveToPool">{{ 'teams.moreOptions.moveToPool'|trans }}</label>
+			<div class="col-sm-8">
+				<div class="input-group">
+					<select name="moveToPool" id="playerMoreOptionsMoveToPool" class="form-control poolSelector"></select>
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" id="playerMoreOptionsReplacementMoveToPoolSet">{{ 'teams.moreOptions.submitSet'|trans }}</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="playerMoreOptionsRemoveFromPoolBtn">&nbsp;</label>
+			<div class="col-sm-8">
+				<button type="button" class="btn btn-danger btn-block" id="playerMoreOptionsRemoveFromPoolBtn">{{ 'teams.moreOptions.removeFromPool'|trans }}</button>
+			</div>
+		</div>
+		<input type="hidden" class="selectedPlayerIdTypeahead" id="playerMoreOptionsReplacementPlayerId" />
+		<input type="hidden" id="playerMoreOptionsPlayerId" />
+		<input type="hidden" id="playerMoreOptionsTeamId" />
+		<input type="hidden" id="playerMoreOptionsPosition" />
+	</div>
+{% endset %}
+{% set modalFooter %}
+	<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+{% endset %}
+{{ macro.modal("playerMoreOptionsModal", "teams.moreOptions.title"|trans, modalContent, modalFooter) }}
+
+
+<!-- Delete team modal -->
+{% set modalContent %}
+	<p>{{ 'teams.options.text'|trans }}</p>
+    <p>
+        <input type="radio" name="deleteTeamMethod" value="remove" checked="checked" id="deleteTeamMethodRemove" /><label for="deleteTeamMethodRemove">{{ 'teams.options.deleteTeam.btn'|trans }}<br />
+	    {{ 'teams.options.deleteTeam.text1'|trans }}<br />
+	    <span class="label label-danger">{{ 'general.important'|trans }}:</span> {{ 'teams.options.deleteTeam.text2'|trans }}</label>
+    </p>
+    <br />
+    <p>
+        <input type="radio" name="deleteTeamMethod" value="empty" id="deleteTeamMethodEmpty"/><label for="deleteTeamMethodEmpty">{{ 'teams.options.removePlayers.btn'|trans }}<br />
+        {{ 'teams.options.removePlayers.text'|trans }}</label>
+    </p>
+	<input type="hidden" name="playerId" id="deleteTeamId" />
+{% endset %}
+{% set modalFooter %}
+	<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+	<button type="button" class="btn btn-danger" onClick="deleteTeam($('#deleteTeamId').val(), $('input[name=deleteTeamMethod]:checked').val());"><i class="fa fa-trash-o"></i> {{ 'modal.delete'|trans }}</button>
+{% endset %}
+{{ macro.modal("deleteTeamModal", "teams.deleteTeam.title"|trans, modalContent, modalFooter) }}
+
+
+{% endblock content %}

@@ -1,0 +1,89 @@
+{#
+Create a new well instead of a widget. A well is a simple box, while a widget has more options.
+#}
+{% macro well(content, sidebar) %}
+<div class="col-md-12">
+    {% if sidebar is null %}
+        <div class="well">
+            {{ content }}
+        </div>
+    {% else %}
+        <div class="well wellSidebar-well">
+            <div class="wellSidebar-sidebar pull-right">{{ sidebar }}</div>
+            <div class="wellSidebar-content">{{ content }}</div>
+        </div>
+    {% endif %}
+</div>
+{% endmacro %}
+
+{#
+Create a new widget. Options are an array with the possible keys:
+colorbutton: true/false. Default: false
+editbutton: true/false. Default: false
+togglebutton: true/false. Default: true
+deletebutton: true/false. Default: false
+fullscreenbutton: true/false. Default: true
+custombutton: true/false. Default: false
+collapsed: true/false. Default: false
+sortable: true/false. Default: false
+hidden: true/false. Default: false
+icon: e.g. fa fa-comments. Default: null
+color: magenta, pink, pinkDark, yellow, orange, orangeDark, darken, purple, teal, blueDark, blue, blueLight, red, redLight, white, greenDark, green or greenLight.
+toolbar: string. Default: null
+bodyClass: string. Default: empty
+#}
+{% macro widget(id, content, title, options) %}
+<!-- Widget ID (each widget will need unique ID)-->
+<div class="jarviswidget{% if options.color|default != null %} jarviswidget-color-{{ options.color }}{% endif %}" id="{{ id }}"
+    {% if options.colorbutton|default(false) == false %}data-widget-colorbutton="false"{% endif %}
+    {% if options.editbutton|default(false) == false %}data-widget-editbutton="false"{% endif %}
+    {% if options.togglebutton|default(true) == false %}data-widget-togglebutton="false"{% endif %}
+    {% if options.deletebutton|default(false) == false %}data-widget-deletebutton="false"{% endif %}
+    {% if options.fullscreenbutton|default(true) == false %}data-widget-fullscreenbutton="false"{% endif %}
+    {% if options.custombutton|default(false) == false %}data-widget-custombutton="false"{% endif %}
+    {% if options.collapsed|default(false) == true %}data-widget-collapsed="true"{% endif %}
+    {% if options.sortable|default(false) == false %}data-widget-sortable="false"{% endif %}
+    {% if options.hidden|default(false) == true %}data-widget-hidden="true"{% endif %}
+        >
+    <header>
+        {% if options.icon|default(null) != null %}
+            <span class="widget-icon"> <i class="{{ options.icon }}"></i> </span>
+        {% endif %}
+        <h2>{{ title }}</h2>
+        {% if options.toolbar|default(null) != null %}
+        <div class="widget-toolbar">
+            {{ options.toolbar|raw }}
+        </div>
+        {% endif %}
+    </header>
+
+    <!-- widget div-->
+    <div>
+        <!-- widget content -->
+        <div class="widget-body no-padding{% if options.bodyClass|default != null %} {{ options.bodyClass }}{% endif %}">
+            {{ content }}
+        </div><!-- /widget-body -->
+    </div><!-- /widget div -->
+</div><!-- /widget -->
+{% endmacro %}
+
+{% macro modal(id, title, content, footer) %}
+<div class="modal fade" id="{{ id }}" tabindex="-1" role="dialog" aria-labelledby="{{id }}-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="{{id }}-label">{{ title }}</h4>
+			</div>
+			<div class="modal-body">
+				{{ content }}
+			</div>
+			<div class="modal-footer">
+				{{ footer }}
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endmacro %}

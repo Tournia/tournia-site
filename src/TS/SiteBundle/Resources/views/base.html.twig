@@ -1,0 +1,302 @@
+{% trans_default_domain "site" %}
+{% extends "TSFrontBundle::base.html.twig" %}
+
+{% set showInfoBlock = showInfoBlock is defined and showInfoBlock == true %}
+{% if pageClass is not defined %}
+    {% set pageClass = "tournament-detail" %}
+{% endif %}
+{% set footerClass = '' %}
+{% set siteContentBlockClass = 'block alt' %}
+
+{% block meta %}
+	<meta name="keywords" content="{{ site.metaKeywords }}">
+	<meta name="description" content="{{ site.metaDescription }}">
+	<meta name="author" content="{{ tournament.contactName }}">
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+
+    {% stylesheets
+    'bundles/tscontrol/css/dataTables.bootstrap.css'
+    'bundles/tssite/css/site.css'
+    filter='cssrewrite,?yui_css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+{% if site.facebookImage is not null %}
+	<meta property="og:image" content="{% spaceless %}
+	{% if site.facebookImage.specialType is not null %}
+		{{ app.request.getScheme() }}://{{ app.request.getHttpHost() }}{{ asset('bundles/tssite/img/backgrounds/'~ site.facebookImage.originalFileName) }}
+	{% else %}
+		{{ app.request.getScheme() }}://{{ app.request.getHttpHost() }}{{ app.request.getBasePath()}}{{ site.facebookImage.webPath }}
+	{% endif %}
+	{% endspaceless %}">
+{% endif %}
+
+<style type="text/css">
+#siteHeader header {
+	background-repeat: no-repeat;
+	background: {% spaceless %}
+		{% if site.headerBackgroundImage is null %}
+			url("{{ asset('bundles/tssite/img/backgrounds/flower.jpg') }}");
+		{% elseif site.headerBackgroundImage.specialType is not null %}
+            url("{{ asset('bundles/tssite/img/backgrounds/'~ site.headerBackgroundImage.originalFileName) }}");background-position: {{ site.headerBackgroundImagePosition }};
+		{% else %}
+            url("{{ app.request.getScheme() }}://{{ app.request.getHttpHost() }}{{ app.request.getBasePath()}}{{ site.headerBackgroundImage.webPath }}");background-position: {{ site.headerBackgroundImagePosition }};
+		{% endif %}
+	{% endspaceless %}
+}
+</style>
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+
+<script type="text/javascript">
+	var urlApiCommand = '{{ path('api_v2_commands', {'tournamentUrl':tournament.url}) }}';
+	var urlApiUpdates = '{{ path('api_v2_updates', {'tournamentUrl':tournament.url}) }}';
+	var urlApiPlayerList = '{{ path('api_v2_players_list', {'tournamentUrl':tournament.url, '_format':'json'}) }}';
+	var urlApiPoolsList = '{{ path('api_v2_pools_list', {'tournamentUrl':tournament.url, '_format':'json'}) }}';
+	var urlFrontLogin = '{{ path('account_login') }}';
+	var tournamentUrl = '{{ tournament.url }}';
+	var controlBaseUrl = '{{ path('control_index', {'tournamentUrl': tournament.url}) }}';
+	var locale = '{{ app.request.locale }}';
+    var webSocketUri = "ws{% if app.request.isSecure %}s{% endif %}://{{ app.request.getHttpHost() }}:{{ websocketPort_external }}";
+    var loginAccountId = '{{ app.user.id }}';
+	
+</script>
+
+	{% javascripts
+        '@TSControlBundle/Resources/public/template/js/plugin/datatables/jquery.dataTables.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/datatables/dataTables.colReorder.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/datatables/dataTables.colVis.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/datatables/dataTables.bootstrap.js'
+        '@TSControlBundle/Resources/public/template/js/plugin/datatables/dataTables.tableTools.js'
+
+        '@GosWebSocketBundle/Resources/public/js/vendor/autobahn.min.js'
+        '@GosWebSocketBundle/Resources/public/js/gos_web_socket_client.js'
+
+        'bundles/fosjsrouting/js/router.js'
+    	'@TSControlBundle/Resources/public/js/typeahead.bundle.js'
+    	'@TSControlBundle/Resources/public/js/serverCommandFunctions.js'
+
+		'@TSSiteBundle/Resources/public/js/site.js'
+		filter='?yui_js' %}
+		<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+
+<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+    {% if showInfoBlock %}
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVQYzQ4TLo-tRYl93zd4aj-_Wwsi98O7k&amp;sensor=true"></script>
+        <script type="text/javascript">
+            function mapsInitialize() {
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({
+                    "address": "{{ site.locationAddress|e|replace({"\r\n": " "}) }}"
+                }, function(results) {
+
+                    var mapOptions = {
+                        center: results[0].geometry.location,
+                        zoom: 11,
+                        panControl: false,
+                        zoomControl: false,
+                        mapTypeControl: false,
+                        scaleControl: false,
+                        streetViewControl: false,
+                        overviewMapControl: false,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    var map = new google.maps.Map(document.getElementById("mapCanvas"), mapOptions);
+                    var marker = new google.maps.Marker({
+                        position: results[0].geometry.location,
+                        map: map,
+                    });
+                    /*
+                     var infowindow = new google.maps.InfoWindow({
+                     content: '<h4>{{ tournament.name|e }}</h4>{{ site.locationAddress|e|replace({"\r\n": " "}) }}<br /><br /><a href="http://maps.google.com/maps?saddr=&daddr={{ site.locationAddress|url_encode() }}" target ="_blank">Get Directions<\/a>'
+                     });
+                     google.maps.event.addListener(marker, 'click', function() {
+                     infowindow.open(map, marker);
+                     });
+                     */
+                });
+            }
+            google.maps.event.addDomListener(window, 'load', mapsInitialize);
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block copyright %}
+{{ parent() }}
+<br />{{ 'base.copyright'|trans({'%startLink%': '<a href="mailto:'~ tournament.emailFrom ~'">', '%endLink%': '</a>'})|raw }}
+{% endblock %}
+
+{% block siteContent %}
+<div class="container">
+    <div id="tournament" class="block">
+        <div class="container">
+            <div class="row charts">
+                <div class="col-md-12" id="contentBlock">
+                    <div class="chart" id="siteHeader">
+                        <header>
+                            <h1 class="white">
+                                {% if site.htmlTitle is not empty %}
+                                    {{ site.htmlTitle | raw }}
+                                {% endif %}
+                                {% if site.htmlSubtitle is not empty %}
+                                    <small class="subtitle">{{ site.htmlSubtitle | raw }}</small>
+                                {% endif %}
+                            </h1>
+                        </header>
+
+                        <main class="row">
+                            <div class="content col-md-{% if showInfoBlock %}9{% else %}12{% endif %}">
+                                <ul class="nav nav-tabs">
+                                    {% for sitePage in site.sitePages %}
+                                        <li{% if app.request.get('_route') == "website_page" and app.request.get('page') == sitePage.url %} class="active"{% endif %}><a href="{{ path('website_page', {'tournamentUrl': tournament.url, 'page': sitePage.url}) }}">{{ sitePage.title }}</a></li>
+                                    {% endfor %}
+                                    <li class="pull-right{% if "live" in app.request.get('_route') %} active{% endif %}"><a href="{{ path('live_index', {'tournamentUrl': tournament.url}) }}">	<img class="liveIcon" src="{% if (tournament.authorization.isApiAllowed) %}{{ asset('bundles/tssite/img/liveOn.png') }}{% else %}{{ asset('bundles/tssite/img/liveOff.png') }}{% endif %}" alt="" /> {{ 'base.navigation.live'|trans }}</a></li>
+                                    {% if tournament.registrationGroupEnabled %}
+                                        <li class="pull-right{% if app.request.get('_route') == "group_overview" %} active{% endif %}"><a href="{{ path('group_overview', {'tournamentUrl': tournament.url}) }}"><i class="fa fa-group"></i><span> {{ 'base.navigation.groups'|trans }}</span></a></li>
+                                    {% endif %}
+                                    <li class="pull-right{% if app.request.get('_route') == "player_overview" %} active{% endif %}"><a href="{{ path('player_overview', {'tournamentUrl': tournament.url}) }}"><i class="fa fa-user"></i><span> {{ 'base.navigation.players'|trans }}</span></a></li>
+                                </ul>
+
+                                {% block content %}{% endblock %}
+                            </div>
+                            {% if showInfoBlock %}
+                            <div class="sidebar col-md-3">
+                                {% if site.infoBlockImage is not null %}
+                                <div class="infoBlockImage info-box">
+                                    <div class="img">
+                                        <img src="{% spaceless %}
+                                            {% if site.infoBlockImage.specialType is not null %}
+                                                {{ asset('bundles/tssite/img/backgrounds/'~ site.infoBlockImage.originalFileName) }}
+                                            {% else %}
+                                                {{ app.request.getScheme() }}://{{ app.request.getHttpHost() }}{{ app.request.getBasePath()}}{{ site.infoBlockImage.webPath }}
+                                            {% endif %}
+                                            {% endspaceless %}" alt="" class="img-responsive" />
+                                    </div>
+                                    <p>&nbsp;</p>
+                                    <p>
+                                        <a class="btn btn-custom-danger btn-lg justified" href="#"><span class="fa fa-circle"></span> {{ 'base.navigation.live'|trans }}</a>
+                                    </p>
+                                </div>
+                                {% endif %}
+
+                                {% if is_granted("EDIT", tournament) %}
+                                <div class="admin info-box">
+                                    <h6 class="title">Admin</h6>
+                                    <p>
+                                        <a class="btn btn-custom-primary btn-lg justified" href="{{ path('control_index', {'tournamentUrl': tournament.url}) }}" target="_blank"><i class="fa fa-wrench"></i> {{ 'base.side.control'|trans }}</a>
+                                    </p>
+                                    <p>
+                                        <a class="btn btn-custom-green btn-lg justified" href="{{ path('settings_index', {'tournamentUrl': tournament.url}) }}" target="_blank"><i class="fa fa-wrench"></i> {{ 'base.side.settings'|trans }}</a>
+                                    </p>
+                                </div>
+                                {% endif %}
+
+                                <div class="information info-box">
+                                    <h6 class="title">{{ 'base.side.information.title'|trans }}</h6>
+                                    <div class="detail">
+                                        <strong>{{ 'base.side.information.when'|trans }}</strong> {{ tournament.startDateTime|date('j M Y') }}{% if tournament.startDateTime|date('j M Y') != tournament.endDateTime|date('j M Y') %} - {{ tournament.endDateTime|date('j M Y') }}{% endif %}
+                                        {% if tournament.authorization.createRegistrationChoice == -1 and tournament.authorization.createRegistrationStart is not empty %}<small>{{ 'base.side.information.registrationopen'|trans }}: {{ tournament.authorization.createRegistrationStart|date('j M Y H:i') }}</small>{% endif %}
+                                        {% if tournament.authorization.createRegistrationChoice == -1 and tournament.authorization.createRegistrationEnd is not empty %}<small>{{ 'base.side.information.registrationdeadline'|trans }}: {{ tournament.authorization.createRegistrationEnd|date('j M Y H:i') }}</small>{% endif %}
+                                    </div>
+                                    {% if tournament.financialEnabled %}
+                                    <div class="detail">
+                                        <strong>{{ 'base.side.information.costs'|trans }}:</strong>
+                                        {% if tournament.products|length > 0 %}
+                                            {% for product in tournament.products if not product.isHidden %}
+                                                <small>{{ product.name }} {{ product.price|sylius_price }}</small>
+                                            {% endfor %}
+                                            <small>{{ 'base.side.information.excl'|trans }}
+                                                    {% if not tournament.organizationPaysServiceFee %}
+                                                        {{ 50|sylius_price }} {{ 'base.side.information.servicefeeand'|trans }}
+                                                    {% endif %}
+                                                    {{ 'base.side.information.transactioncosts'|trans }}
+                                            </small>
+                                            <p><small><a href="{{ path('sylius_cart_summary', {'tournament': tournament.url}) }}">{{ 'base.side.information.makepayment'|trans }}</a></small></p>
+                                        {% else %}
+                                            {{ 'base.side.information.noproducts'|trans }}
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                    <p></p>
+                                    {% if tournament.authorization.createRegistrationAllowed %}
+                                        <a class="btn btn-custom-primary btn-lg justified" href="{{ path('player_create', {'tournamentUrl': tournament.url}) }}"><span class="fa fa-pencil"></span> {{ 'base.side.information.register'|trans }}</a>
+                                    {% else %}
+                                        <a class="btn btn-custom-default btn-lg justified disabled"><span class="fa fa-minus-circle"></span> {{ 'base.side.information.registrationclosed'|trans }}</a>
+                                        {% if is_granted("EDIT", tournament) %}
+                                            <br /><a href="{{ path('player_create', {'tournamentUrl': tournament.url}) }}">{{ 'base.side.information.organizercreateregistration'|trans }}</a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+
+                                <div class="organizer info-box">
+                                    <h6 class="title">{{ 'base.side.organizer'|trans }}</h6>
+                                    <p><strong class="name">{{ tournament.contactName }}</strong></p>
+                                    <div class="detail"><span class="glyphicon glyphicon-envelope fa-fw"></span> <a href="mailto:{{tournament.emailFrom}}">{{tournament.emailFrom}}</a></div>
+                                </div>
+
+                                <div class="location info-box">
+                                    <h6 class="title">{{ 'base.side.location'|trans }}</h6>
+                                    <div class="detail">
+                                        <span class="glyphicon glyphicon-map-marker fa-fw"></span>
+                                        <a href="https://maps.google.com/maps?q={{ site.locationAddress|url_encode() }}" target="_blank">
+                                            {{ site.locationAddress|nl2br }}
+                                        </a>
+                                        <div class="map">
+                                            <a href="https://maps.google.com/maps?q={{ site.locationAddress|url_encode() }}" target="_blank">
+                                                <div id="mapCanvas"></div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="statistics info-box">
+                                    <h6 class="title">{{ 'base.side.statistics.title'|trans }}</h6>
+                                    <table class="table table-stats">
+                                        <tr>
+                                            <td>{{ 'base.side.statistics.total'|trans }}</td>
+                                            <td><a href="{{ path('player_overview', {'tournamentUrl': tournament.url}) }}">{{ statistics.unique.total }}</a></td>
+                                        </tr>
+                                        <tr class="muted">
+                                            <td>- {{ 'base.side.statistics.male'|trans }}</td>
+                                            <td>{{ statistics.unique.male }}</td>
+                                        </tr>
+                                        <tr class="muted">
+                                            <td>- {{ 'base.side.statistics.female'|trans }}</td>
+                                            <td>{{ statistics.unique.female }}</td>
+                                        </tr>
+                                        {% if tournament.registrationGroupEnabled %}
+                                        <tr>
+                                            <td>{{ 'base.side.statistics.groups'|trans }}</td>
+                                            <td><a href="{{ path('group_overview', {'tournamentUrl': tournament.url}) }}">{{ tournament.registrationGroups | length }}</a></td>
+                                        </tr>
+                                        {% endif %}
+                                    </table>
+                                </div>
+                                {#
+                                <div class="social-media info-box">
+                                    <h6 class="title">Social media</h6>
+                                    <p>
+                                    <div class="icons">
+                                        <a class="twitter" href="#"><span class="fa fa-twitter-square"></span></a>
+                                        <a class="facebook" href="#"><span class="fa fa-facebook-square"></span></a>
+                                        <a class="google-plus" href="#"><span class="fa fa-google-plus-square"></span></a>
+                                    </div>
+                                    </p>
+                                </div>
+                                #}
+                            </div>
+                            {% endif %}{# endof showInfoBlock #}
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

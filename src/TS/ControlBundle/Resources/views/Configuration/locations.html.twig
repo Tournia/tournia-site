@@ -1,0 +1,293 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "locations.title"|trans %}
+
+{% block javascript %}
+{% javascripts
+	'@TSControlBundle/Resources/public/js/jquery-sortable.js'
+	filter='?yui_js' %}
+	<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script type="text/javascript">
+///// post and receive server messages /////
+
+// setting commands for refresh of server data
+function getRefreshCommands() {
+	command = {
+		command : 'Locations.list',
+	}
+	return new Array(command);
+}
+
+// // setting datatable options
+ajaxDataTableOptions.locationsTable = {};
+ajaxDataTableOptions.locationsTable.aoColumns = [
+    { "sType": "num-html" },
+    { "sType": "html" },
+    { "sType": "html" },
+    { "sType": "html" },
+];
+
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+    if (commandKey == "Locations.list") {
+		// go through locations
+		$('#locationsTable').dataTable().fnClearTable();
+		var position = 1;
+		$.each(commandResponse, function(key2, locationObject) {
+			positionColumn = '<i class="fa fa-arrows" data-position="'+ locationObject['position'] +'" data-locationid="'+ locationObject['id'] +'"></i> '+ position;
+			position++;
+
+			nameColumn = '<span id="locationName-'+ locationObject['id'] +'">'+ locationObject['name'] +'</span>';
+			
+			statusBtn = '<span class="cellInvisible">'+ (!locationObject['onHold']) +' </span><input type="checkbox" class="formSwitch" data-on-color="success" data-off-color="danger" data-on-text="{{ 'locations.onHoldSwitch.ok'|trans }}" data-off-text="{{ 'locations.onHoldSwitch.hold'|trans }}" id="locationStatusSwitch-'+ locationObject['id'] +'"';
+			if (!locationObject['onHold']) {
+				statusBtn += ' checked';
+			}
+			statusBtn += "/>";
+            if (locationObject['onHold']) {
+                currentNonreadyReason = locationObject['nonreadyReason'] == null ? '' : locationObject['nonreadyReason'].replace(/"/g, '&quot;');
+                statusBtn += ' <span class="nonreadyReasonTooltip" rel="tooltip" data-placement="right" data-reason="'+ currentNonreadyReason +'" data-objectId="'+ locationObject['id'] +'"><i class="fa fa-info-circle"></i></span>';
+            }
+			editBtn = '<button type="button" class="btn btn-primary locationEdit" onClick="editLocation('+ locationObject['id'] +')">{{ 'locations.editName'|trans }}</button>';
+			editBtn += ' <button type="button" class="btn btn-danger" onClick="removeLocation('+ locationObject['id'] +')"><i class="fa fa-trash-o"></i> {{ 'locations.removeLocation'|trans }}</button>'
+            $('#locationsTable').dataTable().fnAddData( [
+				positionColumn,
+				nameColumn,
+				statusBtn,
+				editBtn
+			]);
+		});
+        enableNonreadyReasonTooltip('#locationsTable', editNonreadyReason);
+		dataTableFinishedLoading("locationsTable");
+	}
+	
+}
+
+// process a new row in datatable
+function datatableProcessRow(row, table) {
+	// create form switch
+	$(".formSwitch", row).on('switchChange.bootstrapSwitch', function (event, state) {
+ 		// change readyness of location
+		locationId = getId($(this).attr('id'));
+		newStatus = !state;
+		command = {
+			command : 'Locations.setOnHold',
+			locationId: locationId,
+			onHold: newStatus
+		}
+		addServerCommand(command);
+		sendServerCommands(true);
+	});
+}
+
+function editLocation(locationId) {
+	// editing location
+	$("#editLocationId").val(locationId);
+	$("#editLocationName").val($("#locationName-"+ locationId).text());
+	$("#editLocation").modal('show');
+}
+
+function editPosition(locationId, newPosition) {
+	command = {
+		command : 'Locations.edit',
+		locationId: locationId,
+		position: newPosition
+	}
+	addServerCommand(command);
+	sendServerCommands(true);
+}
+
+function editNonreadyReason(locationId, newReason) {
+    command = {
+        command : 'Locations.setOnHold',
+        locationId: locationId,
+        onHold: true,
+        nonreadyReason: newReason,
+    }
+    addServerCommand(command);
+    sendServerCommands(true);
+}
+
+function removeLocation(locationId) {
+    // remove a location
+    command = {
+        command : 'Locations.remove',
+        locationId: locationId,
+    }
+    addServerCommand(command);
+    sendServerCommands(true);
+}
+
+</script>
+
+{% endblock %}
+
+{% block jQuery %}
+$("#newLocation").on('show.bs.modal', function() {
+	// before showing modal, clear text input
+	$("#newLocationName").val('');
+});
+$("#newLocation").on('shown.bs.modal', function() {
+	// at showing modal, focus text input
+	$("#newLocationName").focus();
+});
+$("#editLocation").on('shown.bs.modal', function() {
+	// at showing modal, focus text input
+	$("#editLocationName").focus();
+});
+$("#newLocationAddButton").on("click", function() {
+	// create a new location
+	command = {
+		command : 'Locations.create',
+		name: $("#newLocationName").val(),
+	}
+	addServerCommand(command);
+	sendServerCommands(true);
+	$("#newLocation").modal("hide");
+});
+// also submit form when pressing enter in name field
+$('#newLocationName').keypress(function (e) {
+	if (e.which == 13) {
+		$("#newLocationAddButton").triggerHandler('click');
+	}
+});
+$("#editLocationSaveButton").on("click", function() {
+	// save an edited location
+	command = {
+		command : 'Locations.edit',
+		locationId: $("#editLocationId").val(),
+		name: $("#editLocationName").val(),
+	}
+	addServerCommand(command);
+	sendServerCommands(true);
+	$("#editLocation").modal("hide");
+});
+// also submit form when pressing enter in name field
+$('#editLocationName').keypress(function (e) {
+	if (e.which == 13) {
+		$("#editLocationSaveButton").triggerHandler('click');
+	}
+});
+$("#editLocationRemove").on("click", function() {
+	// remove a location
+    removeLocation($("#editLocationId").val());
+	$("#editLocation").modal("hide");
+});
+
+// retrieving initial data from server
+sendServerCommands(true);
+
+// Sortable rows
+$("#locationsTable").sortable({
+	containerSelector: 'table',
+	itemPath: '> tbody',
+	itemSelector: 'tr',
+	placeholder: '<tr class="placeholder"/>',
+	handle: 'i.fa-arrows',
+	onDrop: function ($item, container, _super, event) {
+		$item.removeClass("dragged").removeAttr("style");
+		$("body").removeClass("dragging");
+		
+		currentPosition = $item.find('.fa-arrows').attr('data-position');
+		// find previous and next position
+		previousPosition = 0;
+		if ($item.prev().length > 0) {
+			previousPosition = $item.prev().find('.fa-arrows').attr('data-position');
+		}
+		nextPosition = -1;
+		if ($item.next().length > 0) {
+			nextPosition = $item.next().find('.fa-arrows').attr('data-position');
+		}
+		
+		// deciding new position
+		if (currentPosition >= previousPosition) {
+			// move up -> pick next position
+			newPosition = nextPosition;
+		} else {
+			// move down -> pick previous position
+			newPosition = previousPosition;
+		}
+
+		locationId = $item.find('.fa-arrows').attr('data-locationid');
+		editPosition(locationId, newPosition);
+	}
+})
+
+{% endblock %}
+
+{% block css %}
+
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+.placeholder {
+	height: 34px;
+	width: 100%;
+	border: 2px dotted black;
+}
+
+#locationsTable .fa-arrows {
+	cursor: pointer;
+}
+
+.bootstrap-switch {
+    width: 225px;
+}
+{% endblock %}
+
+{% block content %}
+
+<div class="well">
+	<p class="pull-right">
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newLocation"><i class="fa fa-plus"></i> {{ 'locations.addLocation'|trans }}</button>
+	</p>
+	<br /><br />
+
+	<table class="table table-hover table-striped ajaxDataTable" id="locationsTable">
+		<thead>
+			<tr>
+				<th>{{ 'locations.table.id'|trans }}</th>
+				<th>{{ 'locations.table.name'|trans }}</th>
+				<th>{{ 'locations.table.status'|trans }}</th>
+				<th>{{ 'locations.table.edit'|trans }}</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
+
+
+<!-- New location modal -->
+{% set modalContent %}
+	<p>{{ 'locations.modal.name'|trans }}: <input type="text" id="newLocationName"></p>
+{% endset %}
+{% set modalFooter %}
+	<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+	<button type="button" class="btn btn-primary" id="newLocationAddButton"><i class="fa fa-plus"></i> {{ 'modal.add'|trans }}</button>
+{% endset %}
+{{ macro.modal("newLocation", "locations.modal.newLocation"|trans, modalContent, modalFooter) }}
+
+<!-- Edit location modal -->
+{% set modalContent %}
+	<p>{{ 'locations.modal.name'|trans }}: <input type="text" id="editLocationName"></p>
+	<input type="hidden" id="editLocationId" value="" />
+{% endset %}
+{% set modalFooter %}
+	<button type="button" class="btn btn-danger pull-left" id="editLocationRemove"><i class="fa fa-trash-o"></i> {{ 'locations.modal.removeLocation'|trans }}</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+	<button type="button" class="btn btn-primary" id="editLocationSaveButton"><i class="fa fa-save"></i> {{ 'modal.save'|trans }}</button>
+{% endset %}
+{{ macro.modal("editLocation", "locations.modal.editLocation"|trans, modalContent, modalFooter) }}
+
+{% endblock %}

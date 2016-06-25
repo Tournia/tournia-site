@@ -1,0 +1,32 @@
+php_flag magic_quotes_gpc Off
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirect non-www.* to www.*
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP_HOST} ^tournia.net [NC]
+    RewriteRule ^(.*)$ http://www.tournia.net/$1 [L,R=301,NC]
+
+    RewriteCond %{HTTPS} on
+    RewriteCond %{HTTP_HOST} ^tournia.net [NC]
+    RewriteRule ^(.*)$ https://www.tournia.net/$1 [L,R=301,NC]
+
+    # MAINTENANCE-PAGE REDIRECT
+	#RewriteRule ^(maintenance) - [L]
+	#RewriteCond %{REMOTE_ADDR} !^83\.83\.205\.245
+	#RewriteRule .* /maintenance/index.html [R=302,L]
+    
+    #<IfModule mod_vhost_alias.c>
+    #    RewriteBase /
+    #</IfModule>
+    
+    RewriteCond %{HTTP_HOST} \.
+    RewriteCond %{HTTP_HOST} !^www\.
+    RewriteCond !localhost [NC]
+    RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ app.php [QSA,L]
+    
+</IfModule>

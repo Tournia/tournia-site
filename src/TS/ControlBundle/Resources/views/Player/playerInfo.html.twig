@@ -1,0 +1,361 @@
+{% trans_default_domain "control" %}
+{% form_theme form 'TSControlBundle::form.html.twig' %}
+
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "playerInfo.title"|trans %}
+{% set new = player.id is null %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- start sass -->
+    {% stylesheets
+    'bundles/tsfront/template/css/player.scss'
+    filter='compass,cssrewrite,?yui_css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    <!-- end sass -->
+{% endblock %}
+
+{% block javascript %}
+
+{% include "TSSiteBundle:Player:includeEditJavascript.js.twig" %}
+
+<script type="text/javascript">
+
+// setting commands for refresh of server data
+function getRefreshCommands() {
+	command1 = {
+		command : 'Players.list',
+		status: {},
+		playerId: '{{ player.id }}',
+		full: true
+	}
+	command2 = {
+		command : 'Matches.listPlayer',
+		playerId: '{{ player.id }}'
+	}
+	return new Array(command1, command2);
+}
+
+// setting datatable options
+ajaxDataTableOptions.poolsTable = {};
+ajaxDataTableOptions.poolsTable.bFilter = false;
+ajaxDataTableOptions.poolsTable.bInfo = false;
+ajaxDataTableOptions.poolsTable.bPaginate = false;
+ajaxDataTableOptions.poolsTable.bSort = false;
+ajaxDataTableOptions.matchesTable = {};
+ajaxDataTableOptions.matchesTable.bFilter = false;
+ajaxDataTableOptions.matchesTable.bInfo = false;
+ajaxDataTableOptions.matchesTable.bPaginate = false;
+ajaxDataTableOptions.matchesTable.bSort = false;
+
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+	if (commandKey == "Players.list") {
+		$.each(commandResponse, function(key, val) {
+			if (key == "players") {
+				// go through players
+				$('#poolsTable').dataTable().fnClearTable();
+				$.each(val, function(key2, playerObject) {
+					$.each(playerObject['teams'], function(key3, teamObject) {
+						link = convertUrlToHash('{{ path('control_teams', {'tournamentUrl':tournament.url}) }}?cid='+ teamObject['poolId']);
+						poolName = '<a href="'+ link +'" class="noLinkUnderline">'+ teamObject['poolName'] +'</a>';
+						
+    					if (!teamObject['givenUp']) {
+    						givenUp = '<span class=\"label label-success\">{{ 'playerInfo.pool.ready'|trans }}</span>';
+    					} else {
+    						givenUp = '<span class=\"label label-danger\">{{ 'playerInfo.pool.givenUp'|trans }}</span>';
+    					}
+
+						$('#poolsTable').dataTable().fnAddData( [
+							poolName,
+							givenUp,
+							teamObject['teamName']
+						]);
+					});
+				});
+				dataTableFinishedLoading("poolsTable");
+			}
+		});
+	} else if (commandKey == "Matches.listPlayer") {
+		// go through matches
+		$('#matchesTable').dataTable().fnClearTable();
+		$.each(commandResponse, function(key2, matchObject) {
+			// write down name of players
+			if (matchObject['team1'] == null) {
+				team1 = "-";
+			} else {
+				team1 = renderPlayerNames(matchObject['team1']['players'], true);
+			}
+
+			// write down name of players
+			if (matchObject['team1'] == null) {
+				team2 = "-";
+			} else {
+				team2 = renderPlayerNames(matchObject['team2']['players'], true);
+			}
+
+            localMatchTxt = '<a href="javascript:editMatch(\''+ matchObject['matchId'] +'\')">'+ matchObject['localId'] +'</a>';
+
+			$('#matchesTable').dataTable().fnAddData( [
+                localMatchTxt,
+				team1,
+				team2,
+				matchObject['pool'],
+				matchObject['round'],
+				matchObject['score'],
+				matchObject['status']
+			]);
+		});
+		dataTableFinishedLoading("matchesTable");
+
+		// mark selected player in matches table
+		$('#matchesTable .playerNames .label').each(function() {
+			if ($(this).text() == $("#playerName").text()) {
+				$(this).parent().after(' <i class="fa fa-asterisk"></i>');
+			}
+		});
+	}
+}
+
+// process a new row in datatable
+function datatableProcessRow(row, table) {
+	stylePlayerNames(row);
+}
+
+function editNonreadyReason(playerId, newReason) {
+    $(".nonreadyReasonTooltip").attr("data-reason", newReason);
+
+    command = {
+        command : 'Players.setReady',
+        playerId: playerId,
+        ready: false,
+        nonreadyReason: newReason,
+    }
+    addServerCommand(command);
+    sendServerCommands(true);
+}
+
+</script>
+{% endblock %}
+
+{% block jQuery %}
+	var isOrganizer = true;
+ 	{% include "TSSiteBundle:Player:includeEditJquery.js.twig" %}
+ 	sendServerCommands(true);
+
+ 	$(".formSwitch").bootstrapSwitch();
+ 	$('.formSwitch').on('switchChange.bootstrapSwitch', function (event, state) {
+ 		// change readyness of player
+		command = {
+			command : 'Players.setReady',
+			playerId: '{{ player.id }}',
+			ready: state
+		}
+		addServerCommand(command);
+		sendServerCommands(true);
+
+		if (state) {
+			// set player to ready -> hide playerNotReady warning block
+			$("#playerNotReady").hide();
+			$(".nonreadyReasonTooltip").hide();
+            $(".nonreadyReasonTooltip").attr("data-reason", "");
+		} else {
+            $("#playerNotReady").show();
+            $(".nonreadyReasonTooltip").show();
+        }
+	});
+
+    enableNonreadyReasonTooltip(".tab-content", editNonreadyReason);
+
+    {% if player.ready %}
+        // hide non-ready reason tooltip if player is ready
+        $(".nonreadyReasonTooltip").hide();
+    {% endif %}
+
+    // hide some elements, because these are not useful in Control
+    $("#submitButton").hide();
+{% endblock %}
+
+
+{% block content %}
+{% set content %}
+<form class="form-horizontal" action="{{ path('control_player_info', {'tournamentUrl': tournament.url, 'playerId':player.id}) }}" method="post" {{ form_enctype(form) }}>
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#general" data-toggle="tab">{{ 'playerInfo.tab.general'|trans }}</a></li>
+		<li><a href="#registration" data-toggle="tab">{{ 'playerInfo.tab.registrationInfo'|trans }}</a></li>
+	</ul>
+	
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="general">
+			{% if player.ready == false %}
+	    		<div class="alert alert-danger" id="playerNotReady">
+	    			<strong><i class="fa fa-warning"></i> {{ 'playerInfo.player.postponed'|trans }}</strong>
+	    		</div>
+	    	{% endif %}
+	    	<div class="row-fluid">
+		    	<div class="span6">
+					<h3>{{ 'playerInfo.playerInfo'|trans }}</h3>
+			    	<table class="table">
+			    		<tbody>
+			    			<tr>
+			    				<td>{{ 'playerInfo.name'|trans }}</td>
+			    				<td id="playerName">{{ player.name }}</td>
+			    			</tr>
+			    			<tr>
+			    				<td>{{ 'playerInfo.status'|trans }}</td>
+			    				<td>{{ player.status }}</td>
+			    			</tr>
+			    			{% if tournament.registrationGroupEnabled and player.registrationGroup is not empty %}
+			    			<tr>
+			    				<td>{{ 'playerInfo.group'|trans }}</td>
+			    				<td>{{ player.registrationGroup.name }}</td>
+			    			</tr>
+			    			<tr>
+			    				<td>{{ 'playerInfo.contactPerson'|trans }}</td>
+			    				<td>
+			    					{% if registrationGroupContactPlayers|length == 0 %}
+			    						None
+			    					{% elseif registrationGroupContactPlayers|length == 1 %}
+			    						{% if registrationGroupContactPlayers|first is same as(player) %}
+			    							Yes
+			    						{% else %}
+			    							<a href="{{ path('control_player_info', {'tournamentUrl': tournament.url, 'playerId': registrationGroupContactPlayers|first.id}) }}">{{ registrationGroupContactPlayers|first.name }}</a>
+			    						{% endif %}
+			    					{% else %}
+				    					{% for contactPlayer in registrationGroupContactPlayers %}
+				    						<a href="{{ path('control_player_info', {'tournamentUrl': tournament.url, 'playerId': contactPlayer.id}) }}">{{ contactPlayer.name }}</a><br />
+				    					{% endfor %}
+				    				{% endif %}
+			    				</td>
+			    			</tr>
+			    			{% endif %}
+			    			<tr>
+			    				<td>{{ 'playerInfo.email'|trans }}</td>
+			    				<td>
+			    					{% if player.person is null %}
+			    						{{ 'playerInfo.email.unkonwn'|trans }}
+			    					{% else %}
+			    						<a href="mailto:{{ player.person.email }}">{{ player.person.email }}</a>
+			    					{% endif %}
+			    				</td>
+			    			</tr>
+                            <tr>
+                                <td>{{ 'playerInfo.registrationDate'|trans }}</td>
+                                <td>
+                                    {{ player.registrationDate|date('d-M-Y H:i:s') }}
+                                </td>
+                            </tr>
+			    			<tr>
+			    				<td>{{ 'playerInfo.ready'|trans }}</td>
+			    				<td>
+									<input type="checkbox" class="formSwitch" data-on-color="success" data-off-color="danger" data-on-text="{{ 'playersInPools.readySwitch.ready'|trans }}" data-off-text="{{ 'playersInPools.readySwitch.postponed'|trans }}" {% if player.ready %}checked{% endif %} />
+                                    <span class="nonreadyReasonTooltip" rel="tooltip" data-placement="right" data-reason="{{ player.nonreadyReason }}" data-objectId="{{ player.id }}"><i class="fa fa-info-circle"></i></span>
+			    				</td>
+			    			</tr>
+			    		</tbody>
+			    	</table>
+				</div>
+
+				<div class="span6">
+				    <h3>{{ 'playerInfo.pools'|trans }}</h3>
+		            <table class="table table-hover ajaxDataTable" id="poolsTable">
+		                <thead>
+		                    <tr>
+		                        <th>{{ 'playerInfo.pools.pool'|trans }}</th>
+		                        <th>{{ 'playerInfo.pools.givenUp'|trans }}</th>
+		                        <th>{{ 'playerInfo.pools.team'|trans }}</th>
+		                    </tr>
+		                </thead>
+		                <tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<br />
+			<h3>{{ 'playerInfo.matches'|trans }}</h3>
+            <table class="table table-hover ajaxDataTable" id="matchesTable">
+                <thead>
+                    <tr>
+                        <th>{{ 'table.matchNr'|trans }}</th>
+                        <th>{{ 'table.team1'|trans }}</th>
+                        <th>{{ 'table.team2'|trans }}</th>
+                        <th>{{ 'table.pool'|trans }}</th>
+                        <th>{{ 'table.round'|trans }}</th>
+                        <th>{{ 'table.score'|trans }}</th>
+                        <th>{{ 'table.status'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+				</tbody>
+			</table>
+
+			<br />
+			<br />
+			<h3>{{ 'playerInfo.payments'|trans }}</h3>
+			{% if player.boughtProducts|length == 0 %}
+				<p>{{ 'playerInfo.payments.none'|trans }}</p>
+			{% else %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{ 'playerInfo.payments.date'|trans }}</th>
+                        <th>{{ 'playerInfo.payments.product'|trans }}</th>
+                        <th>{{ 'playerInfo.payments.amount'|trans }}</th>
+                        <th>{{ 'playerInfo.payments.execPerson'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for boughtProduct in player.boughtProducts %}
+					<tr>
+						<td>{{ boughtProduct.cartOrder.updatedAt|date("d-M-Y H:i:s") }}</td>
+                        <td>{{ boughtProduct.quantity }} {{ boughtProduct.name }}</td>
+						<td>{{ boughtProduct.amount|sylius_price }}</td>
+                        {% if boughtProduct.cartOrder.execPerson is not empty %}
+						    <td>{{ boughtProduct.cartOrder.execPerson.name }} ({{ boughtProduct.cartOrder.execPerson.email }})</td>
+                        {% else %}
+                            <td>{{ 'playerInfo.payments.anonymous'|trans }}</td>
+                        {% endif %}
+					</tr>
+				{% endfor %}
+					<tr>
+						<td><b>{{ 'playerInfo.payments.total'|trans }}</b></td>
+						<td><b>{{ tournament.paymentCurrency }} {{ player.paymentBalance|sylius_price }}</b></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			{% endif %}
+
+			
+
+			
+		</div>
+
+		<div class="tab-pane fade" id="registration">
+	    	<div id="playerForm">
+                {% include "TSSiteBundle:Player:includeEditForm.html.twig" %}
+                <div class="form-actions">
+                    <a href="{{ path('control_player_overview', {'tournamentUrl':tournament.url}) }}" class="btn">{{ 'modal.cancel'|trans }}</a>
+                    <button type="button" class="btn btn-primary" onClick="checkAndSendForm()">{{ 'modal.save'|trans }}</button>
+                </div>
+
+                {#
+                <div class="form-actions">
+                    <a href="{{ path('control_player_delete', {'tournamentUrl':tournament.url, 'playerId': player.id}) }}" onClick="return confirm('Are you sure you want to delete this player? This will also delete all matches and might change the ranking!');" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete player</button></a>
+                </div>
+                #}
+            </div>
+		</div>
+	</div>
+</form>
+{% endset %}
+{{ macro.well(content) }}
+
+
+{% endblock %}

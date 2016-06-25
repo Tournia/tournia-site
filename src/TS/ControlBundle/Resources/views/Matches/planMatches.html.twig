@@ -1,0 +1,443 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+{% use "TSControlBundle:Matches:scoreBlocks.html.twig" %}
+
+{% set title = "planMatches.title"|trans %}
+
+{% block css %}
+
+#alreadyPlayedMatchesWarning {
+	display: none;
+}
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+///// post and receive server messages /////
+
+// setting commands for refresh of server data
+function getRefreshCommands() {
+	command = {
+		command : 'Matches.listPool',
+		poolId: $("#poolSelector").val(),
+		round: $("#roundSelector").val(),
+	}
+	return new Array(command);
+}
+// setting on which updates data should be refreshed
+observerUpdateSection.push('match');
+
+// setting datatable options
+ajaxDataTableOptions.matchesTable = {};
+ajaxDataTableOptions.matchesTable.bFilter = false;
+ajaxDataTableOptions.matchesTable.bInfo = false;
+ajaxDataTableOptions.matchesTable.bPaginate = false;
+ajaxDataTableOptions.matchesTable.bSort = false;
+ajaxDataTableOptions.nonPlayingTeamsTable = {};
+ajaxDataTableOptions.nonPlayingTeamsTable.bFilter = false;
+ajaxDataTableOptions.nonPlayingTeamsTable.bInfo = false;
+ajaxDataTableOptions.nonPlayingTeamsTable.bPaginate = false;
+ajaxDataTableOptions.nonPlayingTeamsTable.bSort = false;
+
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+    if (commandKey == "Matches.listPool") {
+		// go through matches
+		$('#matchesTable').dataTable().fnClearTable();
+		$('#nonPlayingTeamsTable').dataTable().fnClearTable();
+
+		$.each(commandResponse, function(key2, matchObject) {
+			if (key2 == "nonPlayingTeams") {
+				$.each(matchObject, function(key3, teamObject) {
+					if (teamObject['players'].length == 0) {
+						team = "{{ 'planMatches.noPlayersInTeam'|trans }}";
+					} else {
+						team = renderPlayerNames(teamObject['players'], true);
+					}
+					$('#nonPlayingTeamsTable').dataTable().fnAddData( [
+						team
+					]);
+				});
+			} else {
+				if ((matchObject['status'] == "ready") || (matchObject['status'] == "postponed")) {
+					score = '{{ 'planMatches.notPlayedYet'|trans }}';
+				} else {
+					score = '{{ 'planMatches.noScoreYet'|trans }}';
+				}
+				if (matchObject['score'] != '') {
+					score = matchObject['score'];
+				}
+
+                localMatchTxt = '<a href="javascript:editMatch(\''+ matchObject['matchId'] +'\')">'+ matchObject['localId'] +'</a>';
+				team1 = renderPlayerNames(matchObject['team1Players'], true);
+				team2 = renderPlayerNames(matchObject['team2Players'], true);
+				options = "<button class=\"btn btn-primary\" onClick=\"editMatch("+ matchObject['matchId'] +")\"><i class=\"fa fa-edit\"></i> {{ 'planMatches.edit'|trans }}</button>";
+				if ((matchObject['status'] == 'ready') || (matchObject['status'] == 'postponed')) {
+					options += ' <input type="checkbox" class="formSwitch" data-size="small" data-on-color="success" data-off-color="danger" data-on-text="{{ 'planMatches.switch.ready'|trans }}" data-off-text="{{ 'planMatches.switch.postponed'|trans }}" id="formSwitch-'+ matchObject['matchId'] +'"';
+					if (matchObject['status'] == "ready") {
+						options += ' checked';
+					}
+					options += "/>";
+
+                    if (matchObject['status'] == "postponed") {
+                        currentNonreadyReason = matchObject['nonreadyReason'] == null ? '' : matchObject['nonreadyReason'].replace(/"/g, '&quot;');
+                        options += ' <span class="nonreadyReasonTooltip" rel="tooltip" data-placement="right" data-reason="'+ currentNonreadyReason +'" data-objectId="'+ matchObject['matchId'] +'"><i class="fa fa-info-circle"></i></span>';
+                    }
+				}
+				
+				addedRow = $('#matchesTable').dataTable().fnAddData( [
+                    localMatchTxt,
+					team1,
+					team2,
+					score,
+					options
+				]);
+				tableRow = $('#matchesTable').dataTable().fnSettings().aoData[ addedRow[0] ].nTr;
+				$(tableRow).attr("id", "matchId-"+ matchObject['matchId']);
+			}
+		});
+		if ($("#matchesTable tbody").html() == '') {
+			$("#matchesTable tbody").html('<td colspan="5"><p align="center">{{ 'planMatches.noMatchesPlanned'|trans }}</p></td>');
+		}
+
+        enableNonreadyReasonTooltip("#matchesTable", editNonreadyReason);
+        checkNoRounds();
+		dataTableFinishedLoading("matchesTable");
+		dataTableFinishedLoading("nonPlayingTeamsTable");
+        if ($("#matchesTable").parent().is(":visible")) {
+            // hidden matchesTable means no matches available
+            checkAlreadyPlayedMatches();
+        }
+	} else if (commandKey == "Pools.checkFinishedPlaying") {
+		if (commandResponse == "ok") {
+			$("#createRoundWarningNotFinished").hide();
+		} else {
+			$("#createRoundWarningNotFinished").show();
+		}
+	} else if (commandKey == "Matches.alreadyPlayed") {
+		// check whether matched have already been played
+		playedMatchesExist = false;
+		$.each(commandResponse, function(matchId, matchPlayed) {
+			// go through all matchId to check whether match has been played
+			if (matchPlayed) {
+				playedMatchesExist = true;
+				// display row as played
+				$("#matchesTable #matchId-"+ matchId).addClass("danger");
+                tooltipTitle = '{{ 'planMatches.matchHasPlayed'|trans }}';
+                $.each(matchPlayed, function(matchPlayedIterator, matchPlayedArray) {
+                    tooltipTitle += ' #'+ matchPlayedArray['localId'];
+                });
+				$("#matchesTable #matchId-"+ matchId +" td:first").append(' <span class="alreadyPlayedTooltip" rel="tooltip" data-placement="right" title="'+ tooltipTitle +'"><i class="fa fa-warning"></i></span>');
+			}
+		});
+
+		if (playedMatchesExist) {
+			// tooltip layout
+			dataTableFinishedLoading("matchesTable");
+			$(".alreadyPlayedTooltip").tooltip();
+
+			// show warning message
+			$("#alreadyPlayedMatchesWarning").show();
+		} else {
+			// hide warning message
+			$("#alreadyPlayedMatchesWarning").hide();
+		}
+	}
+}
+
+// process a new row in datatable
+function datatableProcessRow(row, table) {
+	stylePlayerNames(row);
+
+	// set ready switch
+	$('.formSwitch', row).on('switchChange.bootstrapSwitch', function (event, state) {
+ 		// change readyness of match
+		matchId = getId($(this).attr('id'));
+		newStatus = state ? 'ready' : 'postponed';
+		command = {
+			command : 'Matches.setStatus',
+			matchId: matchId,
+			status: newStatus
+		}
+		addServerCommand(command);
+		sendServerCommands(true);
+	});
+}
+
+var selectLastRound = false;
+function afterUpdatePoolSelector() {
+	$("#createRoundPool, #deleteRoundPool").prepend('<option value="all">{{ 'general.allPools'|trans }}</option>');
+	
+	// look for poolId in hash of url
+	if (getUrlParam("cid") != null) {
+	    $("#poolSelector option[value='"+ getUrlParam("cid") +"']").prop("selected", true);
+	}
+	
+	// update round selector
+	updateRoundSelector($("#poolSelector").val(), true, afterUpdateRoundSelector);
+	selectLastRound = true;
+}
+
+function afterUpdateRoundSelector() {
+    $("#deleteRoundRound").prepend('<option value="all">{{ 'general.allRounds'|trans }}</option>');
+	if (selectLastRound) {
+		$("#roundSelector option:last").prop('selected', true);
+	}
+
+	updateMatchesTableTitle();
+}
+
+function updateMatchesTableTitle() {
+	// update matches table title
+	newText = "{{ 'planMatches.matchesFor'|trans }} "+ $("#poolSelector option:selected").text();
+	if ($("#roundSelector").val() != '-') {
+		newText += " {{ 'planMatches.matchesFor.in'|trans }} "+ $("#roundSelector").val();
+	}
+	$("#matchesTableTitle").text(newText);
+}
+
+function checkAlreadyPlayedMatches() {
+	// check all matches whether they have been played
+	matchIdArray = [];
+	$("#matchesTable tbody tr").each(function() {
+		matchId = getId($(this).attr('id'));
+		matchIdArray.push(matchId);
+	});
+	command = {
+		command : 'Matches.alreadyPlayed',
+		matchId: matchIdArray,
+	}
+	addServerCommand(command);
+	sendServerCommands(false);
+}
+
+function checkNoRounds() {
+	if ($("#roundSelector").val() == "-") {
+		// no rounds available -> make some options unavailable
+		$("#noRoundsText").remove();
+		if ($("#nonPlayingTeamsTable .dataTables_empty").length > 0) {
+            {% set teamLink = '<a href="#" onClick="openUrlAsHash(\\\''~ path('control_teams', {'tournamentUrl':tournament.url}) ~'?cid=\'+ $("#poolSelector").val() +\'\\\');return false;">' %}
+            {% set roundLink = '<a href="javascript:openCreateRound()">' %}
+            htmlText = '<div id="noRoundsText" class="alert alert-danger">{{ 'planMatches.noteams'|trans({'%startTeamLink%': teamLink, '%endTeamLink%': '</a>', '%startRoundLink%': roundLink, '%endRoundLink%': '</a>'})|raw }}</div>';
+		} else {
+			htmlText = '<div id="noRoundsText" class="alert alert-danger">{{ 'planMatches.noround'|trans({'%startRoundLink%': roundLink, '%endRoundLink%': '</a>'})|raw }}</div>';
+		}
+		$("#nonPlayingTeamsTable").parent().before(htmlText);
+		$(".btn-block:not(#btnOpenCreateRound)").addClass("disabled");
+		$("#matchesTable").parent().hide();
+		$("#nonPlayingTeamsTable").parent().hide();
+	} else if (($("#roundSelector").val() != "") && ($("#noRoundsText").length > 0)) {
+		// round available -> make everything available again
+		$("#noRoundsText").remove();
+		$(".btn-block").removeClass("disabled");
+		$("#matchesTable").parent().show();
+        $("#nonPlayingTeamsTable").parent().show();
+	}
+}
+
+function openCreateRound() {
+	$("#createRoundWarningNotFinished").hide();
+	$("#createRoundPool option[value='"+ $("#poolSelector").val() +"']").prop("selected", true);
+	$("#createRoundPool").triggerHandler("change");
+	
+	$("#createRoundModal").modal('show');
+}
+
+function sendCreateRound() {
+	command = {
+		command : 'Rounds.create',
+		poolId: $("#createRoundPool").val(),
+	}
+	addServerCommand(command);
+	updateRoundSelector($("#poolSelector").val(), false, afterUpdateRoundSelector);
+	$("#createRoundModal").modal('hide');
+}
+
+var poolSelectedBeforeOpenModal;
+var roundSelectedBeforeOpenModal;
+function openDeleteRound() {
+	$("#deleteRoundPool option[value='"+ $("#poolSelector").val() +"']").prop("selected", true);
+	$("#deleteRoundRound option[value='"+ $("#roundSelector").val() +"']").prop("selected", true);
+	poolSelectedBeforeOpenModal = $("#poolSelector").val();
+	roundSelectedBeforeOpenModal = $("#roundSelector").val();
+	$("#deleteRoundModal").modal('show');
+}
+
+function sendDeleteRound() {
+	command = {
+		command : 'Rounds.remove',
+		poolId: $("#deleteRoundPool").val(),
+		round: $("#deleteRoundRound").val(),
+	}
+	addServerCommand(command);
+	$("#deleteRoundModal").modal('hide');
+}
+
+function editNonreadyReason(matchId, newReason) {
+    command = {
+        command : 'Matches.setStatus',
+        matchId: matchId,
+        status: 'postponed',
+        nonreadyReason: newReason,
+    }
+    addServerCommand(command);
+    sendServerCommands(true);
+}
+
+</script>
+
+{% endblock %}
+
+{% block jQuery %}
+$("#poolSelector").on("change", function() {
+	// get new data from server
+	setUrlParam('cid', $(this).val());
+	updateRoundSelector($("#poolSelector").val(), true, afterUpdateRoundSelector);
+});
+
+$("#roundSelector").on("change", function() {
+	// get new data from server
+	sendServerCommands(true);
+
+	updateMatchesTableTitle();
+});
+
+$("#createRoundPool").on("change", function() {
+	// lookup whether there are unplayed matches in last round of pool
+	command = {
+		command : 'Pools.checkFinishedPlaying',
+		poolId: $("#createRoundPool").val(),
+	}
+	addServerCommand(command);
+	sendServerCommands(false);
+});
+
+$("#deleteRoundPool").on("change", function() {
+	// lookup possible rounds
+	if ($("#deleteRoundPool").val() == '') {
+		// all pools selected -> only have the option of all rounds
+		$("#deleteRoundRound").html('<option value="all" selected="selected">{{ 'general.allRounds'|trans }}</option>');
+	} else {
+		// retrieve possible round options
+		$("#poolSelector").val($("#deleteRoundPool").val());
+		updateRoundSelector($("#poolSelector").val(), false, afterUpdateRoundSelector);
+	}
+});
+
+$("#deleteRoundModal").on("hide.bs.modal", function() {
+	// return poolSelector and roundSelector to original value
+	$("#poolSelector").val(poolSelectedBeforeOpenModal);
+	$("#roundSelector").val(roundSelectedBeforeOpenModal);
+	updateRoundSelector($("#poolSelector").val(), true, afterUpdateRoundSelector);
+});
+
+// retrieving initial data from server
+updatePoolSelector(afterUpdatePoolSelector);
+
+{% endblock %}
+
+{% block content %}
+{% set content %}
+
+	<div class="alert alert-warning fade in" id="alreadyPlayedMatchesWarning">
+        <button class="close" data-dismiss="alert">
+            ×
+        </button>
+        <i class="fa-fw fa fa-warning"></i>
+        <strong>{{ 'general.warning'|trans }}</strong>: {{ 'planMatches.matchesPlayed'|trans }}
+    </div>
+
+    <h2 id="matchesTableTitle">{{ 'planMatches.matches'|trans }}</h2>
+	<table class="table table-hover ajaxDataTable" id="matchesTable">
+		<thead>
+			<tr>
+				<th>{{ 'table.matchNr'|trans }}</th>
+				<th>{{ 'table.team1'|trans }}</th>
+				<th>{{ 'table.team2'|trans }}</th>
+				<th>{{ 'table.score'|trans }}</th>
+				<th>{{ 'table.options'|trans }}</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<br />
+
+	<table class="table table-hover ajaxDataTable" id="nonPlayingTeamsTable">
+		<thead>
+			<tr>
+				<th><h4>{{ 'planMatches.teamByeThisRound'|trans }}</h4></th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+{% endset %}
+
+{% set sidebar %}
+    <p>
+        <label for="poolSelector">{{ 'general.selectPool'|trans }}:</label>
+        <select class="poolSelector" id="poolSelector"></select>
+    </p>
+    <p>
+        <label for="roundSelector">{{ 'general.selectRound'|trans }}:</label>
+        <select class="roundSelector" id="roundSelector"></select>
+    </p>
+    <p><button type="button" class="btn btn-primary btn-block" onClick="editMatch(0)"><i class="fa fa-plus"></i> {{ 'planMatches.sidebar.newMatch'|trans }}</button></p>
+    <p><button type="button" class="btn btn-info btn-block" onClick="openCreateRound();" id="btnOpenCreateRound"><i class="fa fa-repeat"></i> {{ 'planMatches.sidebar.newRound'|trans }}</button></p>
+    <p><button type="button" class="btn btn-danger btn-block" onClick="openDeleteRound();"><i class="fa fa-trash-o"></i> {{ 'planMatches.sidebar.deleteRound'|trans }}</button></p>
+    <p><button type="button" class="btn btn-success btn-block" onClick="openUrlAsHash('{{ path('control_ranking_pool', {'tournamentUrl':tournament.url}) }}?cid='+ $('#poolSelector').val())"><i class="fa fa-list-alt"></i> {{ 'planMatches.sidebar.showRanking'|trans }}</button></p>
+    <p><button type="button" class="btn btn-warning btn-block" onClick="window.open('{{ path('control_print_courtnotes', {'tournamentUrl': tournament.url, 'type': 'courtNotes', 'searchBy': 'poolRound'}) }}&amp;poolId='+ $('#poolSelector').val() +'&amp;round='+ $('#roundSelector').val())"><i class="fa fa-print"></i> {{ 'planMatches.sidebar.printCourtNotes'|trans }}</button></p>
+{% endset %}
+{{ macro.well(content, sidebar) }}
+
+<!-- Create round modal -->
+{% set modalContent %}
+	<div class="form-horizontal">
+		<p>{{ 'planMatches.createRound.text'|trans }}</p>
+		<div class="form-group">
+			<label class="control-label col-sm-4" for="createRoundPool">{{ 'general.pool'|trans }}</label>
+			<div class="col-sm-8">
+				<select class="poolSelector" id="createRoundPool"></select>
+			</div>
+		</div>
+		<div class="alert alert-danger" id="createRoundWarningNotFinished">
+			<b>{{ 'general.warning'|trans }}</b>: {{ 'planMatches.createRound.unfinishedMatches'|trans }}
+		</div>
+	</div>
+{% endset %}
+{% set modalFooter %}
+	<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+	<button type="button" class="btn btn-info" onClick="sendCreateRound();"><i class="fa fa-repeat"></i> {{ 'modal.create'|trans }}</button>
+{% endset %}
+{{ macro.modal("createRoundModal", "planMatches.createRound.title"|trans, modalContent, modalFooter) }}
+
+
+<!-- Delete round modal -->
+{% set modalContent %}
+	<div class="form-horizontal">
+		<p>{{ 'planMatches.deleteRound.text'|trans }}<br />
+		<span class="label label-danger">{{ 'general.important'|trans }}:</span> {{ 'planMatches.deleteRound.warningText'|trans }}</p>
+		<div class="form-group">
+			<label class="control-label col-sm-4" for="deleteRoundPool">{{ 'general.pool'|trans }}</label>
+			<div class="col-sm-8">
+				<select class="poolSelector" id="deleteRoundPool"></select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-4" for="deleteRoundRound">{{ 'general.round'|trans }}</label>
+			<div class="col-sm-8">
+				<select class="roundSelector" id="deleteRoundRound"></select>
+			</div>
+		</div>
+	</div>
+{% endset %}
+{% set modalFooter %}
+	<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+	<button type="button" class="btn btn-danger" onClick="sendDeleteRound();"><i class="fa fa-trash-o"></i> {{ 'modal.delete'|trans }}</button>
+{% endset %}
+{{ macro.modal("deleteRoundModal", "planMatches.deleteRound.title"|trans, modalContent, modalFooter) }}
+
+{% endblock content %}
+

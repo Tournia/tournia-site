@@ -1,0 +1,35 @@
+#liveOverview .btn-large {
+	text-transform: none;
+	margin-right: 0;
+}
+
+#liveOverview {
+	text-align: center;
+	margin-bottom: 0px;
+}
+#liveOverview .btn {
+/* 	padding: 10px 25px !important; */
+	width: 15%;
+	margin-right: 2%;
+	margin-bottom: 2%;
+/* 	margin-right: 30px; */
+	color: #db6858;
+}
+#liveOverview .btn.active {
+	color: #333 !important;
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+	#liveOverview a.btn {
+		width: 40% !important;
+	}
+}
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {	
+	#liveOverview a.btn {
+		width: 40% !important;
+		min-height: 115px;
+		margin-right: 0;
+	}
+}

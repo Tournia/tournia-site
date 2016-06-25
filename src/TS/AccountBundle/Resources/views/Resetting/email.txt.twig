@@ -1,0 +1,13 @@
+{% trans_default_domain 'account' %}
+{% block subject %}
+{% autoescape false %}
+{{ 'reset.email.subject'|trans }}
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+{% if user.person is not empty %}{% set name = user.person.informalName|raw %}{% else %}{% set name = user.registrationName|raw %}{% endif %}
+{{ 'reset.email.text'|trans({'%name%': name, '%confirmationUrl%': confirmationUrl, '%username%': user.username}) }}
+{% endautoescape %}
+{% endblock %}
+{#{% block body_html %}htmlblockje{% endblock %}#}

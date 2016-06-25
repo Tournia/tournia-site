@@ -1,0 +1,8 @@
+# CreateToernooiType and ToernooiType
+tournamentUrl.regex: De url kan alleen letters bevatten (a-z or A-Z), nummers (0-9), - en _
+tournamentUrl.notblank: Vul een url in
+createTournamentType.conditionsAgree.constraint: Je dient de voorwaarden te accepteren om verder te kunnen
+
+# PouleType
+disciplinesType.disciplineTypes.notempty: Er moet tenminste één poule type zijn
+disciplinesType.disciplines.notempty: Er moet tenminste één poule zijn

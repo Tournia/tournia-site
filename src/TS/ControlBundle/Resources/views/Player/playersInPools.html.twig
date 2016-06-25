@@ -1,0 +1,204 @@
+{% trans_default_domain "control" %}
+{% form_theme form 'TSControlBundle::form.html.twig' %}
+
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "playersInPools.title"|trans %}
+
+{% block css %}
+#form_status input {
+	margin-left: 5px;
+}
+
+#form_status label {
+	display: inline;
+	margin: 0px 15px 0px 5px;
+	position: relative;
+	top: 3px;
+}
+
+#playersTableBox {
+    overflow: auto;
+    width: 100%;
+    height: 400px;
+    clear: both;
+}
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+
+///// post and receive server messages /////
+
+// setting commands for refresh of server data
+function getRefreshCommands() {
+	command = {
+		command : 'Players.list',
+		full: true,
+		status: {},
+	}
+	i = 0;
+	$('#{{ form.status.vars.id}} :checked').each(function() {
+		command.status[i] = $(this).next().text();
+		i++;
+	});
+	return new Array(command);
+}
+// setting on which updates data should be refreshed
+observerUpdateSection.push('player');
+observerUpdateSection.push('team');
+observerUpdateSection.push('pool');
+
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+	if (commandKey == "Players.list") {
+		$('#playersTable').dataTable().fnClearTable();
+		$.each(commandResponse, function(key, val) {
+			if (key == "meta") {
+
+			} else if (key == "players") {
+				$.each(val, function(key2, playerObject) {
+					// go through players
+					url = Routing.generate('control_player_info', {
+						'tournamentUrl': '{{ tournament.url }}',
+						'playerId': playerObject['playerId'],
+						'_locale': locale
+					});
+					url = convertUrlToHash(url);
+					nameColumn = '<a href="' + url + '">' + playerObject['fullName'] + '</a>';
+
+					readyBtn = '<span class="cellInvisible">' + (playerObject['ready']) + '</span>';
+					readyBtn += '<input type="checkbox" class="formSwitch" data-on-color="success" data-off-color="danger" data-on-text="{{ 'playersInPools.readySwitch.ready'|trans }}" data-off-text="{{ 'playersInPools.readySwitch.postponed'|trans }}" id="playerReadyButton-' + playerObject['playerId'] + '"';
+					if (playerObject['ready']) {
+						readyBtn += ' checked';
+					}
+					readyBtn += "/>";
+					if (!playerObject['ready']) {
+						currentNonreadyReason = playerObject['nonreadyReason'] == null ? '' : playerObject['nonreadyReason'].replace(/"/g, '&quot;');
+						readyBtn += ' <span class="nonreadyReasonTooltip" rel="tooltip" data-placement="right" data-reason="' + currentNonreadyReason + '" data-objectId="' + playerObject['playerId'] + '"><i class="fa fa-info-circle"></i></span>';
+					}
+
+					typeColumn = '';
+					registeredColumn = '';
+					poolsColumn = '';
+					emptyNonCorrespondingPools = 0;
+					$.each(playerObject['disciplines'], function (disciplineType, disciplineObject) {
+						if (disciplineObject != '') {
+							emptyNonCorrespondingPools++;
+							typeColumn += disciplineType +'<br />';
+							registeredColumn += '<span class="label label-success">' + disciplineObject['disciplineName'] + '</span><br />';
+
+							// look for corresponding pool
+							$.each(playerObject['teams'], function (key3, teamObject) {
+								if ((teamObject['registeredForDiscipline'] != null) && (teamObject['registeredForDiscipline']['disciplineType'] == disciplineType)) {
+									teamsLink = '<a href="{{ path('control_teams', {'tournamentUrl': tournament.url}) }}?cid=' + teamObject['poolId'] + '" class="noLinkUnderline">';
+									poolsColumn += teamsLink +'<span class="label label-success">' + teamObject['poolName'] + '</span></a><br />';
+									emptyNonCorrespondingPools--;
+								}
+							});
+						}
+					});
+
+					for (i = 0; i < emptyNonCorrespondingPools; i++) {
+						poolsColumn += '<br/>';
+					}
+					$.each(playerObject['teams'], function (key3, teamObject) {
+						// find pools without corresponding discipline
+						if (teamObject['registeredForDiscipline'] == null) {
+							teamsLink = '<a href="{{ path('control_teams', {'tournamentUrl': tournament.url}) }}?cid=' + teamObject['poolId'] + '" class="noLinkUnderline">';
+							poolsColumn += teamsLink +'<span class="label label-danger">' + teamObject['poolName'] + '</span></a><br />';
+						}
+					});
+
+					$('#playersTable').dataTable().fnAddData([
+						nameColumn,
+						playerObject['status'],
+						readyBtn,
+						typeColumn,
+						registeredColumn,
+						poolsColumn
+					]);
+				});
+			}
+		});
+		enableNonreadyReasonTooltip("#playersTable", editNonreadyReason);
+		dataTableFinishedLoading("playersTable");
+		replaceLinksForNavigation();
+	}
+}
+
+function datatableProcessRow(row, table) {
+	// set ready switch
+	$(".formSwitch", row).on('switchChange.bootstrapSwitch', function (event, state) {
+ 		// change readyness of player
+		command = {
+			command : 'Players.setReady',
+			playerId: getId($(this).attr('id')),
+			ready: state
+		}
+		addServerCommand(command);
+		sendServerCommands(true);
+	});
+}
+
+function editNonreadyReason(playerId, newReason) {
+    command = {
+        command : 'Players.setReady',
+        playerId: playerId,
+        ready: false,
+        nonreadyReason: newReason,
+    }
+    addServerCommand(command);
+    sendServerCommands(true);
+}
+
+</script>
+
+{% endblock %}
+
+{% block jQuery %}
+// select all status options, but only if all are unchecked
+if ($('#{{ form.status.vars.id}} :checked').length == 0) {
+	$('#{{ form.status.vars.id}} :checkbox').each(function() {
+		$(this).prop('checked', true);
+	});
+}
+// on changing of status of player filter
+$("#form_status input").on("change", function(event) {
+	sendServerCommands(true);
+});
+
+// get initial data
+sendServerCommands(true);
+
+{% endblock %}
+
+{% block content %}
+{% set content %}
+<form id="playersInTeamsForm" class="form-horizontal" action="{{ path('control_player_pools', {'tournamentUrl': tournament.url}) }}" method="post" {{ form_enctype(form) }}>
+	<p>{{ 'playersInPools.selectStatus'|trans }}:</p>
+	{{ form_errors(form) }}
+	{{ form_widget(form.status) }}
+	{{ form_rest(form) }}
+</form>
+<br />
+
+<table class="table table-hover table-striped ajaxDataTable" id="playersTable">
+	<thead>
+	<tr>
+		<th>{{ 'playersInPools.table.player'|trans }}</th>
+		<th>{{ 'playersInPools.table.status'|trans }}</th>
+		<th>{{ 'playersInPools.table.ready'|trans }}</th>
+		<th>{{ 'playersInPools.table.type'|trans }}</th>
+		<th>{{ 'playersInPools.table.registered'|trans }}</th>
+		<th>{{ 'playersInPools.table.pools'|trans }}</th>
+	</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+
+{% endset %}
+{{ macro.well(content) }}
+
+{% endblock %}

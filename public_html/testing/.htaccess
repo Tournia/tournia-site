@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteBase /testing/
+    RewriteRule ^$ app/public/ [L]
+    RewriteRule (.*) app/public/$1 [L]
+</IfModule>
+
+AuthUserFile /vagrant/.htpasswd
+AuthType Basic
+AuthName "PHPUnit Web"
+Require valid-user

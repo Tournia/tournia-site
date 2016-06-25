@@ -1,0 +1,225 @@
+# Index page
+index.title: Index
+# Index page - TopBar
+index.topBar.title: Make your tournament awesome!
+index.topBar.button: Start your own tournament
+# Index page - Upcoming tournaments
+index.upcoming.title: Upcoming tournaments
+index.upcoming.subtitle: Where will you be playing next?
+index.upcoming.pagination: %results% results / page
+index.upcoming.button.played: Played
+index.upcoming.button.live: LIVE NOW!
+index.upcoming.button.moreInfo: More info
+index.upcoming.button.register: Register
+index.upcoming.none: No tournaments found
+index.past.title: Earlier tournaments
+index.past.subtitle: Where others competed.
+# Index page - Currently playing tournaments
+index.current.title: Live tournaments
+index.current.subtitle: Where others are competing NOW!
+index.current.button.moreInfo: More info
+index.current.button.live: Live now!
+index.current.button.ranking: Rankings
+# Indexe page - Tournament details
+index.tournament.by: by
+index.tournament.registrations: '{0} registrations|{1} registration|]1,Inf[ registrations'
+# Index page - Features
+index.features.title: Need an easy way to organize your tournament?
+index.features.subtitle: Tournia offers you all the features you need.
+index.features.1.title: Help organizers with organizing their tournament
+index.features.1.text: Tournia is an online platform to help tournament organizers with everything they need to organize an awesome tournament. You can manage player's registrations, have a special tournament website, create teams, start matches, publish rankings, etc.
+index.features.2.title: Run your tournament online, from anywhere!
+index.features.2.text: No need to install software. Tournia is hosted in "the cloud", which means you don't have to install any software or updates on your computer. Simply go to tournia.net and open your tournament. Also, you can run the tournament with multiple computers at the same time, and all information is synced automatically to all devices.
+index.features.3.title: Works with mobile, and for players there's Live tournament information
+index.features.3.text: Once you enable the Live feature, players are able to see all the current, upcoming and past matches. It's possible to look up players, see statistics and even to enter the score for a match. All from any mobile device.
+index.features.4.title: Create your own tournament website, also for tablet and smartphone
+index.features.4.text: It's easy to set-up your own tournament website. Just enter a few fields about your tournament, the content of pages, and you're ready to go! It automatically also works on tablets and smartphones.
+index.try.title: Try Tournia now and manage your tournament with simplicity.
+index.try.button: See all features
+index.app.title: Available in the App Store
+index.app.text: The Tournia app is now available in the App Store! Download the app to show all your tournaments, and receive notifications during the tournament!
+index.app.button: Get it free
+
+
+# allTournaments page
+allTournaments.title: All tournaments
+# allTournaments page - Filter
+allTournaments.filter.title: Filter
+allTournaments.filter.keyword: Keyword
+allTournaments.filter.period: Period
+allTournaments.filter.location: Location
+allTournaments.filter.submit: Filter
+allTournaments.filter.placeholder.keyword: Keyword
+allTournaments.filter.placeholder.startDate: No start date
+allTournaments.filter.placeholder.endDate: No end date
+allTournaments.filter.placeholder.location: Utrecht, The Netherlands
+
+
+# startTournament page
+start.title: Start a tournament
+# startTournament page - header
+start.header.title: <strong>Yes!</strong> I want to start a tournament with the name:
+start.header.button: Continue
+# startTournament page - features
+start.features.title: Tournia offers you everything you need
+start.features.subtitle: Only a few of our features explained in more detail
+start.features.1.button: Your own tournament website
+start.features.1.title: Promote your tournament online
+start.features.1.text1: With Tournia you can create your own tournament website. The registrations of players are also visible here, as well as contact information, location information, and a link to register for the tournament.
+start.features.1.text2: You have complete control over the look & feel of your website. You can upload images, create new pages and adjust meta data for search engines. It's easy to set-up; you'll have your own website running in no time.
+start.features.2.button: Flexible registrations &amp; payments
+start.features.2.title: Simple registrations and payments
+start.features.2.text1: Players can register for your tournament in a few simple steps. Afterwards players receive a confirmation email, and can also change the information later on. This helps you as an organizer, as players don't need to email you anymore with changes.
+start.features.2.text2: You have complete control over the registration form. You can add additional text fields, selection boxes or remarks boxes. All information will be saved automatically for this player.
+start.features.2.text3: Tournia also offers payments. You set up the amount and products you have, and Tournia takes care of the rest. Payments are transferred to your bank account periodically.
+start.features.3.button: Live tournament information
+start.features.3.title: Let players participate online
+start.features.3.text1: During the tournament you can turn on the Live functionality. Available on a desktop computer, tablet or smartphone, people can see upcoming and current matches, scores, rankings, etc.
+start.features.3.text2: Live can also be used as a presentation display. This helps you as an organizer, because you get for example less questions where someone has to play or when a particular match will be played.
+start.features.4.button: Matches and rankings
+start.features.4.title: Control your tournament in an easy way
+start.features.4.text1: Tournia offers everything you need to run your tournament. Prepare your tournament by setting up disciplines, create teams by selecting who plays with who, add a new round and create matches. You can start matches on a specific location (e.g. court), and Tournia knows which players are currently playing.
+start.features.4.text2: After filling in the score of a match, the rankings are automatically updated. You can print matches, court notes, teams and rankings.
+start.features.4.text3: At the moment Tournia only supports the %linkStart%Swiss ladder system%linkEnd%, but there are plans to expand to Round-robin as well.
+# startTournament page - screenshots
+start.screenshots.title: Manage your tournament in an easy and intiutive way
+# startTournament page - pricing
+start.pricing.title: Pricing
+start.pricing.subtitle: Free if your tournament is free or &euro; 0.50 per player
+start.pricing.explain1: It's free for organizers to use Tournia as long as you're not charging for tickets! There are no monthly charges, enrollment costs, or setup fees.
+start.pricing.explain2: If you organize a commercial tournament (i.e. ask money for participation), we charge a service fee of &euro; 0.50 per transaction which the player will pay. The tournament organization can choose to absorb these costs and pay for the service fee.
+start.pricing.explain3: Although the organizer can pay for the service fee, there might also be payment transaction fee. Paying with a credit-card or online provider costs money, and the price for this (depening on the selected payment method) will be charged to the player.
+start.pricing.features: Features
+start.pricing.features.1.title: Tournament website
+start.pricing.features.1.text: Create your own tournament website.
+start.pricing.features.2.title: Tournament control
+start.pricing.features.2.text: Create matches, keep scores and generate rankings.
+start.pricing.features.3.title: Live tournament information
+start.pricing.features.3.text: The paid plan includes Live tournament information.
+start.pricing.features.4.title: Free payments
+start.pricing.features.4.text: Tournia charges a service fee of &euro; 0.50 to players for each payment transaction. When choosing the paid plan, this is free. In other words: you as the organizer pay the service fee for your players.
+start.pricing.features.5.title: Advanced settings
+start.pricing.features.5.text: In the paid plan you can fine-tune your tournament website, and have additional settings.
+start.pricing.plan.free.title: Free Plan
+start.pricing.plan.free.price: free
+start.pricing.plan.paid.title: Paid Plan
+start.pricing.plan.paid.price: "&euro; 0.50/player"
+start.pricing.signup: Sign up now
+start.pricing.message: All our prices are excluding VAT. The final price depends on the country you're living, see the %linkStart%question about VAT below%linkEnd%.
+# startTournament page - FAQ
+start.faq.title: Frequently Asked Questions
+start.faq.1.title: How does payments work?
+start.faq.1.text: When a player registers for your tournament, he/she has the option to make a payment as well. The money is paid to Tournia, and periodically transferred to your account. This way you don't need to set-up any technical things to accept credit-cards or online payments. Tournia arranges everything, and puts the money on an account of your choosing.
+start.faq.2.title: Are other currencies possible?
+start.faq.2.text: We prefer euros, although Tournia supports all currencies. However, we might charge you some additional exchange fees, as we need to transfer money from our euro account to your foreign currency. Please contact us directly to discuss the options.
+start.faq.3.title: Do I need a credit card?
+start.faq.3.text: No, you don't. You only need to fill in your bank account, where Tournia should transfer your money to.
+start.faq.4.title: How does it work with VAT?
+start.faq.4.text: We assume you don't have a VAT (Value Added Taxes) number, if you have, please contact us directly. Tournia is a middle man and payments from players are intended for you. Tournia transfers the money from players directly to you, and therefore doesn't charge any VAT. We do however charge VAT on service and payment fees. The VAT percentage depends on the country the player is living.
+start.faq.5.title: Which fees do you charge?
+start.faq.5.text: Tournia charges two fees to players' transactions: payment fee and services fee. The payment fee is dependent on the chosen payment method (e.g. credit-card or iDeal), and we don't make any profit on that. The service fee is &euro; 0.50 per transaction. We are legally obliged to charge VAT on top if this as well; the VAT percentage depends on the country of the player.
+start.faq.6.title: Where can I configure payments?
+start.faq.6.text: In the settings screen, under the payment tab, you can adjust this.
+startTournamentType.name.placeholder: title...
+
+# about page
+about.title: About
+about.text.title: Letting you run your tournament with just a few simple mouse clicks... that's our goal
+about.text.1: Tournia.net is founded by people who know how a tournament is organized. But also, how much easier good software can make it for you. Software we developed for our own tournament has now become available to everyone to use it!
+about.text.2: We believe that good software can make a difference to your tournament. Tournia isn't finished, we believe it never will be. We always ask our users what they think of it, and how it can be improved. If you have a good idea or feedback, please let us know!
+about.text.3: |
+  Tournia.net is a product by Agonian v.o.f. We are registered at the Dutch Chamber of Commerce with number 61505838 and have the Dutch VAT (BTW) number NL854371692B01. We prefer to hear from you by email (info at agonian dot com) or phone (+316 4961 2483), but if you like the traditional way, you can send your pigeon to:
+  <br /><br />
+  Agonian VOF<br />
+  Lauwerecht 235<br/>
+  3552 XB Utrecht<br />
+  The Netherlands
+about.button: Contact us
+
+# privacy statement
+privacyStatement.title: Privacy Statement
+privacyStatement.text.title: Privacy Statement
+
+# contact page
+contact.title: Contact
+contact.form.title: Contact us
+contact.form.text: Interested in using our software? Or questions about it? We’d love to hear from you!<br /> Fill out the form below with some info about yourself and we'll get back to you as soon as possible.
+contact.form.name.label: Your name
+contact.form.email.label: Email address
+contact.form.phone.label: Phone
+contact.form.message.label: Your message
+contact.form.submit: Send
+contact.social: On social media
+
+# app page
+app.title: Tournia App
+app.subtitle: Your guide during the tournament!
+app.description: The Tournia app is free to download. Log in with your Tournia account, and see scores, upcoming matches and rankings.
+app.ios.1: Available on the
+app.ios.2: App Store
+app.android.1: Get it now for
+app.android.2: Android
+
+# header
+header.control.search.placeholder: Search player...
+header.control.search.title: For example: match number, name, etc. Key: alt-F
+header.else.search.placeholder: Search tournament
+header.else.alltournaments: All <small>tournaments</small>
+header.else.starttournament: Start <small>your own</small>
+header.control.notificationtop.messages: Messages
+header.control.notificationtop.settings: Settings
+header.control.notificationsettings.title: Notification settings
+header.control.notificationsettings.text: Choose which notifications you want to see:
+header.control.notificationsettings.me: My changes
+header.control.notificationsettings.otherPerson: Other people's changes
+header.control.notificationsettings.round: Round ending
+header.control.nomessages.title: There are currently no messages
+header.control.nomessages.text: Messages will be loaded automatically.
+header.control.allmessages: View all messages
+header.control.fullscreen: Full Screen
+header.control.presentationscreen: Open presentation screen
+header.control.reset: Reset screen preferences
+header.control.collapse: Collapse Menu
+header.else.cart: CART
+header.else.tournaments: My tournaments
+header.else.profile: My profile
+header.else.account: Account settings
+header.else.invoices: Invoices
+header.else.logout: Logout
+header.else.login: Log in
+header.language.title: Choose language:
+header.language.english: English
+header.language.dutch: Dutch
+
+header.js.website: Website
+header.js.live: Live
+header.js.screen: Screen
+header.js.settings: Settings
+header.js.control: Match Control
+header.js.modules: Organizer Modules
+header.js.tournamentOptions: Tournament Options
+
+# base - footer
+base.footer.overview: Overview
+base.footer.features: Features
+base.footer.support: Support
+base.footer.api: API docs
+base.footer.menu: Menu
+base.footer.about: About us
+base.footer.contact: Contact us
+base.footer.privacyStatement: Privacy Statement
+base.footer.social: Social
+base.footer.facebook: Facebook
+base.footer.twitter: Twitter
+base.footer.languages: Languages
+base.footer.dutch: Dutch / Nederlands
+base.footer.english: English
+base.footer.copyright1: Copyright &copy; 2013-
+base.footer.copyright2: Tournia.net. All rights reserved.
+
+# Flash messages
+flash.contact.error: The form is not filled in correctly, please check below
+flash.contact.success: Thank you for your message! We will contact you as soon as possible.
+flash.starttournament.error: You have to fill in a tournament title
+
+

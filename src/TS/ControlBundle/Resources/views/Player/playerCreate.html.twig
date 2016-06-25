@@ -1,0 +1,34 @@
+{% trans_default_domain "control" %}
+{% form_theme form 'TSControlBundle::form.html.twig' %}
+
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "playerCreate.title"|trans %}
+{% set new = true %}
+
+{% block javascript %}
+    {% include "TSSiteBundle:Player:includeEditJavascript.js.twig" %}
+{% endblock %}
+
+{% block jQuery %}
+    var isOrganizer = true;
+    {% include "TSSiteBundle:Player:includeEditJquery.js.twig" %}
+
+    // hide some elements, because these are not useful in Control
+    $("#submitButton").hide();
+{% endblock %}
+
+
+{% block content %}
+    {% set content %}
+    <form id="playerForm" class="form-horizontal" action="{{ path('control_player_create', {'tournamentUrl': tournament.url}) }}" method="post" {{ form_enctype(form) }} role="form">
+        {% include "TSSiteBundle:Player:includeEditForm.html.twig" %}
+        <div class="form-actions">
+            <a href="{{ path('control_player_overview', {'tournamentUrl':tournament.url}) }}" class="btn">{{ 'modal.cancel'|trans }}</a>
+            <button type="button" class="btn btn-primary" onClick="checkAndSendForm()">{{ 'modal.save'|trans }}</button>
+        </div>
+    </form>
+    {% endset %}
+    {{ macro.well(content) }}
+
+{% endblock %}

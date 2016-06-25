@@ -1,0 +1,38 @@
+{% trans_default_domain "notificationEmail" %}
+
+{% macro changeTxt(value, new, old) %}{% spaceless %}
+    {% set changed = new != old %}
+    {% if new is null %}
+        {% set new = '-' %}
+    {% endif %}
+    {% if old is null %}
+        {% set old = '-' %}
+    {% endif %}
+{% endspaceless %}{% if changed %}***{% else %}-{% endif %} {{ value|raw }}: {{ new|raw }}{% if changed %} ({{ 'email.change.was'|trans }}: {{ old|raw }}){% endif %}{% endmacro %}
+
+{% macro changeHtml(value, new, old) %}
+    {% set changed = new != old %}
+    {% if new is null %}
+        {% set new = '-' %}
+    {% endif %}
+    {% if old is null %}
+        {% set old = '-' %}
+    {% endif %}
+    <tr>
+        <td>{% if changed %}<b>{% endif %}{{ value }}{% if changed %}</b>{% endif %}</td>
+        <td>{% if changed %}<b>{% endif %}{{ new }}{% if changed %}</b>{% endif %}</td>
+        <td>{% if changed %}<b>{% endif %}{{ old }}{% if changed %}</b>{% endif %}</td>
+    </tr>
+{% endmacro %}
+
+{% macro genderVal(value) %}
+{% if value == "M" %}{{ 'email.player.male'|trans }}{% else %}{{ 'email.player.female'|trans }}{% endif %}
+{% endmacro %}
+
+{% macro yesNoVal(value) %}
+{% if value %}{{ 'email.player.yes'|trans }}{% else %}{{ 'email.player.no'|trans }}{% endif %}
+{% endmacro %}
+
+{% macro wantedVal(value) %}
+{% if value is null %}{{ 'email.player.wanted'|trans }}{% else %}{{ value }}{% endif %}
+{% endmacro %}

@@ -1,0 +1,233 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "print.title"|trans %}
+
+{% block javascript %}
+<script type="text/javascript">
+
+function afterUpdatePoolSelector() {
+	$("#poolSelector").prepend('<option value="">{{ 'print.allPools'|trans }}</option>');
+	$("#poolSelector").val('');
+}
+
+function afterUpdateRoundSelector() {
+	if ($("#roundSelector").val() != "-") {
+		$("#roundSelector").prepend('<option value="">{{ 'print.allRounds'|trans }}</option>');
+	}
+}
+
+</script>
+{% endblock %}
+
+{% block jQuery %}
+{{ parent() }}
+
+// getting possible pools
+updatePoolSelector(afterUpdatePoolSelector);
+
+$("#poolSelector").on("change", function() {
+	if (($("#poolSelector").val() == '') || $("#roundBox").hasClass('forceHide')) {
+		// all pools selected -> hide round selector
+		$("#roundSelector").closest('.control-group').hide("normal");
+	} else {
+		// particular pool selected -> show round selector
+		$("#roundSelector").closest('.control-group').show("normal");
+		updateRoundSelector($("#poolSelector").val(), false, afterUpdateRoundSelector);
+	}
+});
+
+$("#searchByPoolRound, #searchByMatchNumber").on('change', function() {
+	if ($("#searchByPoolRound").prop('checked')) {
+		// search by pool and round -> hide search by match number
+		$("#poolBox").show();
+		if (($("#poolSelector").val() == '') || ($("#poolSelector").val() == null) || $("#roundBox").hasClass('forceHide')) {
+			$("#roundBox").hide();
+		} else {
+			$("#roundBox").show();
+			updateRoundSelector($("#poolSelector").val(), false, afterUpdateRoundSelector);
+		}
+		$("#fromMatchNumberBox").hide();
+		$("#toMatchNumberBox").hide();
+	} else {
+		// search by match number -> hide search by pool and round
+		$("#poolBox").hide();
+		$("#roundBox").hide();
+		$("#fromMatchNumberBox").show();
+		$("#toMatchNumberBox").show();
+	}
+});
+$("#searchByPoolRound").triggerHandler('change'); // set-up search correct when loading page
+$("#trimPlayerNameBox").show();
+
+
+// bring search elements to newly showing tab when changing tabs
+$('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+	sourceTab = $($(e.relatedTarget).attr('href'));
+	targetTab = $($(e.target).attr('href'));
+	
+	// now copy all elements to new tab
+	$(targetTab).append($(sourceTab).find('.control-group'));
+	
+	// show or hide certain search options
+	if ( (targetTab.attr('id') == 'courtNotes') || (targetTab.attr('id') == 'matchesList') || (targetTab.attr('id') == 'matchResults') ) {
+		$("#searchByBox").show();
+		$("#poolBox").show();
+		$("#roundBox").show();
+		$("#roundBox").removeClass('forceHide');
+		$("#fromMatchNumberBox").show();
+		$("#toMatchNumberBox").show();
+		$("#searchByPoolRound").triggerHandler('change');
+		$("#trimPlayerNameBox").hide();
+	} else if ((targetTab.attr('id') == 'ranking') || (targetTab.attr('id') == 'teams')){
+		$("#searchByBox").hide();
+		$("#poolBox").show();
+		$("#roundBox").hide();
+		$("#roundBox").addClass('forceHide');
+		$("#fromMatchNumberBox").hide();
+		$("#toMatchNumberBox").hide();
+		$("#trimPlayerNameBox").hide();
+	}
+
+    if (targetTab.attr('id') == 'courtNotes') {
+        $("#trimPlayerNameBox").show();
+    }
+})
+
+$("#printBtn").on('click', function() {
+	// send user to correct print page
+	type = $(".tab-content .active:first").attr('id');
+	poolId = $("#poolSelector").val();
+	round = $("#roundSelector").val();
+	fromMatchNumber = $("#fromMatchNumber").val();
+	toMatchNumber = $("#toMatchNumber").val();
+	
+	// create url for redirect
+    if (type == "courtNotes") {
+        url = '{{ path('control_print_courtnotes', {'tournamentUrl':tournament.url}) }}?';
+        trimPlayerName = $("#trimPlayerName").prop('checked') ? 'true' : '';
+        url += 'trimPlayerName='+ trimPlayerName;
+    } else if (type == "matchesList") {
+        url = '{{ path('control_print_matcheslist', {'tournamentUrl':tournament.url}) }}?';
+    } else if (type == "matchResults") {
+        url = '{{ path('control_print_matchresults', {'tournamentUrl':tournament.url}) }}?';
+    } else if (type == "ranking") {
+        url = '{{ path('control_print_ranking', {'tournamentUrl':tournament.url}) }}?';
+    } else if (type == "teams") {
+        url = '{{ path('control_print_teams', {'tournamentUrl':tournament.url}) }}?';
+    } else {
+        alert("Unknown print type");
+        return false;
+    }
+	if ((type == 'courtNotes') || (type == 'matchesList') || (type == 'matchResults')) {
+		if ($("#searchByPoolRound").prop('checked')) {
+			// url based on pool and round
+			if ($("#roundSelector").val() == "-") {
+				alert("There are no rounds for this pool");
+				$("#roundSelector").focus();
+				return false;
+			}
+			url += '&searchBy=poolRound';
+			if (poolId == '') {
+				// all pools -> no round
+				url += '&poolId=';
+			} else {
+				url += '&poolId='+ poolId +'&round='+ round;
+			}
+		} else {
+			// url based on match number
+			if (!isEmptyOrPositiveInt(fromMatchNumber)) {
+				alert("{{ 'print.alertNotPositiveInt.fromMatch'|trans }}");
+				$("#fromMatchNumber").focus();
+				return false;
+			}
+			if (!isEmptyOrPositiveInt(toMatchNumber)) {
+				alert("{{ 'print.alertNotPositiveInt.toMatch'|trans }}");
+				$("#toMatchNumber").focus();
+				return false;
+			}
+			url += '&searchBy=matchNumber&fromMatchNumber='+ fromMatchNumber +'&toMatchNumber='+ toMatchNumber;
+		}
+	} else if ((type == 'ranking') || (type == 'teams')) {
+		url += '&searchBy=poolRound&poolId='+ poolId;
+	}
+	
+	$(this).attr('href', encodeURI(url));
+	//window.open(url);
+});
+
+function isEmptyOrPositiveInt(n) {
+	return n == '' || (n % 1 == 0 && n > 0);
+}
+
+{% endblock %}
+
+{% block content %}
+{% set content %}
+<div class="form-horizontal" role="tabpanel">
+	<ul class="nav nav-tabs" role="tablist" id="printTabs">
+		<li role="presentation" class="active"><a href="#courtNotes" data-toggle="tab">{{ 'print.courtNotes'|trans }}</a></li>
+		<li role="presentation"><a href="#matchesList" data-toggle="tab">{{ 'print.matchesList'|trans }}</a></li>
+		<li role="presentation"><a href="#matchResults" data-toggle="tab">{{ 'print.matchResults'|trans }}</a></li>
+		<li role="presentation"><a href="#ranking" data-toggle="tab">{{ 'print.ranking'|trans }}</a></li>
+		<li role="presentation"><a href="#teams" data-toggle="tab">{{ 'print.teams'|trans }}</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="courtNotes">
+		
+			<div class="control-group" id="searchByBox">
+				<label class="control-label" for="poolSelector">{{ 'print.searchBy'|trans }}</label>
+				<div class="controls">
+					<label for="searchByPoolRound"><input type="radio" name="searchBy" id="searchByPoolRound" class="searchBy" checked> {{ 'print.poolAndRound'|trans|raw }}</label>
+					<label for="searchByMatchNumber"><input type="radio" name="searchBy"  id="searchByMatchNumber" class="searchBy"> {{ 'print.matchNumber'|trans }}</label>
+				</div>
+			</div>
+			<div class="control-group" id="poolBox">
+				<label class="control-label" for="poolSelector">{{ 'general.pool'|trans }}</label>
+				<div class="controls">
+					<select class="poolSelector" id="poolSelector"></select>
+				</div>
+			</div>
+			<div class="control-group" id="roundBox" style="display:none;">
+				<label class="control-label" for="roundSelector">{{ 'general.round'|trans }}</label>
+				<div class="controls">
+					<select class="roundSelector" id="roundSelector"></select>
+				</div>
+			</div>
+			<div class="control-group" id="fromMatchNumberBox">
+				<label class="control-label" for="fromMatchNumber">{{ 'print.fromMatchNr'|trans }}</label>
+				<div class="controls">
+					<input type="text" id="fromMatchNumber">
+					<span class="glyphicon glyphicon-info-sign form-control-feedback infoIcon" data-toggle="popover" data-content="{{ 'print.fromMatchNr.leaveEmpty'|trans }}" data-original-title="" title=""></span>
+				</div>
+			</div>
+			<div class="control-group" id="toMatchNumberBox">
+				<label class="control-label" for="toMatchNumber">{{ 'print.toMatchNr'|trans }}</label>
+				<div class="controls">
+					<input type="text" id="toMatchNumber">
+					<span class="glyphicon glyphicon-info-sign form-control-feedback infoIcon" data-toggle="popover" data-content="Leave empty to print up to the highest match number" data-original-title="" title=""></span>
+				</div>
+			</div>
+			<div class="control-group" id="trimPlayerNameBox">
+				<div class="controls">
+					<label class="control-label" for="trimPlayerName">
+						<input type="checkbox" id="trimPlayerName" checked> {{ 'print.cutOffNames'|trans }} <span class="fa fa-info-circle infoIcon" data-toggle="popover" data-content="{{ 'print.cutOffNames.explain'|trans }}"></span>
+					</label>
+				</div>
+			</div>
+			
+		</div>
+		<div role="tabpanel" class="tab-pane" id="matchesList"></div>
+		<div role="tabpanel" class="tab-pane" id="matchResults"></div>
+		<div role="tabpanel" class="tab-pane" id="ranking"></div>
+		<div role="tabpanel" class="tab-pane" id="teams"></div>
+	</div>
+	
+	<div class="form-actions">
+		<a href="#" target="_blank" class="btn btn-primary" id="printBtn"><i class="fa fa-print"></i> {{ 'print.submit'|trans }}</a>
+	</div>
+</div>
+{% endset %}
+{{ macro.well(content) }}
+{% endblock %}

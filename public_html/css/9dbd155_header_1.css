@@ -1,0 +1,1258 @@
+/* config variables */
+/* Options: Orange #e8652c Green #43a73f */
+/* Background */
+/* Colors */
+/* roboto font */
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300italic,300,400italic,500,500italic,700,700italic,900,900italic);
+/* source sans pro */
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic);
+/* lato */
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
+/* merriweather */
+@import url(https://fonts.googleapis.com/css?family=Merriweather:400,300italic,300,400italic,700,700italic);
+/* modules */
+/* this mixin makes possible to add transition to a specific vendor, example: */
+/* -webkit-transition: -webkit-transform 0.5s linear; */
+/* buttons */
+@import url(../bundles/tsfront/template/css/bootstrap/bootstrap.css);
+/* line 3, ../../../public_html/bundles/tsfront/template/css/modules/_elements_header.scss */
+.btn {
+  font-size: 1em;
+  line-height: 1.6em !important;
+  text-transform: uppercase;
+  font-weight: 500;
+  text-align: center;
+  font-size: 1.1rem;
+  margin: 0 1em;
+  /*     min-width: 5.5em; */
+}
+/* line 13, ../../../public_html/bundles/tsfront/template/css/modules/_elements_header.scss */
+.btn.no-margin {
+  margin: 0;
+}
+
+/* line 18, ../../../public_html/bundles/tsfront/template/css/modules/_elements_header.scss */
+#site-head .account .btn-group {
+  margin: 0 1em;
+}
+
+/* line 22, ../../../public_html/bundles/tsfront/template/css/modules/_elements_header.scss */
+*[class*='btn-custom-'] {
+  padding: 0.4em 0.8em !important;
+  border-radius: 0.2em;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+/* line 27, ../../../public_html/bundles/tsfront/template/css/modules/_elements_header.scss */
+*[class*='btn-custom-']:hover {
+  color: #fff !important;
+}
+/* line 31, ../../../public_html/bundles/tsfront/template/css/modules/_elements_header.scss */
+*[class*='btn-custom-'].btn-custom-blue, *[class*='btn-custom-'].btn-custom-primary {
+  background: #4598e2;
+  /* #5ba4e5 */
+}
+/* line 35, ../../../public_html/bundles/tsfront/template/css/modules/_elements_header.scss */
+*[class*='btn-custom-'].btn-custom-blue:hover, *[class*='btn-custom-'].btn-custom-blue:focus, *[class*='btn-custom-'].btn-custom-primary:hover, *[class*='btn-custom-'].btn-custom-primary:focus {
+  background: #2f8cdf !important;
+}
+
+/* lanuage flags */
+/* line 45, ../../../public_html/bundles/tsfront/template/css/modules/_elements_header.scss */
+*[class*='lang-'] {
+  background-size: cover !important;
+  content: "";
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+}
+/* line 52, ../../../public_html/bundles/tsfront/template/css/modules/_elements_header.scss */
+*[class*='lang-'].lang-dutch {
+  background: url("../bundles/tsfront/img/lang_nl.png") no-repeat;
+}
+/* line 56, ../../../public_html/bundles/tsfront/template/css/modules/_elements_header.scss */
+*[class*='lang-'].lang-english {
+  background: url("../bundles/tsfront/img/lang_en.png") no-repeat;
+}
+
+/* vendor */
+@media (min-width: 1200px) {
+  /*
+  	.container {
+  		width: 970px;
+  	}
+  */
+}
+/* line 9, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+body {
+  font-size: 13px;
+}
+
+/*ul,
+li {
+	list-style: none;
+	list-style-position: outside;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}*/
+/* line 24, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+ul.justified li {
+  display: table-cell;
+  width: 1%;
+}
+/* line 28, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+ul.justified li a {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/*
+
+li {
+	display: inline-block;
+
+	&:first-child a{
+    	padding-left: 0;
+	}
+
+	&:last-child a{
+    	padding-right: 0;
+	}
+}
+*/
+/* line 50, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+h3,
+h4 {
+  font-weight: normal !important;
+}
+
+/* line 55, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+a {
+  color: #43a73f;
+}
+/* line 58, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+a:hover {
+  color: #3c9438;
+}
+
+/* line 66, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.nav.nav-pills li a {
+  border-radius: 0.2em;
+  color: #333;
+}
+/* line 71, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.nav.nav-pills li.active a {
+  background: #43a73f !important;
+  padding: 10px 15px;
+  color: #fff;
+}
+/* line 79, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.nav.nav-tabs {
+  border-bottom: 0;
+  margin-bottom: 30px;
+}
+/* line 83, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.nav.nav-tabs li {
+  border-bottom: 0.2em solid transparent;
+  max-height: 40px;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -ms-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+/* line 88, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.nav.nav-tabs li a {
+  color: #888;
+  padding: 10px 15px;
+}
+/* line 92, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.nav.nav-tabs li a:hover {
+  border-color: transparent;
+  background: transparent;
+}
+/* line 98, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.nav.nav-tabs li:hover {
+  border-color: #aaa;
+}
+/* line 102, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.nav.nav-tabs li.active {
+  font-weight: bold;
+  border-bottom: 0.2em solid #43a73f;
+}
+/* line 105, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.nav.nav-tabs li.active a {
+  border: 0;
+  color: #43a73f;
+}
+
+/* line 115, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  background-color: #5585B3;
+  border-color: #4477A3;
+}
+
+/* line 125, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.pagination > li > a,
+.pagination > li > span {
+  -webkit-transition: all 0.25s linear;
+  -moz-transition: all 0.25s linear;
+  -ms-transition: all 0.25s linear;
+  -o-transition: all 0.25s linear;
+  transition: all 0.25s linear;
+}
+
+/* --- Bugfix for glyphicons --- */
+/* line 133, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.glyphicon-nonescaped.glyphicon-calendar:before {
+  content: "\d83d\dcc5";
+}
+/* line 136, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.glyphicon-nonescaped.glyphicon-bell:before {
+  content: "\d83d\dd14";
+}
+/* line 139, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.glyphicon-nonescaped.glyphicon-bookmark:before {
+  content: "\d83d\dd16";
+}
+/* line 142, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.glyphicon-nonescaped.glyphicon-briefcase:before {
+  content: "\d83d\dcbc";
+}
+/* line 145, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.glyphicon-nonescaped.glyphicon-calendar:before {
+  content: "\d83d\dcc5";
+}
+/* line 148, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.glyphicon-nonescaped.glyphicon-camera:before {
+  content: "\d83d\dcf7";
+}
+/* line 151, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.glyphicon-nonescaped.glyphicon-fire:before {
+  content: "\d83d\dd25";
+}
+/* line 154, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.glyphicon-nonescaped.glyphicon-lock:before {
+  content: "\d83d\dd12";
+}
+/* line 157, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.glyphicon-nonescaped.glyphicon-paperclip:before {
+  content: "\d83d\dcce";
+}
+/* line 160, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.glyphicon-nonescaped.glyphicon-pushpin:before {
+  content: "\d83d\dccc";
+}
+/* line 163, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.glyphicon-nonescaped.glyphicon-wrench:before {
+  content: "\d83d\dd27";
+}
+
+/* line 169, ../../../public_html/bundles/tsfront/template/css/bootstrap/_bootstrap-overrides.scss */
+.notification.red a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* layout */
+/* line 2, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+a:focus, button:focus {
+  outline: none;
+}
+
+/* line 7, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#hero {
+  border-top: 0;
+}
+
+/* line 12, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.normal {
+  min-height: 60px;
+  background: #223741;
+  border-radius: 0px;
+  box-shadow: 0px 1px 3px 1px rgba(46, 46, 46, 0.3), inset rgba(255, 255, 255, 0.2) 0 1px 1px;
+  border: none;
+  z-index: 9999;
+  -webkit-font-smoothing: antialiased;
+}
+/* line 22, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.normal .navbar-header .navbar-brand {
+  color: #fff;
+  padding: 25px 15px;
+  font-weight: 500;
+  font-size: 23px;
+}
+/* line 28, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.normal .navbar-header .navbar-toggle {
+  margin-top: 17px;
+}
+@media (min-width: 768px) {
+  /* line 32, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.normal .navbar-collapse {
+    text-align: center;
+  }
+}
+@media (min-width: 768px) {
+  /* line 38, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.normal .navbar-collapse .navbar-nav {
+    float: none;
+    display: inline-block;
+  }
+}
+/* line 45, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.normal .navbar-collapse .navbar-nav > li {
+  float: none;
+  display: inline-block;
+}
+@media (max-width: 767px) {
+  /* line 45, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.normal .navbar-collapse .navbar-nav > li {
+    display: block;
+  }
+}
+/* line 54, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.normal .navbar-collapse .navbar-nav > li.active > a {
+  background: none;
+  color: #fff;
+}
+/* line 59, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.normal .navbar-collapse .navbar-nav > li > a {
+  padding: 25px 20px;
+  color: #d5d5d5;
+  font-weight: 500;
+  z-index: 1001;
+  -webkit-transition: color 0.2s linear;
+  -moz-transition: color 0.2s linear;
+  -ms-transition: color 0.2s linear;
+  -o-transition: color 0.2s linear;
+  transition: color 0.2s linear;
+}
+@media (max-width: 767px) {
+  /* line 59, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.normal .navbar-collapse .navbar-nav > li > a {
+    padding: 18px 20px;
+  }
+}
+/* line 70, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.normal .navbar-collapse .navbar-nav > li > a:hover {
+  color: #fff;
+}
+@media (max-width: 767px) {
+  /* line 77, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.normal .navbar-collapse .navbar-nav > li.open ul.dropdown-menu a {
+    color: #fff;
+    padding: 12px 18px 12px 30px;
+  }
+}
+/* line 85, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.normal .navbar-collapse .navbar-nav > li ul.dropdown-menu {
+  text-align: left;
+  padding: 9px 0;
+}
+/* line 89, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.normal .navbar-collapse .navbar-nav > li ul.dropdown-menu li a {
+  padding: 8px 18px;
+}
+/* line 94, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.normal .navbar-collapse .navbar-nav .button {
+  padding: 8px 18px;
+  font-size: 13px;
+  position: relative;
+  top: 17px;
+}
+@media (max-width: 767px) {
+  /* line 94, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.normal .navbar-collapse .navbar-nav .button {
+    box-shadow: none;
+    background: none;
+    top: 0;
+    margin-bottom: 20px;
+    color: #d5d5d5 !important;
+    font-size: 15px;
+  }
+}
+/* line 113, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.hero {
+  margin: 0px;
+  border-radius: 0px;
+  border: 0px;
+  z-index: 999;
+  -webkit-font-smoothing: antialiased;
+}
+@media (min-width: 768px) {
+  /* line 113, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.hero {
+    background: transparent;
+    padding-top: 10px;
+  }
+  /* line 124, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.hero .navbar-nav > .active > a {
+    background: transparent;
+    color: #fff;
+  }
+}
+/* line 130, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.hero .navbar-brand {
+  color: #fff;
+  font-weight: 500;
+  font-size: 26px;
+  font-family: "Lato", "Helvetica Neue", Arial;
+}
+/* line 140, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.hero .navbar-nav > li.dropdown > a .caret {
+  border-top-color: #EBEBEB;
+}
+/* line 144, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.hero .navbar-nav > li > a {
+  color: #fff;
+  font-size: 15px;
+  padding: 15px 20px;
+  font-weight: 500;
+  -webkit-transition: color 0.2s linear;
+  -moz-transition: color 0.2s linear;
+  -ms-transition: color 0.2s linear;
+  -o-transition: color 0.2s linear;
+  transition: color 0.2s linear;
+}
+/* line 151, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.hero .navbar-nav > li > a:hover {
+  color: #fff;
+}
+/* line 156, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.hero .navbar-nav > li.open > a {
+  color: #fff !important;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 4px 4px 0 0;
+}
+@media (max-width: 767px) {
+  /* line 162, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.hero .navbar-nav > li.open ul.dropdown-menu a {
+    color: #fff;
+    padding: 12px 18px 12px 30px;
+  }
+}
+/* line 170, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.hero .navbar-nav > li ul.dropdown-menu {
+  text-align: left;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: none;
+  padding: 5px 0 8px 0;
+  border-radius: 4px 0 4px 4px;
+  border: 0px;
+}
+/* line 178, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.hero .navbar-nav > li ul.dropdown-menu li a {
+  color: #fff;
+  padding: 10px 18px;
+  font-size: 15px;
+}
+/* line 182, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.hero .navbar-nav > li ul.dropdown-menu li a:hover {
+  color: #e9e9e9;
+  background: none;
+}
+/* line 192, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.white {
+  min-height: 60px;
+  margin-bottom: 0;
+  border-radius: 0;
+  border: 0;
+  /*         border-bottom: 0.1em solid #ddd; */
+  border-bottom: 0.3em solid #43a73f;
+  z-index: 999;
+  -webkit-font-smoothing: antialiased;
+  /*
+  		.container {
+  			@media (min-width: 1200px) {
+  				width: 1000px;
+  			}
+  		}
+  */
+}
+@media (min-width: 768px) {
+  /* line 192, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.white {
+    background: #fff;
+    /* 			box-shadow: 0px 1px 5px rgba(0, 0, 0, .75); */
+  }
+}
+/* line 216, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.white .navbar-header .navbar-brand {
+  color: #777;
+  font-weight: bold;
+  font-size: 1.4em;
+  font-family: "Lato", "Helvetica Neue", Arial;
+  padding-top: 19px;
+}
+/* line 223, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.white .navbar-header .navbar-brand .logo {
+  background: #43a73f;
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  color: #fff;
+  margin: 0 5px 0 0;
+  padding: 3px 8px;
+  font-size: 0.8em;
+  display: inline-block;
+  border-radius: 2px;
+}
+@media (max-width: 767px) {
+  /* line 216, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.white .navbar-header .navbar-brand {
+    color: #fff;
+    font-size: 20px;
+  }
+}
+/* line 241, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.white .navbar-header .navbar-toggle {
+  margin-top: 17px;
+}
+@media (min-width: 768px) {
+  /* line 246, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.white .navbar-collapse {
+    text-align: center;
+  }
+}
+/* line 254, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.white .navbar-collapse .navbar-nav.navbar-left {
+  float: left;
+}
+/* line 257, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.white .navbar-collapse .navbar-nav.navbar-right {
+  float: left;
+  margin-left: 10px;
+}
+@media (min-width: 768px) {
+  /* line 252, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.white .navbar-collapse .navbar-nav {
+    float: none;
+    display: inline-block;
+  }
+}
+/* line 268, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.white .navbar-collapse .navbar-nav > li {
+  float: none;
+  display: inline-block;
+}
+@media (max-width: 767px) {
+  /* line 268, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.white .navbar-collapse .navbar-nav > li {
+    display: block;
+  }
+}
+/* line 277, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.white .navbar-collapse .navbar-nav > li.active > a {
+  background: none;
+  color: #43a73f;
+}
+/* line 283, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.white .navbar-collapse .navbar-nav > li > a {
+  padding: 17px 20px;
+  color: #888;
+  z-index: 1001;
+  -webkit-transition: color 0.2s linear;
+  -moz-transition: color 0.2s linear;
+  -ms-transition: color 0.2s linear;
+  -o-transition: color 0.2s linear;
+  transition: color 0.2s linear;
+  /*
+  						&.signup {
+  							border: 1px solid #CED7DF;
+  							border-radius: 5px;
+  							padding: 8px 11px;
+  							font-size: 13px;
+  							color: #333;
+  							margin-left: 20px;
+  						}
+  */
+}
+@media (max-width: 767px) {
+  /* line 283, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.white .navbar-collapse .navbar-nav > li > a {
+    padding: 18px 20px;
+    color: #fff;
+  }
+}
+/* line 305, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.white .navbar-collapse .navbar-nav > li > a .fa-chevron-down {
+  color: #777;
+  font-size: 8px;
+  margin-left: 2px;
+  position: relative;
+  top: -1px;
+}
+/* line 313, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.white .navbar-collapse .navbar-nav > li > a:hover {
+  color: #43a73f;
+}
+@media (max-width: 767px) {
+  /* line 313, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.white .navbar-collapse .navbar-nav > li > a:hover {
+    color: #fff;
+  }
+}
+@media (min-width: 768px) {
+  /* line 323, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.white .navbar-collapse .navbar-nav > li.open > a {
+    background: #fff;
+    color: #333;
+  }
+}
+/* line 329, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.white .navbar-collapse .navbar-nav > li.open > a .caret {
+  border-top-color: #999;
+  border-bottom-color: #999;
+}
+@media (max-width: 767px) {
+  /* line 336, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  .navbar.white .navbar-collapse .navbar-nav > li.open ul.dropdown-menu a {
+    color: #fff;
+    padding: 12px 18px 12px 30px;
+  }
+}
+/* line 345, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.white .navbar-collapse .navbar-nav > li ul.dropdown-menu {
+  text-align: left;
+  border: 0;
+  padding: 0 0 10px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.175);
+}
+/* line 351, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+.navbar.white .navbar-collapse .navbar-nav > li ul.dropdown-menu li a {
+  padding: 8px 18px;
+}
+
+/* line 361, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer {
+  background: #414B5B;
+  margin-top: 120px;
+  padding-top: 47px;
+  padding-bottom: 35px;
+  -webkit-font-smoothing: antialiased;
+}
+/* line 368, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer .copyright {
+  color: #B5C5CF;
+  font-size: 14px;
+  font-weight: 500;
+}
+@media (max-width: 991px) {
+  /* line 368, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  #footer .copyright {
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 767px) {
+  /* line 368, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  #footer .copyright {
+    text-align: center;
+  }
+}
+@media (max-width: 767px) {
+  /* line 381, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  #footer .menu {
+    text-align: center;
+    margin-top: 40px;
+  }
+}
+/* line 387, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer .menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+/* line 390, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer .menu ul li {
+  display: inline-block;
+}
+/* line 393, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer .menu ul li.active a {
+  color: #fff;
+}
+/* line 397, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer .menu ul li a {
+  color: #ccc;
+  padding: 15px 17px;
+  font-weight: 500;
+  -webkit-transition: color 0.2s linear;
+  -moz-transition: color 0.2s linear;
+  -ms-transition: color 0.2s linear;
+  -o-transition: color 0.2s linear;
+  transition: color 0.2s linear;
+}
+/* line 403, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer .menu ul li a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+@media (max-width: 991px) {
+  /* line 397, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  #footer .menu ul li a {
+    padding: 15px 17px 15px 0px;
+  }
+}
+/* line 415, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer .social {
+  text-align: right;
+}
+@media (max-width: 767px) {
+  /* line 415, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  #footer .social {
+    text-align: center;
+    margin-top: 40px;
+  }
+}
+/* line 423, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer .social a {
+  border: 0;
+  text-decoration: none;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  margin-left: 15px;
+  position: relative;
+  top: -10px;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  transition: all .3s ease;
+}
+/* line 436, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer .social a:hover {
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
+
+/* line 444, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white {
+  background: #fff;
+  padding-top: 70px;
+  padding-bottom: 30px;
+  -webkit-font-smoothing: antialiased;
+}
+@media (max-width: 991px) {
+  /* line 444, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  #footer-white {
+    padding-top: 30px;
+  }
+}
+@media (max-width: 767px) {
+  /* line 454, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  #footer-white .menu {
+    text-align: center;
+    margin-top: 40px;
+  }
+}
+/* line 460, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .menu h3 {
+  margin-top: 0;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+/* line 469, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 30px;
+}
+/* line 474, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .menu ul li {
+  display: block;
+  margin-bottom: 9px;
+}
+/* line 478, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .menu ul li a {
+  color: #89A1C0;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 13px;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -ms-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+/* line 485, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .menu ul li a:hover {
+  color: #000;
+  text-decoration: none;
+}
+@media (max-width: 991px) {
+  /* line 478, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  #footer-white .menu ul li a {
+    padding: 0;
+  }
+}
+/* line 495, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .menu ul li .hiring {
+  font-family: "Lato", "Helvetica Neue", Arial;
+  font-weight: 700;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  word-spacing: 1.5px;
+  font-size: 11px;
+  margin-left: 4px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: #fff;
+  background: #49B7E2;
+}
+/* line 508, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .menu ul li .hiring:hover {
+  color: #fff;
+  background: #0E82AF;
+}
+/* line 517, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .newsletter {
+  text-align: right;
+}
+@media (max-width: 767px) {
+  /* line 517, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  #footer-white .newsletter {
+    text-align: center;
+    margin-top: 40px;
+  }
+}
+/* line 525, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .newsletter .signup {
+  margin-bottom: 40px;
+}
+/* line 528, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .newsletter .signup p {
+  font-size: 13px;
+  color: #666;
+  width: 90%;
+  float: right;
+  text-align: left;
+  line-height: 20px;
+}
+@media (max-width: 767px) {
+  /* line 528, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  #footer-white .newsletter .signup p {
+    float: none;
+    text-align: center;
+    width: 100%;
+  }
+}
+/* line 543, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .newsletter .signup form {
+  float: right;
+  width: 90%;
+  position: relative;
+}
+@media (max-width: 767px) {
+  /* line 543, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+  #footer-white .newsletter .signup form {
+    float: none;
+    width: 100%;
+  }
+}
+/* line 553, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .newsletter .signup form input[type="text"] {
+  font-size: 13px;
+}
+/* line 36, ../../../public_html/bundles/tsfront/template/css/modules/_mixins.scss */
+#footer-white .newsletter .signup form input[type="text"]::-webkit-input-placeholder {
+  font-size: 13px;
+  line-height: 17px;
+}
+/* line 37, ../../../public_html/bundles/tsfront/template/css/modules/_mixins.scss */
+#footer-white .newsletter .signup form input[type="text"]:-moz-placeholder {
+  font-size: 13px;
+  line-height: 17px;
+}
+/* line 38, ../../../public_html/bundles/tsfront/template/css/modules/_mixins.scss */
+#footer-white .newsletter .signup form input[type="text"]::-moz-placeholder {
+  font-size: 13px;
+  line-height: 17px;
+}
+/* line 39, ../../../public_html/bundles/tsfront/template/css/modules/_mixins.scss */
+#footer-white .newsletter .signup form input[type="text"]:-ms-input-placeholder {
+  font-size: 13px;
+  line-height: 17px;
+}
+/* line 562, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .newsletter .signup form input[type="submit"] {
+  border: 0;
+  background: #84B0E2;
+  color: #FFF;
+  border-radius: 3px;
+  padding: 6px 10px;
+  position: absolute;
+  top: 5px;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.28);
+  right: 5px;
+  font-size: 13px;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -ms-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+/* line 576, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .newsletter .signup form input[type="submit"]:hover {
+  background: #6284AC;
+}
+/* line 583, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .newsletter a {
+  border: 0;
+  text-decoration: none;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  margin-left: 15px;
+  position: relative;
+  top: -10px;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  transition: all .3s ease;
+}
+/* line 596, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .newsletter a:hover {
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
+/* line 603, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .credits {
+  margin-top: 30px;
+}
+/* line 606, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+#footer-white .credits .col-md-12 {
+  padding-top: 20px;
+  font-size: 13px;
+  text-align: center;
+  color: #A1AAB6;
+}
+
+/* line 617, ../../../public_html/bundles/tsfront/template/css/partials/_layout.scss */
+form .form-group small.comment {
+  font-size: 0.9em;
+  display: block;
+  color: #999;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+/*----------- Site head -----------*/
+/* line 2, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head {
+  position: relative;
+}
+/* line 5, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head a {
+  z-index: 25;
+  /* Neccassary for hiding when searchfield is active */
+}
+/* line 9, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar {
+  font-size: 14px;
+}
+/* line 12, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav {
+  display: table !important;
+  height: 60px;
+}
+/* line 16, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li {
+  display: table-cell !important;
+  vertical-align: middle !important;
+}
+/* line 20, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li > a {
+  height: 60px;
+  color: #888;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.3rem;
+  line-height: 1.8rem;
+  /*                 border-left: 0.1em solid #ddd; */
+}
+/* line 30, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li > a > small {
+  display: block;
+  text-transform: lowercase;
+  font-size: 10px;
+  line-height: 10px;
+  margin-top: -3px;
+}
+/* line 38, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li > a.btn {
+  text-align: center;
+  font-size: 1.1rem;
+  margin: 0 1em;
+}
+/* line 46, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action .btn {
+  height: auto !important;
+  padding: 0;
+}
+/* line 50, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action .btn:hover {
+  background: transparent;
+}
+/* line 56, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action .switch .dropdown-menu {
+  margin-top: -10px;
+  /*                         min-width: 140px !important; */
+  padding: 5px 0 !important;
+  border: 0.1em solid #ccc !important;
+}
+/* line 62, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action .switch .dropdown-menu li {
+  padding: 0;
+  font-size: 0.9em;
+  width: 100%;
+  font-weight: 500;
+}
+/* line 68, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action .switch .dropdown-menu li.title {
+  font-size: 0.8em;
+  text-transform: uppercase;
+  padding: 0 15px;
+}
+/* line 75, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action .switch .dropdown-menu li a {
+  display: block;
+  /*                                     width: 100%; */
+  margin: 0 !important;
+  padding: 0 15px !important;
+  line-height: 30px;
+}
+/* line 82, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action .switch .dropdown-menu li a span {
+  position: relative;
+  top: 5px;
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+}
+/* line 96, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action.language .switch .btn {
+  border: 0 !important;
+  background: transparent;
+  height: 28px !important;
+  margin: 4px 0 0 0 !important;
+  padding: 0 !important;
+}
+/* line 103, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action.language .switch .btn:focus, #site-head.navbar .navbar-nav > li.action.language .switch .btn:hover {
+  background: transparent !important;
+}
+/* line 113, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action.account .switch.open > *, #site-head.navbar .navbar-nav > li.action.account .switch.open > *:hover, #site-head.navbar .navbar-nav > li.action.account .switch.open > *:focus {
+  background: #4598e2;
+  border-bottom-color: transparent;
+}
+/* line 120, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action.account .dropdown-menu {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-color: #2f8cdf !important;
+  margin-top: 5px;
+  padding: 5px 0 !important;
+  background: #4598e2;
+}
+/* line 128, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action.account .dropdown-menu .divider {
+  margin: 3px 0;
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
+/* line 133, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action.account .dropdown-menu li {
+  padding: 0;
+  font-size: 0.9em;
+  width: 100%;
+}
+/* line 138, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action.account .dropdown-menu li a {
+  font-weight: 500;
+  color: #fff !important;
+  display: block;
+  margin: 0 !important;
+  padding: 0 15px !important;
+  line-height: 30px;
+}
+/* line 146, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action.account .dropdown-menu li a:hover {
+  background: #2f8cdf !important;
+}
+/* line 150, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.action.account .dropdown-menu li a span {
+  position: relative;
+  top: 5px;
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+}
+/* line 163, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.search {
+  color: #888;
+  /*                 border-left: 0.1em solid #ddd; */
+  padding-right: 40px;
+}
+/* line 169, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.search .nav-search button.btn {
+  position: relative;
+  padding: 3px 9px 3px 8px;
+  margin: 0 0 0 0.5em;
+  border: 1px solid #888;
+  background: #fff;
+  font-size: 1em;
+}
+/* line 177, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.search .nav-search button.btn:hover {
+  color: #43a73f;
+  border-color: #43a73f;
+}
+/* line 181, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.search .nav-search button.btn:hover:before {
+  border-right-color: #43a73f;
+}
+/* line 186, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.search .nav-search button.btn:before {
+  -webkit-transition: border 0.2s ease;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+  -moz-transition: border 0.2s ease;
+  -o-transition: border 0.2s ease;
+  transition: border 0.2s ease;
+  content: " ";
+  position: absolute;
+  height: 0px;
+  width: 0px;
+  top: 50%;
+  margin: -7px 0 0 0;
+  left: -7px;
+  border-top: 7px solid transparent;
+  border-right: 7px solid #888;
+  border-bottom: 7px solid transparent;
+}
+/* line 205, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.search .nav-search button.btn:after {
+  content: " ";
+  position: absolute;
+  height: 0px;
+  width: 0px;
+  top: 50%;
+  margin: -6px 0 0 0;
+  left: -6px;
+  border-top: 6px solid transparent;
+  border-right: 6px solid #fff;
+  border-bottom: 6px solid transparent;
+}
+/* line 219, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.search .nav-search input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  height: 100%;
+  min-width: 500px;
+  overflow: hidden;
+  background-color: red;
+  border: 0;
+}
+/* line 231, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.search .nav-search input::-webkit-input-placeholder {
+  color: #888;
+}
+/* line 234, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.search .nav-search input:-moz-placeholder {
+  /* FF 4-18 */
+  color: #888;
+}
+/* line 238, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.search .nav-search input::-moz-placeholder {
+  /* FF 19+ */
+  color: #888;
+}
+/* line 242, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.search .nav-search input:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #888;
+}
+/* line 247, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.search .nav-search input:hover, #site-head.navbar .navbar-nav > li.search .nav-search input:focus, #site-head.navbar .navbar-nav > li.search .nav-search input:active {
+  color: #333 !important;
+}
+/* line 257, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.sport-selector {
+  background: #edece4;
+  text-align: center;
+}
+/* line 261, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.sport-selector:hover, #site-head.navbar .navbar-nav > li.sport-selector.active {
+  background: #e3e1d5;
+  cursor: pointer;
+}
+/* line 267, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.sport-selector a {
+  padding: 9px 25px !important;
+}
+/* line 271, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.sport-selector .sport-icon {
+  max-height: 31px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+}
+/* line 279, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-nav > li.sport-selector small {
+  text-transform: uppercase;
+}
+/* line 286, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-search {
+  display: none;
+}
+/* line 289, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-search input {
+  z-index: 50;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0 15px 0 35px;
+  border: 1px solid #888;
+  border-width: 0 0 0 1px;
+  box-shadow: none;
+}
+/* line 303, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .navbar-search .search-icon {
+  z-index: 60;
+  position: absolute;
+  top: 50%;
+  margin-top: -10px;
+  margin-left: 10px;
+  font-size: 1.2em;
+  color: #888;
+}
+/* line 316, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .sub-nav {
+  background: #e3e1d5;
+  line-height: 2.2em;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+/* line 322, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .sub-nav a {
+  display: block;
+  padding: 0.5em 1.5em;
+  /*             color: rgba(255, 255, 255, 0.8); */
+  color: #444;
+  text-transform: uppercase;
+}
+/* line 329, ../../../public_html/bundles/tsfront/template/css/partials/snippets/_header.scss */
+#site-head.navbar .sub-nav a:hover {
+  text-decoration: none;
+  /*                 color: #fff; */
+}

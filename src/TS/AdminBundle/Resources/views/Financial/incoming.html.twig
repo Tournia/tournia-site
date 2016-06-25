@@ -1,0 +1,100 @@
+{% import "TSAdminBundle:Financial:daterangeMacros.html.twig" as daterangeMacros %}
+
+{% extends "TSAdminBundle::baseAdmin.html.twig" %}
+
+{% block title "Incoming transactions" %}
+
+{% block jQuery %}
+    {{ parent() }}
+
+    {{ daterangeMacros.jquery(form) }}
+
+    $('#incomingDataTable').dataTable({
+        "dom": 'lfCTrtip',
+        "oTableTools": {
+            "sSwfPath": "{{ asset('bundles/tsadmin/js/copy_csv_xls_pdf.swf') }}"
+        }
+    });
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Incoming transactions</h2>
+            <form class="form-horizontal" action="{{ path('admin_financial_incoming') }}" method="post" {{ form_enctype(form) }} role="form">
+                <div class="form-group ">
+                    {{ daterangeMacros.html(form) }}
+                    <div class="col-sm-2">
+                        {{ form_rest(form) }}
+                        <button type="submit" class="btn btn-primary">Open</button>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+            <p>&nbsp;</p>
+            <table class="table table-hover table-striped ajaxDataTable manualAjaxDataTable" id="incomingDataTable">
+                <thead>
+                <tr>
+                    <th>Cart ID</th>
+                    <th>Tournament ID</th>
+                    <th>Tournament</th>
+                    <th>DateTime</th>
+                    <th>State</th>
+                    <th>Amount</th>
+                    <th>Method</th>
+                    <th>Executing person</th>
+                    <th>Invoice</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for cartTransaction in incomingTransactions %}
+                    {% if cartTransaction.invoice is not empty and cartTransaction.invoice.payOut is not empty %}
+                        {% set tournament = cartTransaction.invoice.payOut.tournament %}
+                    {% else %}
+                        {% set tournament = cartTransaction.items[0].product.tournament %}
+                    {% endif %}
+                    <tr>
+                        <td>{{ cartTransaction.id }}</td>
+                        <td>{{ tournament.id }}</td>
+                        <td><a href="{{ path('tournament_index', {'tournamentUrl': tournament.url}) }}">{{ tournament.name }}</a></td>
+                        <td>{{ cartTransaction.updatedAt|date("d-M-Y H:i:s") }}</td>
+                        <td>
+                            {% if cartTransaction.state == 1 %}Cart
+                            {% elseif cartTransaction.state == 2 %}Locked
+                            {% elseif cartTransaction.state == 3 %}Pending
+                            {% elseif cartTransaction.state == 4 %}Confirmed
+                            {% elseif cartTransaction.state == 5 %}Shipped
+                            {% elseif cartTransaction.state == 6 %}Abandoned
+                            {% elseif cartTransaction.state == 7 %}Cancelled
+                            {% elseif cartTransaction.state == 8 %}Returned
+                            {% endif %}
+                        </td>
+                        <td>{{ tournament.paymentCurrency }} {{ (cartTransaction.total/100)|number_format(2, ',', '.') }}</td>
+                        <td>
+                            {% if cartTransaction.paymentInstruction is not empty %}
+                                {{ cartTransaction.paymentInstruction.paymentSystemName }}
+                            {% else %}
+                                pay-out
+                            {% endif %}
+                        </td>
+                        {% if cartTransaction.execPerson is not empty %}
+                            <td>{{ cartTransaction.execPerson.name }} ({{ cartTransaction.execPerson.email }})</td>
+                        {% else %}
+                            <td>Anonymous</td>
+                        {% endif %}
+                        <td>
+                            {% if cartTransaction.invoice is not empty %}
+                                <a href="{{ path('financial_invoice', {'invoiceNr': cartTransaction.invoice.invoiceNr}) }}"><span class="fa fa-file-pdf-o"></span> Open</a>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{%  endblock %}
+

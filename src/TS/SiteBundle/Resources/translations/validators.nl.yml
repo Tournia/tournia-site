@@ -1,0 +1,7 @@
+# SpelerType
+playerType.registrationEmail.notvalid: Dit is geen geldig e-mailadres
+playerType.registrationEmail.notblank: Vul een geldig e-mailadres in om toernooi informatie te kunnen ontvangen, en voor de toernooi organisatie zodat die jou kunnen bereiken.
+playerType.group.notblank: Kies een groep
+playerType.notempty: Dit veld mag niet leeg zijn
+playerType.notchecked: Dit veld is verplicht
+

@@ -1,0 +1,241 @@
+{% trans_default_domain "front" %}
+<header id="site-head" class="navbar navbar-inverse white" role="banner">
+    {% if isControl == false %}<div class="container">{% endif %}
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="{{ path('front_index') }}" class="navbar-brand"><div class="logo" style="background: url('{{ asset('bundles/tsfront/img/logo-bg.png') }}');">T</div> tournia</a>
+        </div>
+
+        <div class="navbar-search">
+            <!-- input: search field -->
+            {% if isControl %}
+                <form role="form">
+                    <input type="text" placeholder="{{ 'header.control.search.placeholder'|trans }}" id="navSearch" class="playersTypeahead" rel="tooltip" data-placement="bottom" title="{{ 'header.control.search.title'|trans }}">
+                    <span class="search-icon glyphicon glyphicon-search"></span>
+                </form>
+            {% else %}
+                <form method="post" action="{{ path('front_all_tournaments') }}">
+                    <input type="text" name="search_tournament_navbar" placeholder="{{ 'header.else.search.placeholder'|trans }}">
+                    <span class="search-icon glyphicon glyphicon-search"></span>
+                </form>
+            {% endif %}
+            <!-- end input: search field -->
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav navbar-left">
+                <li class="action search">
+                    <div class="nav-search">
+                        <button class="btn" data-toggle="nav-search">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+                </li>
+
+                {% if tournament is defined and is_granted("EDIT", tournament) %}
+                <li>
+                    <div class="dropdown hidden-xs hidden-sm">
+                        <button class="btn btn-custom-primary dropdown-toggle" type="button" id="tournamentDropdownSelection" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            {{ 'header.js.tournamentOptions'|trans }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="tournamentDropdownSelection" {% if "control_" not in app.request.get('_route') %}style="left: 10px"{% endif %}>
+                            <li {% if "settings_" in app.request.get('_route') %}class="active"{% endif %}><a href="{{ path('settings_index', {'tournamentUrl': tournament.url}) }}" class="notReplaceLink"><span class="fa fa-wrench"></span> {{ 'header.js.settings'|trans }}</a></li>
+                            <li {% if "tournament_" in app.request.get('_route') %}class="active"{% endif %}><a href="{{ path('tournament_index', {'tournamentUrl': tournament.url}) }}" class="notReplaceLink"><span class="fa fa-desktop"></span> {{ 'header.js.website'|trans }}</a></li>
+                            <li {% if "control_" in app.request.get('_route') %}class="controlActive"{% endif %}><a href="{{ path('control_index', {'tournamentUrl': tournament.url}) }}" class="notReplaceLink"><span class="fa fa-gears"></span> {{ 'header.js.control'|trans }}</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li {% if "live_" in app.request.get('_route') %}class="active"{% endif %}><a href="{{ path('live_index', {'tournamentUrl': tournament.url}) }}" class="notReplaceLink"><span class="fa fa-play-circle-o"></span> {{ 'header.js.live'|trans }}</a></li>
+                            <li {% if app.request.get('_route') == "ts_live_presentationscreen" %}class="active"{% endif %}><a href="{{ path('ts_live_presentationscreen', {'tournamentUrl': tournament.url}) }}" target="_blank" class="notReplaceLink"><span class="fa fa-youtube-play"></span> {{ 'header.js.screen'|trans }}</a></li>
+                        </ul>
+                    </div>
+                </li>
+                {% endif %}
+
+                {% if isControl == false %}
+                    <li>
+                        <a href="{{ path('front_all_tournaments') }}">
+                            {{ 'header.else.alltournaments'|trans|raw }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('front_start_tournament') }}">
+                            {{ 'header.else.starttournament'|trans|raw }}
+                        </a>
+                    </li>
+                {% else %} {# isControl #}
+                    <!-- Activity messages -->
+                    <li id="logo-group" class="btn-header">
+                        <span id="activity" class="activity-dropdown">
+                            <i class="fa fa-bell-o"></i> <b class="count badge lastMessagesCount" id="lastMessagesCount">0</b>
+                        </span>
+
+                        <!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
+                        <div class="ajax-dropdown">
+                            <!-- the ID links are fetched via AJAX to the ajax container "ajax-notifications" -->
+                            <div class="btn-group btn-group-justified" data-toggle="buttons">
+                                <label class="btn btn-default">
+                                    <input type="radio" name="showNotification" id="showNotificationMessages">
+                                    {{ 'header.control.notificationtop.messages'|trans }}
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="showNotification" id="showNotificationSettings">
+                                    {{ 'header.control.notificationtop.settings'|trans }}
+                                </label>
+                            </div>
+
+                            <!-- notification messages -->
+                            <div class="ajax-notifications custom-scroll" id="lastMessages">
+                                <div class="alert alert-transparent">
+                                    <h4>{{ 'header.control.nomessages.title'|trans }}</h4>
+                                    {{ 'header.control.nomessages.text'|trans }}
+                                </div>
+
+                                <i class="fa fa-bell fa-4x fa-border"></i>
+                            </div>
+                            <!-- end notification messages -->
+
+                            <!-- notification settings -->
+                            <div class="ajax-notifications custom-scroll" id="notificationSettings">
+                                <div class="alert alert-transparent">
+                                    <h4>{{ 'header.control.notificationsettings.title'|trans }}</h4>
+                                    <p>{{ 'header.control.notificationsettings.text'|trans }}</p>
+                                    <p>
+                                        <input type="checkbox" id="notificationSettingsMe" />
+                                        <label for="notificationSettingsMe">{{ 'header.control.notificationsettings.me'|trans }}</label>
+                                    </p>
+                                    <p>
+                                        <input type="checkbox" id="notificationSettingsOtherPerson" />
+                                        <label for="notificationSettingsOtherPerson">{{ 'header.control.notificationsettings.otherPerson'|trans }}</label>
+                                    </p>
+                                    <!--<p>
+                                        <input type="checkbox" id="notificationSettingsRound" />
+                                        <label for="notificationSettingsRound">{{ 'header.control.notificationsettings.round'|trans }}</label>
+                                    </p>-->
+                                </div>
+                            </div>
+                            <!-- end notification settings -->
+
+                            <!-- footer -->
+                            <span>
+                                <a href="{{ path('control_messages', {'tournamentUrl': tournament.url}) }}">{{ 'header.control.allmessages'|trans }}</a>
+                            </span>
+                            <!-- end footer -->
+
+                        </div>
+                        <!-- END AJAX-DROPDOWN -->
+                    </li>
+
+
+                    {% if app.debug %}
+                        <!-- reload page button -->
+                        <li class="btn-header transparent">
+                            <span> <a href="#" onClick="checkURL();return false;" rel="tooltip" data-placement="bottom" title="Reload page (only for debug)"><i class="fa fa-refresh"></i></a> </span>
+                        </li>
+                        <!-- end reload page button -->
+                    {% endif %}
+
+                    <!-- fullscreen button -->
+                    <li id="fullscreen" class="btn-header transparent">
+                        <span> <a href="#" onClick="return false;" data-action="launchFullscreen" rel="tooltip" data-placement="bottom" title="{{ 'header.control.fullscreen'|trans }}"><i class="fa fa-arrows-alt"></i></a> </span>
+                    </li>
+                    <!-- end fullscreen button -->
+
+                    <!-- presentation screen button -->
+                    <li class="btn-header transparent">
+                        <span> <a href="{{ path('ts_live_presentationscreen', {'tournamentUrl': tournament.url}) }}" class="notReplaceLink" target="_blank" rel="tooltip" data-placement="bottom" title="{{ 'header.control.presentationscreen'|trans }}"><i class="fa fa-play-circle-o"></i></a> </span>
+                    </li>
+                    <!-- end presentation screen button -->
+
+                    <!-- Reset widgets button -->
+                    <li class="btn-header transparent">
+                        <span> <a href="#" onClick="return false;" rel="tooltip" data-placement="bottom" title="{{ 'header.control.reset'|trans }}" data-action="resetWidgets"><i class="fa fa-times-circle-o"></i></a> </span>
+                    </li>
+                    <!-- end reset widgets button -->
+
+                    <!-- collapse menu button -->
+                    <li id="hide-menu" class="btn-header transparent">
+                        <span> <a href="#" onClick="return false;" data-action="toggleMenu" rel="tooltip" data-placement="bottom" title="{{ 'header.control.collapse'|trans }}"><i class="fa fa-reorder"></i></a> </span>
+                    </li>
+                    <!-- end collapse menu -->
+                {% endif %}
+            </ul>
+            {% if isControl %}
+            <ul class="nav navbar-nav navbar-left visible-lg-block" id="navTournamentNameBlock">
+                <li class="center-block" id="navTournamentName">
+                    {{ tournament.name }}
+                </li>
+            </ul>
+            {% endif %}
+            <ul class="nav navbar-nav navbar-right">
+                {% if cart is defined %}
+                <li id="navigationCartBox" class="{% if app.request.get('_route') == "sylius_cart_summary" %}active{% endif %} action signup">
+                    <a href="{{ path('sylius_cart_summary') }}" class="signup btn btn-link notReplaceLink"><i class="fa fa-shopping-cart"></i> {{ 'header.else.cart'|trans }} ({{ cart.totalItems }})</a>
+                </li>
+                {% endif %}
+
+                {% if app.user  %}
+                    <li class="action account">
+                        <div class="switch btn-group">
+                            <a href="{{ path('account_settings_mytournaments') }}" class="btn btn-custom-primary notReplaceLink"><span class="fa fa-bookmark"></span> {{ 'header.else.tournaments'|trans }}</a>
+
+                            <button class="btn btn-custom-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                    <li><a href="{{ path('account_impersonate', {'_impersonate_user': '_exit'}) }}" class="notReplaceLink">Exit impersonation</a></li>
+                                    <li class="divider"></li>
+                                {% endif %}
+                                {% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+                                    <li><a href="{{ path('account_impersonate') }}" class="notReplaceLink">Impersonate user (admin only)</a></li>
+                                {% endif %}
+                                {% if app.user.isAdmin %}
+                                    <li><a href="{{ path('admin_index') }}" class="notReplaceLink">Admin</a></li>
+                                    <li class="divider"></li>
+                                {% endif %}
+                                <li><a href="{{ path('account_settings_profile') }}" class="notReplaceLink">{{ 'header.else.profile'|trans }}</a></li>
+                                <li><a href="{{ path('account_settings_account') }}" class="notReplaceLink">{{ 'header.else.account'|trans }}</a></li>
+                                <li><a href="{{ path('account_settings_financial') }}" class="notReplaceLink">{{ 'header.else.invoices'|trans }}</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path('account_logout') }}" class="notReplaceLink">{{ 'header.else.logout'|trans }}</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="action signin">
+                        <a href="{{ path('account_login') }}" class="signin btn btn-custom-primary notReplaceLink"><span class="glyphicon glyphicon-user"></span> {{ 'header.else.login'|trans }}</a>
+                    </li>
+                {% endif %}
+                <li class="action language">
+                    <div class="switch no-margin">
+                        <button type="button" class="btn btn-custom-alt dropdown-toggle btnNoShadow" data-toggle="dropdown">
+                            {% if app.request.locale == "en" %}
+                                <span class="lang-english"></span>
+                            {% elseif app.request.locale == "nl" %}
+                                <span class="lang-dutch"></span>
+                            {% endif %}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="title">{{ 'header.language.title'|trans }}</li>
+                            <li class="divider"></li>
+                            {% if app.request.get('_route_params') %}
+                                <li><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}" class="notReplaceLink"><span class="lang-english"></span> {{ 'header.language.english'|trans }}</a></li>
+                                <li><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'nl'})) }}" class="notReplaceLink"><span class="lang-dutch"></span> {{ 'header.language.dutch'|trans }}</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </li>
+                {% if tournament is defined and is_granted("EDIT", tournament) %}
+                    <li class="action language" id="organizerMenu">
+                        <div class="switch" style="margin-left:15px">
+                            <a href="#" tabindex="0" class="btn btn-custom-alt btnNoShadow" role="button" id="organizerMenuPopover">
+                                <span class="fa fa-2x fa-th"></span>
+                            </a>
+                        </div>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% if isControl == false %}</div>{% endif %}
+</header>

@@ -1,0 +1,157 @@
+# Group edit page
+groupedit.title.new: New group
+groupedit.title.change: Change group info
+groupedit.required: marks a required field
+groupedit.save: Save
+groupedit.cancel: Cancel
+groupedit.delete.button: Delete group
+groupedit.delete.confirm: Are you sure you want to delete this group?
+# RegistrationGroupType
+registrationgroup.contact.label: Contact person
+
+# Group overview page
+groups.title: Groups
+groups.name: Name
+groups.country: Country
+groups.players: Players
+
+# Player edit page
+playeredit.title.new: New player
+playeredit.title.change: Change player info
+playeredit.title2.new: Register
+playeredit.title2.change: Change registration
+
+# Player overview page
+players.title: Players
+players.name: Name
+players.group: Group
+players.gender: Gender
+players.partner: Partner
+players.status: Status
+players.wanted: Wanted
+
+# RegistrationClosed
+registrationclosed.text1: The registration is closed. Please %startLink%contact the organization%endLink% for further information.
+registrationclosed.text2: %startLink%Changing an existing registration%endLink% is still possible.
+
+# RegistrationLogin
+registrationlogin.title: Log in for registration
+registrationlogin.header.title: Login to register for %tournament%
+registrationlogin.header.text: To register for a tournament, we need to know who you are. Please log in with your username and password, or use your social media account.
+registrationlogin.anonymous.title: Register without account
+registrationlogin.anonymous.text: It is also possible to register for a tournament without an account. In that case, please enter the captcha code below, to confirm that you're human.
+
+# Player edit
+player.tabs.personalia: Personalia
+player.tabs.tournament: Tournament
+player.tabs.financial: Financial
+player.tabs.summary: Summary
+player.form.required: marks a required field
+player.form.contact: Contact information
+player.form.person: Person
+player.form.notset: Not set
+player.form.personal: Personal
+player.form.next: Next step
+player.form.previous: Previous step
+player.form.group.legend: Group
+player.form.group.notinlist: Your group not in the list?
+player.form.group.create: Create a new group
+player.form.disciplines.legend: Disciplines
+player.form.disciplines.maxDisciplines: '{1} You can register for a maximum of one discipline.|]1,Inf[ You can register for a maximum of %maxNr% disciplines.'
+player.form.disciplines.organizer: However, as an organizer, you are allowed to register for all disciplines.
+player.form.tournament.legend: Tournament specific
+player.form.transactions.legend: Past transactions
+player.form.transactions.person: %quantity% %productName% (%amount%) received on %date% by %execName% (%execEmail%)
+player.form.transactions.anonymous: %quantity% %productName% (%amount%) received on %date% by anonymous
+player.form.transactions.none: No payments received.
+player.form.transactions.balance: Total balance
+player.form.payment.legend: New payment
+player.form.payment.none: No available products.
+player.form.payment.total: Total tournament costs
+player.form.summary.registration.legend: Registration data
+player.form.summary.registration.date: Registration date
+player.form.summary.registration.status: Status
+player.form.summary.personalia.legend: Personalia summary
+player.form.summary.personalia.name: Name
+player.form.summary.personalia.gender: Gender
+player.form.summary.personalia.email: E-mail
+player.form.summary.tournament.legend: Tournament summary
+player.form.summary.tournament.group: Group
+player.form.summary.tournament.disciplines: Disciplines
+player.form.summary.costs.legend: Costs
+player.form.summary.finish.legend: Finish
+player.form.summary.finish.text: Please accept our terms of service and confirm your registration to proceed to the payment process to complete your registration.
+player.form.summary.finish.conditions: I agree with the %startLink%terms of service%endLink%.
+player.form.summary.finish.notify: Notify player
+player.form.summary.send: I confirm my registration
+player.form.summary.edit: Edit
+player.delete.button: Delete player
+player.delete.confirm: Are you sure you want to delete this player?
+player.terms.close: Close
+player.terms.label: Terms of Service
+player.terms.text: |
+  Tournia.net is not the seller of the goods or services mentioned, with the exception of possible service and payment fees. Tournia.net acts only as a limited commercial agent on behalf of the respective tournament organization, and therefore Tournia.net assumes no liability for any acts, omissions or otherwise.<br />
+  For questions regarding invoicing, changes or refunds of orders, please contact the tournament organization directly.<br />
+  I agree to these terms and conditions.
+player.jquery.genderfirst: Select a gender first
+player.jquery.maxDisciplines: Not playing, maximum of %maxNr% disciplines
+player.javascript.male: Male
+player.javascript.female: Female
+player.javascript.yes: Yes
+player.javascript.no: No
+player.javascript.nopayments: No new payments selected
+player.javascript.total: Total
+player.javascript.agreeterms: You need to agree with the terms of service, in order to continue.
+# PlayerType
+playerType.registrationFor.me: For me
+playerType.registrationFor.else: For someone else
+playerType.registrationFor.label: Registration is
+playerType.registrationEmail.email: Email address
+playerType.registrationEmail.info: Fill in the email address of this player to be able to receive information about the tournament, and for the tournament organization to contact you.
+playerType.group.select: Select a group
+playerType.group.label: Group
+playerType.group.emptyvalue: No group
+playerType.firstName.label: First name
+playerType.firstName.placeholder: First name
+playerType.lastName.label: Last name
+playerType.lastName.placeholder: Last name
+playerType.gender.label: Gender
+playerType.gender.male: Male
+playerType.gender.female: Female
+playerType.discipline.notPlaying: Not playing
+playerType.disciplinePartner.label: Partner
+playerType.disciplinePartner.info: Enter the name of your partner, or leave empty when it's a wanted
+playerType.sendPlayerNotification.label: Yes, notify the participant of the registration changes.
+playerType.addProduct.label: Add payment
+
+
+# Base page
+base.copyright: For questions regarding the tournament, %startLink%contact the organization%endLink%
+base.navigation.live: Live
+base.navigation.groups: Groups
+base.navigation.players: Players
+base.side.control: Control
+base.side.settings: Settings
+base.side.information.title: Information
+base.side.information.when: When?
+base.side.information.registrationopen: Registrions open
+base.side.information.registrationdeadline: Registrions deadline
+base.side.information.costs: Costs
+base.side.information.excl: Excl.
+base.side.information.servicefeeand: service fee and
+base.side.information.transactioncosts: transaction costs
+base.side.information.makepayment: Make a payment
+base.side.information.noproducts: No costs defined
+base.side.information.register: Register
+base.side.information.registrationclosed: Registrations are closed
+base.side.information.organizercreateregistration: Organizer: create registration
+base.side.organizer: Organizer
+base.side.location: Location
+base.side.statistics.title: Statistics
+base.side.statistics.total: Registrants total
+base.side.statistics.male: Male
+base.side.statistics.female: Female
+base.side.statistics.groups: Groups total
+
+
+

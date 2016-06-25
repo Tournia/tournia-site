@@ -1,0 +1,138 @@
+{% trans_default_domain "front" %}
+
+{% macro flashbagNotifications(generateDefault, boxClass) %}
+
+{% if generateDefault %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="notification green">
+            <span class="notification-icon fa fa-check-circle"></span> {{ flashMessage|raw }}
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('info') %}
+        <div class="notification blue">
+            <span class="notification-icon fa fa-info-circle"></span> {{ flashMessage|raw }}
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('warning') %}
+        <div class="notification red">
+            <span class="notification-icon fa fa-exclamation-triangle"></span> {{ flashMessage|raw }}
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="notification red">
+            <span class="notification-icon fa fa-exclamation-triangle"></span> {{ flashMessage|raw }}
+        </div>
+    {% endfor %}
+{% else %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="row">
+            <div class="{{ boxClass|default('col-md-6 col-md-offset-3') }}">
+                <div class="notification green">
+                    <span class="notification-icon fa fa-check-circle"></span> {{ flashMessage|raw }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('info') %}
+        <div class="row">
+            <div class="{{ boxClass|default('col-md-6 col-md-offset-3') }}">
+                <div class="notification blue">
+                    <span class="notification-icon fa fa-info-circle"></span> {{ flashMessage|raw }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('warning') %}
+        <div class="row">
+            <div class="{{ boxClass|default('col-md-6 col-md-offset-3') }}">
+                <div class="notification red">
+                    <span class="notification-icon fa fa-exclamation-triangle"></span> {{ flashMessage|raw }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="row">
+            <div class="{{ boxClass|default('col-md-6 col-md-offset-3') }}">
+                <div class="notification red">
+                    <span class="notification-icon fa fa-exclamation-triangle"></span> {{ flashMessage|raw }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% endmacro %}
+
+
+{% macro tournamentsBlock(tournaments) %}
+    {% for tournamentObj in tournaments if ((tournamentObj.0.site is defined) and (app.debug or tournamentObj.0.site.isPublished)) %}
+        {% set tournament = tournamentObj.0 %}
+        {% if loop.index0 % 4 == 0 %}
+            <div class="clearfix visible-md"></div>
+        {% endif %}
+        <div class="col-md-3 col-sm-4">
+            <div class="chart tournament">
+                <header data-url="{{ path('tournament_index', {'tournamentUrl': tournament.url}) }}" style="background-image: {% spaceless %}
+                        {% if tournament.site.frontImage is null %}
+                            url('{{ asset('bundles/tsfront/img/background/default_tournament.jpg') }}')
+                        {% else %}
+                            url('{{ app.request.getScheme() }}://{{ app.request.getHttpHost() }}{{ app.request.getBasePath()}}{{ tournament.site.frontImage.webPath }}')
+                            ;background-position: {{ tournament.site.frontImagePosition }}
+                        {% endif %}
+                    {% endspaceless %};">
+                    {% if tournament.startDateTime == tournament.endDateTime %}
+                        <div class="date">{{ tournament.startDateTime|date('l j F Y') }}</div>
+                    {% else %}
+                        <div class="date">{{ tournament.startDateTime|date('l j F Y') }} -<wbr /> {{ tournament.endDateTime|date('l j F Y') }}</div>
+                    {% endif %}
+                </header>
+                <div class="details">
+                    <div class="title">
+                        <h3 class="title"><a href="{{ path('tournament_index', {'tournamentUrl': tournament.url}) }}">{{ tournament.name }}</a></h3>
+                        <div class="organizer">
+                            <small>{{ 'index.tournament.by'|trans }} <a href="{{ path('tournament_index', {'tournamentUrl': tournament.url}) }}">{{ tournament.contactName }}</a></small>
+                        </div>
+                    </div>
+                    <p>
+                        <span class="fa fa-group"></span> <a href="{{ path('player_overview', {'tournamentUrl': tournament.url}) }}"><strong>{{ tournamentObj.nrPlayers }}</strong> {{ 'index.tournament.registrations'|transchoice(tournamentObj.nrPlayers) }}</a>
+                    </p>
+                    {% if tournament.site is not empty %}<div class="location">
+                        {% if tournament.site.locationAddress is not empty %}<span class="glyphicon glyphicon-map-marker"></span> {{ tournament.site.locationAddress }}{% endif %}&nbsp;
+                        </div>{% endif %}
+                </div>
+                <footer>
+                    <ul class="justified">
+                        {% if date(tournament.endDateTime) <= date() %}
+                            <li>
+                                <a class="btn btn-custom-dark" href="{{ path('tournament_index', {'tournamentUrl': tournament.url}) }}"><span class="fa fa-trophy"></span> {{ 'index.upcoming.button.played'|trans }}</a>
+                            </li>
+                        {% elseif ((date(tournament.endDateTime) >= date()) and date(tournament.startDateTime) <= date()) %}
+                            <li>
+                                <a class="btn btn-custom-red" href="{{ path('tournament_index', {'tournamentUrl': tournament.url}) }}"><span class="fa fa-circle"></span> {{ 'index.upcoming.button.live'|trans }}</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a class="btn btn-custom-alt" href="{{ path('tournament_index', {'tournamentUrl': tournament.url}) }}"><span class="glyphicon glyphicon-info-sign"></span> {{ 'index.upcoming.button.moreInfo'|trans }}</a>
+                            </li>
+                            {% if tournament.authorization.createRegistrationAllowed %}
+                                <li class="">
+                                    <a class="btn btn-custom-primary" href="{{ path('player_create', {'tournamentUrl': tournament.url}) }}"><span class="glyphicon glyphicon-pencil"></span> {{ 'index.upcoming.button.register'|trans }}</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </footer>
+            </div>
+        </div>
+    {% else %}
+        <br />
+        <h4>{{ 'index.upcoming.none'|trans }}</h4>
+    {% endfor %}
+{% endmacro %}

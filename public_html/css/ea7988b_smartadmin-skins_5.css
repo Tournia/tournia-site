@@ -1,0 +1,2095 @@
+/********************************************************************* STYLE 1 *************************************************************/
+/* line 8, assetic_compassL90d2t.scss */
+.smart-style-1 a {
+  transition: color 0.1s linear 0s, background-color 0.1s linear 0s !important;
+}
+/* line 12, assetic_compassL90d2t.scss */
+.smart-style-1 body.container {
+  border-left: 1px solid rgba(34, 38, 46, 0.4);
+  border-right: 1px solid rgba(34, 38, 46, 0.4);
+}
+/* line 17, assetic_compassL90d2t.scss */
+.smart-style-1 #header {
+  background-image: none;
+  background-color: #22262e;
+}
+/* line 22, assetic_compassL90d2t.scss */
+.smart-style-1 .project-context > :first-child {
+  color: #697B92;
+  text-shadow: 0 0 1px #111318;
+}
+/* line 27, assetic_compassL90d2t.scss */
+.smart-style-1 #ribbon {
+  background: #e6e6e6;
+}
+/* line 29, assetic_compassL90d2t.scss */
+.smart-style-1 #ribbon .breadcrumb > .active, .smart-style-1 #ribbon .breadcrumb li:last-child {
+  color: #868686;
+}
+/* line 32, assetic_compassL90d2t.scss */
+.smart-style-1 #ribbon .breadcrumb a, .smart-style-1 #ribbon .breadcrumb {
+  color: #747474 !important;
+}
+/* line 37, assetic_compassL90d2t.scss */
+.smart-style-1 .breadcrumb > li + li:before {
+  color: #646464;
+}
+/* line 41, assetic_compassL90d2t.scss */
+.smart-style-1 .project-selector {
+  color: #B9B9B9;
+}
+/* line 45, assetic_compassL90d2t.scss */
+.smart-style-1 .open > .dropdown-menu, .smart-style-1 .dropdown-menu {
+  padding: 4px;
+}
+/* line 48, assetic_compassL90d2t.scss */
+.smart-style-1 .dropdown-menu > li > a, .smart-style-1 .dropdown-menu > li > a {
+  border-radius: 4px;
+  margin: 3px 0;
+}
+/* line 53, assetic_compassL90d2t.scss */
+.smart-style-1 .btn.btn-ribbon {
+  background-color: #697486;
+  background-image: -moz-linear-gradient(top, #6F7D94, #697486);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6F7D94), to(#697486));
+  background-image: -webkit-linear-gradient(top, #6F7D94, #697486);
+  background-image: -o-linear-gradient(top, #6F7D94, #697486);
+  background-image: linear-gradient(to bottom, #6F7D94, #697486);
+}
+/* line 62, assetic_compassL90d2t.scss */
+.smart-style-1 #logo-group span#activity {
+  background: #0d0f12;
+  border: 1px solid #0d0f12;
+  color: #fff;
+  cursor: pointer;
+}
+/* line 68, assetic_compassL90d2t.scss */
+.smart-style-1 .btn-header > :first-child > a {
+  background: #fb3c4a;
+  border: 1px solid #fb3c4a;
+  color: #fff !important;
+  cursor: pointer !important;
+}
+/* line 73, assetic_compassL90d2t.scss */
+.smart-style-1 .btn-header > :first-child > a:hover {
+  opacity: .9;
+}
+/* line 78, assetic_compassL90d2t.scss */
+.smart-style-1 #cancel-search-js {
+  background: #fb3c4a;
+  line-height: 29px !important;
+}
+/* line 83, assetic_compassL90d2t.scss */
+.smart-style-1 .MsgTitle .txt-color-orangeDark {
+  color: #fb3c4a !important;
+}
+
+@media (max-width: 979px) and (min-width: 768px) {
+  /* line 89, assetic_compassL90d2t.scss */
+  .smart-style-1 #hide-menu i {
+    color: #fff !important;
+  }
+}
+@media only screen and (max-width: 679px) and (min-width: 0px) {
+  /* line 95, assetic_compassL90d2t.scss */
+  .smart-style-1 #hide-menu i {
+    color: #fff !important;
+  }
+}
+@media only screen and (max-width: 479px) and (min-width: 320px) {
+  /* line 101, assetic_compassL90d2t.scss */
+  .smart-style-1 #sparks {
+    background: #fff;
+  }
+
+  /* line 105, assetic_compassL90d2t.scss */
+  .smart-style-1 #cancel-search-js, .smart-style-1 .search-mobile .header-search > button {
+    border-radius: 3px;
+  }
+}
+/* line 111, assetic_compassL90d2t.scss */
+.smart-style-1 .minifyme {
+  background: #434953;
+}
+/* line 113, assetic_compassL90d2t.scss */
+.smart-style-1 .minifyme:hover {
+  background: #5C6C86;
+  color: #E1E8F3;
+}
+
+/* line 119, assetic_compassL90d2t.scss */
+.smart-style-1 #show-shortcut:hover > i {
+  color: #fff;
+}
+
+/* line 123, assetic_compassL90d2t.scss */
+.smart-style-1 aside,
+.smart-style-1 .superbox-show,
+.smart-style-1 .page-footer {
+  background: #1b1e24;
+}
+
+/* line 128, assetic_compassL90d2t.scss */
+.smart-style-1 .superbox-list.active:before {
+  color: #1b1e24;
+}
+
+/* line 131, assetic_compassL90d2t.scss */
+.smart-style-1 #logo-group {
+  background: #22262e !important;
+}
+
+/* line 134, assetic_compassL90d2t.scss */
+.smart-style-1 .login-info span, .smart-style-1 .login-info {
+  border-bottom: none;
+}
+
+/* line 137, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav ul b {
+  font-size: 14px;
+  margin-top: 0px;
+}
+
+/* line 141, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav ul b .fa-plus-square-o:before {
+  content: "\f104";
+}
+
+/* line 144, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav ul b .fa-minus-square-o:before {
+  content: "\f107";
+}
+
+/* line 147, assetic_compassL90d2t.scss */
+.smart-style-1 .header-search > input[type="text"] {
+  border-color: #FFF !important;
+  border-radius: 2px;
+}
+
+/* line 151, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav ul ul li > a {
+  text-shadow: 0 1px 1px #000;
+  font-size: 13px;
+  padding-left: 43px;
+  color: #e1eaf1;
+  display: block;
+  font-weight: 300;
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+/* line 161, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav ul ul ul li a {
+  padding: 8px 17px 8px 54px !important;
+}
+
+/* line 164, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav ul ul ul ul li a {
+  padding-left: 72px !important;
+}
+
+/* line 167, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav ul ul ul ul ul li a {
+  padding-left: 90px !important;
+}
+
+/* line 170, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav ul ul ul ul ul ul li a {
+  padding-left: 108px !important;
+}
+
+/* line 174, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav > ul > li > ul::before, .smart-style-1 aside nav > ul ul li::before {
+  border: none !important;
+}
+
+/* line 178, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav > ul > li > a > i {
+  font-size: 17px;
+  vertical-align: 0px;
+}
+
+/* line 183, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav > ul > li > a b {
+  right: 17px;
+  top: 12px;
+}
+
+/* line 188, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav > ul > li > a > i:after {
+  border: 1px solid #fff;
+  /* here */
+}
+
+/* line 192, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav ul ul {
+  background: #22262E;
+}
+
+/* line 196, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav ul ul li > a:hover {
+  background: #1b1e24 !important;
+}
+
+/* line 200, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav ul li a,
+.smart-style-1 .login-info strong,
+.smart-style-1 .login-info a {
+  color: #8b91a0;
+}
+
+/* line 204, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav ul li a:active {
+  background: none;
+}
+
+/* line 206, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav ul li a:hover {
+  color: #E1EAF1;
+}
+
+/* line 210, assetic_compassL90d2t.scss */
+.smart-style-1 .header-dropdown-list a.dropdown-toggle {
+  color: #FFF;
+  text-decoration: none;
+}
+
+/* line 215, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav ul li a {
+  padding: 12px 17px 12px 16px;
+}
+
+/* line 219, assetic_compassL90d2t.scss */
+.smart-style-1 .login-info {
+  height: auto;
+}
+
+/* line 222, assetic_compassL90d2t.scss */
+.smart-style-1 .login-info > span {
+  padding: 5px 10px;
+}
+
+/* line 226, assetic_compassL90d2t.scss */
+.smart-style-1 .login-info img {
+  width: 35px;
+  border-radius: 50%;
+}
+
+/* line 231, assetic_compassL90d2t.scss */
+.smart-style-1 .login-info a {
+  margin-top: 2px;
+}
+
+/* line 234, assetic_compassL90d2t.scss */
+.smart-style-1 .login-info a span {
+  max-width: 136px;
+}
+
+/* line 238, assetic_compassL90d2t.scss */
+.smart-style-1 .login-info a:hover {
+  color: #fff;
+}
+
+/* line 242, assetic_compassL90d2t.scss */
+.smart-style-1 #logo-group > span .badge {
+  background: #0aa699;
+}
+
+/* line 246, assetic_compassL90d2t.scss */
+.smart-style-1 #activity.active .badge {
+  background: #0aa699 !important;
+}
+
+/* line 250, assetic_compassL90d2t.scss */
+.smart-style-1 .ajax-dropdown {
+  background: #E2E8F1;
+}
+
+/* line 254, assetic_compassL90d2t.scss */
+.smart-style-1 .ajax-notifications {
+  background: #fff;
+}
+
+/* no aside nav animation */
+/* line 259, assetic_compassL90d2t.scss */
+.smart-style-1 aside nav > ul > li > a:hover i {
+  -webkit-animation-name: none;
+  -moz-animation-name: none;
+  -o-animation-name: none;
+  animation-name: none;
+}
+
+/*
+ * COLORS
+ */
+/* line 271, assetic_compassL90d2t.scss */
+.smart-style-1 img.online {
+  border-left-color: #0AA699 !important;
+}
+
+/* line 275, assetic_compassL90d2t.scss */
+.smart-style-1 .onoffswitch-inner:before {
+  background-color: #36AECC !important;
+}
+
+/* line 279, assetic_compassL90d2t.scss */
+.smart-style-1 .bg-color-red {
+  background-color: #fb3c4a !important;
+}
+
+/* line 285, assetic_compassL90d2t.scss */
+.smart-style-1 .pagination > .active > a,
+.smart-style-1 .pagination > .active > span,
+.smart-style-1 .pagination > .active > a:hover,
+.smart-style-1 .pagination > .active > span:hover,
+.smart-style-1 .pagination > .active > a:focus,
+.smart-style-1 .pagination > .active > span:focus {
+  background-color: #36AECC;
+  border-color: #36AECC;
+}
+
+/*
+ * MINIFIED
+ */
+/* line 300, assetic_compassL90d2t.scss */
+.smart-style-1.minified .login-info a {
+  margin-top: 6px;
+}
+
+/* line 304, assetic_compassL90d2t.scss */
+.smart-style-1.minified aside nav ul li a {
+  padding: 12px 17px 12px 14px;
+}
+
+/* line 308, assetic_compassL90d2t.scss */
+.smart-style-1.minified aside nav > ul > li > a > i {
+  font-size: 18px;
+}
+
+/* line 312, assetic_compassL90d2t.scss */
+.smart-style-1.minified aside nav > ul > li {
+  border-bottom: 1px solid #131416;
+  border-top: 1px solid #303031;
+}
+
+/* line 317, assetic_compassL90d2t.scss */
+.smart-style-1.minified aside nav > ul > li > ul {
+  background: #1B1E24;
+}
+
+/* line 320, assetic_compassL90d2t.scss */
+.smart-style-1.minified aside nav > ul > li > ul > li {
+  background: #22262E;
+}
+
+/* line 324, assetic_compassL90d2t.scss */
+.smart-style-1.minified .login-info img {
+  width: 30px !important;
+}
+
+/* line 327, assetic_compassL90d2t.scss */
+.smart-style-1.minified .login-info span {
+  padding: 0px 5px !important;
+}
+
+/* line 331, assetic_compassL90d2t.scss */
+.smart-style-1.minified aside nav ul ul li > a:hover {
+  background: #30343D !important;
+}
+
+/* line 335, assetic_compassL90d2t.scss */
+.smart-style-1.minified aside nav ul > li > ul > li > ul {
+  background: #1B1E24;
+}
+
+/* line 339, assetic_compassL90d2t.scss */
+.smart-style-1.minified aside nav > ul > li > ul > li > ul > li {
+  background: #1B1E24;
+}
+
+/* line 343, assetic_compassL90d2t.scss */
+.smart-style-1.minified aside nav ul ul li > a {
+  padding-left: 13px;
+  padding-right: 13px !important;
+}
+
+/* line 347, assetic_compassL90d2t.scss */
+.smart-style-1.minified aside nav ul ul ul li a {
+  padding-left: 33px !important;
+  padding-right: 13px !important;
+}
+
+/* line 351, assetic_compassL90d2t.scss */
+.smart-style-1.minified aside nav ul ul ul ul li a {
+  padding-left: 43px !important;
+  padding-right: 13px !important;
+}
+
+/* line 355, assetic_compassL90d2t.scss */
+.smart-style-1.minified aside nav ul ul ul ul ul li a {
+  padding-left: 53px !important;
+  padding-right: 13px !important;
+}
+
+/* line 359, assetic_compassL90d2t.scss */
+.smart-style-1.minified aside nav ul ul ul ul ul ul li a {
+  padding-left: 63px !important;
+  padding-right: 13px !important;
+}
+
+/*
+ * widget colors
+ */
+/* line 369, assetic_compassL90d2t.scss */
+.smart-style-1 .jarviswidget-color-darken > header {
+  background: #1B1E24 !important;
+  border-color: #1B1E24 !important;
+}
+
+/* line 374, assetic_compassL90d2t.scss */
+.smart-style-1 .jarviswidget-color-blueDark > header {
+  background: #353D4B !important;
+  border-color: #353D4B !important;
+}
+
+/* line 379, assetic_compassL90d2t.scss */
+.smart-style-1 .jarviswidget-color-blue > header {
+  background: #688F9E;
+  border-color: #6A838D !important;
+}
+
+/* line 384, assetic_compassL90d2t.scss */
+.smart-style-1 .jarviswidget-color-purple > header {
+  background: #736086;
+}
+
+/* line 388, assetic_compassL90d2t.scss */
+.smart-style-1 .jarviswidget-color-red > header {
+  background: #C02631;
+  border-color: #8F2129 !important;
+}
+
+/* line 393, assetic_compassL90d2t.scss */
+.smart-style-1 .jarviswidget .bg-color-red {
+  background: #C02631 !important;
+}
+
+/* line 397, assetic_compassL90d2t.scss */
+.smart-style-1 .jarviswidget-color-greenLight > header, .smart-style-1 .jarviswidget .bg-color-greenLight {
+  border-color: #96B447 !important;
+  background: #96B447 !important;
+}
+
+/* line 402, assetic_compassL90d2t.scss */
+.smart-style-1 .jarviswidget-color-yellow > header, .smart-style-1 .jarviswidget .bg-color-yellow {
+  border-color: #DBB727 !important;
+  background: #FDD01C !important;
+  color: #25241F;
+}
+
+/* line 408, assetic_compassL90d2t.scss */
+.smart-style-1 .jarviswidget-color-pink > header, .smart-style-1 .jarviswidget .bg-color-pink {
+  background: #DB8EBB !important;
+}
+
+/*
+ * Style 1 Top Menu
+ */
+/* line 416, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside nav ul ul li > a {
+  text-shadow: none !important;
+  color: #646E75;
+}
+
+/* line 421, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside {
+  background: #14161B;
+}
+
+/* line 426, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside#left-panel {
+  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid #222;
+  border-top: 1px solid #333;
+}
+
+/* line 433, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside#left-panel aside nav > ul > li {
+  border-right: 1px solid transparent;
+  border-left: 1px solid transparent;
+}
+
+/* line 438, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside#left-panel aside nav > ul > li:hover {
+  border-right-color: #333;
+  border-left-color: #333;
+}
+
+/* line 443, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside#left-panel aside nav > ul > li > a {
+  text-shadow: none !important;
+  font-size: 13px;
+  padding: 10px 9px !important;
+}
+
+/* line 450, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside nav ul ul li a {
+  padding-left: 10px !important;
+  font-size: 13px;
+}
+
+/* Hover state */
+/* line 456, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside#left-panel aside nav > ul > li:hover {
+  background: #fff;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #04070C 0%, #2E3E57 66%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cfcfcf), color-stop(66%, #2E3E57));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #04070C 0%, #2E3E57 66%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #04070C 0%, #2E3E57 66%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #04070C 0%, #2E3E57 66%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #04070C, #2E3E57 66%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#04070C', endColorstr='#2E3E57',GradientType=0 );
+  /* IE6-9 */
+}
+
+/* line 467, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside#left-panel aside nav > ul > li:hover > a {
+  color: #F1F1F1 !important;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+/* line 475, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside#left-panel aside nav > ul > li > ul {
+  background: #3a3633;
+}
+
+/* hover state universal */
+/* line 483, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside nav ul ul li a,
+.smart-style-1.menu-on-top aside nav ul ul ul li a {
+  color: #D8DEE5;
+}
+
+/* line 488, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside nav ul ul li a:hover,
+.smart-style-1.menu-on-top aside nav ul ul ul li a:hover {
+  color: #fff;
+  background-color: #1b1e24 !important;
+}
+
+/* line 494, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside nav ul ul li:hover > a {
+  color: #fff;
+  background-color: #1b1e24;
+}
+
+/* line 499, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside nav > ul ul ul {
+  border-top: 1px solid #c7c7c7 !important;
+}
+
+/* Hover state second level */
+/* line 505, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside nav ul ul,
+.smart-style-1.menu-on-top aside nav ul ul ul {
+  background: #2e3e57 !important;
+  border: 1px solid transparent;
+  padding: 0px;
+}
+
+/* line 512, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside nav > ul ul li:hover > ul {
+  background: #333;
+}
+
+/*
+ * Child Arrow
+ */
+/* top level childs */
+/* line 521, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside nav > ul > li > a:after {
+  color: #8AA1B3 !important;
+}
+
+/* next level childs */
+/* line 526, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside nav > ul > li > a:after,
+.smart-style-1.menu-on-top aside nav > ul ul > li a:after,
+.smart-style-1.menu-on-top aside nav ul ul li:hover > a:after,
+.smart-style-1.menu-on-top aside nav > ul ul > li a:hover:after {
+  color: #D5D5D5;
+}
+
+/* line 533, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside nav ul ul li:hover > a:after,
+.smart-style-1.menu-on-top aside nav > ul ul > li a:hover:after {
+  color: #fff;
+}
+
+/* line 538, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside nav > ul ul > li a:only-child:after,
+.smart-style-1.menu-on-top aside nav > ul > li > a:only-child:after {
+  content: "" !important;
+}
+
+/*
+ * Active Child
+ */
+/* line 547, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside nav ul ul .active > a {
+  color: #fff !important;
+}
+
+/* line 550, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside nav ul ul .active > a:hover,
+.smart-style-1.menu-on-top aside nav ul ul li.active:hover > a {
+  color: #fff !important;
+}
+
+/********************************************************************* STYLE 2 *************************************************************/
+/* line 557, assetic_compassL90d2t.scss */
+.smart-style-2 #shortcut {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* line 561, assetic_compassL90d2t.scss */
+.smart-style-2 #shortcut ul {
+  -webkit-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid #A8BADB;
+}
+
+/* line 567, assetic_compassL90d2t.scss */
+body.smart-style-2 {
+  background: #fff;
+}
+
+/* line 571, assetic_compassL90d2t.scss */
+.smart-style-2 #header, .smart-style-2 .page-footer, .smart-style-2 .superbox-show {
+  background-image: none;
+  background-color: #2C3742;
+}
+
+/* line 575, assetic_compassL90d2t.scss */
+.smart-style-2 .superbox-list.active:before {
+  color: #2C3742;
+}
+
+/* line 579, assetic_compassL90d2t.scss */
+.smart-style-2 .superbox-img-description {
+  color: #9EA8B1 !important;
+}
+
+/* line 583, assetic_compassL90d2t.scss */
+.smart-style-2 .project-context > :first-child {
+  text-shadow: none;
+}
+
+/* line 586, assetic_compassL90d2t.scss */
+.smart-style-2 .project-selector {
+  color: #B2C1D5;
+}
+
+/* line 589, assetic_compassL90d2t.scss */
+.smart-style-2 .project-selector:hover {
+  color: #fff;
+}
+
+/* line 593, assetic_compassL90d2t.scss */
+.smart-style-2 #logo-group span#activity {
+  background: none !important;
+  border: none !important;
+  color: #C5C6CA;
+}
+
+/* line 598, assetic_compassL90d2t.scss */
+.smart-style-2 #logo-group span#activity:hover {
+  color: #fff;
+}
+
+/* line 602, assetic_compassL90d2t.scss */
+.smart-style-2 .header-search > input[type="text"] {
+  background: #161B22;
+  border: 1px solid #0F1217;
+  color: #fff;
+  border-radius: 4px;
+}
+
+/* line 609, assetic_compassL90d2t.scss */
+.smart-style-2 .btn-header > :first-child > a,
+.smart-style-2 #hide-menu a > i {
+  background: none;
+  border: none !important;
+  color: #C5C6CA !important;
+  box-shadow: none !important;
+}
+
+/* line 616, assetic_compassL90d2t.scss */
+.smart-style-2 .btn-header > :first-child > a:hover,
+.smart-style-2 #hide-menu a:hover i {
+  color: #fff !important;
+  cursor: pointer !important;
+}
+
+/* line 622, assetic_compassL90d2t.scss */
+.smart-style-2 .header-search > button,
+.smart-style-2 .header-dropdown-list a.dropdown-toggle {
+  color: #C5C6CA;
+}
+
+/* line 627, assetic_compassL90d2t.scss */
+.smart-style-2 #ribbon {
+  background: #fff;
+}
+
+/* line 631, assetic_compassL90d2t.scss */
+.smart-style-2.fixed-ribbon #ribbon {
+  border-bottom: 1px solid #E0E0E0;
+}
+
+/* line 635, assetic_compassL90d2t.scss */
+.smart-style-2 .btn.btn-ribbon {
+  background: #9498A0;
+}
+
+/* line 639, assetic_compassL90d2t.scss */
+.smart-style-2 #ribbon .breadcrumb li:last-child,
+.smart-style-2 #ribbon .breadcrumb > .active,
+.smart-style-2 #ribbon .breadcrumb,
+.smart-style-2 #ribbon .breadcrumb a {
+  color: #7C7C7C !important;
+}
+
+/* line 646, assetic_compassL90d2t.scss */
+.smart-style-2 aside {
+  background: #F7F7F7;
+  background: -webkit-gradient(linear, left top, right top, color-stop(99%, #F7F7F7), color-stop(100%, #CACACA));
+  background: -webkit-linear-gradient(left, #F7F7F7 99%, #CACACA 100%);
+  background: -webkit-gradient(linear, top left, top right, from(#F7F7F7), to(#CACACA));
+  background: linear-gradient(to right, #F7F7F7 99%, #CACACA 100%);
+  min-height: 100%;
+}
+
+/* line 655, assetic_compassL90d2t.scss */
+.smart-style-2 #left-panel {
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-bottom: 15px;
+  padding-top: 64px;
+}
+
+/* line 662, assetic_compassL90d2t.scss */
+.menu-on-top.smart-style-2 #left-panel {
+  padding-top: 49px !important;
+}
+
+/* line 666, assetic_compassL90d2t.scss */
+.smart-style-2 #logo-group > span .badge {
+  background: #008DC4;
+}
+
+/* line 670, assetic_compassL90d2t.scss */
+.smart-style-2 .login-info span,
+.smart-style-2 .login-info {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* line 676, assetic_compassL90d2t.scss */
+.smart-style-2 .login-info span {
+  padding: 5px 10px 7px;
+  background: #FFF;
+  border-radius: 4px;
+}
+
+/* line 682, assetic_compassL90d2t.scss */
+.smart-style-2 .login-info a span {
+  padding: 0;
+  font-size: 16px !important;
+  max-width: 105px;
+}
+
+/* line 688, assetic_compassL90d2t.scss */
+.smart-style-2 .login-info {
+  margin-bottom: 7px !important;
+  height: auto;
+}
+
+/* line 693, assetic_compassL90d2t.scss */
+.smart-style-2 .login-info a {
+  font-size: 16px !important;
+  color: #33455A;
+  margin-top: 2px;
+}
+
+/* line 699, assetic_compassL90d2t.scss */
+.smart-style-2 .login-info img {
+  width: 35px;
+}
+
+/* line 703, assetic_compassL90d2t.scss */
+.smart-style-2 aside nav ul li a {
+  color: #69737A !important;
+  font-size: 12px !important;
+}
+
+/* line 708, assetic_compassL90d2t.scss */
+.smart-style-2 aside nav > ul > li > a {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+/* line 713, assetic_compassL90d2t.scss */
+.smart-style-2 aside nav ul ul > li:hover b {
+  color: #69737A !important;
+}
+
+/* line 717, assetic_compassL90d2t.scss */
+.smart-style-2 aside nav > ul > li > a > i {
+  font-size: 25px !important;
+}
+
+/* line 721, assetic_compassL90d2t.scss */
+.smart-style-2 aside nav > ul > li > a b {
+  top: 16px;
+}
+
+/* line 725, assetic_compassL90d2t.scss */
+.smart-style-2 aside nav ul ul {
+  background: none;
+}
+
+/* line 729, assetic_compassL90d2t.scss */
+.smart-style-2 aside nav ul li.open > a,
+.smart-style-2 aside nav ul li.open > a b,
+.smart-style-2 aside nav ul .active > a {
+  color: #202427 !important;
+  font-weight: bold;
+}
+
+/* line 736, assetic_compassL90d2t.scss */
+.smart-style-2 aside nav ul ul li > a:hover,
+.smart-style-2 aside nav ul li a:hover {
+  color: #202427 !important;
+  background: none !important;
+}
+
+/* line 742, assetic_compassL90d2t.scss */
+.smart-style-2 aside nav ul ul li > a {
+  padding-left: 23px;
+}
+
+/* line 746, assetic_compassL90d2t.scss */
+.smart-style-2 aside nav > ul > li > ul::before,
+.smart-style-2 aside nav > ul ul li::before {
+  border: none !important;
+}
+
+/* line 751, assetic_compassL90d2t.scss */
+.smart-style-2 aside nav ul ul ul li a {
+  padding-left: 30px;
+}
+
+/* line 755, assetic_compassL90d2t.scss */
+.smart-style-2 aside nav ul ul ul ul li a {
+  padding-left: 40px;
+}
+
+/* line 759, assetic_compassL90d2t.scss */
+.smart-style-2 aside nav ul ul ul ul ul li a {
+  padding-left: 50px;
+}
+
+/* line 763, assetic_compassL90d2t.scss */
+.smart-style-2 aside nav ul ul ul ul ul ul li a {
+  padding-left: 60px;
+}
+
+/* line 767, assetic_compassL90d2t.scss */
+.smart-style-2 .jarviswidget-color-blueDark > header {
+  background: #2C3742 !important;
+  border-color: #2C3742 !important;
+}
+
+/* line 773, assetic_compassL90d2t.scss */
+.smart-style-2 .btn-primary, .smart-style-2 .smart-form .button {
+  background-color: #3b9ff3;
+  border-color: #3292E2;
+}
+
+/* line 778, assetic_compassL90d2t.scss */
+.smart-style-2 .btn-primary:hover,
+.smart-style-2 .btn-primary:focus,
+.smart-style-2 .btn-primary:active,
+.smart-style-2 .btn-primary.active,
+.smart-style-2 .open .dropdown-toggle.btn-primary {
+  background-color: #3E90D4;
+  border-color: #2F7DBE;
+}
+
+/* line 787, assetic_compassL90d2t.scss */
+.smart-style-2 .dropdown-menu > li > a:hover,
+.smart-style-2 .dropdown-menu > li > a:focus {
+  background-color: #3E90D4;
+}
+
+/* line 794, assetic_compassL90d2t.scss */
+.smart-style-2 .btn-success {
+  background-color: #96bf48;
+  border-color: #84A83E;
+}
+
+/* line 799, assetic_compassL90d2t.scss */
+.smart-style-2 .btn-success:hover,
+.smart-style-2 .btn-success:focus,
+.smart-style-2 .btn-success:active,
+.smart-style-2 .btn-success.active,
+.smart-style-2 .open .dropdown-toggle.btn-success {
+  background-color: #89AD45;
+  border-color: #78973B;
+}
+
+/* line 808, assetic_compassL90d2t.scss */
+.smart-style-2 .btn-danger {
+  background-color: #DB4A67;
+  border-color: #CA4862;
+}
+
+/* line 813, assetic_compassL90d2t.scss */
+.smart-style-2 .btn-danger:hover,
+.smart-style-2 .btn-danger:focus,
+.smart-style-2 .btn-danger:active,
+.smart-style-2 .btn-danger.active,
+.smart-style-2 .open .dropdown-toggle.btn-danger {
+  background-color: #CF4762;
+  border-color: #C0455E;
+}
+
+/* line 823, assetic_compassL90d2t.scss */
+.smart-style-2 .btn-warning {
+  background-color: #E2B14A;
+  border-color: #C99D42;
+}
+
+/* line 828, assetic_compassL90d2t.scss */
+.smart-style-2 .btn-warning:hover,
+.smart-style-2 .btn-warning:focus,
+.smart-style-2 .btn-warning:active,
+.smart-style-2 .btn-warning.active,
+.smart-style-2 .open .dropdown-toggle.btn-warning {
+  background-color: #D6A848;
+  border-color: #C09844;
+}
+
+/* line 837, assetic_compassL90d2t.scss */
+.smart-style-2 .pagination > .active > a,
+.smart-style-2 .pagination > .active > span,
+.smart-style-2 .pagination > .active > a:hover,
+.smart-style-2 .pagination > .active > span:hover,
+.smart-style-2 .pagination > .active > a:focus,
+.smart-style-2 .pagination > .active > span:focus {
+  background-color: #3b9ff3;
+}
+
+/*
+ * MINIFIED
+ */
+/* line 849, assetic_compassL90d2t.scss */
+.smart-style-2.minified .login-info a {
+  margin-top: 4px;
+}
+
+/* line 853, assetic_compassL90d2t.scss */
+.smart-style-2.minified #left-panel {
+  padding: 0 !important;
+  padding-top: 50px !important;
+}
+
+/* line 858, assetic_compassL90d2t.scss */
+.smart-style-2.minified aside nav ul > li > a {
+  padding: 12px 11px;
+}
+
+/* line 862, assetic_compassL90d2t.scss */
+.smart-style-2.minified aside nav > ul > li > ul, .smart-style-2.minified aside nav > ul > li > ul > li, .smart-style-2.minified aside nav > ul > li > ul > li > ul > li {
+  background: #fff !important;
+}
+
+/* line 866, assetic_compassL90d2t.scss */
+.smart-style-2.minified aside nav > ul > li {
+  border-bottom: 1px solid #E6E6E6;
+  border-top: 1px solid #FFFFFF;
+}
+
+/* line 872, assetic_compassL90d2t.scss */
+.smart-style-2.minified aside nav > ul > li > a > i {
+  font-size: 18px !important;
+}
+
+/* line 876, assetic_compassL90d2t.scss */
+.smart-style-2.minified .login-info span {
+  padding: 0;
+}
+
+/* line 880, assetic_compassL90d2t.scss */
+.smart-style-2.minified .login-info {
+  margin: 0 !important;
+}
+
+/* line 885, assetic_compassL90d2t.scss */
+.smart-style-2.minified aside nav ul li.active > a:before {
+  height: 23px;
+  right: -19px;
+  top: 7px;
+  font-size: 20px;
+  color: #FFFFFF;
+}
+
+/*
+ * COLOR PALLET
+ */
+/* line 896, assetic_compassL90d2t.scss */
+.smart-style-2 .bg-color-red {
+  background: #DB4A67 !important;
+}
+
+/* line 900, assetic_compassL90d2t.scss */
+.smart-style-2 .bg-color-blue {
+  background: #4387bf !important;
+}
+
+/* line 904, assetic_compassL90d2t.scss */
+.smart-style-2 .smart-form .checkbox input:checked + i,
+.smart-style-2 .smart-form .radio input:checked + i,
+.smart-style-2 .smart-form .toggle input:checked + i {
+  border-color: #3b9ff3;
+}
+
+/* line 910, assetic_compassL90d2t.scss */
+.smart-style-2 .smart-form .toggle i:before {
+  background-color: #3b9ff3;
+}
+
+/* line 914, assetic_compassL90d2t.scss */
+.smart-form .rating input + label:hover,
+.smart-form .rating input + label:hover ~ label {
+  color: #3b9ff3;
+}
+
+/* line 919, assetic_compassL90d2t.scss */
+.smart-style-2 .bg-color-greenLight {
+  background-color: #89AD45 !important;
+}
+
+/* line 923, assetic_compassL90d2t.scss */
+.smart-style-2 .bg-color-orange {
+  background-color: #D6A848 !important;
+}
+
+/* line 927, assetic_compassL90d2t.scss */
+.smart-style-2 .bg-color-teal {
+  background-color: #5ba0a3 !important;
+}
+
+/* line 931, assetic_compassL90d2t.scss */
+.smart-style-2 .minifyme {
+  background: #D7DAE2;
+  border-bottom: 1px solid #818181;
+  color: #7E7E7E;
+}
+
+/* line 937, assetic_compassL90d2t.scss */
+.smart-style-2 .minifyme:hover {
+  color: #4E4E4E;
+}
+
+/* line 941, assetic_compassL90d2t.scss */
+.smart-style-2 .onoffswitch-inner:before {
+  background: #3b9ff3;
+  border-color: #3b9ff3 #257DC7 #2A7DC4;
+}
+
+/* line 946, assetic_compassL90d2t.scss */
+.smart-style-2 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch:before {
+  color: #84A83E;
+}
+
+/*
+ * Style 2 Top Menu
+ */
+/* line 955, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top .menu-item-parent {
+  font-size: 10px;
+}
+
+/* line 959, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top #left-panel {
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+}
+
+/* line 965, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside nav ul ul li > a {
+  text-shadow: none !important;
+  color: #646E75;
+}
+
+/* line 970, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside {
+  background: inherit;
+}
+
+/* line 975, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside#left-panel {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-bottom: 1px solid #B8B8B8;
+  border-top: 1px solid #333;
+}
+
+/* line 982, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside#left-panel aside nav > ul > li {
+  border-right: 1px solid transparent;
+  border-left: 1px solid transparent;
+}
+
+/* line 988, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside#left-panel aside nav > ul > li:hover {
+  background: #2e3e57;
+  border-right-color: #fff;
+  border-left-color: #fff;
+}
+
+/* line 994, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside#left-panel aside nav > ul > li > a {
+  text-shadow: none !important;
+  font-size: 13px;
+  padding: 10px 9px !important;
+}
+
+/* line 1001, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside nav ul ul li a {
+  padding-left: 10px !important;
+  font-size: 13px;
+}
+
+/* Hover state */
+/* line 1008, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside#left-panel aside nav > ul > li:hover > a {
+  color: #F1F1F1 !important;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+/* line 1016, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside#left-panel aside nav > ul > li > ul {
+  background: #2C3742;
+}
+
+/* hover state universal */
+/* line 1024, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside nav ul ul li a,
+.smart-style-2.menu-on-top aside nav ul ul ul li a {
+  color: #ADBED3 !important;
+}
+
+/* line 1029, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside nav ul ul li a:hover,
+.smart-style-2.menu-on-top aside nav ul ul ul li a:hover {
+  color: #fff;
+  background-color: #5E6C88 !important;
+}
+
+/* line 1035, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside nav ul ul li:hover > a {
+  color: #fff !important;
+  background-color: #5E6C88;
+}
+
+/* line 1040, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside nav > ul ul ul {
+  border-top: 1px solid #c7c7c7 !important;
+}
+
+/* Hover state second level */
+/* line 1046, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside nav ul ul,
+.smart-style-2.menu-on-top aside nav ul ul ul {
+  background: #2e3e57 !important;
+  border: 1px solid transparent;
+}
+
+/* line 1052, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside nav > ul ul li:hover > ul {
+  background: #333;
+}
+
+/*
+ * Child Arrow
+ */
+/* top level childs */
+/* line 1061, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside nav > ul > li > a:after {
+  color: #8AA1B3 !important;
+}
+
+/* next level childs */
+/* line 1066, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside nav > ul > li > a:after,
+.smart-style-2.menu-on-top aside nav > ul ul > li a:after,
+.smart-style-2.menu-on-top aside nav ul ul li:hover > a:after,
+.smart-style-2.menu-on-top aside nav > ul ul > li a:hover:after {
+  color: #D5D5D5;
+}
+
+/* line 1073, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside nav ul ul li:hover > a:after,
+.smart-style-2.menu-on-top aside nav > ul ul > li a:hover:after {
+  color: #fff;
+}
+
+/*
+ * Active Child
+ */
+/* line 1083, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside nav ul ul .active > a {
+  color: #fff !important;
+}
+
+/* line 1086, assetic_compassL90d2t.scss */
+.smart-style-2.menu-on-top aside nav ul ul .active > a:hover,
+.smart-style-2.menu-on-top aside nav ul ul li.active:hover > a {
+  color: #fff !important;
+}
+
+/********************************************************************* STYLE 3 *************************************************************/
+/* line 1093, assetic_compassL90d2t.scss */
+body.smart-style-3, .smart-style-3 body {
+  background: #ffffff !important;
+  font-family: Arial, sans-serif;
+}
+
+/* line 1098, assetic_compassL90d2t.scss */
+.smart-style-3 #logo img {
+  width: 125px;
+  height: auto;
+  padding-left: 3px;
+  margin-top: -3px;
+}
+
+/* line 1105, assetic_compassL90d2t.scss */
+.smart-style-3 #header {
+  background-color: #f78c40;
+  background-image: -moz-linear-gradient(top, #f78c40, #d67632);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f78c40), to(#d67632));
+  background-image: -webkit-linear-gradient(top, #f78c40, #d67632);
+  background-image: -o-linear-gradient(top, #f78c40, #d67632);
+  background-image: linear-gradient(to bottom, #f78c40, #d67632);
+}
+
+/* line 1114, assetic_compassL90d2t.scss */
+.smart-style-3 #ribbon {
+  background: #fff;
+}
+
+/* line 1118, assetic_compassL90d2t.scss */
+.smart-style-3 #ribbon .breadcrumb, .smart-style-3 #ribbon .breadcrumb a {
+  color: #7C7C7C !important;
+}
+
+/* line 1122, assetic_compassL90d2t.scss */
+.smart-style-3 #ribbon .breadcrumb li:last-child, .smart-style-3 #ribbon .breadcrumb > .active {
+  color: #5F5F5F;
+}
+
+/* line 1126, assetic_compassL90d2t.scss */
+.smart-style-3.fixed-ribbon #ribbon {
+  box-shadow: 0 0.0625em 0.3125em rgba(0, 0, 0, 0.35);
+}
+
+/* line 1130, assetic_compassL90d2t.scss */
+.smart-style-3 .btn-header > :first-child > a,
+.smart-style-3 #logo-group span#activity {
+  background-color: #DD7C37;
+  background-image: -moz-linear-gradient(top, #DD7C37, #B9662B);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#B9662B), to(#B9662B));
+  background-image: -webkit-linear-gradient(top, #DD7C37, #B9662B);
+  background-image: -o-linear-gradient(top, #DD7C37, #B9662B);
+  background-image: linear-gradient(to bottom, #DD7C37, #B9662B);
+  color: #fff !important;
+  border: 1px solid #f09d61;
+  text-shadow: #985813 0 -1px;
+}
+
+/* line 1141, assetic_compassL90d2t.scss */
+.smart-style-3 #hide-menu i {
+  color: #fff !important;
+}
+
+/* line 1145, assetic_compassL90d2t.scss */
+.smart-style-3 .btn-header > :first-child > a:hover,
+.smart-style-3 #logo-group span#activity:hover,
+.smart-style-3 .btn-header > :first-child > a:active,
+.smart-style-3 #logo-group span#activity:active {
+  -webkit-box-shadow: inset 1px 1px 0px #985813,inset -1px -1px 0px #985813;
+  -moz-box-shadow: inset 1px 1px 0px #985813,inset -1px -1px 0px #985813;
+  box-shadow: inset 1px 1px 0px #985813,inset -1px -1px 0px #985813;
+  background-color: #dd7a35;
+  background-image: -moz-linear-gradient(top, #dd7a35, #984a13);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#dd7a35), to(#984a13));
+  background-image: -webkit-linear-gradient(top, #dd7a35, #984a13);
+  background-image: -o-linear-gradient(top, #dd7a35, #984a13);
+  background-image: linear-gradient(to bottom, #dd7a35, #984a13);
+}
+
+/* line 1160, assetic_compassL90d2t.scss */
+.smart-style-3 .project-selector,
+.smart-style-3 .project-context > :first-child,
+.smart-style-3 .header-dropdown-list > li > .dropdown-toggle {
+  color: #fff;
+  text-shadow: #985813 0 -1px;
+}
+
+/* line 1167, assetic_compassL90d2t.scss */
+.smart-style-3 .header-dropdown-list > li > .dropdown-toggle {
+  display: block;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 2px 7px 3px;
+  border-radius: 3px;
+  margin-top: 14px;
+}
+
+/* line 1175, assetic_compassL90d2t.scss */
+.smart-style-3 .header-search > input[type=text] {
+  border-color: #CA854F;
+}
+
+/* line 1179, assetic_compassL90d2t.scss */
+.smart-style-3 .header-search > button {
+  color: #DF9B45;
+}
+
+/* line 1183, assetic_compassL90d2t.scss */
+.smart-style-3 aside {
+  background: #f2f2f2;
+  border-right: 2px solid #ccc;
+}
+
+/* line 1188, assetic_compassL90d2t.scss */
+.smart-style-3 .login-info span {
+  border-bottom: none;
+}
+
+/* line 1192, assetic_compassL90d2t.scss */
+.smart-style-3 .login-info a span {
+  color: #444 !important;
+}
+
+/* line 1196, assetic_compassL90d2t.scss */
+.smart-style-3 .login-info {
+  border-bottom: 1px solid #E2E2E2;
+  background: #fff;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+}
+
+/* line 1204, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav ul li a, .smart-style-3 aside nav ul li.open > a, .smart-style-3 aside nav ul li.open > a b {
+  color: #444 !important;
+}
+
+/* line 1208, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav > ul > li {
+  background-color: #f2f2f2;
+  background-image: -moz-linear-gradient(top, #f9f9f9, #f2f2f2);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f9f9f9), to(#f2f2f2));
+  background-image: -webkit-linear-gradient(top, #f9f9f9, #f2f2f2);
+  background-image: -o-linear-gradient(top, #f9f9f9, #f2f2f2);
+  background-image: linear-gradient(to bottom, #f9f9f9, #f2f2f2);
+  border-bottom: 1px solid #DFDFDF;
+}
+
+/* line 1218, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav > ul > li.active > a:before {
+  top: 10px !important;
+}
+
+/* line 1222, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav > ul > li > a b {
+  top: 12px;
+}
+
+/* line 1226, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav ul li.active > a:before {
+  top: 6px;
+}
+
+/* line 1230, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav > ul > li.open {
+  border-left: 4px solid #058dc7;
+}
+
+/* line 1234, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav > ul > li > a {
+  padding: 12px 10px 12px 11px;
+  font-size: 13px;
+}
+
+/* line 1239, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav > ul > li > a > i {
+  color: #058dc7;
+  font-size: 20px;
+}
+
+/* line 1244, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav ul ul {
+  background: none;
+}
+
+/* line 1248, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav ul ul li > a {
+  font-size: 13px;
+}
+
+/* line 1252, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav ul li a:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* line 1256, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav > ul > li.open > a {
+  padding-left: 7px;
+}
+
+/* line 1260, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav > ul > li.open ul li > a {
+  padding-left: 38px;
+}
+
+/* line 1264, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav > ul ul li::before,
+.smart-style-3 aside nav > ul > li > ul::before {
+  border: none;
+}
+
+/* line 1270, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav ul li.active > a {
+  font-weight: bold;
+}
+
+/* line 1274, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav ul li.active > a:before {
+  color: #bbb;
+}
+
+/* line 1278, assetic_compassL90d2t.scss */
+.smart-style-3 .page-footer,
+.smart-style-3 .superbox-show {
+  background: #3D3B39;
+}
+
+/* line 1283, assetic_compassL90d2t.scss */
+.smart-style-3 .superbox-list.active:before {
+  color: #3D3B39;
+}
+
+/* line 1287, assetic_compassL90d2t.scss */
+.smart-style-3 aside nav > ul > li.open > ul > li > a {
+  padding-left: 38px;
+}
+
+/*
+ * MINIFIED
+ */
+/* line 1295, assetic_compassL90d2t.scss */
+.smart-style-3.minified aside nav > ul > li {
+  border-bottom: 1px solid #E9E4E4;
+  border-top: 1px solid #FFFFFF;
+}
+
+/* line 1300, assetic_compassL90d2t.scss */
+.smart-style-3.minified aside nav > ul > li > ul,
+.smart-style-3.minified aside nav > ul > li > ul > li > ul > li {
+  background-color: rgba(69, 69, 69, 0.9);
+}
+
+/* line 1305, assetic_compassL90d2t.scss */
+.smart-style-3.minified aside nav ul li a,
+.smart-style-3.minified aside nav ul li.open > a,
+.smart-style-3.minified aside nav ul li.open > a b {
+  color: #fff !important;
+}
+
+/* line 1311, assetic_compassL90d2t.scss */
+.smart-style-3.minified aside nav > ul > li.open ul li > a {
+  padding-left: 14px;
+}
+
+/* line 1315, assetic_compassL90d2t.scss */
+.smart-style-3 .active + .ajax-dropdown {
+  -webkit-box-shadow: 1px 14px 16px rgba(61, 35, 14, 0.55);
+  box-shadow: 1px 14px 16px rgba(61, 35, 14, 0.55);
+}
+
+@media (max-width: 979px) {
+  /* line 1321, assetic_compassL90d2t.scss */
+  .smart-style-3 #content {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  /* line 1325, assetic_compassL90d2t.scss */
+  .smart-style-3 #ribbon {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    border-radius: 0px;
+  }
+}
+/* line 1332, assetic_compassL90d2t.scss */
+.smart-style-3 .dropdown-menu > .active > a,
+.smart-style-3 .dropdown-menu > .active > a:hover,
+.smart-style-3 .dropdown-menu > li > a:hover,
+.smart-style-3 .dropdown-menu > li > a:focus,
+.smart-style-3 .tt-suggestion.tt-is-under-cursor {
+  background-color: #EC9519;
+  color: #fff;
+}
+
+/* line 1341, assetic_compassL90d2t.scss */
+.smart-style-3 .dropdown-menu > li > a {
+  color: #4E361B;
+}
+
+/* line 1345, assetic_compassL90d2t.scss */
+.smart-style-3 .dropdown-menu {
+  border-radius: 0;
+  border-bottom: 2px solid #ADADAD;
+  background: #FDDFB3;
+}
+
+/* line 1351, assetic_compassL90d2t.scss */
+.smart-style-3 .dropdown-menu .divider {
+  background-color: #EBC7A6;
+}
+
+/* line 1355, assetic_compassL90d2t.scss */
+.smart-style-3 .dropdown-menu-large .dropdown-header {
+  color: #5C391E;
+}
+
+/* line 1359, assetic_compassL90d2t.scss */
+.smart-style-3 .dropdown-menu-large > li ul > li > a:focus,
+.smart-style-3 .dropdown-menu-large > li ul > li > a:hover {
+  border-radius: 3px;
+  background-color: #F1B686;
+}
+
+/*
+ * FORMS
+ */
+/* line 1369, assetic_compassL90d2t.scss */
+.smart-style-3 input:not([type]),
+.smart-style-3 input[type="color"],
+.smart-style-3 input[type="email"],
+.smart-style-3 input[type="number"],
+.smart-style-3 input[type="password"],
+.smart-style-3 input[type="tel"],
+.smart-style-3 input[type="url"],
+.smart-style-3 input[type="text"],
+.smart-style-3 textarea {
+  border-top-color: #a3a3a3;
+  border-left-color: #a3a3a3;
+  border-bottom-color: #ccc;
+  border-right-color: #ccc;
+  -webkit-box-shadow: inset 0 1px 0 #d6d6d6;
+  -moz-box-shadow: inset 0 1px 0 #d6d6d6;
+  box-shadow: inset 0 1px 0 #d6d6d6;
+  color: #000;
+}
+
+/* line 1388, assetic_compassL90d2t.scss */
+.smart-style-3 .has-warning .form-control {
+  border-color: #c09853 !important;
+}
+
+/* line 1393, assetic_compassL90d2t.scss */
+.smart-style-3 .has-error .form-control {
+  border-color: #b94a48 !important;
+}
+
+/* line 1397, assetic_compassL90d2t.scss */
+.smart-style-3 .has-success .form-control {
+  border-color: #468847 !important;
+}
+
+/* line 1402, assetic_compassL90d2t.scss */
+.smart-style-3 .select2-container-multi .select2-choices .select2-search-field input, .smart-style-3 .tt-hint {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/*
+ * Shortcut
+ */
+/* line 1411, assetic_compassL90d2t.scss */
+.smart-style-3 #shortcut {
+  background-color: rgba(25, 16, 6, 0.85);
+}
+
+/*
+ * alerts
+ */
+/* line 1419, assetic_compassL90d2t.scss */
+.smart-style-3 .bigBox span, .smart-style-3 .SmallBox span {
+  letter-spacing: 0px;
+}
+
+/*
+ * Style 3 Top Menu
+ */
+/* line 1429, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside nav ul ul li > a {
+  color: inherit;
+}
+
+/* line 1433, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside {
+  background: inherit;
+}
+
+/* line 1437, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside#left-panel {
+  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid #fff;
+  border-top: 1px solid #fff;
+}
+
+/* line 1444, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside#left-panel aside nav > ul > li {
+  border-right: 1px solid #E2E2E2;
+  border-left: 1px solid #FFFFFF;
+}
+
+/* line 1450, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside nav ul ul,
+.smart-style-3.menu-on-top aside nav ul ul ul {
+  border-color: #E2E2E2;
+}
+
+/* line 1455, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside nav ul > li > ul {
+  left: -2px;
+}
+
+/* line 1459, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside#left-panel aside nav > ul > li > a {
+  text-shadow: none !important;
+  font-size: 13px;
+  padding: 10px 9px !important;
+  border: none !important;
+}
+
+/* line 1467, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside nav ul ul li a {
+  padding-left: 10px !important;
+  font-size: 13px;
+}
+
+/* Hover state */
+/* line 1475, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside nav > ul > li > a:hover {
+  background: #fff !important;
+}
+
+/* line 1479, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside nav ul ul li a:hover,
+.smart-style-3.menu-on-top aside nav ul ul li:hover > a,
+.smart-style-3.menu-on-top aside nav ul ul ul li a:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* line 1485, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside#left-panel aside nav > ul > li:hover {
+  background: #fff;
+  /* Old browsers */
+}
+
+/* hover state universal */
+/* line 1493, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside nav ul ul li a,
+.smart-style-3.menu-on-top aside nav ul ul ul li a {
+  color: #D8DEE5;
+}
+
+/* line 1498, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside nav ul ul li a:hover,
+.smart-style-3.menu-on-top aside nav ul ul ul li a:hover {
+  color: #fff;
+}
+
+/* line 1504, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside nav ul ul li:hover > a {
+  color: #fff;
+}
+
+/* Hover state second level */
+/*
+ * Child Arrow
+ */
+/* top level childs */
+/* line 1529, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside nav > ul > li > a:after {
+  color: #8AA1B3 !important;
+}
+
+/* next level childs */
+/* line 1534, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside nav > ul > li > a:after,
+.smart-style-3.menu-on-top aside nav > ul ul > li a:after,
+.smart-style-3.menu-on-top aside nav ul ul li:hover > a:after,
+.smart-style-3.menu-on-top aside nav > ul ul > li a:hover:after {
+  color: inherit;
+}
+
+/* line 1541, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside nav ul ul li:hover > a:after,
+.smart-style-3.menu-on-top aside nav > ul ul > li a:hover:after {
+  color: inherit;
+}
+
+/* line 1548, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside nav ul ul .active > a:hover,
+.smart-style-3.menu-on-top aside nav ul ul li.active:hover > a {
+  color: #333 !important;
+}
+
+/*
+ * Active Child
+ */
+/* line 1557, assetic_compassL90d2t.scss */
+.smart-style-3.menu-on-top aside nav ul ul .active > a {
+  color: #333 !important;
+}
+
+/* line 1560, assetic_compassL90d2t.scss */
+.smart-style-1.menu-on-top aside nav ul ul .active > a:hover,
+.smart-style-1.menu-on-top aside nav ul ul li.active:hover > a {
+  color: #333 !important;
+}
+
+/********************************************************************* Skin-4 *************************************************************/
+/* line 1568, assetic_compassL90d2t.scss */
+body.smart-style-4 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+/* line 1571, assetic_compassL90d2t.scss */
+.smart-style-4 .ribbon-button-alignment {
+  display: none;
+}
+
+/* line 1574, assetic_compassL90d2t.scss */
+.smart-style-4:not(.menu-on-top) #left-panel {
+  padding-top: 49px;
+}
+
+/* line 1577, assetic_compassL90d2t.scss */
+.smart-style-4 #ribbon {
+  position: absolute !important;
+  z-index: 1;
+  left: 3px;
+  top: 30px;
+  background: 0 0;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+/* line 1586, assetic_compassL90d2t.scss */
+.smart-style-4 #header {
+  background-image: none;
+  background: #fff;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* line 1591, assetic_compassL90d2t.scss */
+.smart-style-4 #header > :first-child {
+  background: #71a06a;
+}
+
+/* line 1594, assetic_compassL90d2t.scss */
+.smart-style-4 .login-info > span {
+  border-bottom-color: #000000;
+}
+
+/* line 1597, assetic_compassL90d2t.scss */
+.smart-style-4 .page-title {
+  margin: 8px 0 13px;
+  font-size: 24px;
+}
+
+/* line 1601, assetic_compassL90d2t.scss */
+.smart-style-4 .page-title > span {
+  font-size: 14px;
+}
+
+/* line 1604, assetic_compassL90d2t.scss */
+.smart-style-4 .page-title > i:first-child {
+  display: none;
+}
+
+/* line 1607, assetic_compassL90d2t.scss */
+.smart-style-4 #logo-group span#activity {
+  background: #5a8354;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #5a8354), color-stop(1, #8fb489));
+  background: -ms-linear-gradient(bottom, #5a8354, #8fb489);
+  background: -moz-linear-gradient(center bottom, #5a8354 0%, #8fb489 100%);
+  background: -o-linear-gradient(#8fb489, #5a8354);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8fb489', endColorstr='#5a8354', GradientType=0);
+  border-color: #5a8354;
+  color: #e8efe7;
+}
+
+/* LEFT PANEL */
+/* line 1618, assetic_compassL90d2t.scss */
+.smart-style-4:not(.mobile-view-activated) .login-info {
+  display: none;
+}
+
+/* line 1621, assetic_compassL90d2t.scss */
+.smart-style-4:not(.mobile-view-activated) #mobile-profile-img {
+  display: inline-block !important;
+}
+
+/* line 1624, assetic_compassL90d2t.scss */
+.smart-style-4 #mobile-profile-img a.userdropdown img {
+  margin-left: 3px;
+}
+
+/* line 1627, assetic_compassL90d2t.scss */
+.smart-style-4 #mobile-profile-img > li {
+  display: inline-block;
+  padding-right: 0px;
+  margin-right: -3px;
+}
+
+/* line 1632, assetic_compassL90d2t.scss */
+.smart-style-4 aside {
+  background: #3a3f51;
+}
+
+/* line 1635, assetic_compassL90d2t.scss */
+.smart-style-4 aside .minifyme {
+  background: #71a06a;
+  color: #e8efe7;
+}
+
+/* line 1639, assetic_compassL90d2t.scss */
+.smart-style-4 aside .minifyme:hover {
+  background: #8fb489;
+  color: #ffffff;
+}
+
+/* line 1643, assetic_compassL90d2t.scss */
+.smart-style-4:not(.menu-on-top) aside nav ul li.active:not(.open) > a:before,
+.smart-style-4:not(.menu-on-top) aside nav > ul > li.active:not(.open) > a:before {
+  content: "";
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAqBAMAAAAt0TTmAAAAHlBMVEUAAAD///////////////////////////////////8kfJuVAAAACnRSTlMABQMJDRIBFhofGayHogAAAOFJREFUKM+F070RgzAMBeBU6QkbuKDnlA1INoCjpWIDzmyA2QC2zVMC6IfcIbrvnjC2xe1v3XuUs4AqoN6gBjMuYOcNqINElHskLqDuflY/fKjgC1VRCZTgu/6isaZpoByU5nYAIqgtRiRhJZp3HKc4AInUynOKQNs8LwlWc3MoNluXNEWsYmxNabdwGDefbRp4YW2rmM1dv8+ue/4+v49MLB37lTMYQdxKclbq/ELfbdaCEOPX2ftA7HRviMHU/SIl1yazUdrZ2MjMUA7gaSn8/IE6ZSHD42Y3oGQH+l+4qg+S/XPD6LV6iwAAAABJRU5ErkJggg==);
+  background-repeat: no-repeat;
+  background-position: left;
+  border-left: 4px solid #ffffff;
+  left: 0px;
+  height: 20px;
+  top: 6px;
+}
+
+/* line 1655, assetic_compassL90d2t.scss */
+.smart-style-4 aside nav > ul > li.active:not(.open) > a:before {
+  height: 26px !important;
+  top: 7px !important;
+}
+
+/* line 1659, assetic_compassL90d2t.scss */
+.smart-style-4 aside nav ul li a {
+  color: #bbc0cf;
+  -webkit-transition: background-color 0.2s ease-in-out 0s;
+  transition: background-color 0.2s ease-in-out 0s;
+  font-size: 13px;
+  padding-top: 12px;
+  padding-bottom: 11px;
+}
+
+/* line 1667, assetic_compassL90d2t.scss */
+.smart-style-4 aside nav > ul > li > a {
+  padding-top: 13px;
+  padding-bottom: 13px;
+}
+
+/* line 1671, assetic_compassL90d2t.scss */
+.smart-style-4 aside nav > ul > li > a b {
+  top: 11px;
+  font-size: 14px;
+}
+
+/* line 1675, assetic_compassL90d2t.scss */
+.smart-style-4 aside nav > ul ul li a {
+  padding-top: 9px;
+  padding-bottom: 8px;
+}
+
+/* line 1679, assetic_compassL90d2t.scss */
+.smart-style-4:not(.minified) aside nav ul ul li > a {
+  padding-left: 46px;
+}
+
+/* line 1682, assetic_compassL90d2t.scss */
+.smart-style-4:not(.minified) aside nav ul ul ul li a {
+  padding-left: 69px;
+}
+
+/* line 1685, assetic_compassL90d2t.scss */
+.smart-style-4:not(.minified) aside nav ul ul ul ul li a {
+  padding-left: 92px;
+}
+
+/* line 1688, assetic_compassL90d2t.scss */
+.smart-style-4:not(.minified) aside nav ul ul ul ul ul li a {
+  padding-left: 115px;
+}
+
+/* line 1691, assetic_compassL90d2t.scss */
+.smart-style-4:not(.minified) aside nav ul ul ul ul ul ul li a {
+  padding-left: 138px;
+}
+
+/* line 1694, assetic_compassL90d2t.scss */
+.smart-style-4:not(.minified) aside nav > ul > li > a > i {
+  margin-right: 9px;
+}
+
+/* line 1697, assetic_compassL90d2t.scss */
+.smart-style-4:not(.menu-on-top) aside nav ul li a:hover {
+  background: #313645;
+  color: #ffffff;
+}
+
+/* line 1701, assetic_compassL90d2t.scss */
+.smart-style-4 aside nav ul li a:active {
+  background: #292d39;
+  color: #ffffff;
+}
+
+/* line 1705, assetic_compassL90d2t.scss */
+.smart-style-4 aside nav ul ul,
+.smart-style-4 aside nav ul li.open > a,
+.smart-style-4.minified aside nav ul ul,
+.smart-style-4.minified aside nav li li {
+  background: #363a4b;
+}
+
+/* line 1711, assetic_compassL90d2t.scss */
+.smart-style-4 aside nav > ul > li > ul:before,
+.smart-style-4 aside nav > ul ul li:before {
+  border: none;
+}
+
+/* line 1715, assetic_compassL90d2t.scss */
+.smart-style-4 #content > .row:first-child {
+  background-color: #f7f7f9;
+  margin-top: -10px;
+  padding-top: 10px;
+  margin-bottom: 13px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #d9dbe4;
+}
+
+/* unique classes for this skin only */
+/* line 1724, assetic_compassL90d2t.scss */
+.smart-style-4 #smart-fixed-ribbon + span,
+.smart-style-4 #ribbon {
+  display: none;
+}
+
+/* line 1728, assetic_compassL90d2t.scss */
+.smart-style-4.fixed-ribbon #content {
+  padding-top: 10px;
+}
+
+/* pages: gallery */
+/* line 1732, assetic_compassL90d2t.scss */
+.smart-style-4 .superbox-show {
+  background: #1e212a;
+}
+
+/* line 1735, assetic_compassL90d2t.scss */
+.smart-style-4 .superbox-list.active:before {
+  color: #1e212a;
+}
+
+/* line 1738, assetic_compassL90d2t.scss */
+.smart-style-4 .superbox-imageinfo span {
+  color: #a7acc0;
+}
+
+/*
+ * Style 4 Responsive
+ */
+@media (max-width: 979px) {
+  /* line 1745, assetic_compassL90d2t.scss */
+  .smart-style-4 #header {
+    background: #71a06a;
+  }
+
+  /* line 1748, assetic_compassL90d2t.scss */
+  .smart-style-4 #hide-menu > :first-child > a {
+    border-color: #FFFFFF !important;
+  }
+
+  /* line 1751, assetic_compassL90d2t.scss */
+  .smart-style-4:not(.menu-on-top) #left-panel {
+    margin-top: 0px !important;
+  }
+
+  /* line 1754, assetic_compassL90d2t.scss */
+  .smart-style-4 #project-selector,
+  .smart-style-4 .project-selector,
+  .smart-style-4 #project-context > :first-child,
+  .smart-style-4 .project-context > :first-child,
+  .smart-style-4 .header-dropdown-list > li > .dropdown-toggle {
+    color: #fff !important;
+    text-shadow: none;
+  }
+
+  /* line 1763, assetic_compassL90d2t.scss */
+  .smart-style-4 .btn-header.transparent a {
+    color: #6D6A69 !important;
+    text-shadow: none;
+  }
+
+  /* line 1768, assetic_compassL90d2t.scss */
+  #site-head.navbar .navbar-nav#navTournamentNameBlock {
+    display: none !important;
+  }
+
+  /* line 1772, assetic_compassL90d2t.scss */
+  #site-head.navbar .navbar-nav {
+    float: left;
+    margin-right: 10px;
+  }
+}

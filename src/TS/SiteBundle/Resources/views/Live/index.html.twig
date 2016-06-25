@@ -1,0 +1,44 @@
+{% trans_default_domain "live" %}
+{% extends "TSSiteBundle::base.html.twig" %}
+{% block title "index.title"|trans %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('bundles/tssite/css/live.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block jQuery %}
+{{ parent() }}
+
+// check frequently for updates messages
+checkForUpdates(60000);
+
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+	<div id="liveOverview">
+		<a class="btn btn-large btn-default{% if app.request.get('_route') == "live_current_matches" %} active{% endif %}" href="{{ path('live_current_matches', {'tournamentUrl': tournament.url}) }}">
+			<i class="fa fa-star fa-5x"></i> <br />
+			{{ 'index.current'|trans }}
+		</a>
+		<a class="btn btn-large btn-default{% if app.request.get('_route') == "live_upcoming_matches" %} active{% endif %}" href="{{ path('live_upcoming_matches', {'tournamentUrl': tournament.url}) }}">
+			<i class="fa fa-clock-o fa-5x"></i> <br />
+            {{ 'index.upcoming'|trans }}
+		</a>
+		<a class="btn btn-large btn-default{% if app.request.get('_route') == "live_all_matches" %} active{% endif %}" href="{{ path('live_all_matches', {'tournamentUrl': tournament.url}) }}">
+			<i class="fa fa-search fa-5x"></i> <br />
+            {{ 'index.search'|trans }}
+		</a>
+		<a class="btn btn-large btn-default{% if app.request.get('_route') == "live_ranking_pool" %} active{% endif %}" href="{{ path('live_ranking_pool', {'tournamentUrl': tournament.url}) }}">
+			<i class="fa fa-file fa-5x"></i> <br />
+            {{ 'index.rankings'|trans }}
+		</a>
+		<a class="btn btn-large btn-default{% if app.request.get('_route') == "live_player" %} active{% endif %}" href="{{ path('live_player', {'tournamentUrl': tournament.url}) }}">
+			<i class="fa fa-group fa-5x"></i> <br />
+            {{ 'index.players'|trans }}
+		</a>
+	</div>
+</div>
+{% endblock %}

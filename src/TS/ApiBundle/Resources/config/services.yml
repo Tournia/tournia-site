@@ -1,0 +1,18 @@
+parameters:
+#    ts_api.example.class: TS\ApiBundle\Example
+
+services:
+    ts_api.pre_action:
+        class: TS\ApiBundle\EventListener\ApiPreActionListener
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+    algorithmPicker:
+        class: TS\ApiBundle\Services\AlgorithmPicker
+        arguments: [ @doctrine.orm.entity_manager, @event_dispatcher ]
+
+    ts_api.websocket_updates:
+        class: TS\ApiBundle\Websocket\UpdatesTopic
+        tags:
+            - { name: gos_web_socket.topic }

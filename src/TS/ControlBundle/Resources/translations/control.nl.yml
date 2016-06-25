@@ -1,0 +1,464 @@
+# Flash messages
+flash.payment.created: Nieuwe handmatige betaling aangemaakt
+flash.payment.updated: Handmatige betaling gewijzigd
+flash.payment.deleted: Handmatige betaling verwijderd
+flash.email.sent: E-mails verzonden naar %count% spelers (het is mogelijk dat spelers geen e-mailadres hebben ingevuld)
+
+# ManualPaymentType
+manualPaymentType.name.label: Product
+manualPaymentType.player.label: Speler
+manualPaymentType.player.emptyvalue: Selecteer een speler
+
+# OrganizerEmailType
+organizerEmailType.contactPlayers.label: Verstuur een e-mail naar
+organizerEmailType.contactPlayers.choices.onlyContactPlayers: Alleen contactpersonen
+organizerEmailType.contactPlayers.choices.allPlayers: Alle spelers
+organizerEmailType.status.label: Met status
+organizerEmailType.subject.label: Onderwerp van e-mail
+organizerEmailType.message.label: Bericht
+
+# General translations
+label.playersNotReady: Spelers niet gereed
+label.playersPlaying: Spelers spelen
+label.priority: Prioriteit
+label.readyToStart: Klaar om te beginnen
+label.postponed: Uitgesteld
+label.played: Gespeeld
+label.location.onHold: Niet beschikbaar
+label.location.undefined: Onbekend
+
+table.matchNr: Wedstrijdnummer
+table.team1: Team 1
+table.team2: Team 2
+table.pool: Poule
+table.round: Ronde
+table.location: Locatie
+table.status: Status
+table.score: Stand
+table.loading: Laden...
+table.options: Opties
+
+switch.on: AAN
+switch.off: UIT
+
+modal.close: Sluiten
+modal.save: Opslaan
+modal.add: Toevoegen
+modal.create: Aanmaken
+modal.delete: Verwijderen
+modal.cancel: Annuleren
+
+dropdown.toggle: Drop-down uitklappen
+
+general.allPools: Alle poules
+general.allRounds: Alle rondes
+general.warning: Waarschuwing
+general.important: Belangrijk
+general.error: Fout
+general.selectPool: Selecteer poule
+general.selectRound: Selecteer ronde
+general.pool: Poule
+general.round: Ronde
+general.set: Set
+general.male: Man
+general.female: Vrouw
+
+# Announcements
+announcements.title: Aankondigingen
+announcements.table.called: Omgeroepen?
+announcements.clearOnce: Eenmalig opschonen
+announcements.autoClear: Automatisch opschonen
+announcements.widget.2ndCall: 2e oproep
+announcements.widget.newMatches: Nieuwe wedstrijden
+announcements.widget.upcomingMatches: Komende wedstrijden
+
+# Locaties
+locations.title: Locaties
+locations.onHoldSwitch.ok: OK
+locations.onHoldSwitch.hold: Niet beschikbaar
+locations.editName: Wijzig naam
+locations.removeLocation: Verwijder locatie
+locations.addLocation: Nieuwe locatie
+locations.table.id: '#'
+locations.table.name: Naam
+locations.table.status: Status
+locations.table.edit: Wijzig
+locations.modal.name: Naam
+locations.modal.newLocation: Nieuwe locatie
+locations.modal.editLocation: Wijzig locatie
+locations.modal.removeLocation: Verwijder locatie
+
+# Pools
+pools.title: Poules
+pools.editName: Wijzig poule
+pools.removePool: Verwijder poule
+pools.addPool: Nieuwe poule
+pools.table.id: '#'
+pools.table.nrPlayersInTeam: Spelers in team
+pools.table.name: Naam
+pools.table.algorithm: Algoritme
+pools.table.input: Input
+pools.table.edit: Wijzig
+pools.modal.name: Naam
+pools.modal.nrPlayersInTeam: Aantal spelers in team
+pools.modal.algorithm: Algoritme
+pools.modal.inputDisciplines: Input poules
+pools.modal.autoCreatePools.name: De naam van de poule wordt automatisch ingevuld.
+pools.modal.newPool: Nieuwe poule
+pools.modal.editPool: Wijzig poule
+pools.modal.autoCreatePools: Automatisch poules aanmaken
+pools.modal.removePool: Verwijder poule
+pools.algorithm.swissladder: Zwitsers ladder
+pools.algorithm.roundrobin: Round robin
+
+# Messages
+messages.title: Server berichten
+messages.table.title: Titel
+messages.table.person: Persoon
+messages.table.message: Bericht
+messages.table.date: Datum
+
+# Dashboard
+dashboard.title: Dashboard
+dashboard.cumulativeRegistrations: Totale registraties
+dashboard.newRegistrations: Nieuwe registraties
+
+# Alle wedstrijden
+allMatches.title: Alle wedstrijden
+
+# Current wedstrijden
+currentMatches.title: Wedstrijden
+currentMatches.endMatch: Einde wedstrijd
+currentMatches.2ndCall: 2<sup>e</sup> oproep
+currentMatches.changeLocation: Wijzig locatie
+currentMatches.start: Start
+currentMatches.overruleStart: Negeer, start
+currentMatches.enterScore: Vul stand in
+currentMatches.finishedNoScore: Afgelopen, geen stand
+currentMatches.postponedNonscored.postponed: uitgesteld
+currentMatches.postponedNonscored.and: en
+currentMatches.postponedNonscored.nonScored: zonder stand
+currentMatches.postponedNonscored.thereIs: Er is
+currentMatches.postponedNonscored.thereAre: Er zijn
+currentMatches.postponedNonscored.match: wedstrijd
+currentMatches.postponedNonscored.matches: wedstrijden
+currentMatches.time.day: dag
+currentMatches.time.days: dagen
+currentMatches.time.hour: uur
+currentMatches.time.hours: uren
+currentMatches.time.min: min
+currentMatches.changeLocation: Wijzig locatie
+currentMatches.table.playingTime: Speeltijd
+currentMatches.widget.currentlyPlaying: Huidige wedstrijden
+currentMatches.widget.postponedNonscored: Uitgesteld of wedstrijden zonder stand
+currentMatches.widget.upcoming: Komende wedstrijden
+currentMatches.locationsModal.text: Voor meer locatie opties, ga naar de %startLink%locatie instellingen%endLink%.
+currentMatches.locationsModal.name: Naam
+currentMatches.locationsModal.status: Status
+currentMatches.locationsModal.reason: Reden
+currentMatches.locationsModal.title: Wijzig locatie
+
+matchModal.match: Wedstrijd
+matchModal.vs: tegen
+matchModal.location: Locatie
+matchModal.alert.undefinedLocation: Deze locatie bestaat niet
+matchModal.alert.playersPlaying: Er zijn spelers die nu spelen
+matchModal.start: Starten
+matchModal.changeLocation: Wijzig locatie
+matchModal.startMatch: Start wedstrijd
+matchModal.cancel: Annuleren
+matchModal.stop: Stop wedstrijd
+matchModal.finishedNoScore: Afgelopen, geen stand
+matchModal.finishedEnterScore: Afgelopen, vul stand in
+matchModal.endMatch: Einde wedstrijd
+
+matchModal.number: Nummer
+matchModal.priorityMatch: Prioriteit wedstrijd
+matchModal.status.postponed: Uitgesteld
+matchModal.status.ready: Gereed
+matchModal.status.finished: Afgelopen
+matchModal.status.played: Gespeeld
+matchModal.reason: Reden
+matchModal.score: Stand
+matchModal.deleteMatch: Verwijder wedstrijd
+matchModal.editMatch.title: Wijzig wedstrijd
+
+# Plan wedstrijden
+planMatches.title: Plan wedstrijden
+planMatches.noPlayersInTeam: Geen spelers in dit team
+planMatches.notPlayedYet: Nog niet gespeeld
+planMatches.noScoreYet: Nog geen stand
+planMatches.edit: Wijzig
+planMatches.switch.ready: Gereed
+planMatches.switch.postponed: Uitgesteld
+planMatches.noMatchesPlanned: Geen wedstrijden gepland
+planMatches.matchHasPlayed: Wedstrijd is al gespeeld
+planMatches.matchesFor: Wedstrijden voor
+planMatches.matchesFor.in: in
+planMatches.noteams: <strong>Er zijn geen teams in deze poule</strong>, je moet eerst een %startTeamLink%team%endTeamLink% aanmaken.<br />Daarna kun je een %startRoundLink%nieuwe ronde aanmaken%endRoundLink%.
+planMatches.noround: <strong>Er zijn geen rondes in deze poule</strong>, je moet eerst een %startRoundLink%nieuwe ronde aanmaken%endRoundLink%.
+planMatches.matchesPlayed: Sommige wedstrijden zijn al gespeeld
+planMatches.matches: Wedstrijden
+planMatches.teamByeThisRound: De volgende teams hebben een bye in deze ronde
+planMatches.sidebar.newMatch: Nieuwe wedstrijd
+planMatches.sidebar.newRound: Maak nieuwe ronde
+planMatches.sidebar.deleteRound: Verwijder ronde
+planMatches.sidebar.showRanking: Toon ranglijst
+planMatches.sidebar.printCourtNotes: Print wedstrijdbriefjes
+planMatches.createRound.title: Maak nieuwe ronde
+planMatches.createRound.text: Dit maakt een nieuwe ronde aan, op basis van de huidige ranglijst van spelers.
+planMatches.createRound.unfinishedMatches: Er zijn nog niet-gespeelde wedstrijden in deze poule. Omdat de nieuwe ronde is gebaseerd op de huidige ranglijst, kan dit leiden tot een incorrecte nieuwe ronde.
+planMatches.deleteRound.title: Verwijder ronde
+planMatches.deleteRound.text: Dit zal deze ronde verwijderen, en alle wedstrijden er in.
+planMatches.deleteRound.warningText: Hiermee worden ook de standen van gespeelde wedstrijden verwijderd!
+
+# standBlocks
+scoreBlocks.confirm.incorrectScore: Set %setNr% is een incorrecte stand, wil je dit toch opslaan?
+scoreBlocks.score.title: Wedstrijd stand
+scoreBlocks.score.save: Opslaan stand
+scoreBlocks.2ndcall.title: 2e oproep
+scoreBlocks.2ndcall.text: Selecteer de spelers die een 2<sup>e</sup> oproep moeten hebben; deze zullen worden weergegeven op de mededelingen pagina van de organisatie.
+scoreBlocks.2ndcall.save: 2e oproep
+
+# Manual Betaling
+editPayment.new.title: Nieuwe handmatige betaling
+editPayment.new.edit: Wijzigen van handmatige betaling
+editPayment.execPerson: Uitvoerende persoon
+editPayment.delete.confirm: Weet je zeker dat je deze handmatige betaling wilt verwijderen?
+editPayment.delete.btn: Verwijder betaling
+
+# Overview betalingen
+overviewPayment.title: Betalingen
+overviewPayment.add: Nieuwe handmatige betaling
+overviewPayment.totalAmount: Totaal bedrag: <b>%totalAmount%</b> waarvan <b>%outstandingAmount%</b> uitstaand is.
+overviewPayment.financialPage: Zie de %startLink%financiële instellingen%endLink% om het uitstaande bedrag over te maken naar je rekening.
+overviewPayment.table.date: Datum
+overviewPayment.table.product: Product
+overviewPayment.table.amount: Bedrag
+overviewPayment.table.player: Speler
+overviewPayment.table.method: Methode
+overviewPayment.table.execPerson: Uitvoerende persoon
+overviewPayment.table.outstandingAmount: Uitstaand bedrag
+overviewPayment.table.edit: Wijzig
+
+# Speler create
+playerCreate.title: Nieuwe speler
+
+# Speler info
+playerInfo.title: Speler info
+playerInfo.pool.ready: Gereed
+playerInfo.pool.givenUp: Opgegeven
+playerInfo.tab.general: Algemene informatie
+playerInfo.tab.registrationInfo: Registratie informatie
+playerInfo.player.postponed: Speler is uitgesteld
+playerInfo.playerInfo: Speler informatie
+playerInfo.name: Naam
+playerInfo.status: Status
+playerInfo.group: Groep
+playerInfo.contactPerson: Contactpersoon
+playerInfo.email: E-mail
+playerInfo.email.unkonwn: Onbekend
+playerInfo.registrationDate: Registratie datum
+playerInfo.ready: Gereed
+playerInfo.pools: Poules
+playerInfo.pools.discipline: Poule
+playerInfo.pools.givenUp: Opgegeven
+playerInfo.pools.team: Team
+playerInfo.matches: Wedstrijden
+playerInfo.payments: Betalingen
+playerInfo.payments.none: Geen betalingen ontvangen
+playerInfo.payments.date: Datum
+playerInfo.payments.product: Product
+playerInfo.payments.amount: Bedrag
+playerInfo.payments.execPerson: Uitvoerende persoon
+playerInfo.payments.anonymous: Anoniem
+playerInfo.payments.total: Totaal
+
+# Spelers poules
+playersInPools.title: Spelers in poules
+playersInPools.readySwitch.ready: Gereed
+playersInPools.readySwitch.postponed: Uitgesteld
+playersInPools.selectStatus: Filter op status van spelers
+playersInPools.table.player: Speler
+playersInPools.table.status: Status
+playersInPools.table.ready: Gereed
+playersInPools.table.type: Type
+playersInPools.table.registered: Geregistreerd
+playersInPools.table.pools: Poules
+
+# Spelers overzicht
+playersOverview.title: Spelers overzicht
+playersOverview.table.firstName: Voornaam
+playersOverview.table.lastName: Achternaam
+playersOverview.table.fullName: Volledige naam
+playersOverview.table.registrationDate: Registratie datum
+playersOverview.table.status: Status
+playersOverview.table.ready: Gereed
+playersOverview.table.nonreadyReason: Reden uitgesteld
+playersOverview.table.gender: Geslacht
+playersOverview.table.registrationDisciplines: Registratie poules
+playersOverview.table.tournamentPools: Toernooi poules
+playersOverview.table.registrationGroup: Registratie groep
+playersOverview.table.registrationGroupContactPlayer: Registratie contactpersoon groep
+playersOverview.table.paymentBalance: Betaling balans
+playersOverview.table.personEmail: Persoon e-mail
+playersOverview.table.personName: Persoon naam
+playersOverview.table.boughtProducts: Gekochte producten
+playersOverview.pdf.title: Spelers
+playersOverview.pdf.message: Spelers overzicht
+playersOverview.print.title: print
+playersOverview.print.message: Speler overzicht <i>(druk op Esc om te sluiten)</i>
+playersOverview.createPlayer: Nieuwe speler
+
+# Print
+print.title: Print
+print.allPools: Alle poules
+print.allRounds: Alle rondes
+print.alertNotPositiveInt.fromMatch: Van wedstrijdnummer moet leeg zijn of een positief getal
+print.alertNotPositiveInt.toMatch: Tot wedstrijdnummer moet leeg zijn of een positief getal
+print.courtNotes: Wedstrijdbriefjes
+print.matchesList: Wedstrijden lijst
+print.matchResults: Wedstrijd uitslagen
+print.ranking: Ranglijst
+print.teams: Teams
+print.searchBy: Zoeken op
+print.poolAndRound: Poule &amp; Ronde
+print.matchNumber: Wedstrijdnummer
+print.fromMatchNr: Van wedstrijdnummer
+print.fromMatchNr.leaveEmpty: Laat leeg om vanaf eerste wedstrijdnummer te printen
+print.toMatchNr: Tot wedstrijdnummer
+print.cutOffNames: Laat te lange spelersnamen weg
+print.cutOffNames.explain: Als dit niet aangecheckt is worden spelersnamen die te lang zijn op een nieuwe regel geprint. Als je de wedstrijdbriefjes na het printen met een schaar knipt, zullen hierdoor sommige briefjes een andere hoogte hebben (en verkeerd geknipt worden). Aan de andere kant, kortere namen kan soms verwarrend zijn. Daarom is deze optie aanpasbaar.
+print.submit: Print
+
+# General ranglijst
+ranking.table.rank: Positie
+ranking.table.player: Speler
+ranking.table.matches: Wedstrijden
+ranking.table.sets: Sets
+ranking.table.points: Punten
+ranking.table.played: Gespeeld
+ranking.table.won: Gewonnen
+ranking.table.draw: Gelijkspel
+ranking.table.lost: Verloren
+ranking.table.relative: Relatief
+ranking.table.relative.matches: Relatieve stand is tussen -1 en +1, waarbij gewonnen wedstrijden zorgen voor een hogere positie en verloren wedstrijden lagere positie. Telt als eerste (en belangrijkste) in de ranglijst.
+ranking.table.relative.sets: Relatieve stand is tussen 0 en +1, berekend door gewonnen sets te delen door het aantal sets. Counts second in ranglijst.
+ranking.table.relative.points: Relatieve stand is tussen 0 en +1, berekend door gewonnen punten te delen door het totaal aantal punten. Telt als 3e (en minst belangrijke) in de ranglijst.
+
+ranking.table.player: Speler
+ranking.table.group: Groep
+ranking.table.avgPoints: Gemiddelde punten
+ranking.table.totPoints: Totale puten
+ranking.table.nrPlayers: '# Spelers'
+ranking.table.gender: Geslacht
+
+# Poule ranglijst
+poolRanking.title: Poule ranglijst
+poolRanking.showMatches: Toon wedstrijden
+poolRanking.printRanking: Print ranglijst
+
+# Poule winners
+poolWinners.title: Poule winnaars
+
+# Groepen ranglijst
+groupsRanking.title: Groepen ranglijst
+
+# Spelers ranglijst
+playersRanking.title: Spelers ranglijst
+
+# e-mail
+email.title: E-mail spelers
+email.legend: Stuur een e-mail naar de geregistreerde spelers
+email.tags: Je kan deze tags gebruiken in het bericht
+email.send: Verstuur
+
+# Export
+export.title: Exporteer
+export.excel: Download voor Excel
+export.isbtOrganizer: Download voor ISBT organizer
+
+# Teams
+teams.title: Teams
+teams.replacementPlayer: Vervangende speler
+teams.playerReplaces: Deze speler vervangt
+teams.gender: Geslacht
+teams.partner: Partner
+teams.openMoreOptions: Open meer opties
+teams.noPlayersForTeam: Er zijn geen spelers voor dit team, maar wel wedstrijden aan gekoppeld (je kan het team %startLink%verwijderen%endLink%)
+teams.delete: Verwijder
+teams.drop: Sleep een speler hierheen om een nieuw team te maken
+teams.drop.1: Sleep een speler hierheen
+teams.drop.2: om een nieuw team te maken
+teams.gender: Geslacht
+teams.team: Team
+teams.sidebar.addPlayer: Nieuwe speler
+teams.sidebar.collapsePlayers: Alle spelers inklappen
+teams.sidebar.expandPlayers: Alle spelers uitklappen
+teams.sidebar.import: Importeer registraties
+teams.sidebar.autoAssign: Automatisch toekennen
+teams.addPlayer.playerName: Speler naam
+teams.addPlayer.playersNotInPool: Spelers niet in poule
+teams.addPlayer.title: Nieuwe speler
+teams.import.text: |
+  Spelers die geregistreerd zijn voor een poule kunnen automatisch hierin worden toegevoegd.<br />
+  Selecteer de status van registraties die geïmporteerd moeten worden.<br />
+  Spelers die al in de poule zitten worden niet nogmaals toegevoegd.
+teams.import.status: Status
+teams.import.title: Importeer van registraties
+teams.import.submit: Importeer
+teams.autoAssign.text1: Deze functionaliteit is voor poules met twee of meer spelers in een team. Het detecteert de spelers die nog geen partner hebben, en koppelt spelers automatisch aan elkaar.
+teams.autoAssign.text2: Wil je doorgaan?
+teams.autoAssign.submit: Toekennen
+teams.autoAssign.title: Automatisch toekennen spelers
+teams.moreOptions.player: Speler
+teams.moreOptions.replacementPlayer: Vervangende speler
+teams.moreOptions.submitSet: Set
+teams.moreOptions.moveToPool: Verplaats naar poule
+teams.moreOptions.removeFromPool: Verwijder speler uit poule
+teams.moreOptions.title: Meer speler opties
+teams.disciplinesOverview.print: Print
+teams.disciplinesOverview.title: Poules overzicht
+teams.deleteTeam.title: Verwijder team
+teams.options.text: Er zijn twee manieren om dit team te verwijderen:
+teams.options.deleteTeam.btn: Verwijder het team
+teams.options.deleteTeam.text1: Hiermee worden de standen en wedstrijden van dit team ook verwijderd.
+teams.options.deleteTeam.text2: Dit kan er toe leiden dat de ranglijst voor andere spelers ook wijzigt!
+teams.options.removePlayers.btn: Verwijder de spelers
+teams.options.removePlayers.text: Spelers worden verwijderd uit het team, maar standen en westrijden blijven bestaan, alhoewel voor een leeg team.
+
+# Inconsistencies
+inconsistencies.title: Inconsistenties
+inconsistencies.table.player: Speler
+inconsistencies.table.inconsistency: Inconsistentie
+inconsistencies.table.explanation: Uitleg
+inconsistencies.table.solution: Oplossing
+
+# Index
+index.title: Tournia.net
+index.navigation.dashboard: Dashboard
+index.navigation.registrations: Registraties
+index.navigation.email: E-mail
+index.navigation.payments: Betalingen
+index.navigation.export: Exporteren
+index.navigation.playersOverview: Spelers overzicht
+index.navigation.playersInPools: Spelers in poules
+index.navigation.pools: Poules
+index.navigation.teams: Teams
+index.navigation.inconsistencies: Inconsistenties
+index.navigation.planMatches: Plan wedstrijden
+index.navigation.currentMatches: Huidige wedstrijden
+index.navigation.allMatches: Alle wedstrijden
+index.navigation.announcements: Aankondigingen
+index.navigation.print: Printen
+index.navigation.rankings: Ranglijsten
+index.navigation.poolRanking: Poule ranglijst
+index.navigation.poolWinners: Poule winnaars
+index.navigation.playersRanking: Spelers ranglijst
+index.navigation.groupsRanking: Groepen ranglijst
+index.navigation.settings: Instellingen
+index.navigation.locations: Locaties
+index.navigation.messages: Berichten
+index.navigation.otherSettings: Overige instellingen
+index.questionOrIdea: Vraag of opmerking?
+

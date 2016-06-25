@@ -1,0 +1,15 @@
+{% trans_default_domain "live" %}
+{% extends "TSSiteBundle::base.html.twig" %}
+{% block title "Live password"|trans %}
+
+{% block content %}
+<h3>{{ 'login.text1'|trans }}</h3>
+<p><b>{{ 'login.text2'|trans }}</b></p>
+ 
+<form action="{{ path('live_index', {'tournamentUrl':tournament.url}) }}" method="post">
+    <p>{{ 'login.text3'|trans({'%startLink%': '<a href="'~ path('account_login') ~'">', '%endLink%': '</a>'})|raw }}</p>
+	<input type="text" placeholder="{{ 'login.password'|trans }}" name="livePassword"><br /><br />
+	<button class="btn btn-primary" type="submit">{{ 'login.submit'|trans }}</button>
+</form>
+
+{% endblock %}

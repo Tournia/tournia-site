@@ -1,0 +1,64 @@
+{% trans_default_domain "settings" %}
+{% extends "TSSettingsBundle::baseSettings.html.twig" %}
+
+{% block title "organizers.title"|trans %}
+
+{% block jQuery %}
+    {{  parent() }}
+
+    // Get the collection that holds the collection of organizers
+    var collectionHolder = $('#organizers');
+
+    // setup an "add an organizer" link
+    var addOrganizerLink = $('<a href="#" class="add_organizerPerson_link"><i class="fa fa-plus"></i> {{ 'organizers.add'|trans }}</a>');
+    var newOrganizer = $('#organizers').after(addOrganizerLink);
+    collectionHolder.append(newOrganizer);
+
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item (e.g. 2)
+    collectionHolder.data('index', collectionHolder.find(':input').length);
+
+    // add a delete link to all of the existing organizer elements
+    collectionHolder.find('.organizerRow').each(function() {
+        addFormDeleteLink($(this));
+    });
+
+    addOrganizerLink.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+
+        // add a new organizer form row
+        addFormRow(collectionHolder, newOrganizer, 'organizers');
+    });
+
+    // disable existing email addressses of organizers
+    $("#organizers :input").attr('readonly', true);
+{% endblock %}
+
+{% block settingsContent %}
+
+<form role="form" class="form-horizontal" action="{{ path('settings_organizers', {'tournamentUrl': tournament.url}) }}" method="post" {{ form_enctype(form) }}>
+    <header>
+        <h1 class="tab-title">{{ 'organizers.tab.title'|trans }}</h1>
+        <p class="tab-subtitle">{{ 'organizers.tab.subtitle'|trans }}</p>
+    </header>
+
+    <div class="static-content">
+        {{ form_errors(form) }}
+        <div id="organizers" data-prototype="{{ form_widget(form.organizerPersons.vars.prototype)|e }}">
+            {% for organizer in form.organizerPersons %}
+                <div class="organizerRow">{{ form_row(organizer.email) }}</div>
+            {% endfor %}
+        </div>
+
+        {{ form_rest(form) }}
+
+        <div class="form-group actions">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-custom-primary btn-lg"><span class="fa fa-check"></span> {{ 'save'|trans }}</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

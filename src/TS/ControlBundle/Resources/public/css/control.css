@@ -1,0 +1,255 @@
+
+.wellSidebar-well {
+    /*position: absolute;*/
+    /*width: 95%;*/
+}
+
+.wellSidebar-content {
+    overflow: auto;
+    padding-right: 20px;
+}
+
+.wellSidebar-sidebar {
+    width: 15%;
+    min-width: 200px;
+}
+
+#logo {
+	font-size: 18px;
+	line-height: 20px;
+	padding-left: 10px;
+	padding-top: 15px;
+	margin: 0px;
+}
+
+#logo a, #logo a:hover {
+	color: #000;
+	text-decoration: none;
+}
+
+#navTournamentName {
+	color: #000;
+	font-size: 15px;
+	padding-top: 15px;
+	padding-left: 10px;
+    padding-bottom: 10px;
+	font-style: italic;
+}
+
+.btn-header a:hover {
+	cursor: pointer !important;
+}
+
+.offline-ui.offline-ui-down {
+    display: none;
+}
+
+.btn {
+    margin: 0px;
+}
+
+#notificationSettings {
+    background: none;
+    text-align: left;
+}
+
+#notificationSettings h4 {
+    text-align: center;
+}
+
+/* SUGGESTIONS FOOTER */
+
+.suggestions-footer {
+	position: fixed;
+	top: 50%;
+	right: -73px;
+	margin-bottom: -75px;
+	color: #666;
+	font-size: 14px;
+	text-align: center;
+	margin: 7px 0;
+	background: #F7F7F7;
+	border: 1px solid #E0E0E0;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	-webkit-transform: rotate(-90deg); 
+	-moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+}
+.suggestions-footer:hover {
+	background: #f2f2f2;
+}
+.suggestions-footer a {
+	display: block;
+	width: 180px;
+	padding: 7px 15px !important;
+	color: #666;
+}
+.suggestions-footer a:hover {
+	color: #333;
+	text-decoration: none;
+}
+
+
+
+.header-search .twitter-typeahead {
+	margin-top: 9px;
+}
+
+.nav-tabs {
+    border-bottom: 0;
+    margin-bottom: 20px;
+}
+
+
+
+#navSearch {
+	width: 250px;
+}
+
+.navLinkText {
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+.navLinkText:hover {
+	cursor: help !important;
+	/* TODO */
+}
+
+.pull-right > .dropdown-menu {
+	right: auto;
+}
+
+#main .row {
+	padding: 10px 10px 0px 10px;
+}
+
+
+.buttonOutlineRight {
+	position: absolute;
+	height: 0px;
+	text-align: right;
+	top: -25px;
+    right: 10px;
+}
+
+.dataTables_wrapper .dt-top-row {
+	margin-top: 50px;
+}
+
+
+.bootstrap-switch {
+	width: 165px;
+}
+.bootstrap-switch-small {
+	width: 135px;
+}
+
+/*.bootstrap-switch-handle-on {
+	right: 1px;
+}*/
+
+.cellInvisible{
+	display: none;
+}
+
+#pageTitle {
+	display: none;
+}
+
+/* FORM OVERRIDES */
+
+.form-values label {
+	display: inline;
+	margin: 0px 15px 0px 5px;
+	top: 1px;
+	position: relative;
+}
+
+.has-feedback .form-control-feedback {
+	display: block;
+    height: 34px;
+    line-height: 34px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 25px;
+    width: 34px;
+}
+
+
+.newFormLine {
+	margin-top: 5px;
+}
+
+.form-values input[type=checkbox] {
+	width: auto;
+}
+
+
+.panel-group .sortable-placeholder {
+	border: 1px dashed #CCC;
+	background: none;
+	height: 40px;
+}
+
+.panel-group .panel-heading .fa-arrows {
+	margin-top: 4px;
+}
+
+.playerNames a:hover, .noLinkUnderline:hover {
+	text-decoration: none;
+}
+
+.ajax-dropdown {
+	height: 405px;
+}
+
+.notification-body {
+	padding: 0px;
+}
+
+#loadingIndicator {
+	position: fixed;
+	top: 30px;
+	right: 30px;
+	display: none;
+}
+
+
+.page-title {
+    margin-bottom: 0px;
+}
+
+#content {
+    margin-right: 10px;
+}
+
+.nonreadyReasonTooltip {
+    cursor: pointer;
+}
+
+.nonreadyReasonOriginal {
+    display: none;
+}
+
+
+/* navbar playersTypeahead fixes */
+   .navbar-search .playersTypeahead.tt-hint {
+    top: inherit !important;
+    left: inherit !important;
+}
+
+.navbar-search .playersTypeahead.tt-input {
+    position: absolute !important;
+}
+
+.navbar-search .twitter-typeahead {
+    position: inherit !important;
+    display: block !important;
+}
+
+.navbar-search .tt-dropdown-menu {
+    left: 120px !important;
+    width: 80% !important;
+}

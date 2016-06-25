@@ -1,0 +1,11 @@
+matchModal.create.title: Add match
+matchModal.create.submit: Add
+matchModal.edit.title: Edit match
+matchModal.edit.submit: Save
+matchModal.noScore: No score set
+
+page.loading: Loading...
+page.error: Error
+nonready.reason: Reason
+
+teams.registeredNotInPool: "{1} There is one player which has registered but is not playing in this pool. You can %startLink%add this player%endLink%.|]1,Inf] There are %nrPlayers% players which have registered but are not playing in this pool. You can %startLink%add these players%endLink%."

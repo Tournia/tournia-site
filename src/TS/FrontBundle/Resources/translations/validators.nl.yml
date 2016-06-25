@@ -1,0 +1,8 @@
+# ContactUsType
+contactUsType.name.notblank: Vul je naam in
+contactUsType.email.notblank: Vul je e-mailadres in
+contactUsType.message.notblank: Vul je bericht in
+
+# StartToernooiType
+startToernooiType.name.notblank: Vul een toernooi naam in
+

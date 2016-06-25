@@ -1,0 +1,95 @@
+# Live index
+index.title: Live
+index.current: Current matches
+index.upcoming: Upcoming matches
+index.search: Search matches
+index.rankings: Rankings
+index.players: Players
+
+# Closed
+closed.title: Live is closed
+closed.text1: Live is closed
+closed.text2: During the tournament, it will be possible to see live scores of matches and other tournament information.
+
+# Login
+login.title: Live password
+login.text1: Live login
+login.text2: Live scores, ranking and player information real-time for this tournament is now available!
+login.text3: %startLink%Login with your user account%endLink% or enter the password below to get access to live information. Ask the organization for this password.
+login.password: Password
+login.submit: Login with password
+
+# Overview
+overview.title: Live overview
+
+# Player
+player.title: Player statistics
+player.noscore: Not played yet
+player.searchplayer.label: Search player
+player.searchplayer.placeholder: Player name...
+
+# Upcoming matches
+upcoming.title: Upcoming matches
+
+# Ranking
+rankingPlayers.title: Players ranking
+rankingMain.title: Ranking
+rankingMain.pool: Ranking for pool
+rankingMain.players: Ranking for players
+rankingMain.groups: Ranking for groups
+rankingGroups.title: Groups ranking
+rankingPool.title: Pool ranking
+rankingPool.table.player: Player
+rankingPool.table.matches: Matches
+rankingPool.table.points: Points
+rankingPool.table.played: Played
+rankingPool.table.won: Won
+rankingPool.table.draw: Draw
+rankingPool.table.lost: Lost
+rankingPool.table.relative: Relative
+rankingPool.table.tooltip.matches: Relative score is between -1 en +1, with won matches resulting in a positive score and lost matches in a negative score. Counts first (most important) in ranking.
+rankingPool.table.tooltip.sets: Relative score is between 0 en +1, calculated as won sets divided by total sets. Counts second in ranking.
+rankingPool.table.tooltip.points: Relative score is between 0 en +1, calculated as won points divided by total points. Counts third (least important) in ranking.
+
+
+# Current matches
+currentMatches.title: Current matches
+currentMatches.enterScore: Enter score
+currentMatches.2ndCall: 2<sup>nd</sup> Call
+currentMatches.table.options: Options
+currentMatches.undefined: Undefined
+
+# All matches
+allMatches.title: Search matches
+
+
+# General translations
+table.team1: Team 1
+table.team2: Team 2
+table.pool: Pool
+table.round: Round
+table.score: Score
+table.status: Status
+table.location: Location
+
+table.rank: Rank
+table.player: Player
+table.avgPoints: Average points
+table.totPoints: Total points
+table.sets: Sets
+table.group: Group
+table.gender: Gender
+table.players: Players
+
+
+label.priority: Priority
+label.queued: Ready to start
+label.postponed: Postponed
+label.played: Played
+label.undefinedlocation: Undefined location
+label.playing: Playing
+label.players.playing: Players playing
+label.players.notready: Players not ready
+
+gender.male: Male
+gender.female: Female

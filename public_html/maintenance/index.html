@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Coming Back Soon</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="shortcut icon">
+
+        <!-- Custom fonts -->
+        <link href="http://fonts.googleapis.com/css?family=Roboto:300,100" rel="stylesheet">
+        <link href="css/social-font.css" rel="stylesheet">
+
+        <!-- Bootstrap stylesheets -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template stylesheets -->
+        <link href="css/shader.css" rel="stylesheet">
+    </head>
+
+    <body class="theme-fire">
+        <!-- Background container -->
+        <div id="background-container" class="background-container">
+            <div id="background-output" class="background-output"></div>
+            <div id="vignette" class="background-vignette"></div>
+            <div id="noise" class="background-noise"></div>
+        </div>
+        <!-- /Background container -->
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container">
+                <!-- Header -->
+                <div class="row">
+                    <h1 class="header col-sm-8 col-sm-offset-2">Coming Back Soon</h1>
+                </div>
+                <!-- /Header -->
+
+                <!-- Description -->
+                <div class="row">
+                    <p class="description col-sm-8 col-sm-offset-2">We are currently in maintenance mode and will come back in about a minute<br />with a set of new cool features.<br /><br />
+	                    This page will reload automatically, no need to refresh.
+                    </p>
+                </div>
+                <!-- /Description -->
+            </div>
+
+            <!-- Countdown -->
+            <div class="countdown" id="countdown">
+                <div class="container">
+                    <div class="row">
+                        <div class="countdown-item col-xs-12">
+                            <div class="countdown-number" id="countdown-seconds"></div>
+                            <div class="countdown-label">seconds remaining</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Countdown -->
+        </div>
+        <!-- /Main content -->
+
+        <!-- Scripts -->
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <script src="js/jquery.countdown.js"></script>
+        <script src="js/placeholders.min.js"></script>
+        <script src="js/flat-surface-shader.js"></script>
+        <script src="config/main.config.js"></script>
+        <script src="js/shader.js"></script>
+        <script type="text/javascript">
+        	$(document).ready(function() {
+        		setInterval(ajaxGetCountdown, 3000);
+        		ajaxGetCountdown();
+        	});
+        	
+        	var previousSecondsRemaining = -1;
+        	
+        	function ajaxGetCountdown() {
+        		$.get("secondsRemaining.txt", {"_": $.now()}, function(data) {
+	        		if (data == 0) {
+		        		// end of maintenance
+		        		history.back();
+		        		window.location.href = "/"; // redirect in case there is no history
+	        		} else if (previousSecondsRemaining != data) {
+		        		// seconds remaining updated
+		        		updateCountdown(data);
+		        		previousSecondsRemaining = data;
+	        		} // else: do nothing
+	        	});
+        	}
+        	
+        	function updateCountdown(secondsRemaining) {
+	        	var date = new Date();
+	        	date.setSeconds(date.getSeconds() + parseInt(secondsRemaining));
+	        	console.log("countdown update: "+ secondsRemaining +". "+ date);
+	        	
+			    var $countdownNumbers = {
+			            seconds: $('#countdown-seconds')
+			        };
+			    $('#countdown').countdown(date).on('update.countdown', function(event) {
+			        var seconds = event.offset.minutes * 60 + event.offset.seconds;
+			        $countdownNumbers.seconds.text(('0' + seconds).slice(-2));
+			    });
+        	}
+        </script>
+    </body>
+</html>

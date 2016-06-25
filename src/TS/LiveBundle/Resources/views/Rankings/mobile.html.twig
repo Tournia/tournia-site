@@ -1,0 +1,29 @@
+<!-- Loadingpane for first pageload -->
+<div id="pool-select" class="card">
+    <div class="current">
+        <div class="pool">
+            <small class="muted">Pool</small> Select pool
+        </div>
+{#
+        <div class="poule">
+            <small class="muted">Poule</small> Men Singles
+        </div>
+#}
+        <div>
+            <span class="caret caret-right muted pull-right"></span>
+        </div>
+    </div>
+</div>
+
+<div class="table-wrapper">
+    <!-- Loadingpane for first pageload -->
+    <div class="loadingpane"><div class="logo"><i class="glyphicon glyphicon-bookmark"></i> Tournia.net</div></div>
+
+    <h2 class="table-title">
+        Rankings
+    </h2>
+
+</div>
+
+{% include "TSLiveBundle:Pools:poolSelector.html.underscore" %}
+{% include "TSLiveBundle:Rankings:list.html.underscore" %}

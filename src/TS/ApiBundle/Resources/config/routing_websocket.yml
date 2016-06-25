@@ -1,0 +1,4 @@
+api_topic_updates:
+    channel: tournament/{tournamentUrl}
+    handler:
+        callback: 'updates.topic' #related to the getName() of your topic

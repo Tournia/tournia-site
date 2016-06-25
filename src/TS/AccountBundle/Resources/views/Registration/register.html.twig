@@ -1,0 +1,48 @@
+{% trans_default_domain "account" %}
+{% form_theme form 'TSControlBundle::form.html.twig' %}
+<form action="{{ path('account_login') }}" {{ form_enctype(form) }} method="POST" id="signupForm" style="display:none">
+	<div id="signupFormBlock">
+        {{ form_errors(form) }}
+
+        <div class="form-group {% if form.registrationName.vars.errors|length > 0 %}has-error{% endif %}">
+            <label for="inputName" class="col-sm-4 control-label">{{ 'register.name'|trans }}</label>
+            <div class="col-sm-8">
+                {{ form_errors(form.registrationName) }}
+                <input type="text" class="form-control" placeholder="{{ 'register.name'|trans }}" name="{{ form.registrationName.vars.full_name }}" required="required" maxlength="255" value="{{ form.registrationName.vars.value }}" id="inputName" />
+            </div>
+        </div>
+        <div class="form-group {% if form.username.vars.errors|length > 0 %}has-error{% endif %}">
+            <label for="inputUsername" class="col-sm-4 control-label">{{ 'register.username'|trans }}</label>
+            <div class="col-sm-8">
+                {{ form_errors(form.username) }}
+                <input type="text" class="form-control" placeholder="{{ 'register.username'|trans }}" name="{{ form.username.vars.full_name }}" required="required" maxlength="255" value="{{ form.username.vars.value }}" id="inputUsername" />
+            </div>
+        </div>
+        <div class="form-group {% if form.email.vars.errors|length > 0 %}has-error{% endif %}">
+            <label for="inputEmail" class="col-sm-4 control-label">{{ 'register.email'|trans }}</label>
+            <div class="col-sm-8">
+                {{ form_errors(form.email) }}
+               <input type="text" class="form-control" placeholder="{{ 'register.email'|trans }}" name="{{ form.email.vars.full_name }}" required="required" value="{{ form.email.vars.value }}" id="inputEmail" />
+            </div>
+        </div>
+        <div class="form-group {% if form.plainPassword.first.vars.errors|length > 0 %}has-error{% endif %}">
+            <label for="inputPassword" class="col-sm-4 control-label">{{ 'register.password'|trans }}</label>
+            <div class="col-sm-8">
+                {{ form_errors(form.plainPassword.first) }}
+                <input type="password" class="form-control" placeholder="{{ 'register.password'|trans }}" name="{{ form.plainPassword.first.vars.full_name }}" required="required" id="inputPassword" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-8 col-sm-offset-4">
+                {{ form_errors(form.plainPassword.second) }}
+                <input type="password" class="form-control" placeholder="{{ 'register.confirmPassword'|trans }}" name="{{ form.plainPassword.second.vars.full_name }}" required="required" />
+            </div>
+        </div>
+        <div class="form-group form-actions">
+            <div class="col-sm-offset-4 col-sm-8">
+                {{ form_widget(form._token) }}
+                <button type="submit" class="btn btn-custom-green no-margin pull-rigth"><span class="glyphicon glyphicon-pencil"></span> {{ 'register.signUp'|trans }}</button>
+            </div>
+        </div>
+    </div>
+</form>

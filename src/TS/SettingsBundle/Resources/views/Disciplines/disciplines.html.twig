@@ -1,0 +1,105 @@
+{% trans_default_domain "settings" %}
+{% extends "TSSettingsBundle::baseSettings.html.twig" %}
+
+{% block title "disciplines.title"|trans %}
+
+{% block jQuery %}
+    {{  parent() }}
+
+    // add and remove options for disciplines
+    setupAccordion('disciplineTypesAccordion', '{{ 'disciplines.types.add'|trans }}', true);
+    setupAccordion('disciplinesAccordion', '{{ 'disciplines.disciplines.add'|trans }}', true);
+
+    fixPrototypeColsize();
+{% endblock %}
+
+{% block settingsContent %}
+
+    <form role="form" class="form-horizontal" action="{{ path('settings_disciplines', {'tournamentUrl': tournament.url}) }}" method="post" {{ form_enctype(form) }}>
+        <header>
+            <h1 class="tab-title">{{ 'disciplines.tab.title'|trans }}</h1>
+            <p class="tab-subtitle">{{ 'disciplines.tab.subtitle'|trans }}</p>
+        </header>
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#types" data-toggle="tab">{{ 'disciplines.types.tab'|trans }}</a></li>
+            <li><a href="#disciplines" data-toggle="tab">{{ 'disciplines.disciplines.tab'|trans }}</a></li>
+        </ul>
+
+        {{ form_errors(form) }}
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="types">
+                <fieldset>
+                    <legend>{{ 'disciplines.types.legend'|trans }}</legend>
+                    <div class="panel-group" id="disciplineTypesAccordion" data-prototype="{{ form_widget(form.disciplineTypes.vars.prototype)|e }}">
+                        {% for index,disciplineType in form.disciplineTypes %}
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" data-parent="#disciplineTypesAccordion" href="#existingDisciplineTypesAccordion-{{ index }}">
+                                        <span class="accordion-title">{{ index }}</span>
+                                    </a>
+                                </div>
+                                <div id="existingDisciplineTypesAccordion-{{ index }}" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        {% for row in disciplineType %}
+                                            {{ form_row(row) }}
+                                        {% endfor %}
+                                        <div class="form-group removeRow">
+                                            <label class="col-sm-2 control-label"></label>
+                                            <div class="col-sm-10 form-values"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% do form.disciplineTypes.setRendered %}
+                </fieldset>
+                <br />
+                <fieldset>
+                    <legend>{{ 'disciplines.maxRegistrationDisciplines.legend'|trans }}</legend>
+                    <div class="panel-group" id="disciplineTypesAccordion" data-prototype="{{ form_widget(form.disciplineTypes.vars.prototype)|e }}">
+                        {{ form_row(form.maxRegistrationDisciplines) }}
+                </fieldset>
+            </div>
+
+            <div class="tab-pane fade" id="disciplines">
+                <fieldset>
+                    <legend>{{ 'disciplines.disciplines.legend'|trans }}</legend>
+                    <div class="panel-group" id="disciplinesAccordion" data-prototype="{{ form_widget(form.disciplines.vars.prototype)|e }}">
+                        {% for index,discipline in form.disciplines %}
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" data-parent="#disciplinesAccordion" href="#existingDisciplineAccordion-{{ index }}">
+                                        <span class="accordion-title">{{ index }}</span>
+                                    </a>
+                                </div>
+                                <div id="existingDisciplineAccordion-{{ index }}" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        {% for row in discipline %}
+                                            {{ form_row(row) }}
+                                        {% endfor %}
+                                        <div class="form-group removeRow">
+                                            <label class="col-sm-2 control-label"></label>
+                                            <div class="col-sm-10 form-values"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% do form.disciplines.setRendered %}
+                </fieldset>
+            </div>
+
+            {{ form_rest(form) }}
+
+            <div class="form-group actions">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-custom-primary btn-lg"><span class="fa fa-check"></span> {{ 'save'|trans }}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,220 @@
+{% trans_default_domain "front" %}
+{% extends "TSFrontBundle::base.html.twig" %}
+
+{% set footerClass = "alt" %}
+
+{% block title 'index.title'|trans %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    'bundles/tsfront/template/css/vendor/daterangepicker.css'
+    filter='cssrewrite,?yui_css'  %}
+         <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@TSFrontBundle/Resources/public/template/js/index-slider.js' filter='?yui_js'
+        '@TSFrontBundle/Resources/public/template/js/moment.min.js'
+        '@TSFrontBundle/Resources/public/template/js/jquery.daterangepicker.js'
+    %}
+		<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{% endblock %}
+
+{% block jQuery %}
+    $('.chart.tournament header').on('click', function() {
+        window.location = $(this).data("url");
+    });
+
+    $('#tournament-limit li').on('click', function() {
+        var limit = $(this).data('limit');
+        $('#tournament_filter_limit').val(limit);
+        $('#filter-form').submit();
+    });
+{% endblock %}
+
+{% block siteTopBar %}
+    <div id="hero" class="background-image" style="background-image: url('{{ asset('bundles/tsfront/img/background/bg6.png') }}');">
+        <div class="container text-center">
+            <h1 class="hero-text animated fadeInDown">
+                {{ 'index.topBar.title'|trans }}
+            </h1>
+            <a href="{{ path('front_start_tournament') }}" class="btn btn-custom-primary">
+                <span class="glyphicon glyphicon-play"></span> {{ 'index.topBar.button'|trans }}
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% if currentlyPlayingTournaments|length > 0 %}
+    <div class="tournaments block highlight live">
+        <div class="container">
+            <div class="row table">
+                <div class="col-md-12">
+                    <div class="table tournament live">
+                        {% for tournament in currentlyPlayingTournaments if ((tournament.site is defined) and (app.debug or tournament.site.isPublished)) %}
+                        <div class="table-row">
+                            <div class="table-cell text-right hidden-xs">
+                                <a class="btn btn-custom-danger" href="{{ path('live_index', {'tournamentUrl': tournament.url}) }}"><span class="fa fa-circle"></span> {{ 'index.current.button.live'|trans }}</a>
+                            </div>
+                            <div class="table-cell">
+                                <h3 class="title">{{ tournament.name }}</h3>
+                                <small>{{ 'index.tournament.by'|trans }} <a href="{{ path('tournament_index', {'tournamentUrl': tournament.url}) }}">{{ tournament.contactName }}</a></small>
+                            </div>
+                            <div class="table-cell date hidden-xs hidden-sm">
+                                {% if tournament.startDateTime == tournament.endDateTime %}
+                                    <div class="date">{{ tournament.startDateTime|date('l j F Y') }}</div>
+                                {% else %}
+                                    <div class="date"><small>start</small> {{ tournament.startDateTime|date('l j F Y') }}</div>
+                                    <div class="date"><small>end</small> {{ tournament.endDateTime|date('l j F Y') }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="table-cell hidden-xs hidden-sm">
+                                {% if tournament.site is not empty and tournament.site.locationAddress is not empty %}<span class="glyphicon glyphicon-map-marker"></span> {{ tournament.site.locationAddress }}{% endif %}
+                            </div>
+                            <div class="table-cell text-right actions hidden-xs">
+                                <a class="btn btn-custom-alt" href="{{ path('tournament_index', {'tournamentUrl': tournament.url}) }}"><span class="glyphicon glyphicon-info-sign"></span> {{ 'index.current.button.moreInfo'|trans }}</a>
+                                <a class="btn btn-custom-dark" href="{{ path('live_index', {'tournamentUrl': tournament.url}) }}"><span class="fa fa-list"></span> {{ 'index.current.button.ranking'|trans }}</a>
+                            </div>
+                            <div class="table-cell text-right hidden-sm hidden-md hidden-lg">
+                                <a class="btn btn-custom-danger btn-block" href="{{ path('live_index', {'tournamentUrl': tournament.url}) }}"><span class="fa fa-circle"></span> {{ 'index.current.button.live'|trans }}</a>
+                                <a class="btn btn-custom-alt btn-block" href="{{ path('tournament_index', {'tournamentUrl': tournament.url}) }}"><span class="glyphicon glyphicon-info-sign"></span> {{ 'index.current.button.moreInfo'|trans }}</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="tournaments block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 header">
+                    <h3 class=no-margin>
+                        {{ 'index.upcoming.title'|trans }}
+                        <small>- {{ 'index.upcoming.subtitle'|trans }}</small>
+                    </h3>
+                </div>
+            </div>
+            <div class="row charts">
+                {{ macros.tournamentsBlock(upcomingTournaments) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="tournaments block alt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 header">
+                    <h3 class=no-margin>
+                        {{ 'index.past.title'|trans }}
+                        <small>- {{ 'index.past.subtitle'|trans }}</small>
+                    </h3>
+                </div>
+            </div>
+            <div class="row charts">
+                {{ macros.tournamentsBlock(earlierTournaments) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="tournaments block features first-option block" id="features">
+        <div class="row header" style="background-image: url('{{ asset('bundles/tsfront/img/background/bg9.jpg') }}');">
+            <div class="container">
+                <div class="col-md-12">
+                    <h2>{{ 'index.features.title'|trans }}</h2>
+                    <p>{{ 'index.features.subtitle'|trans }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row feature">
+                <div class="col-md-6 info">
+                    <h4>{{ 'index.features.1.title'|trans }}</h4>
+                    <p>
+                        {{ 'index.features.1.text'|trans }}
+                    </p>
+                </div>
+                <div class="col-md-6 image">
+                    <img src="{{ asset('bundles/tsfront/img/background/default_tournament.jpg') }}" class="img-responsive" alt="" width="450" />
+                </div>
+            </div>
+            <div class="row feature backwards">
+                <div class="col-md-6 info">
+                    <h4>{{ 'index.features.2.title'|trans }}</h4>
+                    <p>
+                        {{ 'index.features.2.text'|trans }}
+                    </p>
+                </div>
+                <div class="col-md-6 image">
+                    <img src="{{ asset('bundles/tsfront/img/feature2.png') }}" class="img-responsive" alt="" />
+                </div>
+            </div>
+            <div class="row feature">
+                <div class="col-md-6 info">
+                    <h4>{{ 'index.features.3.title'|trans }}</h4>
+                    <p>
+                        {{ 'index.features.3.text'|trans }}
+                    </p>
+                </div>
+                <div class="col-md-6 image">
+                    <img src="{{ asset('bundles/tsfront/img/feature3.png') }}" class="img-responsive" alt="" />
+                </div>
+            </div>
+            <div class="row feature backwards last">
+                <div class="col-md-6 info">
+                    <h4>{{ 'index.features.4.title'|trans }}</h4>
+                    <p>
+                        {{ 'index.features.4.text'|trans }}
+                    </p>
+                </div>
+                <div class="col-md-6 image">
+                    <img src="{{ asset('bundles/tsfront/img/feature1.png') }}" class="img-responsive" alt="" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+{#
+    <div id="services">
+        <div id="cta">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="wrapper clearfix">
+                            <h4>{{ 'index.try.title'|trans }}</h4>
+                            <a href="{{ path('front_start_tournament') }}" class="button button-small">{{ 'index.try.button'|trans }} &gt;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+#}
+    <div id="mobile">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6 hidden-xs">
+                    <img src="{{ asset('bundles/tsfront/img/ss3.png') }}" class="device img-responsive" alt="mobile" />
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <div class="info">
+                        <h3>{{ 'index.app.title'|trans }}</h3>
+                        <p>
+                            {{ 'index.app.text'|trans }}
+                        </p>
+                        <a class="button button-small" href="{{ path('front_app') }}">{{ 'index.app.button'|trans }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

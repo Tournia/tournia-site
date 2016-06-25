@@ -1,0 +1,11 @@
+form.missing: Het formulier is niet helemaal correct ingevuld
+player.created: Nieuwe speler aangemaakt
+form.newPersonEmail.label: Wijzig persoon
+form.newPersonEmail.placeholder: Nieuwe speler's e-mailadres
+form.newPersonEmail.info: Je kan wijzigen van wie deze registratie is. Door het invullen van een e-mailadres neemt de persoon met dit e-mailadres deze registratie over.
+form.newPersonEmail.invalid: Dit is geen geldig e-mailadres
+form.max2disciplines: Er kan voor maximaal twee poules ingeschreven worden
+access.granted: %email% heeft nu toegang tot deze speler
+player.updated: Speler bijgewerkt
+player.changeRegistrationAllowed: Je kunt geen wijzigingen meer aanbrengen. Neem contact op met de organisatie voor vragen.
+basket.added: De geselecteerde producten zijn nu toegevoegd aan je winkelwagen. Je kan de betaling nu afronden, of eerst nog andere producten toevoegen.

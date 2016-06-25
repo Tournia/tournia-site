@@ -1,0 +1,38 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block form_row %}
+<div class="form-group {% if errors|length > 0 %} has-error{% endif %}{% if attr.info is defined %} has-feedback{% endif %}{% if attr.formGroupClass is defined %} {{ attr.formGroupClass }}{% endif %}">
+    {{ form_label(form, null, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+    <div class="col-sm-10 form-values">
+    	{% set class='form-control' %}
+	    {% if attr.class is defined %}
+	    {% set class = class ~ ' ' ~ attr.class %}
+	    {% endif %}
+
+    	{{ form_widget(form, {'attr': {'class': class}}) }}
+        {% if attr.info is defined %}<span class="glyphicon glyphicon-info-sign form-control-feedback pull-right infoIcon" data-toggle="popover" data-content="{{ attr.info|trans({}, translation_domain)|nl2br }}"></span>{% endif %}
+        {% if attr.formComment is defined %}<small class="comment">{{ attr.formComment|trans({}, translation_domain)|nl2br }}</small>{% endif %}
+    	{{ form_errors(form) }}
+    </div>
+</div>
+{% endblock form_row %}
+
+
+{% block form_errors %}
+{% spaceless %}
+    {% if errors|length > 1 %}
+    <span class="help-block">
+	    <ul>
+	       	{% for error in errors %}
+	            <li>{{ error.message }}</li>
+	        {% endfor %}
+        </ul>
+    </span>
+    {% elseif errors|length == 1 %}
+    <span class="help-block">{% for error in errors %}{{ error.message }}{% endfor %}</span>
+    {% endif %}
+{% endspaceless %}
+{% endblock form_errors %}
+
+
+

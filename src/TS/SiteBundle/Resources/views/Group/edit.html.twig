@@ -1,0 +1,46 @@
+{% trans_default_domain "site" %}
+{% form_theme form 'TSFrontBundle::form.html.twig' %}
+
+{% extends "TSSiteBundle::base.html.twig" %}
+
+{% set new = group.id is null %}
+
+{% block title %}
+{% if new %}
+{{ 'groupedit.title.new'|trans }}
+{% else %}
+{{ 'groupedit.title.change'|trans }}
+{% endif %}
+{% endblock %}
+
+{% block jQuery %}
+	// select current contact players checkboxes. Bit of a hack, but it's difficult to get change form elements in symfony
+	{% if not new %}{% for player in players %}{% if player.isContactPlayer %}$('#group_contactPlayers_{{ player.id }}').attr('checked', true);{% endif %}{% endfor %}{% endif %}
+	
+	{% if form.contactPlayers is defined %}
+	// layout improvements for checkboxes
+	$("#{{ form.contactPlayers.vars.id }} label").before(" ").after("<br />");
+	$("#{{ form.contactPlayers.vars.id }}").css('height', '100%');
+	{% endif %}
+
+	// add * to label when field is required
+	$("label.required").each(function() {
+		$(this).append("*");
+	})
+{% endblock %}
+
+{% block content %}
+<form class="form-horizontal" action="{% if new %}{{ path('group_create', {'tournamentUrl': tournament.url}) }}{% else %}{{ path('group_edit', {'tournamentUrl': tournament.url, 'groupId':group.id}) }}{% endif %}" method="post" {{ form_enctype(form) }} role="form">
+	<fieldset>
+    	<legend>{% if new %}{{ 'groupedit.title.new'|trans }}{% else %}{{ 'groupedit.title.change'|trans }}{% endif %}</legend>
+    	{{ form_errors(form) }}
+    	<p>* {{ 'groupedit.required'|trans }}</p>
+    	{{ form_rest(form) }}
+		<div class="form-actions">
+			<button type="submit" class="btn btn-primary">{{ 'groupedit.save'|trans }}</button>
+			<a href="{{ path('group_overview', {'tournamentUrl':tournament.url}) }}" class="btn btn-default">{{ 'groupedit.cancel'|trans }}</a>
+			{% if not new and is_granted("DELETE", group) %}<a href="{{ path('group_delete', {'tournamentUrl':tournament.url, 'groupId': group.id}) }}" onClick="return confirm('{{ 'groupedit.delete.confirm'|trans }}');" class="btn btn-danger pull-right"><i class="fa fa-trash-o"></i> {{ 'groupedit.delete.button'|trans }}</button></a>{% endif %}
+		</div>
+	</fieldset>
+</form>
+{% endblock %}

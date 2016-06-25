@@ -1,0 +1,45 @@
+{% trans_default_domain "notificationEmail" %}
+{% extends "TSNotificationBundle:Email:emailBase.html.twig" %}
+
+{% block subject %}{{ 'email.personNew.subject'|trans }}{% endblock %}
+
+{% block mailTextBody %}
+{{ 'email.personNew.start'|trans({'%name%': person.informalName|raw}) }}
+{{ 'email.personNew.username'|trans({'%username%': username|raw}) }}
+{% if password is not empty %}{{ 'email.personNew.password'|trans({'%password%': password|raw}) }}
+{% endif %}
+{% if authorizationType == "player" %}
+
+{% set playerLink = url('player_edit', {'tournamentUrl': tournament.url, 'playerId': authorizationObject.id}) %}
+{{ 'email.personNew.accessPlayer'|trans({'%name%': authorizationTo|raw, '%link%': playerLink})|raw }}
+{% endif %}
+{% if authorizationType == "tournament" %}
+
+{% set tournamentLink = url('settings_index', {'tournamentUrl': tournament.url}) %}
+{{ 'email.personNew.accessTournament'|trans({'%name%': authorizationTo|raw, '%link%': tournamentLink})|raw }}
+{% endif %}
+
+{{ 'email.personNew.end'|trans }}
+{% endblock %}
+
+{% block mailHtmlBody %}
+    {{ 'email.personNew.start'|trans({'%name%': person.informalName})|nl2br }}
+    {{ 'email.personNew.username'|trans({'%username%': username}) }}<br />
+    {% if password is not empty %}{{ 'email.personNew.password'|trans({'%password%': password}) }}<br />{% endif %}
+    {% if authorizationType == "player" %}
+        <br />
+        {% set playerLink = url('player_edit', {'tournamentUrl': tournament.url, 'playerId': authorizationObject.id}) %}
+        {% set playerA = '<a href="'~ playerLink ~'">'~ playerLink ~'</a>' %}
+        {{ 'email.personNew.accessPlayer'|trans({'%name%': authorizationTo, '%link%': playerA})|raw }}
+        <br />
+    {% endif %}
+    {% if authorizationType == "tournament" %}
+        <br />
+        {% set tournamentLink = url('settings_index', {'tournamentUrl': tournament.url}) %}
+        {% set tournamentA = '<a href="'~ tournamentLink ~'">'~ tournamentLink ~'</a>' %}
+        {{ 'email.personNew.accessTournament'|trans({'%name%': authorizationTo, '%link%': tournamentA})|raw }}
+        <br />
+    {% endif %}
+    <br />
+    {{ 'email.personNew.end'|trans|nl2br }}
+{% endblock %}

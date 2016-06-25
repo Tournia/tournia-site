@@ -1,0 +1,8 @@
+# AccountType
+accountType.username.notBlank: Vul een gebruikersnaam in
+
+# ProfileType
+profileType.email.notBlank: Vul een e-mailadres in
+
+# RegistrationFormType
+registrationFormType.registrationName.notBlank: Er is geen naam ingevuld

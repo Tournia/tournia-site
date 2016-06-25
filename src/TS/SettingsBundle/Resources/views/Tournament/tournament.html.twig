@@ -1,0 +1,145 @@
+{% trans_default_domain "settings" %}
+{% extends "TSSettingsBundle::baseSettings.html.twig" %}
+
+{% block title "tournament.title"|trans %}
+
+{% block jQuery %}
+    {{ parent() }}
+
+    // now the same for status options
+    var statusCollectionHolder = $('#tournament_statusOptions');
+	var addStatusLink = $('<a href="#"><i class="fa fa-plus"></i> {{ 'tournament.status.add'|trans }}</a>');
+	var newStatus = $('#tournament_statusOptions').after(addStatusLink);
+    statusCollectionHolder.append(newStatus);
+    
+    statusCollectionHolder.data('index', statusCollectionHolder.find(':input').length);
+    
+    statusCollectionHolder.find('.form-group').each(function() {
+        addFormDeleteLink($(this));
+    });
+    
+    addStatusLink.on('click', function(e) {
+        e.preventDefault();
+        addFormRow(statusCollectionHolder, newStatus, 'tournament_statusOptions');
+    });
+    
+    // add and remove options for formFieldRows
+    setupAccordion('formFieldsAccordion', '{{ 'tournament.status.formFields'|trans }}', true);
+
+	fixPrototypeColsize();
+
+    // daterangepicker for start and end date tournament
+    $("#{{ form.startDateTime.vars.id }}, #{{ form.endDateTime.vars.id }}").dateRangePicker({
+        seperator: ' ~ ',
+        format: 'DD-MM-YYYY',
+        time: {
+            enabled: false
+        },
+        startOfWeek: 'monday',
+        getValue: function() {
+            if ($('#{{ form.startDateTime.vars.id }}').val() && $('#{{ form.endDateTime.vars.id }}').val() )
+                return $('#{{ form.startDateTime.vars.id }}').val() + ' to ' + $('#{{ form.endDateTime.vars.id }}').val();
+            else
+                return '';
+        },
+        setValue: function(s,s1,s2) {
+            $('#{{ form.startDateTime.vars.id }}').val(s1);
+            $('#{{ form.endDateTime.vars.id }}').val(s2);
+        },
+        showShortcuts:false
+    });
+	
+{% endblock %}
+
+
+{% block settingsContent %}
+<form role="form" class="form-horizontal" action="{{ path('settings_tournament', {'tournamentUrl': tournament.url}) }}" method="post" {{ form_enctype(form) }}>
+    <header>
+        <h1 class="tab-title">{{ 'tournament.tab.title'|trans }}</h1>
+        <p class="tab-subtitle">{{ 'tournament.tab.subtitle'|trans }}</p>
+    </header>
+	
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#general" data-toggle="tab">{{ 'tournament.general.tab'|trans }}</a></li>
+		<li><a href="#registration" data-toggle="tab">{{ 'tournament.registration.tab'|trans }}</a></li>
+		<li><a href="#tournament" data-toggle="tab">{{ 'tournament.tournament.tab'|trans }}</a></li>
+	</ul>
+
+    {{ form_errors(form) }}
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="general">
+			<fieldset>
+		    	<legend>{{ 'tournament.general.legend'|trans }}</legend>
+		    		{{ form_row(form.name) }}
+		    		{{ form_row(form.url) }}
+		    		{{ form_row(form.emailFrom) }}
+		    		{{ form_row(form.contactName) }}
+		    		{{ form_row(form.startDateTime) }}
+		    		{{ form_row(form.endDateTime) }}
+			</fieldset>
+		</div>
+		<div class="tab-pane fade" id="registration">
+			<fieldset>
+				<legend>{{ 'tournament.registration.status'|trans }}</legend>
+				{{ form_row(form.newPlayerStatus) }}
+				
+				<div id="statusOptions">
+			        {{ form_row(form.statusOptions, {'attr': {'class': '8'}}) }}
+			    </div>
+			</fieldset>
+			<fieldset>
+				<legend>{{ 'tournament.registration.groups'|trans }}</legend>
+				{{ form_row(form.registrationGroupEnabled) }}
+				{{ form_row(form.registrationGroupRequired) }}
+			</fieldset>
+			<fieldset>
+				<legend>{{ 'tournament.registration.formFields'|trans }}</legend>
+				<div class="panel-group" id="formFieldsAccordion" data-prototype="{{ form_widget(form.registrationFormFields.vars.prototype)|e }}">
+					{% for index,fieldRow in form.registrationFormFields %}
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<a data-toggle="collapse" data-parent="#formFieldsAccordion" href="#existingFieldAccordion-{{ index }}">
+								<span class="accordion-title">{{ index }}</span>
+							</a>
+						</div>
+						<div id="existingFieldAccordion-{{ index }}" class="panel-collapse collapse">
+							<div class="panel-body">
+								{% for row in fieldRow %}
+									{{ form_row(row) }}
+								{% endfor %}
+								<div class="form-group removeRow">
+									<label class="col-sm-2 control-label"></label>
+									<div class="col-sm-10 form-values"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+                {% do form.registrationFormFields.setRendered %}
+			</fieldset>
+			<fieldset>
+				<legend>{{ 'tournament.registration.email'|trans }}</legend>
+				{{ form_row(form.organizationEmailOnChange) }}
+			</fieldset>
+		</div>
+		<div class="tab-pane fade" id="tournament">
+			<fieldset>
+				<legend>{{ 'tournament.tournament.legend'|trans }}</legend>
+					{{ form_row(form.nrSets) }}
+                    {{ form_row(form.checkScoreMin) }}
+                    {{ form_row(form.checkScoreMax) }}
+			</fieldset>
+		</div>
+	</div>
+
+    {{ form_rest(form) }}
+
+    <div class="form-group actions">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="button" onClick="$(this).closest('form').submit();" class="btn btn-custom-primary btn-lg"><span class="fa fa-check"></span> {{ 'save'|trans }}</button>
+            {% if is_granted("DELETE", tournament) %}<a href="{{ path('settings_tournament_delete', {'tournamentUrl': tournament.url}) }}" onClick="return confirm('{{ 'tournament.delete.confirm'|trans }}');" class="btn btn-danger pull-right" role="button"><i class="fa fa-trash-o"></i> {{ 'tournament.delete.btn'|trans }}</a>{% endif %}
+        </div>
+    </div>
+</form>
+{% endblock %}

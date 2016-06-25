@@ -1,0 +1,68 @@
+{% trans_default_domain "settings" %}
+{% extends "TSSettingsBundle::baseSettings.html.twig" %}
+
+{% block title "api.title"|trans %}
+
+{% block jQuery %}
+    {{  parent() }}
+
+    // add and remove options for products
+    setupAccordion('apiKeysAccordion', '{{ 'api.apiKeys.add'|trans }}', false);
+{% endblock %}
+
+{% block settingsContent %}
+
+    <form role="form" class="form-horizontal" action="{{ path('settings_api', {'tournamentUrl': tournament.url}) }}" method="post" {{ form_enctype(form) }}>
+        <header>
+            <h1 class="tab-title">{{ 'api.tab.title'|trans }}</h1>
+            <p class="tab-subtitle">{{ 'api.tab.subtitle'|trans }}</p>
+        </header>
+
+        <div class="static-content">
+            <div class="alert alert-info" role="alert">
+                <p>
+                    {{ 'api.explanation'|trans({'%startLink1%': '<a href="'~ path('front_developers') ~'" target="_blank">', '%startLink2%': '<a href="https://github.com/Tournia" target="_blank">' })|raw|nl2br }}
+                </p>
+            </div>
+
+            {{ form_errors(form) }}
+            <div class="panel-group" id="apiKeysAccordion" data-prototype="{{ form_widget(form.apiKeys.vars.prototype)|e }}">
+                {% for index,apiKey in form.apiKeys %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse" data-parent="#apiKeysAccordion" href="#existingApiKeyAccordion-{{ index }}">
+                                <span class="accordion-title">{{ index }}</span>
+                            </a>
+                        </div>
+                        <div id="existingApiKeyAccordion-{{ index }}" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                {% for row in apiKey %}
+                                    {{ form_row(row) }}
+                                {% endfor %}
+                                <div class="form-group removeRow">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-10 form-values"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% do form.apiKeys.setRendered %}
+            </div>
+            {#<div id="api" data-prototype="{{ form_widget(form.organizerPersons.vars.prototype)|e }}">
+                {% for organizer in form.organizerPersons %}
+                    <div class="organizerRow">{{ form_row(organizer.email) }}</div>
+                {% endfor %}
+            </div>#}
+
+            {{ form_rest(form) }}
+
+            <div class="form-group actions">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-custom-primary btn-lg"><span class="fa fa-check"></span> {{ 'save'|trans }}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

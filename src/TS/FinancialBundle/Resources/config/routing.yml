@@ -1,0 +1,15 @@
+financial_payment_complete:
+    pattern:  /complete
+    defaults: { _controller: TSFinancialBundle:Payment:complete }
+
+financial_payment_cancel:
+    pattern:  /cancel
+    defaults: { _controller: TSFinancialBundle:Payment:cancel }
+
+financial_invoice_token:
+    pattern:  /invoice/{invoiceNr}/{token}
+    defaults: { _controller: TSFinancialBundle:Invoice:pdfToken }
+
+financial_invoice:
+    pattern:  /invoice/{invoiceNr}
+    defaults: { _controller: TSFinancialBundle:Invoice:pdf }

@@ -1,0 +1,20 @@
+<script id="SearchMatchView" type="text/template">
+
+    <td class="pool">
+        <%= pool %>
+    </td>
+    <td class="team team1 text-right">
+        <span class="player"><%= team1 %></span>
+    </td>
+    <td class="team team2">
+        <span class="player"><%= team2 %></span>
+    </td>
+    <td class="score">
+    <% var scores = score.split(" "); %>
+    <% _.each(scores, function(setscore) { %>
+        <% // =-sign is necassary because set is a javascript variable%>
+        <span class="set-score"><%= setscore %></span>
+    <% }); %>
+    </td>
+
+</script>

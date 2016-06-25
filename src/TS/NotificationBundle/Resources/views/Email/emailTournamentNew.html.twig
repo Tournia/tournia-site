@@ -1,0 +1,12 @@
+{% trans_default_domain "notificationEmail" %}
+{% extends "TSNotificationBundle:Email:emailBase.html.twig" %}
+
+{% block subject %}{{ 'email.tournamentNew.subject'|trans }}{% endblock %}
+
+{% block mailTextBody %}
+{{ 'email.tournamentNew.message'|trans({'%tournamentContactName%': tournamentContactName|raw, '%urlTournamentWebsite%': urlTournamentWebsite, '%tournamentUrl%': tournamentUrl, '%urlTournamentSettings%': urlTournamentSettings, '%urlTournamentControl%':urlTournamentControl })|raw }}
+{% endblock %}
+
+{% block mailHtmlBody %}
+{{ 'email.tournamentNew.message'|trans({'%tournamentContactName%': tournamentContactName, '%urlTournamentWebsite%': urlTournamentWebsite, '%tournamentUrl%': tournamentUrl, '%urlTournamentSettings%': urlTournamentSettings, '%urlTournamentControl%':urlTournamentControl })|nl2br }}
+{% endblock %}

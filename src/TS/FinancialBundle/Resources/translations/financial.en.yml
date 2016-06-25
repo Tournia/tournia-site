@@ -1,0 +1,40 @@
+# Summary
+summary.title: Cart
+summary.cart.empty: Your cart is empty
+summary.table.player: Player
+summary.table.product: Product
+summary.table.quantity: Quantity
+summary.table.price: Price
+summary.table.totPrice: Total price
+summary.cart.total: Total
+summary.cart.remove: Remove
+summary.cart.clear: Clear cart
+summary.cart.save: Save
+summary.addItem.title: Pay for another player
+summary.addItem.text: Select a player and add an item to your cart to pay for that player.
+summary.addItem.submit: Add to cart
+summary.payment.legend: Payment
+summary.payment.submit: Make payment
+
+# Form type
+cartAddType.player.label: Player
+cartAddType.player.placeholder: Select a player
+cartAddType.addProduct.label: Product
+
+# Flash messages
+flash.payment.complete.success: Payment succeeded, thank you for your purchase
+flash.payment.cancelled: Payment cancelled, no transfer has been made
+
+# CartController
+cart.adjustment.transaction.label: Transaction fee
+cart.adjustment.transaction.description: The payment transaction costs are dependent on the payment method that is selected.
+cart.adjustment.service.label: Service fee
+cart.adjustment.service.description: Continuous development of Tournia.net takes time and money. Do you think running servers is free? ;)
+cart.adjustment.vat.description: We are obligated by law to charge you Value Added Taxes on our services. This is not on the tournament products you are buying, as Tournia.net is only an intermediary and you're buying the products from the tournament organization. For an (VAT) invoice of the selected tournament products, please contact the tournament organization.
+cart.conditions.formComment: |
+  Tournia.net is not the seller of the goods or services mentioned, with the exception of possible service and payment fees. Tournia.net acts only as a limited commercial agent on behalf of the respective tournament organization, and therefore Tournia.net assumes no liability for any acts, omissions or otherwise.
+  For questions regarding invoicing, changes or refunds of orders, please contact the tournament organization directly.
+  I agree to these terms and conditions.
+cart.vatCountry.info: The EU has ruled that Value Added Tax (VAT) on electronic services have to be paid to the country of the customer. So select your country, to sponsor your government.
+cart.vatCountry.formComment: In which country do you live?
+

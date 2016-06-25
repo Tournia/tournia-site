@@ -1,0 +1,128 @@
+email.tournamentNew.subject: "Welkom bij Tournia.net"
+email.tournamentNew.message: |
+  Hallo %tournamentContactName%,
+
+  Je hebt een toernooi aangemaakt op Tournia.net, welkom! Tournia is een online platform om toernooi organisatoren te ondersteunen met alles wat zij nodig hebben om een geweldig toernooi te organiseren.
+
+  Je hebt nu je eigen toernooi website, welke je kan vinden op %urlToernooiWebsite% Je kan deze toernooi website promoten naar potentiële deelnemers.
+
+  Je kan het adres van "%tournamentUrl%" wijzigen in de instellingen. Bij instellingen kan je ook nieuwe pagina's toevoegen voor je toernooi website, bestanden of afbeeldingen uploaden, en veel andere opties aanpassen. Je kan de instellingen vinden op: %urlToernooiSettings%
+
+  Het wordt aanbevolen op je toernooi allereerst volledig te configureren, voordat je de inschrijvinge opent. Je dient de poules ins te stellen die je gaat spelen (bijvoorbeeld Heren Dubbels B), en of je spelers wilt laten betalen voor hun deelname. Het is ook mogelijk om aanvullende velden in het registratieformulier op te nemen, bijvoorbeeld een telefoonnummer of dieet wensen.
+
+  Wanneer je start met het spelen van wedstrijden, gebruik je de beheer module, of in het kort: beheer. Jouw toernooi beheer is te vinden op %urlToernooiControl%. Op de Teams pagina kan je de inschrijvingen hiernaar importeren, waarna je de spelers automatisch kan toekennen. Een Team is in Tournia een speler voor singles, maar ook twee spelers voor dubbels. Nadat je teams hebt samengesteld, kan je wedstrijden gaan aanmaken. In het Plan wedstrijden scherm, klik je op de Maak nieuwe ronde knop. Nu je de wedstrijden hebt aangemaakt, kan je ze op een baan zetten in het huidige wedstrijden scherm.
+
+  Bovenaan de pagina kan je zoeken naar spelers (klik op het zoek icoontje), berichten zien, het venster maximaliseren, etc. In de rechter bovenhoek is een groene knop, waarmee je makkelijk door alle modules van Tournia kan navigeren (erg nuttig!).
+
+  Bedankt voor het uitproberen van Tournia, en we hopen dat je een geweldig toernooi hebt! Als je nog vragen hebt, laat het ons dan weten, en stuur een mailtje naar info@tournia.net
+
+  Met vriendelijke groet,
+  Tournia.net
+
+# New Person
+email.personNew.subject: "Welkom bij Tournia.net"
+email.personNew.start: |
+  Hoi %name%,
+
+  Welkom bij Tournia.net! Er is nu een inlogaccount voor je aangemaakt. Met dit account kan je wijzigingen aanbrengen voor toernooi registraties, andere spelers opzoeken en tijdens het toernooi scores en standen bekijken.
+
+  Je inloggegevens zijn:
+email.personNew.username: Gebruikersnaam: %username%
+email.personNew.password: Wachtwoord: %password%
+email.personNew.accessPlayer: Met dit account heb je toegang tot speler %name%. Je kan nu wijzigingen aanbrengen aan deze speler, door te gaan naar %link%
+email.personNew.accessTournament: Met dit account heb je toegang tot het toernooi %name%. Je hebt nu volledige toegang tot dit toernooi, en kan aanpassingen maken via %link%
+email.personNew.end: |
+  Veel succes met je toernooi!
+  Tournia.net
+
+# Person authorization
+email.personAuthorized.subject: "Autorisatie toegevoegd"
+email.personAuthorized.start: |
+  Hoi %name%,
+
+  Je hebt nu nieuwe toegangsrechten gekregen op je Tournia account.
+email.personAuthorized.accessPlayer: Met je account heb je toegang tot speler %name%. Je kan nu wijzigingen aanbrengen aan deze speler, door te gaan naar %link%
+email.personAuthorized.accessTournament: Met je account heb je toegang tot het toernooi %name%. Je hebt nu volledige toegang tot dit toernooi, en kan aanpassingen maken via %link%
+email.personAuthorized.end: |
+  Veel succes met je toernooi!
+  Tournia.net
+email.person.forTournament: voor toernooi
+
+# Base
+email.base.footer.1: Deze e-mail is geautomatiseerd gestuurd naar %email%
+email.base.footer.2: voor toernooi %tournament%
+email.base.footer.3: Je kan de e-mail instellingen aanpassen in je profiel
+email.base.goToProfile: Ga naar je profiel
+email.base.connect: Social media:
+email.base.contactInfo: Contact info:
+email.base.email: E-mail:
+
+# New player
+email.player.new.subject: Nieuwe registratie
+email.player.new.start: |
+  Beste %name%,
+
+  Bedankt voor je registratie voor %tournament%.
+email.player.new.changesMadeBy: Je bent geregistreerd door: %changesMadeBy%.
+email.player.link: Voor meer informatie over dit toernooi, kijk op %link%
+email.player.new.info: We hebben de volgende gegevens ontvangen:
+email.player.group: Groep
+email.player.contactPerson: Contactpersoon
+email.player.firstName: Voornaam
+email.player.lastName: Achternaam
+email.player.gender: Geslacht
+email.player.male: Man
+email.player.female: Vrouw
+email.player.partner: partner
+email.player.wanted: Wanted
+email.player.yes: Ja
+email.player.no: Nee
+email.player.status: Status
+email.player.registrationDate: Registratie datum
+email.player.new.end: |
+  Veel succes tijdens het toernooi!
+  Tournia.net
+
+# Changed player
+email.player.change.subject: Wijziging in registratie
+email.player.change.start: |
+  Beste %name%,
+
+  Er zijn wijzigingen in je registratie voor %tournament%.
+email.player.changesMadeBy: Wijzigingen zijn gedaan door: %changesMadeBy%.
+email.player.change.changes: Je registratie gegevens zijn
+email.player.change.end: |
+  Veel succes tijdens het toernooi!
+  Tournia.net
+
+# Deleted player
+email.player.delete.subject: Registratie verwijderd
+email.player.delete.start: |
+  Beste %name%,
+
+  Je registratie voor %tournament% is verwijderd.
+email.player.delete.changesMadeBy: Dit is gedaan door: %changesMadeBy%.
+email.player.delete.info: Je registratie gegevens waren:
+email.player.delete.end: |
+  Tournia.net
+
+# Change RegistrationGroup
+email.registrationGroup.change.subject: Wijziging in groep
+email.registrationGroup.change.start: |
+  Beste contactpersoon,
+
+  Er zijn wijzigingen aan de groep %group% voor %tournament%.
+email.registrationGroup.change.changesMadeBy: Wijzigingen zijn gedaan door: %changesMadeBy%.
+email.registrationGroup.change.changes: De gewijzigde gegevens zijn
+email.registrationGroup.name: Naam
+email.registrationGroup.country: Land
+email.registrationGroup.contactPlayers: Contactpersoon
+email.registrationGroup.end: |
+  Tournia.net
+
+# General
+email.change.markedBold: (wijzigingen vetgedrukt):
+email.change.markedStar: (wijzigingen gemarkeerd met ***):
+email.change.was: was
+email.change.new: Nieuw
+email.change.old: Oud

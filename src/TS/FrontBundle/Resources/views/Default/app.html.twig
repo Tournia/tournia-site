@@ -1,0 +1,131 @@
+{% trans_default_domain "front" %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="apple-itunes-app" content="app-id=1002548777">
+
+    <title>{{ 'app.title'|trans }}</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat:400,700">
+
+    {% stylesheets
+        'bundles/tsfront/template/css/bootstrap/bootstrap.css'
+        'bundles/tsfront/css/font-awesome.css'
+        'bundles/tsfront/css/everywhere.css'
+        'bundles/tsfront/css/frontandsite.css'
+        'bundles/tsfront/template/css/vendor/animate.css'
+        'bundles/tsfront/css/app/ultm.css'
+        'bundles/tsfront/css/app/buttons.css'
+        'bundles/tsfront/css/app/form-elements.css'
+        'bundles/tsfront/css/app/media-queries.css'
+        'bundles/tsfront/css/app/style.css'
+
+        filter='cssrewrite,?yui_css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="{{ asset('bundles/tsfront/js/vendor/html5shiv.js') }}"></script>
+    <script src="{{ asset('bundles/tsfront/js/vendor/respond.js') }}"></script>
+    <![endif]-->
+
+    <!-- Favicon and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-144-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-114-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-72-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-57-precomposed.png') }}">
+    <link rel="shortcut icon" href="{{ asset('bundles/tsfront/img/ico/favicon.png') }}">
+
+</head>
+
+<body>
+
+<!-- Top content -->
+<div class="top-content">
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5 phone wow fadeInLeft">
+                    <img src="{{ asset('bundles/tsfront/img/app/iphone-1.png') }}" alt="">
+                </div>
+                <h1 class="col-sm-7 text wow fadeInUp">
+                    <h1>
+                        {{ 'app.title'|trans }} -
+                    </h1>
+                    <h2>{{ 'app.subtitle'|trans }}</h2>
+                    <div class="description">
+                        {{ 'app.description'|trans }}
+                    </div>
+                    <div class="top-button">
+                        <a class="button-1" href="https://itunes.apple.com/{{ app.request.locale }}/app/tournia/id1002548777">
+                            <span class="button-1-left"><i class="fa fa-mobile"></i></span>
+                            		<span class="button-1-right">
+                            			<span class="button-1-right-top">{{ 'app.ios.1'|trans }}</span>
+                            			<span class="button-1-right-bottom">{{ 'app.ios.2'|trans }}</span>
+                            		</span>
+                        </a>
+                        <a class="button-2" href="https://play.google.com/store/apps/details?id=net.tournia.app">
+                            <span class="button-2-left"><i class="fa fa-android"></i></span>
+                            		<span class="button-2-right">
+                            			<span class="button-2-right-top">{{ 'app.android.1'|trans }}</span>
+                            			<span class="button-2-right-bottom">{{ 'app.android.2'|trans }}</span>
+                            		</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7 footer-copyright">
+                <a href="{{ path('front_index') }}">Tournia.net</a>
+            </div>
+            <div class="col-sm-5 footer-social">
+                <a class="ultm ultm-facebook ultm-32 ultm-square ultm-color-to-gray" href="https://www.facebook.com/tournia.net" target="_blank"></a>
+                <a class="ultm ultm-twitter ultm-32 ultm-square ultm-color-to-gray" href="https://twitter.com/Tournia" target="_blank"></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- Javascript -->
+<script type="text/javascript">
+    {% if app.debug %}
+    var hideGoogleAnalytics = true;
+    {% endif %}
+    var backgroundImgLocation = "{{ asset('bundles/tsfront/img/app/backgrounds/1.jpg') }}";
+</script>
+
+{% javascripts
+    '@TSFrontBundle/Resources/public/js/jquery-1.11.1.js'
+    '@TSFrontBundle/Resources/public/js/bootstrap/bootstrap.js'
+    '@TSFrontBundle/Resources/public/js/app/jquery.backstretch.js'
+    '@TSFrontBundle/Resources/public/js/app/wow.js'
+    '@TSFrontBundle/Resources/public/js/app/retina-1.1.0.js'
+    '@TSFrontBundle/Resources/public/js/app/scripts.js'
+    '@TSFrontBundle/Resources/public/js/everywhere.js'
+    '@TSFrontBundle/Resources/public/js/frontandsite.js'
+    filter='?yui_js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+</body>
+
+</html>

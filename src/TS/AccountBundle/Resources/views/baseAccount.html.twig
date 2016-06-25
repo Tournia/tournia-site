@@ -1,0 +1,89 @@
+{% trans_default_domain "profile" %}
+{% if form is defined %}{% form_theme form 'TSFrontBundle::form.html.twig' %}{% endif %}
+
+{% extends "TSSettingsBundle::baseSettings.html.twig" %}
+
+{% set enableChatSupport = false %}
+{% set newTournament = false %}
+
+{% block title "base.title"|trans %}
+
+{% set pageClass = "start" %}
+{% set useDefaultFlashbagNotifications = false %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent () }}
+
+
+{% endblock %}
+
+{% block jQuery %}
+    {{ parent() }}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="editor block alt" style="background-image: url('{{ asset('bundles/tsfront/img/background/bg9.jpg') }}');">
+        <div class="container">
+            {{ macros.flashbagNotifications(useDefaultFlashbagNotifications) }}
+
+            <div class="row charts">
+                <div class="col-md-12">
+                    <div class="chart">
+                        <div class="wrapper">
+                            <div class="sidebar">
+                                <header>
+                                    <!--
+                                                                    <div class="tournament-logo">
+                                                                        <img src="images/tournament-logo-placeholder.png" />
+                                                                    </div>
+                                    -->
+                                    <img src="http://www.gravatar.com/avatar/{{ person.gravatarHash}}.jpg   ">
+                                    <h4><span class="fa fa-user"></span> {{ person.name }}</h4>
+                                </header>
+                                <nav>
+                                    <ul>
+                                        <li{% if app.request.get('_route') == "account_settings_mytournaments" %} class="active"{% endif %}>
+                                            <a href="{{ path('account_settings_mytournaments') }}">
+                                                <span class="fa fa-bookmark fa-fw"></span> {{ 'base.tournaments'|trans }}
+                                            </a>
+                                        </li>
+                                        <li{% if app.request.get('_route') == "account_settings_profile" %} class="active"{% endif %}>
+                                            <a href="{{ path('account_settings_profile') }}">
+                                                <span class="fa fa-user fa-fw"></span> {{ 'base.profile'|trans }}
+                                            </a>
+                                        </li>
+                                        <li{% if app.request.get('_route') == "account_settings_account" %} class="active"{% endif %}>
+                                            <a href="{{ path('account_settings_account') }}">
+                                                <span class="fa fa-unlock-alt fa-fw"></span> {{ 'base.account'|trans }}
+                                            </a>
+                                        </li>
+                                        <li{% if app.request.get('_route') == "account_settings_financial" %} class="active"{% endif %}>
+                                            <a href="{{ path('account_settings_financial') }}">
+                                                <span class="fa fa-euro fa-fw"></span> {{ 'base.financial'|trans }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div class="content" id="settingsContent">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="general-panel">
+                                        {% block accountContent %}{% endblock %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

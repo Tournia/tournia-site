@@ -1,0 +1,411 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "pools.title"|trans %}
+
+{% block javascript %}
+    {% javascripts
+    '@TSControlBundle/Resources/public/js/jquery-sortable.js'
+    filter='?yui_js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+        ///// post and receive server messages /////
+
+        // setting commands for refresh of server data
+        function getRefreshCommands() {
+            commandPools = {
+                command : 'Pools.list',
+            };
+            commandDisciplines = {
+                command : 'Disciplines.list'
+            };
+            return new Array(commandPools, commandDisciplines);
+        }
+
+        // setting datatable options
+        ajaxDataTableOptions.poolsTable = {};
+        ajaxDataTableOptions.poolsTable.aoColumns = [
+            { "sType": "num-html" },
+            { "sType": "html" },
+            { "sType": "html" },
+            { "sType": "html" },
+            { "sType": "html" },
+            { "sType": "html" },
+        ];
+
+        // handling of response data
+        function handleResponse(commandKey, commandResponse){
+            if (commandKey == "Pools.list") {
+                // go through pools
+                $('#poolsTable').dataTable().fnClearTable();
+                var position = 1;
+                $.each(commandResponse, function(key2, poolObject) {
+                    positionColumn = '<i class="fa fa-arrows" data-position="'+ poolObject['position'] +'" data-poolid="'+ poolObject['poolId'] +'"></i> '+ position;
+                    position++;
+
+                    nameColumn = '<span id="poolName-'+ poolObject['poolId'] +'">'+ poolObject['name'] +'</span>';
+                    translatedAlgorithm = '';
+                    if (poolObject['algorithm'] == 'swissladder') {
+                        translatedAlgorithm = '{{ 'pools.algorithm.swissladder'|trans }}';
+                    } else if (poolObject['algorithm'] == 'roundrobin') {
+                        translatedAlgorithm = '{{ 'pools.algorithm.roundrobin'|trans }}';
+                    } else {
+                        translatedAlgorithm = poolObject['algorithm'];
+                    }
+                    algorithmColumn = '<span id="poolAlgorithm-'+ poolObject['poolId'] +'">'+ translatedAlgorithm +'</span>';
+
+                    inputColumn = '';
+                    $.each(poolObject['inputDisciplines'], function(disciplineId, disciplineName) {
+                        inputColumn += disciplineName +'<br />';
+                    });
+
+                    editBtn = '<button type="button" class="btn btn-primary poolEdit" onClick="editPool('+ poolObject['poolId'] +')">{{ 'pools.editName'|trans }}</button>';
+                    editBtn += ' <button type="button" class="btn btn-danger" onClick="removePool('+ poolObject['poolId'] +')"><i class="fa fa-trash-o"></i> {{ 'pools.removePool'|trans }}</button>'
+                    $('#poolsTable').dataTable().fnAddData( [
+                        positionColumn,
+                        poolObject['nrPlayersInTeam'],
+                        nameColumn,
+                        algorithmColumn,
+                        inputColumn,
+                        editBtn
+                    ]);
+                });
+                dataTableFinishedLoading("poolsTable");
+            } else if (commandKey == "Pools.get") {
+                // Fill edit pool modal
+                $("#editPoolModal [name='poolId']").val(commandResponse['poolId']);
+                $("#editPoolModal [name='name']").val(commandResponse['name']);
+                $("#editPoolModal [name='nrPlayersInTeam']").val(commandResponse['nrPlayersInTeam']);
+                $("#editPoolModal [name='algorithm']").val(commandResponse['algorithm']);
+                $("#editPool-inputDisciplinesBlock :checkbox").prop('checked', false);
+                $.each(commandResponse['inputDisciplines'], function(disciplineId, disciplineName) {
+                    $("#editPool-inputDisciplinesBlock :checkbox[value="+ disciplineId +"]").prop('checked', true);
+                });
+            } else if (commandKey == "Disciplines.list") {
+                // get discipline lists for new/edit pool and autoCreatePools modal
+                htmlNew = '';
+                htmlEdit = '';
+                htmlAutoCreate = '';
+                nrDisciplinesWithoutPool = 0;
+                $.each(commandResponse, function(key2, disciplineObject) {
+                    html = '<label><input type="checkbox" value="'+ disciplineObject['disciplineId'] +'" /> '+ disciplineObject['name'] +'</label><br />';
+                    htmlNew += html;
+                    htmlEdit += html;
+                    if (disciplineObject['pools'].length == 0) {
+                        htmlAutoCreate += html;
+                        nrDisciplinesWithoutPool++;
+                    }
+                });
+                $("#newPool-inputDisciplinesBlock").html(htmlNew);
+                $("#editPool-inputDisciplinesBlock").html(htmlEdit);
+                $("#autoCreatePools-inputDisciplinesBlock").html(htmlAutoCreate);
+
+                if (nrDisciplinesWithoutPool > 0) {
+                    $("#autoCreatePoolsAlert").show();
+                    $("#autoCreatePoolsNumber").text(nrDisciplinesWithoutPool);
+                } else {
+                    $("#autoCreatePoolsAlert").hide();
+                }
+            }
+
+        }
+
+        function editPool(poolId) {
+            // editing pool
+            commandPools = {
+                command : 'Pools.get',
+                poolId: poolId
+            }
+            addServerCommand(commandPools);
+            sendServerCommands(false);
+
+            $("#editPoolModal").modal('show');
+        }
+
+        function editPosition(poolId, newPosition) {
+            command = {
+                command : 'Pools.edit',
+                poolId: poolId,
+                position: newPosition
+            }
+            addServerCommand(command);
+            sendServerCommands(true);
+        }
+
+        function removePool(poolId) {
+            // remove a pool
+            command = {
+                command : 'Pools.remove',
+                poolId: poolId,
+            }
+            addServerCommand(command);
+            sendServerCommands(true);
+        }
+
+    </script>
+
+{% endblock %}
+
+{% block jQuery %}
+
+    $("#newPoolModal").on('show.bs.modal', function() {
+        // before showing modal, clear text input
+        $("#newPoolModal [name='name']").val('');
+        $("#newPoolModal [name='nrPlayersInTeam']").val('2');
+        $("#newPoolModal [name='algorithm']").val( $("#newPoolModal [name='algorithm'] option:first").val() );
+    });
+    $("#newPoolModal").on('shown.bs.modal', function() {
+        // at showing modal, focus text input
+        $("#newPoolModal [name='name']").focus();
+    });
+    $("#editPoolModal").on('shown.bs.modal', function() {
+        // at showing modal, focus text input
+        $("#editPoolModal [name='name']").focus();
+    });
+    $("#newPoolAddButton").on("click", function() {
+        // create a new pool
+        command = {
+            command : 'Pools.create',
+            name: $("#newPoolModal [name='name']").val(),
+            nrPlayersInTeam: $("#newPoolModal [name='nrPlayersInTeam']").val(),
+            algorithm: $("#newPoolModal [name='algorithm']").val(),
+            inputDisciplines: {},
+        }
+        i = 0;
+        $('#newPool-inputDisciplinesBlock :checked').each(function() {
+            command.inputDisciplines[i] = $(this).val();
+            i++;
+        });
+        addServerCommand(command);
+        sendServerCommands(true);
+        $("#newPoolModal").modal("hide");
+    });
+    // also submit form when pressing enter in name field
+    $("#newPoolModal [name='name']").keypress(function (e) {
+        if (e.which == 13) {
+            $("#newPoolAddButton").triggerHandler('click');
+        }
+    });
+    $("#editPoolSaveButton").on("click", function() {
+        // save an edited pool
+        command = {
+            command : 'Pools.edit',
+            poolId: $("#editPoolModal [name='poolId']").val(),
+            name: $("#editPoolModal [name='name']").val(),
+            nrPlayersInTeam: $("#editPoolModal [name='nrPlayersInTeam']").val(),
+            algorithm: $("#editPoolModal [name='algorithm']").val(),
+            inputDisciplines: {},
+        }
+        i = 0;
+        $('#editPool-inputDisciplinesBlock :checked').each(function() {
+            command.inputDisciplines[i] = $(this).val();
+            i++;
+        });
+        addServerCommand(command);
+        sendServerCommands(true);
+        $("#editPoolModal").modal("hide");
+    });
+    // also submit form when pressing enter in name field
+    $("#editPoolModal [name='name']").keypress(function (e) {
+        if (e.which == 13) {
+            $("#editPoolSaveButton").triggerHandler('click');
+        }
+    });
+    $("#editPoolRemove").on("click", function() {
+        // remove a pool
+        removePool($("#editPoolId").val());
+        $("#editPoolModal").modal("hide");
+    });
+
+    // Auto create pools
+    $("#autoCreatePoolsModal").on('shown.bs.modal', function() {
+        // at showing modal, check all disciplines
+        $("#autoCreatePools-inputDisciplinesBlock input").prop('checked', true);
+    });
+    $("#autoCreatePoolsSaveButton").on("click", function() {
+        // save the auto create pools
+        $('#autoCreatePools-inputDisciplinesBlock :checked').each(function() {
+            command = {
+                command : 'Pools.create',
+                name: $(this).parent().text().slice(1),
+                nrPlayersInTeam: $("#autoCreatePoolsModal [name='nrPlayersInTeam']").val(),
+                algorithm: $("#autoCreatePoolsModal [name='algorithm']").val(),
+                inputDisciplines: $(this).val(),
+            }
+            addServerCommand(command);
+        });
+        sendServerCommands(true);
+        $("#autoCreatePoolsModal").modal("hide");
+    });
+
+    // retrieving initial data from server
+    sendServerCommands(true);
+
+    // Sortable rows
+    $("#poolsTable").sortable({
+        containerSelector: 'table',
+        itemPath: '> tbody',
+        itemSelector: 'tr',
+        placeholder: '<tr class="placeholder"/>',
+        handle: 'i.fa-arrows',
+        onDrop: function ($item, container, _super, event) {
+            $item.removeClass("dragged").removeAttr("style");
+            $("body").removeClass("dragging");
+
+            currentPosition = $item.find('.fa-arrows').attr('data-position');
+            // find previous and next position
+            previousPosition = 0;
+            if ($item.prev().length > 0) {
+                previousPosition = $item.prev().find('.fa-arrows').attr('data-position');
+            }
+            nextPosition = -1;
+            if ($item.next().length > 0) {
+                nextPosition = $item.next().find('.fa-arrows').attr('data-position');
+            }
+
+            // deciding new position
+            if (currentPosition >= previousPosition) {
+                // move up -> pick next position
+                newPosition = nextPosition;
+            } else {
+                // move down -> pick previous position
+                newPosition = previousPosition;
+            }
+
+            poolId = $item.find('.fa-arrows').attr('data-poolid');
+            editPosition(poolId, newPosition);
+        }
+    })
+
+
+{% endblock %}
+
+{% block css %}
+
+    body.dragging, body.dragging * {
+    cursor: move !important;
+    }
+
+    .dragged {
+    position: absolute;
+    opacity: 0.5;
+    z-index: 2000;
+    }
+
+    .placeholder {
+    height: 34px;
+    width: 100%;
+    border: 2px dotted black;
+    }
+
+    #poolsTable .fa-arrows {
+    cursor: pointer;
+    }
+
+    #autoCreatePoolsAlert {
+        display: none;
+    }
+{% endblock %}
+
+{% block content %}
+
+    <div class="alert alert-info fade in" id="autoCreatePoolsAlert">
+        <button class="close" data-dismiss="alert">
+            ×
+        </button>
+        <i class="fa-fw fa fa-info-circle"></i>
+        There are <b><span id="autoCreatePoolsNumber"></span></b> registration disciplines that are not connected to a pool. To make it easy for you, you can <a href="#" class="alert-link" data-toggle="modal" data-target="#autoCreatePoolsModal">auto create pools from these disciplines</a>.
+    </div>
+
+    <div class="well">
+        <p class="pull-right">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newPoolModal"><i class="fa fa-plus"></i> {{ 'pools.addPool'|trans }}</button>
+        </p>
+        <br /><br />
+
+        <table class="table table-hover table-striped ajaxDataTable" id="poolsTable">
+            <thead>
+            <tr>
+                <th>{{ 'pools.table.id'|trans }}</th>
+                <th>{{ 'pools.table.nrPlayersInTeam'|trans }}</th>
+                <th>{{ 'pools.table.name'|trans }}</th>
+                <th>{{ 'pools.table.algorithm'|trans }}</th>
+                <th>{{ 'pools.table.input'|trans }}</th>
+                <th>{{ 'pools.table.edit'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- New pool modal -->
+    {% set modalContent %}
+        <p>{{ 'pools.modal.name'|trans }}: <input type="text" name="name"></p>
+        <p>{{ 'pools.modal.nrPlayersInTeam'|trans }}: <input type="number" min="1" name="nrPlayersInTeam"></p>
+        <p>{{ 'pools.modal.algorithm'|trans }}:
+            <select name="algorithm">
+                <option value="swissladder">{{ 'pools.algorithm.swissladder'|trans }}</option>
+                <option value="roundrobin">{{ 'pools.algorithm.roundrobin'|trans }}</option>
+            </select>
+        </p>
+        <p>{{ 'pools.modal.inputDisciplines'|trans }}:<br />
+            <div id="newPool-inputDisciplinesBlock">
+            </div>
+        </p>
+    {% endset %}
+    {% set modalFooter %}
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+        <button type="button" class="btn btn-primary" id="newPoolAddButton"><i class="fa fa-plus"></i> {{ 'modal.add'|trans }}</button>
+    {% endset %}
+    {{ macro.modal("newPoolModal", "pools.modal.newPool"|trans, modalContent, modalFooter) }}
+
+    <!-- Edit pool modal -->
+    {% set modalContent %}
+        <p>{{ 'pools.modal.name'|trans }}: <input type="text" name="name"></p>
+        <p>{{ 'pools.modal.nrPlayersInTeam'|trans }}: <input type="number" min="1" name="nrPlayersInTeam"></p>
+        <p>{{ 'pools.modal.algorithm'|trans }}:
+            <select name="algorithm">
+                <option value="swissladder">{{ 'pools.algorithm.swissladder'|trans }}</option>
+                <option value="roundrobin">{{ 'pools.algorithm.roundrobin'|trans }}</option>
+            </select>
+        </p>
+        <p>{{ 'pools.modal.inputDisciplines'|trans }}:<br />
+            <div id="editPool-inputDisciplinesBlock">
+            </div>
+        </p>
+        <input type="hidden" name="poolId" value="" />
+    {% endset %}
+    {% set modalFooter %}
+        <button type="button" class="btn btn-danger pull-left" id="editPoolRemove"><i class="fa fa-trash-o"></i> {{ 'pools.modal.removePool'|trans }}</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+        <button type="button" class="btn btn-primary" id="editPoolSaveButton"><i class="fa fa-save"></i> {{ 'modal.save'|trans }}</button>
+    {% endset %}
+    {{ macro.modal("editPoolModal", "pools.modal.editPool"|trans, modalContent, modalFooter) }}
+
+
+    <!-- Auto create pools modal -->
+    {% set modalContent %}
+        <p>{{ 'pools.modal.autoCreatePools.name'|trans }}</p>
+        <p>{{ 'pools.modal.nrPlayersInTeam'|trans }}: <input type="number" min="1" name="nrPlayersInTeam" value="2"></p>
+        <p>{{ 'pools.modal.algorithm'|trans }}:
+            <select name="algorithm">
+                <option value="swissladder">{{ 'pools.algorithm.swissladder'|trans }}</option>
+                <option value="roundrobin">{{ 'pools.algorithm.roundrobin'|trans }}</option>
+            </select>
+        </p>
+        <p>{{ 'pools.modal.inputDisciplines'|trans }}:<br />
+            <div id="autoCreatePools-inputDisciplinesBlock">
+            </div>
+        </p>
+    {% endset %}
+    {% set modalFooter %}
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+        <button type="button" class="btn btn-primary" id="autoCreatePoolsSaveButton"><i class="fa fa-plus"></i> {{ 'modal.save'|trans }}</button>
+    {% endset %}
+    {{ macro.modal("autoCreatePoolsModal", "pools.modal.autoCreatePools"|trans, modalContent, modalFooter) }}
+
+{% endblock %}

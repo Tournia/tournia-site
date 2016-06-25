@@ -1,0 +1,38 @@
+{% extends "TSAdminBundle::baseAdmin.html.twig" %}
+
+{% block title "Persons" %}
+
+{% block content %}
+    {{ parent() }}
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Persons</h2>
+            <table class="table table-hover table-striped ajaxDataTable">
+                <thead>
+                <tr>
+                    <th>Person ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Gender</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for person in persons %}
+                    <tr>
+                        <td>{{ person.id }}</td>
+                        <td>{{ person.name }}</td>
+                        <td>{{ person.email }}</td>
+                        <td>{{ person.firstName }}</td>
+                        <td>{{ person.lastName }}</td>
+                        <td>{{ person.gender }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+

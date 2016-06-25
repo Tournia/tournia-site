@@ -1,0 +1,9 @@
+{% extends "TSSiteBundle::base.html.twig" %}
+
+{% set showInfoBlock = sitePage.showInfoBlock %}
+
+{% block title %}{{ sitePage.title }}{% endblock %}
+
+{% block content %}
+    {{ sitePage.html|raw }}
+{% endblock %}

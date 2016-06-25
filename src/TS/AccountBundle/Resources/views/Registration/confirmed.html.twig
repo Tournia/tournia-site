@@ -1,0 +1,15 @@
+{% trans_default_domain "account" %}
+{% extends "TSFrontBundle::base.html.twig" %}
+
+{% block title "confirmed.title"|trans %}
+
+{% block content %}
+<div class="container">
+	<div class="alert alert-success">
+		<strong>
+            <i class="fa fa-check-circle-o"></i> {{ 'confirmed.text1'|trans({'%name%': user.person.name|raw}) }}
+            <br /><br />{{ 'confirmed.text2'|trans({'%startLink%': '<a href="'~ path('account_settings_profile') ~'">', '%endLink%': '</a>'}) }}
+        </strong>
+	</div>
+</div>
+{% endblock %}

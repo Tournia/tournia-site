@@ -1,0 +1,75 @@
+{
+    "name": "symfony/framework-standard-edition",
+    "license": "MIT",
+    "type": "project",
+    "description": "The \"Symfony Standard Edition\" distribution",
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "require": {
+        "symfony/symfony": "2.8.*",
+        "doctrine/dbal": "2.5.*",
+        "doctrine/orm": "*",
+        "doctrine/doctrine-bundle": "1.6.*",
+        "doctrine/migrations": "dev-master",
+        "doctrine/doctrine-migrations-bundle": "2.1.*@dev",
+        "twig/extensions": "1.2.*",
+        "symfony/assetic-bundle": "2.7.*",
+        "symfony/swiftmailer-bundle": "2.3.*",
+        "symfony/monolog-bundle": "2.8.*",
+        "sensio/distribution-bundle": "4.0.*",
+        "sensio/framework-extra-bundle": "3.0.*",
+        "sensio/generator-bundle": "3.*",
+        "jms/di-extra-bundle": "1.6.*",
+        "incenteev/composer-parameter-handler": "~2.1",
+        "nelmio/api-doc-bundle": "dev-master",
+        "phpunit/phpunit": "3.7.*",
+        "friendsofsymfony/user-bundle": "dev-master",
+        "friendsofsymfony/jsrouting-bundle": "@stable",
+        "gregwar/captcha-bundle": "dev-master",
+        "jms/payment-core-bundle": "1.1.0",
+        "jms/payment-paypal-bundle": "1.0.0",
+        "ruudk/payment-mollie-bundle": "3.*",
+        "stof/doctrine-extensions-bundle": "~1.1@dev",
+        "sylius/product-bundle": "0.9.*@dev",
+        "sylius/cart-bundle": "0.9.*@dev",
+        "hwi/oauth-bundle": "0.4.*@dev",
+        "whiteoctober/tcpdf-bundle": "dev-master",
+        "willdurand/js-translation-bundle": "2.*",
+        "friendsofsymfony/rest-bundle": "1.*",
+        "friendsofsymfony/oauth-server-bundle": "1.4.*",
+        "richsage/rms-push-notifications-bundle": "dev-master",
+        "gos/web-socket-bundle": "1.6.*"
+},
+    "scripts": {
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ],
+        "app-live": [
+            "external/app-custom/composer.sh"
+        ]
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "public_html",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        }
+    }
+}

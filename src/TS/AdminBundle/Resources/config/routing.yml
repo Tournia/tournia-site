@@ -1,0 +1,42 @@
+admin_bounce:
+    path:     /bounce
+    defaults: { _controller: TSAdminBundle:Bounce:bounce }
+
+admin_index:
+    path:     /index
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: admin_financial_outstanding
+        permanent: true
+
+admin_financial_outstanding:
+    pattern:  /financial/outstanding
+    defaults: { _controller: TSAdminBundle:Financial:outstanding }
+
+admin_financial_payouts:
+    pattern:  /financial/payouts
+    defaults: { _controller: TSAdminBundle:Financial:payouts }
+
+admin_financial_incoming:
+    pattern:  /financial/incoming
+    defaults: { _controller: TSAdminBundle:Financial:incoming }
+
+admin_financial_bought_items:
+    pattern:  /financial/boughtitems
+    defaults: { _controller: TSAdminBundle:Financial:boughtItems }
+
+admin_financial_payout_create:
+    pattern:  /financial/admin/payout/create/{tournamentId}
+    defaults: { _controller: TSAdminBundle:Financial:createPayout }
+
+admin_financial_download:
+    pattern:  /financial/download
+    defaults: { _controller: TSAdminBundle:Financial:download }
+
+admin_persons_overview:
+    pattern:  /persons
+    defaults: { _controller: TSAdminBundle:Persons:overview }
+
+admin_persons_merge:
+    pattern:  /persons/merge
+    defaults: { _controller: TSAdminBundle:Persons:merge }

@@ -1,0 +1,238 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "playersOverview.title"|trans %}
+
+{% block css %}
+    #form_status input {
+        margin-left: 5px;
+    }
+
+    #form_status label {
+        display: inline;
+        margin: 0px 15px 0px 5px;
+        position: relative;
+        top: 3px;
+    }
+
+    .dataTables_length {
+        float: right;
+    }
+
+    .dataTables_filter {
+        width: initial;
+    }
+
+    .dataTables_wrapper {
+        margin-top: 8px;
+    }
+
+    .DTTT_container {
+        margin-right: 10px;
+    }
+
+    ul.ColVis_collection {
+        width: 230px;
+    }
+
+    #playersTableBox {
+        overflow: auto;
+        width: 100%;
+        clear: both;
+    }
+
+    #playersTable {
+        white-space: nowrap;
+    }
+
+    #widgetPlayersOverview {
+        margin-right: 13px;
+    }
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+
+        ///// post and receive server messages /////
+
+        // setting commands for refresh of server data
+        function getRefreshCommands() {
+            command = {
+                command : 'Players.list',
+                full: true,
+            }
+            return new Array(command);
+        }
+        // setting on which updates data should be refreshed
+        observerUpdateSection.push('player');
+        observerUpdateSection.push('team');
+        observerUpdateSection.push('discipline');
+
+        columnTranslation = {};
+        columnTranslation.firstName = "{{ 'playersOverview.table.firstName'|trans }}";
+        columnTranslation.lastName = "{{ 'playersOverview.table.lastName'|trans }}";
+        columnTranslation.fullName = "{{ 'playersOverview.table.fullName'|trans }}";
+        columnTranslation.registrationDate = "{{ 'playersOverview.table.registrationDate'|trans }}";
+        columnTranslation.status = "{{ 'playersOverview.table.status'|trans }}";
+        columnTranslation.ready = "{{ 'playersOverview.table.ready'|trans }}";
+        columnTranslation.nonreadyReason = "{{ 'playersOverview.table.nonreadyReason'|trans }}";
+        columnTranslation.gender = "{{ 'playersOverview.table.gender'|trans }}";
+        columnTranslation.disciplines = "{{ 'playersOverview.table.registrationDisciplines'|trans }}";
+        columnTranslation.teams = "{{ 'playersOverview.table.tournamentPools'|trans }}";
+        columnTranslation.registrationGroup = "{{ 'playersOverview.table.registrationGroup'|trans }}";
+        columnTranslation.registrationGroupContactPlayer = "{{ 'playersOverview.table.registrationGroupContactPlayer'|trans }}";
+        columnTranslation.paymentBalance = "{{ 'playersOverview.table.paymentBalance'|trans }}";
+        columnTranslation.personEmail = "{{ 'playersOverview.table.personEmail'|trans }}";
+        columnTranslation.personName = "{{ 'playersOverview.table.personName'|trans }}";
+        columnTranslation.boughtProducts = "{{ 'playersOverview.table.boughtProducts'|trans }}";
+
+        // handling of response data
+        function handleResponse(commandKey, commandResponse){
+            if (commandKey == "Players.list") {
+                $('#playersTableBlock').html('<table cellpadding="0" cellspacing="0" border="0" class="table table-hover ajaxDataTable" id="playersTable"></table></div>');
+                $.each(commandResponse, function(key, val) {
+
+                    if (key == "meta") {
+                        ajaxDataTableColumns = [];
+                        $.each(val['columns'], function(key2, columnName) {
+                            if (columnName != "id") { // don't display ID
+                                if (columnName in columnTranslation) {
+                                    ajaxDataTableColumns.push({ "sTitle": columnTranslation[columnName], "originalColumnName": columnName });
+                                } else {
+                                    ajaxDataTableColumns.push({ "sTitle": columnName, "originalColumnName": columnName});
+                                }
+                            }
+                        });
+
+                        ajaxDataTableOptions.playersTable = {};
+                        ajaxDataTableOptions.playersTable.aoColumns = ajaxDataTableColumns;
+                        ajaxDataTableOptions.playersTable.dom = 'lfCTrtip';
+                        ajaxDataTableOptions.playersTable.oTableTools = {
+                            "aButtons": [
+                                "copy",
+                                "csv",
+                                "xls",
+                                {
+                                    "sExtends": "pdf",
+                                    "sTitle": "{{ 'playersOverview.pdf.title'|trans }}",
+                                    "sPdfMessage": "{{ 'playersOverview.pdf.message'|trans }}",
+                                    "sPdfSize": "A4"
+                                },
+                                {
+                                    "sExtends": "{{ 'playersOverview.print.title'|trans }}",
+                                    "sMessage": "{{ 'playersOverview.print.message'|trans }}"
+                                }
+                            ],
+                                    "sSwfPath": "{{ asset('bundles/tscontrol/template/js/plugin/datatables/swf/copy_csv_xls_pdf.swf') }}"
+                        };
+
+                        setDatatableReady();
+                    } else if (key == "players") {
+                        // go through players
+                        $.each(val, function(key2, playerObject) {
+                            // add link to Full Name
+                            url = Routing.generate('control_player_info', {'tournamentUrl': '{{ tournament.url }}', 'playerId': playerObject['playerId'], '_locale': locale });
+                            url = convertUrlToHash(url);
+                            playerObject["fullName"] = '<a href="'+ url +'">'+ playerObject['fullName'] +'</a>';
+
+                            // Make ready a changeable switch
+                            statusBtn = '<span class="cellInvisible">'+ (playerObject['ready']) +'</span>';
+                            statusBtn += '<input type="checkbox" class="formSwitch" data-size="small" data-on-color="success" data-off-color="danger" data-on-text="{{ 'playersInPools.readySwitch.ready'|trans }}" data-off-text="{{ 'playersInPools.readySwitch.postponed'|trans }}" id="playerReadyButton-'+ playerObject['playerId'] +'"';
+                            if (playerObject['ready']) {
+                                statusBtn += ' checked';
+                            }
+                            statusBtn += "/>";
+                            if (!playerObject['ready']) {
+                                currentNonreadyReason = playerObject['nonreadyReason'] == null ? '' : playerObject['nonreadyReason'].replace(/"/g, '&quot;');
+                                statusBtn += ' <span class="nonreadyReasonTooltip" rel="tooltip" data-placement="right" data-reason="'+ currentNonreadyReason +'" data-objectId="'+ playerObject['playerId'] +'"><i class="fa fa-info-circle"></i></span>';
+                            }
+                            playerObject['ready'] = statusBtn;
+
+                            // display tournament pools
+                            tournamentDisciplinesTxt = '';
+                            $.each(playerObject['disciplines'], function(disciplineType, disciplineObject) {
+                                tournamentDisciplinesTxt += "" +
+                                        "<a href=\"{{ path('control_teams', {'tournamentUrl': tournament.url}) }}?cid="+ disciplineObject['disciplineId'] +"\" class=\"noLinkUnderline\">" +
+                                        "<span class=\"label label-default\">" +
+                                        disciplineObject['disciplineName'] +
+                                        "</span></a> ";
+                            });
+                            playerObject['disciplines'] = tournamentDisciplinesTxt;
+                            playerObject['teams'] = tournamentDisciplinesTxt;
+
+                            // display bought products
+                            boughtProductsTxt = '';
+                            $.each(playerObject['boughtProducts'], function(boughtProductIndex, boughtProductObject) {
+                                boughtProductsTxt += "<span class=\"label label-info\">"+ boughtProductObject['quantity'] +" "+ boughtProductObject['name'] +"</span> ";
+                            });
+                            playerObject['boughtProducts'] = boughtProductsTxt;
+
+                            rowData = new Array();
+                            $.each(ajaxDataTableColumns, function(columnIndex, columnObject) {
+                                columnName = columnObject.originalColumnName;
+                                if (columnName in playerObject) {
+                                    rowData.push(playerObject[columnName]);
+                                } else {
+                                    rowData.push("-");
+                                }
+                            });
+
+                            $('#playersTable').dataTable().fnAddData(rowData);
+                        });
+                        enableNonreadyReasonTooltip("#playersTable", editNonreadyReason);
+                        dataTableFinishedLoading("playersTable");
+                        $('#playersTable').wrap('<div id="playersTableBox"></div>');
+                        replaceLinksForNavigation();
+                    }
+                });
+            }
+        }
+
+        function datatableProcessRow(row, table) {
+            // set ready switch
+            $(".formSwitch", row).on('switchChange.bootstrapSwitch', function (event, state) {
+                // change readyness of player
+                command = {
+                    command : 'Players.setReady',
+                    playerId: getId($(this).attr('id')),
+                    ready: state
+                }
+                addServerCommand(command);
+                sendServerCommands(true);
+            });
+        }
+
+        function editNonreadyReason(playerId, newReason) {
+            command = {
+                command : 'Players.setReady',
+                playerId: playerId,
+                ready: false,
+                nonreadyReason: newReason,
+            }
+            addServerCommand(command);
+            sendServerCommands(true);
+        }
+
+    </script>
+
+{% endblock %}
+
+{% block jQuery %}
+    // get initial data
+    sendServerCommands(true);
+
+{% endblock %}
+
+{% block content %}
+<p class="pull-right buttonOutlineRight">
+    <a href="{{ path('control_player_create', {'tournamentUrl': tournament.url}) }}" class="btn btn-primary"><i class="fa fa-plus"></i> {{ 'playersOverview.createPlayer'|trans }}</a>
+</p>
+
+{% set content %}
+<div id="playersTableBlock">{{ 'table.loading'|trans }}</div>
+{% endset %}
+
+{% set options = {'sortable': true} %}
+{{ macro.widget("widgetPlayersOverview", content, "playersOverview.title"|trans, options) }}
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% macro jquery(form) %}
+
+// daterangepicker for start and end date invoices download
+$("#{{ form.startDateTime.vars.id }}").dateRangePicker({
+    format: 'DD-MM-YYYY',
+    startOfWeek: 'monday',
+    showShortcuts:false,
+    singleDate: true,
+    getValue: function() {
+        return $('#{{ form.startDateTime.vars.id }}').val();
+    },
+});
+
+$("#{{ form.endDateTime.vars.id }}").dateRangePicker({
+    format: 'DD-MM-YYYY',
+    startOfWeek: 'monday',
+    showShortcuts:false,
+    singleDate: true,
+    getValue: function() {
+        return $('#{{ form.endDateTime.vars.id }}').val();
+    },
+});
+{% endmacro %}
+
+{% macro html(form) %}
+<label class="col-sm-1 control-label" for="{{ form.startDateTime.vars.id }}">Start</label>
+<div class="col-sm-4 form-values">
+    {{ form_widget(form.startDateTime, {'attr': {'class': 'form-control'}}) }}
+</div>
+<label class="col-sm-1 control-label" for="{{ form.endDateTime.vars.id }}">End</label>
+<div class="col-sm-4 form-values">
+    {{ form_widget(form.endDateTime, {'attr': {'class': 'form-control'}}) }}
+</div>
+{% endmacro %}

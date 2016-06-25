@@ -1,0 +1,18 @@
+parameters:
+#    ts_financial.example.class: TS\FinancialBundle\Example
+
+services:
+    ts_financial.cart_item.resolver:
+        class: TS\FinancialBundle\EventListener\CartItemResolver
+        arguments: 
+            entityManager: "@doctrine.orm.entity_manager"
+    payment.plugin.test:
+        class: TS\FinancialBundle\EventListener\TestPaymentPlugin
+        arguments: [%kernel.debug%]
+        tags: [{name: payment.plugin}]
+    payment.plugin.test_type:
+        class: TS\FinancialBundle\Form\Type\TestPaymentType
+        arguments: [%kernel.debug%]
+        tags:
+            - { name: form.type, alias: test_payment }
+            - { name: payment.method_form_type }

@@ -1,0 +1,76 @@
+{% trans_default_domain "live" %}
+{% extends "TSSiteBundle:Live:rankingMain.html.twig" %}
+
+{% block title "rankingPlayers.title"|trans %}
+
+{% block javascript %}
+{{ parent() }}
+<script type="text/javascript">
+
+///// post and receive server messages /////
+// setting commands for refresh of server data
+function getRefreshCommands() {
+	command = {
+		command : 'Rankings.players',
+	}
+	return new Array(command);
+}
+
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+	if (commandKey == "Rankings.players") {
+		// go through players
+		$('#rankingTable').dataTable().fnClearTable();
+		
+		$.each(commandResponse, function(key2, playerObject) {
+			gender = (playerObject['gender'] == "M") ? "{{ 'gender.male'|trans }}" : "{{ 'gender.female'|trans }}";
+			playerArray = {};
+			playerId = playerObject['playerId'];
+			playerArray[playerId] = playerObject['name'];
+            groupName = (typeof playerObject['groupName'] != "undefined") ? playerObject['groupName'] : "-";
+			$('#rankingTable').dataTable().fnAddData( [
+				playerObject['rank'],
+				renderPlayerNames(playerArray, false),
+				playerObject['relative'],
+				playerObject['sumPoints'],
+				playerObject['nrSets'],
+                {% if tournament.registrationGroupEnabled %}groupName,{% endif %}
+				gender
+			]);
+		});
+		dataTableFinishedLoading("rankingTable");
+	}
+}
+
+
+</script>
+{% endblock %}
+
+{% block jQuery %}
+{{ parent() }}
+
+// retrieving initial data from server
+sendServerCommands(true);
+
+{% endblock %}
+
+{% block content %}
+{{ parent() }}
+
+<table class="table table-hover table-bordered ajaxDataTable" id="rankingTable">
+	<thead>
+		<tr>
+			<th>{{ 'table.rank'|trans }}</th>
+			<th>{{ 'table.player'|trans }}</th>
+			<th>{{ 'table.avgPoints'|trans }}</th>
+			<th>{{ 'table.totPoints'|trans }}</th>
+			<th>{{ 'table.sets'|trans }}</th>
+            {% if tournament.registrationGroupEnabled %}<th>{{ 'table.group'|trans }}</th>{% endif %}
+			<th>{{ 'table.gender'|trans }}</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+
+{% endblock %}

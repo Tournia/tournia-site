@@ -1,0 +1,92 @@
+{% set siteContentBlockClass = 'block alt' %}
+{% set footerClass = '' %}
+
+{% extends "TSFrontBundle::base.html.twig" %}
+
+{% block title "Financial Admin" %}
+
+{% block css %}
+    .dataTableLoadingIndicator {
+    display: none;
+    }
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets
+    'bundles/tsadmin/css/dataTables.tableTools.css'
+    'bundles/tsadmin/css/jquery.dataTables.css'
+    'bundles/tssite/css/site.css'
+    'bundles/tsfront/template/css/vendor/daterangepicker.css'
+    filter='cssrewrite,?yui_css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+
+{% block javascript %}
+    {{ parent() }}
+    {% javascripts
+    'bundles/fosjsrouting/js/router.js'
+    '@TSAdminBundle/Resources/public/js/jquery.dataTables.js'
+    '@TSAdminBundle/Resources/public/js/dataTables.tableTools.js'
+    '@TSFrontBundle/Resources/public/template/js/moment.min.js'
+    '@TSFrontBundle/Resources/public/template/js/jquery.daterangepicker.js'
+    '@TSSettingsBundle/Resources/public/js/prototypeFunctions.js'
+    filter='?yui_js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+{% endblock %}
+
+{% block jQuery %}
+    $('.ajaxDataTable:not(.manualAjaxDataTable)').dataTable();
+
+
+{% endblock %}
+
+{% block siteContent %}
+
+    <div class="container">
+        <div id="tournament" class="block">
+            <div class="container">
+                <div class="row charts">
+                    <div class="col-md-12" id="contentBlock">
+                        <div class="chart" id="siteHeader">
+                            <header>
+                                <h3><span class="fa fa-heart"></span> Administrator tools</h3>
+                            </header>
+
+                            <main class="content">
+                                {% block content %}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p>&nbsp;</p>
+                                            <p>
+                                                Financial:
+                                                <a class="btn btn-primary" href="{{ path('admin_financial_outstanding') }}" role="button"><span class="fa fa-line-chart"></span> Outstanding</a>
+                                                <a class="btn btn-primary" href="{{ path('admin_financial_payouts') }}" role="button"><span class="fa fa-eur"></span> Pay-outs</a>
+                                                <a class="btn btn-primary" href="{{ path('admin_financial_incoming') }}" role="button"><span class="fa fa-arrow-down"></span> Incoming transactions</a>
+                                                <a class="btn btn-primary" href="{{ path('admin_financial_bought_items') }}" role="button"><span class="fa fa-arrow-down"></span> Bought items</a>
+                                                <a class="btn btn-primary" href="{{ path('admin_financial_download') }}" role="button"><span class="fa fa-download"></span> Download</a>
+                                            </p>
+                                            <p>
+                                                Persons:
+                                                <a class="btn btn-primary" href="{{ path('admin_persons_overview') }}" role="button"><span class="fa fa-user"></span> Persons</a>
+                                                <a class="btn btn-primary" href="{{ path('admin_persons_merge') }}" role="button"><span class="fa fa-users"></span> Merge persons</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                {% endblock %}
+                            </main>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{%  endblock %}
+

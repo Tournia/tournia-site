@@ -1,0 +1,119 @@
+{% trans_default_domain "live" %}
+{% extends "TSSiteBundle:Live:index.html.twig" %}
+
+{% block title "upcoming.title"|trans %}
+
+{% block javascript %}
+{{ parent() }}
+<script type="text/javascript">
+///// post and receive server messages /////
+
+// setting commands for refresh of server data
+function getRefreshCommands() {
+	command = {
+		command : 'Matches.listStatus',
+		status: 'ready',
+		setCommandKey: 'upcomingMatches'
+	}
+	return new Array(command);
+}
+
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+	if (commandKey == "upcomingMatches") {
+		// go through matches
+		$('#upcomingMatchesTable').dataTable().fnClearTable();
+		
+		$.each(commandResponse, function(key2, matchObject) {
+			playersPlaying = false;
+			playersNotReady = false;
+
+			localId = matchObject['localId'];
+			
+			if (matchObject['team1'] == null) {
+				team1 = "-";
+			} else {
+				// write down name of players
+				team1 = renderPlayerNames(matchObject['team1']['players'], false);
+			}
+
+			if (matchObject['team2'] == null) {
+				team2 = "-";
+			} else {
+				// write down name of players
+				team2 = renderPlayerNames(matchObject['team2']['players'], false);
+			}
+			
+			status = "";
+			if (playersNotReady || playersPlaying || matchObject['priority']) {
+				if (playersNotReady) {
+					status += '<span class="label label-important">{{ 'label.players.notready'|trans }}</span>';
+				}
+				if (playersNotReady && playersPlaying) {
+					status += "<br />";
+				}
+				if (playersPlaying) {
+					status += '<span class="label label-warning">{{ 'label.players.playing'|trans }}</span>';
+				}
+				
+				if (matchObject['priority']) {
+					// priority match
+					if (playersNotReady || playersPlaying) {
+						status += "<br />";
+					}
+					status += '<span class="label label-info">{{ 'label.priority'|trans }}</span>';
+				}
+			} else {
+				status += '<span class="label label-success">{{ 'label.queued'|trans }}</span>';
+			}
+			
+			$('#upcomingMatchesTable').dataTable().fnAddData( [
+				localId,
+				team1,
+				team2,
+				matchObject['pool'],
+				matchObject['round'],
+				status
+			]);
+		});
+		
+		dataTableFinishedLoading("upcomingMatchesTable");
+	}	
+}
+
+// process a new row in datatable
+function datatableProcessRow(row, table) {
+	stylePlayerNames(row);
+}
+
+
+</script>
+
+{% endblock %}
+
+{% block jQuery %}
+{{ parent() }}
+
+// retrieving initial data from server
+sendServerCommands(true);
+{% endblock %}
+
+{% block content %}
+{{ parent() }}
+<div class="row">
+	<table class="table table-hover table-striped ajaxDataTable" id="upcomingMatchesTable">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>{{ 'table.team1'|trans }}</th>
+				<th>{{ 'table.team2'|trans }}</th>
+				<th>{{ 'table.pool'|trans }}</th>
+				<th>{{ 'table.round'|trans }}</th>
+				<th>{{ 'table.status'|trans }}</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
+{% endblock %}

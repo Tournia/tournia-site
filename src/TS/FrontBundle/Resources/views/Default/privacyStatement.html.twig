@@ -1,0 +1,58 @@
+{% trans_default_domain "front" %}
+{% extends "TSFrontBundle::base.html.twig" %}
+
+{% block title 'privacyStatement.title'|trans %}
+
+{% block content %}
+
+    <div id="info">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>{{ 'privacyStatement.text.title'|trans }}</h3>
+                    <h5><i>Tournia respects your privacy as user of this website. Your personal data are processed and protected carefully. Tournia complies with the requirements of the Data Protection Act.</i></h5>
+                    <p>
+                        We do wish to point out that you should be aware that full protection of (personal) data on the internet cannot be guaranteed.
+                    </p>
+                    <h4>Personal data</h4>
+                    <p>
+                        Tournia only collects personal data that was provided voluntarily by filling in and sending an online form or by sending an e-mail. By providing your personal data, you authorize Tournia to store your personal data in a central Tournia file, which is protected by adequate security measures. These details can be used by Tournia for automated client management and market research.
+                    </p>
+                    <p>
+                        Tournia uses your personal data for entering into and executing the agreement concerned, among others by facilitating participation in standards committees, training programs, information meetings and the sale of the standards. And also to manage the relationships resulting from this, including implementing activities to enhance the client base.
+                    </p>
+                    <h4>Cookies</h4>
+                    <p>
+                        Tournia uses cookies to better match this websites and the services to your wishes and preferences. While using this website, Tournia can specifically use cookies to collect non-personal data. A cookie is a small text file that a server can place on your computer’s hard disk. These cookies are used to remember settings and preferences. Some web browsers offer the possibility to turn off the use of cookies. Please bear in mind that some parts of this website may not function properly if you refuse cookies.
+                    </p>
+                    <h4>Statistics with Google Analytics</h4>
+                    <p>
+                        We use Google Analytics to keep up to date on how users use our website. The information thus obtained, including your computer’s address (IP-address) is transferred to and stored by Google on servers in the US. Please read the Google privacy policy for more information, and also the Google
+                        Analytics specific privacy policy. Google uses this information to keep up to date on how our website is used. We did not permit Google to use the analytics information thus obtained for other Google services.
+                    </p>
+                    <h4>
+                        Social media
+                    </h4>
+                    <p>
+                        This website includes buttons to promote pages or to share on social networks (Facebook, Twitter and LinkedIn). These buttons are realised by the codes provided by these media themselves. Among others, this code places a cookie (see above). For more information, read the privacy statements of these social media to see what they do with your personal data that they process with this code.
+                    </p>
+                    <h4>Your data are not provided to third parties</h4>
+                    <p>
+                        Tournia shall not provide your data to third parties without your prior permission, unless Tournia is mandated to do so due to a legal stipulation or a court ruling. We shall also not use your data to keep track of which advertisements are interesting to you or to coordinate advertising to your interests.
+                    </p>
+                    <p>
+                        Based on the Personal Data Protection Act, you are entitled to view and possibly correct the personal data relating to you. You can object to the use of your personal data at any time. Please address your request for viewing, correction and/or objection by <a href="{{ path('front_contact') }}">contacting us</a>.
+                    </p>
+                    <h4>Applicable law</h4>
+                    <p>
+                        The laws of The Netherlands apply to this website, the general terms and conditions, the disclaimer and the privacy statement. All disputes resulting from or relating to (the use of) this website and/or the general terms and conditions, the disclaimer and the privacy statement shall exclusively be judged by the competent court in The Netherlands.
+                    </p>
+                    <p>
+                        Tournia reserves the right to adapt this privacy statement. Any alterations shall be published on the website.
+                    </p>
+                    <p>&nbsp;</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

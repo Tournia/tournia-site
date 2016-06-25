@@ -1,0 +1,9 @@
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /docs
+
+api_v2:
+    resource: "@TSApiBundle/Resources/config/routing_v2.yml"
+    prefix:   /v2
+    schemes:  [%httpProtocol%]
+

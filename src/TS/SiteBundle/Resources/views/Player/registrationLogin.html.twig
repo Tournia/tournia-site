@@ -1,0 +1,155 @@
+{% trans_default_domain "site" %}
+{% extends "TSSiteBundle::base.html.twig" %}
+
+{% use "TSAccountBundle:Authentication:loginBlocks.html.twig" %}
+
+{% block title 'registrationlogin.title'|trans %}
+
+{% block css %}
+
+.alert {
+    margin: 5px;
+    height: 570px;
+}
+
+#signin form .divider {
+    position: relative;
+    margin: 50px 0;
+}
+
+#signin form .divider .hr {
+    background: #dff0d8;
+}
+
+#signin form h3, #signin form h4 {
+    line-height: 1.5em;
+}
+
+#signin form .btn {
+    padding: .8em 1.6em!important;
+}
+
+*[class*='btn-custom-'].btn-custom-facebook {
+    background: #3b5998;
+    border-color: rgba(0,0,0,0.04706);
+    color: #fff!important;
+}
+
+*[class*='btn-custom-'].btn-custom-google-plus {
+    background: #d34836;
+    border-color: rgba(0,0,0,0.04706);
+    color: #fff!important;
+}
+
+#formSelectionBlock {
+    text-align: center;
+}
+
+
+#anonymous .header {
+	text-align: center;
+	margin: 0;
+	margin-top: 35px;
+}
+
+#anonymous .header h4 {
+	font-size: 32px;
+	margin-top: 0;
+	margin-bottom: 25px;
+	line-height: 38px;
+	font-weight: 300;
+	text-shadow: 1px 1px 0px #143C4E;
+}
+
+#anonymous .header p {
+	font-style: italic;
+	font-size: 16px;
+	margin: 0 0 40px 0;
+}
+
+#anonymous .footer {
+	text-align: center;
+	margin-left: 0;
+	margin-bottom: 20px;
+}
+
+#anonymous .footer input[type="text"] {
+	border-radius: 3px;
+	font-size: 16px;
+	height: 45px;
+	margin: 0 10px 0px 0;
+	color: black;
+	width: 15%;
+	margin-top: -4px;
+	padding-left: 5px;
+}
+
+#anonymous .footer input[type="submit"] {
+	text-transform: uppercase;
+	color: #fff;
+	background: #187CCC;
+	font-size: 15px;
+	padding: 8px 18px;
+	border: 0 none;
+	border-radius: 3px;
+	-webkit-transition: background linear .2s, box-shadow linear .2s;
+	-moz-transition: background linear .2s, box-shadow linear .2s;
+	-o-transition: background linear .2s, box-shadow linear .2s;
+	transition: background linear .2s, box-shadow linear .2s;
+}
+
+#anonymous .footer div {
+	display: initial;
+}
+
+{% endblock %}
+
+{% block head %}
+{{ parent() }}
+{% block login_javascript %}{{ parent() }}{% endblock %}
+{% endblock %}
+
+{% block jQuery %}
+{% block login_jQuery %}{{ parent() }}{% endblock %}
+{% endblock %}
+
+{% block content %}
+<h3>{{ 'registrationlogin.header.title'|trans({'%tournament%': tournament.name}) }}</h3>
+<p>{{ 'registrationlogin.header.text'|trans }}</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="alert alert-success" role="alert" id="signin">
+            {% block login_html %}{{ parent() }}{% endblock %}
+        </div>
+    </div>
+
+
+    <div class="col-md-6">
+        <div class="alert alert-info" role="alert">
+
+            <div id="anonymous">
+                <div class="row">
+                    <div class="col-md-12 header">
+                        <h4>{{ 'registrationlogin.anonymous.title'|trans }}</h4>
+                        <p>
+                            {{ 'registrationlogin.anonymous.text'|trans }}
+                        </p>
+                    </div>
+
+                    <div class="col-md-12 footer">
+                        <form role="form" action="{{ path('player_create', {'tournamentUrl': tournament.url}) }}" method="post" {{ form_enctype(form) }}>
+                            {{ form_errors(form) }}
+                            {{ form_row(form.captcha) }}
+                            <p>&nbsp;</p>
+                            <p><input type="submit" id="_submit" name="_submit" value="Submit"></p>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,87 @@
+{% trans_default_domain "profile" %}
+{% extends "TSAccountBundle::baseAccount.html.twig" %}
+
+{% block title "financial.title"|trans %}
+
+{% block accountContent %}
+    <header>
+        <h1 class="tab-title">{{ 'financial.title'|trans }}</h1>
+        <p class="tab-subtitle">{{ 'financial.subtitle'|trans }}</p>
+    </header>
+
+    <div class="static-content">
+        {% if personInvoices|length > 0 %}
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>{{ 'financial.table.date'|trans }}</th>
+                    <th>{{ 'financial.table.tournament'|trans }}</th>
+                    <th>{{ 'financial.table.invoiceNr'|trans }}</th>
+                    <th>{{ 'financial.table.amount'|trans }}</th>
+                    <th>{{ 'financial.table.open'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for invoice in personInvoices %}
+                    <tr>
+                        <td>
+                            {{ invoice.cartOrder.updatedAt|date("d-M-Y H:i") }}
+                        </td>
+                        <td>
+                            <a href="{{ path('tournament_index', {'tournamentUrl': invoice.cartOrder.items[0].product.tournament.url}) }}">{{ invoice.cartOrder.items[0].product.tournament.name }}</a>
+                        </td>
+                        <td>
+                            {{ invoice.invoiceNr }}
+                        </td>
+                        <td>
+                            {{ invoice.cartOrder.items[0].product.tournament.paymentCurrency }} {{ (invoice.cartOrder.total/100)|number_format(2, ',', '.') }}
+                        </td>
+                        <td>
+                            <a href="{{ path('financial_invoice', {'invoiceNr': invoice.invoiceNr}) }}" target="_blank"><span class="fa fa-file-pdf-o"></span> {{ 'financial.open'|trans }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>{{ 'financial.noInvoices'|trans }}</p>
+        {% endif %}
+
+        {% if tournamentInvoices|length > 0 %}
+            <br />
+            <h4>{{ 'finacial.tournamentInvoices'|trans }}</h4>
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>{{ 'financial.table.date'|trans }}</th>
+                    <th>{{ 'financial.table.tournament'|trans }}</th>
+                    <th>{{ 'financial.table.invoiceNr'|trans }}</th>
+                    <th>{{ 'financial.table.amount'|trans }}</th>
+                    <th>{{ 'financial.table.open'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for invoice in tournamentInvoices %}
+                    <tr>
+                        <td>
+                            {{ invoice.payOut.dateTime|date("d-M-Y H:i") }}
+                        </td>
+                        <td>
+                            <a href="{{ path('tournament_index', {'tournamentUrl': invoice.payOut.tournament.url}) }}">{{ invoice.payOut.tournament.name }}</a>
+                        </td>
+                        <td>
+                            {{ invoice.invoiceNr }}
+                        </td>
+                        <td>
+                            {{ invoice.payOut.tournament.paymentCurrency }} {{ (invoice.cartOrder.total/100)|number_format(2, ',', '.') }}
+                        </td>
+                        <td>
+                            <a href="{{ path('financial_invoice', {'invoiceNr': invoice.invoiceNr}) }}" target="_blank"><span class="fa fa-file-pdf-o"></span> {{ 'finacial.open'|trans }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

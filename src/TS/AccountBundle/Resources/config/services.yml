@@ -1,0 +1,37 @@
+parameters:
+#    ts_settings.example.class: TS\AccountBundle\Example
+
+services:
+    ts_account.pre_action:
+        class: TS\AccountBundle\EventListener\PreActionListener
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+    ts_user.registration.form.type:
+        class: TS\AccountBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: ts_user_registration }
+    #ts_user.profile.form.type:
+    #    class: TS\FrontBundle\Form\Type\ProfileFormType
+    #    arguments: [%fos_user.model.user.class%]
+    #    tags:
+    #        - { name: form.type, alias: ts_user_profile }
+    ts_user.password_resetting:
+        class: TS\AccountBundle\EventListener\PasswordResettingListener
+        arguments: [@router]
+        tags:
+            - { name: kernel.event_subscriber }
+    social_auth_success_handler:
+        class: TS\AccountBundle\EventListener\SocialLoginListener
+        public: false
+        arguments: [@router, @service_container]
+    my_access_denied_handler:
+        class: TS\AccountBundle\EventListener\AccessDeniedListener
+        arguments:
+            router: @router
+    entry_point.user_login:
+        class: TS\AccountBundle\EventListener\AccessDeniedEntryPointListener
+        arguments:
+            router: @router

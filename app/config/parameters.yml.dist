@@ -1,0 +1,22 @@
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: 3306
+    database_name: tournament
+    database_user: tournament
+    database_password: tournament
+    mailer_transport: smtp
+    mailer_host: smtp.sendgrid.net
+    mailer_user: tournia_test
+    mailer_password: as+kj2,23kaQ
+    mailer_port: 465
+    mailer_encryption: ssl
+    email_from: info@tournia.net
+    email_bounces: bounces@tournia.net
+    locale: en
+    secret: d106f6c8132f294bf9a251ed56b7e832c
+    database_path: null
+    httpProtocol: http
+    websocketHost_internal: 192.168.50.4
+    websocketPort_internal: 8080
+    websocketPort_external: 8080

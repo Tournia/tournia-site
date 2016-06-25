@@ -1,0 +1,239 @@
+{% trans_default_domain "front" %}
+{% import "TSFrontBundle::macros.html.twig" as macros %}
+
+{% if app.request.host == 'www.isbtplanner.com' %}
+    {% set title = 'ISBTPlanner.com' %}
+{% else %}
+    {% set title = 'Tournia' %}    
+{% endif %}
+
+{% if pageClass is not defined %}
+    {% set pageClass = 'home' %}
+{% endif %}
+{% if useDefaultFlashbagNotifications is not defined %}
+    {% set useDefaultFlashbagNotifications = true %}
+{% endif %}
+
+{% if siteContentBlockClass is not defined %}
+    {% set siteContentBlockClass = '' %}
+{% endif %}
+
+{% if footerClass is not defined %}
+    {% set footerClass = 'alt' %}
+{% endif %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {% if enableChatSupport is defined %}
+    <!--Start of Zopim Live Chat Script-->
+    <script type="text/javascript">
+        window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+                d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+                _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+            $.src='//v2.zopim.com/?2SERWURUzg9L4BhDJdtNAVipFyqI0VVG';z.t=+new Date;$.
+                    type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+    </script>
+    <!--End of Zopim Live Chat Script-->
+    {% endif %}
+	
+	{% block meta %}
+	<meta name="keywords" content="Tournia, tournament, tournament organizer, ISBT, ISBT planner, tournament manager">
+	<meta name="description" content="Tournia is an online platform to help organizing your tournament">
+	<meta name="author" content="Tournia.net">
+	{% endblock %}
+
+	<title>
+    {% if app.request.get('_route') == 'front_index' %}
+    	Tournia - Easy organizing tournaments
+    {% else %}
+    	{% block title %}{{ title }}{% endblock %} | Tournia
+    {% endif %}
+	</title>
+
+	
+    <!-- Styles -->
+{% block stylesheets %}
+    <!-- start sass -->
+    {% stylesheets
+        'bundles/tsfront/template/css/header.scss'
+        'bundles/tsfront/template/css/theme.scss'
+        filter='compass,cssrewrite,?yui_css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    <!-- end sass -->
+
+	{% stylesheets
+    	'bundles/tsfront/template/css/vendor/animate.css'
+        'bundles/tsfront/template/css/vendor/brankic.css'
+    	'bundles/tsfront/css/font-awesome.css'
+        'bundles/tsfront/css/everywhere.css'
+        'bundles/tsfront/css/frontandsite.css'
+    	filter='cssrewrite,?yui_css'
+     %}
+	<link rel="stylesheet" href="{{ asset_url }}" />
+	{% endstylesheets %}
+{% endblock %}
+
+
+
+	<style type="text/css">
+        {% block css %}{% endblock %}
+
+        {% set cart = sylius_cart_get() %}
+        {% if cart.totalItems == 0 %}
+        #site-head.navbar #navigationCartBox {
+            display: none!important;
+        }
+        {% endif %}
+	</style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	  <script src="{{ asset('bundles/tsfront/js/vendor/html5shiv.js') }}"></script>
+	  <script src="{{ asset('bundles/tsfront/js/vendor/respond.js') }}"></script>
+	<![endif]-->
+
+	<!-- Fav and touch icons -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-144-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-114-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-72-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-57-precomposed.png') }}">
+	<link rel="shortcut icon" href="{{ asset('bundles/tsfront/img/ico/favicon.png') }}">
+
+    <meta property="og:image" content="{{ app.request.getScheme() }}://{{ app.request.getHttpHost() }}{{ asset('bundles/tsfront/img/ico/icon.png') }}">
+
+	{% block head %}{% endblock %}
+</head>
+
+
+<body id="{{ pageClass }}">
+
+	{% include "TSFrontBundle::header.html.twig" with {'isControl': false} %}
+
+    {% if useDefaultFlashbagNotifications %}
+        {{ macros.flashbagNotifications(useDefaultFlashbagNotifications) }}
+    {% endif %}
+
+{% block siteTopBar %}{% endblock %}
+
+<div id="siteContentBlock" class="{{ siteContentBlockClass }}">
+	{% block siteContent %}
+		{% block content %}{% endblock %}
+	{% endblock %}
+</div>
+
+<footer class="block {{ footerClass }}">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 menu">
+                <h3>{{ 'base.footer.overview'|trans }}</h3>
+                <ul>
+                    <li>
+                        <a href="{{ path('front_start_tournament') }}">{{ 'base.footer.features'|trans }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('front_contact') }}">{{ 'base.footer.support'|trans }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('front_developers') }}">{{ 'base.footer.api'|trans }}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-3 menu">
+                <h3>{{ 'base.footer.menu'|trans }}</h3>
+                <ul>
+                    <li>
+                        <a href="{{ path('front_about') }}">{{ 'base.footer.about'|trans }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('front_contact') }}">{{ 'base.footer.contact'|trans }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('front_privacy_statement') }}">{{ 'base.footer.privacyStatement'|trans }}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-3 menu">
+                <h3>{{ 'base.footer.social'|trans }}</h3>
+                <ul>
+                    <li>
+                        <a href="https://www.facebook.com/tournia.net" target="_blank"><span class="fa fa-facebook-square"></span> {{ 'base.footer.facebook'|trans }}</a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/Tournia" target="_blank"><span class="fa fa-twitter-square"></span> {{ 'base.footer.twitter'|trans }}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-3 menu">
+                <h3>{{ 'base.footer.languages'|trans }}</h3>
+                <ul>
+                    <li>
+                        <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'nl'})) }}" class="notReplaceLink">{{ 'base.footer.dutch'|trans }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}" class="notReplaceLink">{{ 'base.footer.english'|trans }}</a>
+                    </li>
+                </ul>
+            </div>
+            {#
+                            <div class="col-sm-4 menu newsletter">
+                                <h3>Newsletter</h3>
+                                <div class="signup clearfix">
+                                    <p>
+                                        Sign up for the newsletter and we'll inform you of updates, offers and more.
+                                    </p>
+                                    <form>
+                                        <input type="text" name="email" class="form-control" placeholder="Your email address" />
+                                    </form>
+                                </div>
+                            </div>
+            #}
+        </div>
+        <div class="row credits">
+            <div class="col-md-12">
+                {% block copyright %}{{ 'base.footer.copyright1'|trans|raw }}{{ "now"|date("Y") }} {{ 'base.footer.copyright2'|trans }}{% endblock %}
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+	<!-- Scripts -->
+{% block javascripts %}
+	<script type="text/javascript">
+        {% if app.debug %}
+            var hideGoogleAnalytics = true;
+        {% endif %}
+    </script>
+
+	{% javascripts
+            '@TSFrontBundle/Resources/public/js/jquery-1.11.1.js'
+            '@TSFrontBundle/Resources/public/js/bootstrap/bootstrap.js'
+            '@TSFrontBundle/Resources/public/js/theme.js'
+            '@TSFrontBundle/Resources/public/js/everywhere.js'
+            '@TSFrontBundle/Resources/public/js/frontandsite.js'
+		filter='?yui_js' %}
+		<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+
+	{% block javascript %}{% endblock %}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            {% block jQuery %}{% endblock %}
+
+            {% include "TSFrontBundle::header.js.twig" %}
+        });
+    </script>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,43 @@
+# Court notes
+courtNotes.title: Court Notes
+courtNotes.fileName: courtNotes
+
+# Matches list
+matchesList.title: Matches list
+matchesList.fileName: matchesList
+
+# Match results
+matchResults.title: Match results
+matchResults.fileName: matchResults
+
+# Ranking
+ranking.title: Ranking
+ranking.fileName: ranking
+
+# Teams
+teams.title: Teams
+teams.fileName: teams
+
+print.match: Match
+print.court: Court
+print.pool: Pool
+print.vs: vs
+print.set: Set
+print.rank: Rank
+print.players: Player(s)
+print.matches: Matches
+print.sets: Sets
+print.points: Points
+print.played: Played
+print.won: Won
+print.draw: Draw
+print.lost: Lost
+print.relative: Relative
+print.player: Player
+print.replacement: Replacement
+
+normalFooter.liveText: Check out Live scores, rankings and player information
+normalFooter.powered: Powered by Tournia.net
+invoiceFooter.text1: Tournia.net is a product of Agonian v.o.f.
+invoiceFooter.text2: Chamber of Comerce (KvK, Netherlands) 61505838 - VAT (BTW) NL854371692B01
+invoiceFooter.invoice: Invoice

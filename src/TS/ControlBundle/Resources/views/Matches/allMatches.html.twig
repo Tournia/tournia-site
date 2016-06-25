@@ -1,0 +1,64 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "allMatches.title"|trans %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+///// post and receive server messages /////
+
+function getRefreshCommands() {
+	oTable = $('#matchesTable').dataTable();
+	oTable.fnDraw(false);
+
+	return new Array();
+}
+
+// setting datatable options
+columns = [
+    { "mData": "localId" },
+    { "mData": "team1"},
+    { "mData": "team2"},
+    { "mData": "pool" },
+    { "mData": "round" },
+    { "mData": "score", bSortable: false },
+    { "mData": "status"},
+];
+ajaxDataTableOptions.matchesTable = {};
+ajaxDataTableOptions.matchesTable.aaSorting = [[0, 'desc']];
+ajaxDataTableOptions.matchesTable.aoColumns = columns;
+ajaxDataTableOptions.matchesTable.sAjaxSource = '{{ path('api_v2_matches_list_all', {'tournamentUrl':tournament.url}) }}';
+ajaxDataTableOptions.matchesTable.bServerSide = true;
+ajaxDataTableOptions.matchesTable.bProcessing = true;
+
+// setting on which updates data should be refreshed
+observerUpdateSection.push('match');
+</script>
+
+{% endblock %}
+
+{% block jQuery %}
+
+{% endblock %}
+
+{% block content %}
+{% set content %}
+	<table class="table table-hover table-bordered ajaxDataTable" id="matchesTable">
+		<thead>
+			<tr>
+				<th>{{ 'table.matchNr'|trans }}</th>
+				<th>{{ 'table.team1'|trans }}</th>
+				<th>{{ 'table.team2'|trans }}</th>
+				<th>{{ 'table.pool'|trans }}</th>
+				<th>{{ 'table.round'|trans }}</th>
+				<th>{{ 'table.score'|trans }}</th>
+				<th>{{ 'table.status'|trans }}</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+{% endset %}
+{{ macro.well(content) }}
+{% endblock %}

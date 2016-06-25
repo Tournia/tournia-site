@@ -1,0 +1,85 @@
+{% trans_default_domain "front" %}
+{% extends "TSFrontBundle::base.html.twig" %}
+
+{% block title 'contact.title'|trans %}
+
+{% set pageClass = "contact-us" %}
+{% set useDefaultFlashbagNotifications = false %}
+
+{% block content %}
+<div id="map" style="height:300px;">
+	<iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com.mx/?ie=UTF8&amp;ll=52.282744,4.5799999&amp;spn=0.023259,0.038495&amp;t=m&amp;z=8&amp;output=embed"></iframe>
+
+	<div class="marker-wrapper">
+		<div class="marker-icon"></div>
+		<div class="marker"></div>
+	</div>
+</div>
+
+<div id="info">
+	<div class="container">
+        {{ macros.flashbagNotifications(useDefaultFlashbagNotifications) }}
+		<div class="row">
+			<div class="col-md-8 message">
+				<h3>{{ 'contact.form.title'|trans }}</h3>
+				<p>
+                    {{ 'contact.form.text'|trans|raw }}
+				</p>
+				<form action="{{ path('front_contact') }}" method="post" {{ form_enctype(form) }} role="form">
+					<div class="form-group">
+			    		<label for="name">{{ 'contact.form.name.label'|trans }}</label>
+                        {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
+			  		</div>
+			  		<div class="form-group">
+			    		<label for="email">{{ 'contact.form.email.label'|trans }}</label>
+                        {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+			  		</div>
+			  		<div class="form-group">
+			    		<label for="phone">{{ 'contact.form.phone.label'|trans }}</label>
+                        {{ form_row(form.phone, {'attr': {'class': 'form-control'}}) }}
+			  		</div>
+			  		<div class="form-group">
+			    		<label for="message">{{ 'contact.form.message.label'|trans }}</label>
+                        {{ form_row(form.message, {'attr': {'class': 'form-control', 'rows': '6'}}) }}
+			  		</div>
+			  		<div class="form-group">
+                        {{ form_row(form.captcha, {'attr': {'class': 'form-control'}}) }}
+			  		</div>
+			  		<div class="submit">
+			  			<input type="submit" class="btn btn-custom-primary no-margin btn-lg" value="{{ 'contact.form.submit'|trans }}" />
+			  		</div>
+                    {{ form_rest(form) }}
+				</form>
+			</div>
+			<div class="col-md-4 contact">
+<!--
+				<div class="address">
+					<h3>Our Address</h3>
+					<p>
+						The Old Road Willington, <br />
+						7 Kings Road, <br />
+						Southshore, 64890
+					</p>
+				</div>
+-->
+{#
+				<div class="phone">
+					<h3>By Phone</h3>
+					<p>
+						+31 6 23838495
+					</p>
+				</div>
+#}
+				<div class="social-media">
+					<h3>{{ 'contact.social'|trans }}</h3>
+                    <div class="icons">
+                        <a class="twitter" href="https://twitter.com/Tournia"><span class="fa fa-twitter-square"></span></a>
+                        <a class="facebook" href="https://www.facebook.com/tournia.net"><span class="fa fa-facebook-square"></span></a>
+                        {# <a class="google-plus" href="#"><span class="fa fa-google-plus-square"></span></a> #}
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

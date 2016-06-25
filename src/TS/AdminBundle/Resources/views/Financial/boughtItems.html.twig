@@ -1,0 +1,187 @@
+{% import _self as macro %}
+{% import "TSAdminBundle:Financial:daterangeMacros.html.twig" as daterangeMacros %}
+
+{% extends "TSAdminBundle::baseAdmin.html.twig" %}
+
+{% block title "Bought items" %}
+
+{% block css %}
+    {{ parent() }}
+
+    #boughtItemsTableBox {
+        overflow: auto;
+        width: 100%;
+        clear: both;
+    }
+{% endblock %}
+
+{% block jQuery %}
+    {{ parent() }}
+
+    {{ daterangeMacros.jquery(form) }}
+
+    $('#boughtDataTable').dataTable({
+        "dom": 'lfCTrtip',
+        "oTableTools": {
+            "sSwfPath": "{{ asset('bundles/tsadmin/js/copy_csv_xls_pdf.swf') }}"
+        }
+    });
+    $('#boughtDataTable').wrap('<div id="boughtItemsTableBox"></div>');
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Bought items</h2>
+            <form class="form-horizontal" action="{{ path('admin_financial_bought_items') }}" method="post" {{ form_enctype(form) }} role="form">
+            <div class="form-group ">
+                {{ daterangeMacros.html(form) }}
+                <div class="col-sm-2">
+                    {{ form_rest(form) }}
+                    <button type="submit" class="btn btn-primary">Open</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+            <p>&nbsp;</p>
+            <table class="table table-hover table-striped ajaxDataTable manualAjaxDataTable" id="boughtDataTable">
+                <thead>
+                <tr>
+                    <th>Cart ID</th>
+                    <th>Tournament</th>
+                    <th>DateTime</th>
+                    <th>State</th>
+                    <th>Amount</th>
+                    <th>Method</th>
+                    <th>Executing person</th>
+                    <th>Invoice</th>
+                    <th>Type</th>
+                    <th>Type ID</th>
+                    <th>Type name</th>
+                    <th>Quantity</th>
+                    <th>Currency</th>
+                    <th>(Total) price</th>
+                    <th>Paid out</th>
+                    <th>Player</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for cartTransaction in incomingTransactions %}
+                    {{ macro.tableRow(cartTransaction) }}
+                    {% for cartItem in cartTransaction.items %}
+                        {#{{ macro.tableRow(cartTransaction, cartItem) }}#}
+
+                        {% for adjustment in cartItem.adjustments %}
+                            {{ macro.tableRow(cartTransaction, null, null, adjustment) }}
+                        {% endfor %}
+                    {% endfor %}
+
+                    {% for boughtProduct in cartTransaction.boughtProducts %}
+                        {{ macro.tableRow(cartTransaction, null, boughtProduct) }}
+                    {% endfor %}
+
+                    {% for adjustment in cartTransaction.adjustments %}
+                        {{ macro.tableRow(cartTransaction, null, null, adjustment) }}
+                    {% endfor %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{%  endblock %}
+
+
+{% macro tableRow(cartTransaction, cartItem, boughtProduct, adjustment) %}
+    {% if cartTransaction.invoice is not empty and cartTransaction.invoice.payOut is not empty %}
+        {% set tournament = cartTransaction.invoice.payOut.tournament %}
+    {% else %}
+        {% set tournament = cartTransaction.items[0].product.tournament %}
+    {% endif %}
+    <tr>
+        <td>{{ cartTransaction.id }}</td>
+        <td>[{{ tournament.id }}] <a href="{{ path('tournament_index', {'tournamentUrl': tournament.url}) }}">{{ tournament.name }}</a></td>
+        <td>
+            {% if cartTransaction.invoice is not empty and cartTransaction.invoice.payOut is not empty %}
+                {{ cartTransaction.invoice.payOut.dateTime|date("d-M-Y H:i:s") }}
+            {% else %}
+                {{ cartTransaction.updatedAt|date("d-M-Y H:i:s") }}
+            {% endif %}
+        </td>
+        <td>
+            {% if cartTransaction.state == 1 %}Cart
+            {% elseif cartTransaction.state == 2 %}Locked
+            {% elseif cartTransaction.state == 3 %}Pending
+            {% elseif cartTransaction.state == 4 %}Confirmed
+            {% elseif cartTransaction.state == 5 %}Shipped
+            {% elseif cartTransaction.state == 6 %}Abandoned
+            {% elseif cartTransaction.state == 7 %}Cancelled
+            {% elseif cartTransaction.state == 8 %}Returned
+            {% endif %}
+        </td>
+        <td>{{ cartTransaction.total|sylius_price }}</td>
+        <td>
+            {% if cartTransaction.paymentInstruction is not empty %}
+                {{ cartTransaction.paymentInstruction.paymentSystemName }}
+            {% else %}
+                pay-out
+            {% endif %}
+        </td>
+        {% if cartTransaction.execPerson is not empty %}
+            <td>{{ cartTransaction.execPerson.name }} ({{ cartTransaction.execPerson.email }})</td>
+        {% else %}
+            <td>Anonymous</td>
+        {% endif %}
+        <td>
+            {% if cartTransaction.invoice is not empty %}
+                [{{ cartTransaction.invoice.invoiceNr }}] <a href="{{ path('financial_invoice', {'invoiceNr': cartTransaction.invoice.invoiceNr}) }}"><span class="fa fa-file-pdf-o"></span> Open</a>
+            {% else %}
+                -
+            {% endif %}
+        </td>
+
+        {% if cartItem is null and boughtProduct is null and adjustment is null %}
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        {% endif %}
+
+        {% if cartItem is not null %}
+            <td>CartItem</td>
+            <td>{{ cartItem.id }}</td>
+            <td>{{ cartItem.product.name }}</td>
+            <td>{{ cartItem.quantity }}</td>
+            <td>{{ tournament.paymentCurrency }}</td>
+            <td>{{ (cartItem.product.price/100)|number_format(2, ',', '.') }}</td>
+            <td>-</td>
+            <td>[{{ cartItem.player.id }}] {{ cartItem.player.name }}</td>
+        {% endif %}
+
+        {% if boughtProduct is not null %}
+            <td>Bought Product</td>
+            <td>{{ boughtProduct.id }}</td>
+            <td>{{ boughtProduct.name }}</td>
+            <td>{{ boughtProduct.quantity }}</td>
+            <td>{{ tournament.paymentCurrency }}</td>
+            <td>{{ (boughtProduct.amount/100)|number_format(2, ',', '.') }}</td>
+            <td>{{ (boughtProduct.paidoutAmount/100)|number_format(2, ',', '.') }}</td>
+            <td>-</td>
+        {% endif %}
+
+        {% if adjustment is not null %}
+            <td>Adjustment</td>
+            <td>{{ adjustment.id }}</td>
+            <td>{{ adjustment.label }}</td>
+            <td>-</td>
+            <td>{{ tournament.paymentCurrency }}</td>
+            <td>{{ (adjustment.amount/100)|number_format(2, ',', '.') }}</td>
+            <td>-</td>
+            <td>-</td>
+        {% endif %}
+    </tr>
+{% endmacro %}

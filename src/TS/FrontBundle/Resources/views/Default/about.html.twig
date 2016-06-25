@@ -1,0 +1,70 @@
+{% trans_default_domain "front" %}
+{% extends "TSFrontBundle::base.html.twig" %}
+
+{% block title 'about.title'|trans %}
+
+{% set pageClass = "about-us" %}
+
+{% block content %}
+<div id="hero" style="background-image: url('{{ asset('bundles/tsfront/img/background/bg7.png') }}');">
+</div>	
+
+<div id="info">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>{{ 'about.text.title'|trans }}</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">					
+				<p>
+                    {{ 'about.text.1'|trans|raw }}
+				</p>
+				<p>
+                    {{ 'about.text.2'|trans|raw }}
+				</p>
+                <a href="{{ path('front_contact') }}" class="btn btn-custom-primary btn-lg">{{ 'about.button'|trans }}</a>
+                <br /><br />
+			</div>
+			<div class="col-md-6">
+				<p>
+                    {{ 'about.text.3'|trans|raw }}
+				</p>
+                {#<p>
+                    Agonian VOF is registered at the Dutch chamber of commerce, under number xxxx.
+                </p>#}
+			</div>
+		</div>
+        {#
+		<div class="row stats">
+			<div class="col-sm-3">
+				<strong>13</strong>
+				employees
+			</div>
+			<div class="col-sm-3">
+				<strong>10k</strong>
+				customers
+			</div>
+			<div class="col-sm-3">
+				<strong>9</strong>
+				template pages
+			</div>
+			<div class="col-sm-3">
+				<strong>13k</strong>
+				products sold
+			</div>
+		</div>
+		<div class="row team">
+			<div class="col-md-12 team-row">
+				<img src="{{ asset('bundles/tsfront/img/testimonials/testimonial1.jpg') }}" data-toggle="tooltip" title="Eric Smith - CEO" alt="testimonial" />
+				<img src="{{ asset('bundles/tsfront/img/testimonials/testimonial2.jpg') }}" data-toggle="tooltip" title="Rachel Dawes - PM" alt="testimonial" />
+				<img src="{{ asset('bundles/tsfront/img/testimonials/testimonial3.jpg') }}" data-toggle="tooltip" title="Henry Hill - Developer" alt="testimonial" />
+				<img src="{{ asset('bundles/tsfront/img/testimonials/testimonial4.jpg') }}" data-toggle="tooltip" title="Ana Rich - Designer" alt="testimonial" />
+				<img src="{{ asset('bundles/tsfront/img/testimonials/testimonial5.jpg') }}" data-toggle="tooltip" title="Jessica Welch - Designer" alt="testimonial" />
+			</div>
+		</div>
+        #}
+	</div>
+</div>
+{% endblock %}

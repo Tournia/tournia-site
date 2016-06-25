@@ -1,0 +1,147 @@
+.infoIcon {
+	margin-left: 5px;
+    cursor: help;
+}
+
+.infoIcon .icon-info-sign {
+	margin-top: 5px;
+	text-decoration: none;
+}
+
+/*.controls label {
+	display: inline;
+	margin: 0px 15px 0px 5px;
+	top: 3px;
+	position: relative;
+}*/
+
+.tooltipA {
+	cursor: help;
+}
+
+input[type="radio"] {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/************** Organizer menu in header **********/
+
+#organizerMenu {
+    top: 3px;
+}
+
+#organizerMenu #organizerMenuPopover {
+    color: #43a73f !important;
+    margin-top: 0px !important;
+    font-size: 14px !important;
+}
+
+#organizerMenuPopover:focus {
+    outline: none;
+}
+
+.organizerMenuPopoverBox {
+    width: 200px;
+}
+
+.organizerMenuPopoverIcon {
+    padding: 10px;
+    width: 100px;
+    text-align: center;
+    float: left;
+    color: #43a73f;
+}
+
+.organizerMenuPopoverIcon:hover {
+    text-decoration: none;
+}
+
+.organizerMenuPopoverTxt {
+    display: block;
+}
+
+
+/************** Datatables styles (http://www.datatables.net/blog/Twitter_Bootstrap) **********/
+
+
+
+.dataTableLoadingIndicator {
+  top: -50px;
+  position: relative;
+  text-align: center;
+}
+
+/* Twitter Typeahead CSS */
+
+.typeahead,
+.tt-query,
+.tt-hint {
+  /*width: 396px;*/
+  /*height: 30px;*/
+  /*padding: 8px 12px;*/
+  /*font-size: 24px;*/
+  /*line-height: 30px;*/
+  border: 2px solid #ccc;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  outline: none;
+}
+
+.typeahead {
+  background-color: #fff;
+}
+
+.typeahead:focus {
+  border: 2px solid #0097cf;
+}
+
+.tt-query {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+  color: #999
+}
+
+.tt-dropdown-menu {
+  /*margin-top: 12px;*/
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+  padding: 3px 20px;
+/*  line-height: 24px;*/
+}
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #0097cf;
+
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+
+
+/* end of typeahead CSS */
+
+
+.alert-danger a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+

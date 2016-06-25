@@ -1,0 +1,13 @@
+{% trans_default_domain "account" %}
+{% extends "TSFrontBundle::base.html.twig" %}
+
+{% block title "reset.checkEmail.title"|trans %}
+
+
+{% block content %}
+<div class="container">
+	<div class="alert alert-success">
+		<strong><i class="fa fa-check-circle-o"></i> {{ 'reset.checkEmail.text'|trans({'%email%': email}) }}</strong>
+	</div>
+</div>
+{% endblock %}

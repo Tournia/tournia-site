@@ -1,0 +1,86 @@
+{% trans_default_domain "site" %}
+{% extends "TSSiteBundle::base.html.twig" %}
+
+{% block title "players.title"|trans %}
+
+{% block head %}
+{{ parent() }}
+
+<style>
+.dataTableLoadingIndicator {
+	display: none;
+}
+</style>
+
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+<script type="text/javascript">
+
+{% if tableFilter is defined %}
+// setting datatable options
+ajaxDataTableOptions.playersTable = {};
+ajaxDataTableOptions.playersTable.oSearch = {"sSearch": "{{ tableFilter }}"};
+{% endif %}
+</script>
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+	<table id="playersTable" class="table table-hover table-striped ajaxDataTable">
+		<thead>
+			<tr>
+				<th>{{ 'players.name'|trans }}</th>
+                {% if tournament.registrationGroupEnabled %}<th>{{ 'players.group'|trans }}</th>{% endif %}
+				<th>{{ 'players.gender'|trans }}</th>
+                {% for disciplineType in tournament.disciplineTypes %}
+                    <th class="match">{{ disciplineType.name }}</th>
+                    {% if disciplineType.partnerRegistration %}
+                        <th class="match">{{ 'players.partner'|trans }} {{ disciplineType.name }}</th>
+                    {% endif %}
+                {% endfor %}
+                {% if is_granted("EDIT", tournament) %}<th>{{ 'players.status'|trans }}</th>{% endif %}
+			</tr>
+		</thead>
+		<tbody style="font-size:13px">
+		{% for player in players %}
+			<tr>
+				<td>{% if is_granted("VIEW", player) %}<a href="{{ path('player_edit', {'tournamentUrl': tournament.url, 'playerId': player.id}) }}"><i class="fa fa-edit"></i> {{ player.name }}</a>{% else %}{{ player.name }}{% endif %}</td>
+                {% if tournament.registrationGroupEnabled %}<td>{% if player.registrationGroup is not empty %}{{ player.registrationGroup.name }}{% endif %}</td>{% endif %}
+				<td>{{ player.gender }}</td>
+                {% for disciplineType in tournament.disciplineTypes %}
+                    {% set foundDisciplinePlayer = null %}
+                    {% for disciplinePlayer in player.disciplinePlayers %}
+                        {% if disciplinePlayer.discipline.disciplineType == disciplineType %}
+                            {% set foundDisciplinePlayer = disciplinePlayer %}
+                        {% endif %}
+                    {% endfor %}
+                    <td class="match">
+                        {% if foundDisciplinePlayer is null %}
+                            -
+                        {% else %}
+                            {{ foundDisciplinePlayer.discipline.name }}
+                        {% endif %}
+                    </td>
+                    {% if disciplineType.partnerRegistration %}
+                        <td class="match">
+                            {% if foundDisciplinePlayer is null %}
+                                &nbsp;
+                            {% elseif foundDisciplinePlayer.partner is not null %}
+                                {{ foundDisciplinePlayer.partner }}
+                            {% else %}
+                                {{ 'players.wanted'|trans }}
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                {% endfor %}
+
+				{% if is_granted("EDIT", tournament) %}<td>{{ player.status }}</td>{% endif %}
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}

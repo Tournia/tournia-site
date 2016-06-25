@@ -1,0 +1,394 @@
+# Create
+create.title: New Tournament - Settings
+create.tab.title: %name% sounds awesome!
+create.tab.subtitle: Welcome to your new tournament. Set up your new tournament here by simply following these steps!
+create.tournament.step: Tournament
+create.tournament.date: Tournament date
+create.sport.step: Sport
+create.sport.heading: Sport
+create.financial.step: Financial
+create.financial.heading: Financial
+create.financial.payments.title: I let Tournia handle my payments
+create.financial.payments.text: Tournia can handle payments players make for your tournament for you. We offer loads of different payment options making it easy for the player to pay and saving you hassle with a lot of financial stuff. To use this Tournia charges &euro;0.50 per player who pays using the system. Sit back and enjoy!
+create.financial.free.title: My tournament is free of charge
+create.financial.free.text: You're a do-gooder philanthropist! We respect that and therefore won't charge you on this tournament. We hope our system will be of good use to you.
+create.financial.invoice.title: I handle payments myself
+create.financial.invoice.text: We think it is way easier and securer to let us handle your payments. If you want to charge your players yourself you can still use our system off course, but we do charge you the service fee (see below).
+create.finish.step: Finish
+create.finish.heading: Finish
+create.conditions.title: Terms and Conditions
+create.conditionsAgree.text: I agree to the terms and conditions above
+create.previous: Previous
+create.next: Next
+create.tournament: Create tournament!
+create.skip: Skip, I'll do this later
+
+# Disciplines
+disciplines.title: Disciplines - Settings
+disciplines.tab.title: Disciplines
+disciplines.tab.subtitle: Manage the disciplines for which players can register and are used for creating matches.
+disciplines.types.tab: Discipline types
+disciplines.types.legend: Discipline types
+disciplines.types.add: Add a new discipline type
+disciplines.disciplines.tab: Disciplines
+disciplines.disciplines.legend: Disciplines
+disciplines.disciplines.add: Add a new discipline
+disciplines.maxRegistrationDisciplines.legend: Registration limit
+
+# Financial
+financial.title: Financial - Settings
+financial.tab.title: Financial settings
+financial.tab.subtitle: Setup your products and pay-out
+financial.product.add: Add a new product
+financial.general.tab: General
+financial.general.legend: General information
+financial.general.text: It's free for organizers to use Tournia.net as long as you're not charging money for your tournament. There are no monthly charges, enrollment costs, or setup fees. For tournament with a paid registration, Tournia charges a service fee.
+financial.general.invoice: |
+  Of course you can choose to handle payments yourself. But in our experience it's easier to handle payments through Tournia. You have the certainty that the player has paid for the tournamnet, and accepting credit cards, PayPal and other methods are working instantly. When a player has paid for the tournament, the money will be transferred to you.
+  If you choose for this option, we do however send you an invoice for the service fees of using Tournia; this amount depends on the actual players during the tournament.
+financial.general.readMore.button: Read more
+financial.general.readMore.1: If you organize a tournament which is free of charge (e.g. internal competition, friendly matches, etc.) you can use Tournia for free including all the features you need to organize your tournament. We offer this free of charge, because we believe that sports should be available to everyone.
+financial.general.readMore.2: However, if you ask money for your tournament, we do ask a small contribution to use Tournia. We ask &euro; 0.50 as a service fee from the player for every money transfer. Depending on the selected payment method (credit card, iDeal, etc.) the transaction costs are also to be paid by the player. Of course you can decide to ask money when the player arrives at the tournament (to overcome the fees), but are you sure the player will show up? By asking money to the player on beforehand you have the guarantee that the player will come for your tournament (or you at least have your money).
+financial.general.readMore.3: So how does payments work? Tournia.net has the option to let players buy certain "products". These products can for example be a deposit, t-shirt or the full participation fee. Players buy these products from your tournament website, and Tournia will handle the entire payment process. So no worries about a PayPal account, credit cards or iDeal account; Tournia has this covered. The money from the player will be transferred to an account of your choosing, which can be set in the pay out tab.
+financial.serviceFee.legend: Service fee
+financial.products.tab: Products
+financial.products.legend: Products
+financial.paymentInfo.tab: Payment information
+financial.paymentInfo.legend: Payment information
+financial.paymentInfo.statusUpdate: Automatic status update
+financial.payout.tab: Pay out
+financial.payout.legend: Payout information
+financial.payout.text: |
+  Payments from players are transferred to your chosen account automatically, every month.
+  The current outstanding amount is %outstanding%
+
+# Organizers
+organizers.title: Organizers - Settings
+organizers.tab.title: Organizers settings
+organizers.tab.subtitle: You can have multiple organizers
+organizers.add: Add an organizer
+
+# Authorizations
+authorizations.title: Authorizations - Settings
+authorizations.tab.title: Authorizations settings
+authorizations.tab.subtitle: Manage the access to your tournament
+authorizations.explanation: |
+  You can turn off certain features of your tournament, or define the rights for players.
+  It's possible to allow access for a specific date range; the start and/or end date can be left empty.
+authorizations.heading.features: Features
+authorizations.heading.access: Access
+authorizations.heading.organizers: Organizers
+authorizations.access.createRegistration: Create registration
+authorizations.access.createRegistration.popover: Are new registrations allowed?
+authorizations.access.changeRegistration: Change registration
+authorizations.access.changeRegistration.popover: Can existing registrations be changed?
+authorizations.access.apiAccess: Live/API access to matches, players, rankings, etc.
+authorizations.access.apiAccess.popover: Is the Live page accessible? This makes the API automatically also available.
+authorizations.access.liveScore: Enter score in Live
+authorizations.access.liveScore.popover: Is it allowed to let players enter a score of matches on the Live page?
+authorizations.access.live2ndCall: Allow 2<sup>nd</sup> call in Live
+authorizations.access.live2ndCall.popover: Is it allowed to let players request a second call on the Live page? These second calls will be shown on the announcement page in tournament control.
+authorizations.start: Start
+authorizations.end: End
+authorizations.livePassword.label: Live wachtwoord
+authorizations.livePassword.info: Password for accessing the Live page for not logged in users (or non-participating users). Leave empty to allow everyone access.
+authorizations.error.startBeforeEndDate: The start date needs to be before the end date
+
+# API
+api.title: API - Settings
+api.tab.title: API settings
+api.tab.subtitle: Get access to your tournament from external systems
+api.apiKeys.add: Create new API key
+api.explanation: |
+  If you are a (web) developer, you can use the API of Tournia to access your tournament information from other systems. For example, you can create your own (tv) screen layout with upcoming matches or let people fill in their scores.
+  Check out the %startLink1%API documentation</a> and our %startLink2%GitHub repository</a> for examples.
+  Use the secret value in the header as <code>X-API-KEY: secret</code>. <b>Keep your secret safe!</b> Other people can use it to change everything in your tournament. If you use the API key for example for displaying upcoming matches, use the read only access, which for security reasons only gives you access to GET request.
+  The secret is generated after saving, and it's not possible to change the value.
+
+# Site
+site.title: Website - Settings
+site.tab.title: Website settings
+site.tab.subtitle: Your own tournament website
+site.preview.noSelected: No image selected
+site.page.add: Add a new page
+site.general.tab: General information
+site.general.legend: General information
+site.general.screen: Presentation screen
+site.general.screen.open: Open
+site.pages.tab: Pages
+site.pages.legend: Pages
+site.files.tab: Files
+site.files.legend: Files
+site.files.text: You can link to these files in the content editors, by inserting it as an image or link to a file.
+site.files.fileAddress: File address
+site.files.size: Size
+site.files.delete: Delete
+site.files.noFiles: There are currently no files
+site.advanced.tab: Advanced
+site.advanced.legend: Advanced
+site.images.tab: Images
+site.images.legend: Images
+site.images.frontImage: This image is displayed on the front site of tournia.net. The image can have different widths, depending on device it's displayed (try out resizing the %linkStart%index page%linkEnd%). You can preview below how the image looks when you change the position.
+site.images.headerBackgroundImage: This is the background image for header of tournament site. You can preview below how the image looks when you change the position.
+site.images.infoBlockImage: This image is displayed on top of the info block (option for specific pages) on the right of a page.
+site.images.facebookImage: This thumbnail image is displayed when posting a link on Facebook.
+site.images.upload: You can select your own image after %linkStart%uploading%linkEnd% it.
+site.images.desktoplarge: Desktop large
+site.images.desktopsmall: Desktop small
+site.images.tablet: Tablet
+site.images.mobile: Mobile
+site.images.preview: Preview
+
+# Tournament
+tournament.title: Tournament - Settings
+tournament.tab.title: Tournament settings
+tournament.tab.subtitle: All settings for running your tournament
+tournament.status.add: Add a status
+tournament.status.formFields: Add a new field
+tournament.general.tab: General information
+tournament.general.legend: General tournament information
+tournament.registration.tab: Registration options
+tournament.registration.status: Registration status
+tournament.registration.groups: Groups
+tournament.registration.formFields: Registration form fields
+tournament.registration.email: Email registration changes
+tournament.tournament.tab: Tournament
+tournament.tournament.legend: Tournament
+tournament.delete.confirm: Are you sure you want to delete this tournament?\nThis will delete your entire tournament and can not be undone!
+tournament.delete.btn: Delete tournament
+
+# General
+save: Save
+
+# Base
+base.website: Website
+base.tournament: Tournament
+base.disciplines: Disciplines
+base.financial: Financial
+base.organizers: Organizers
+base.authorizations: Authorizations
+base.api: API
+base.goOnline: Go LIVE
+base.preview: Preview
+base.control: Control
+
+# DisciplinesType
+disciplinesType.disciplineTypes.label: Discipline type
+disciplinesType.disciplines.label: Discipline
+
+# DisciplineType
+disciplineType.name.label: Name
+disciplineType.gender.label: Gender
+disciplineType.gender.male: Male
+disciplineType.gender.female: Female
+disciplineType.gender.both: Both (mixed)
+disciplineType.disciplineType.label: Discipline type
+disciplineType.isHidden.label: Hidden
+disciplineType.isHidden.info: If checked, this discipline is hidden for registrations. This is useful when the discipline can't be deleted, because it's used.
+
+# DisciplineTypeType
+disciplineTypeType.name.label: Name
+disciplineTypeType.partnerRegistration.label: Partner registration
+disciplineTypeType.partnerRegistration.info: Enable partner registration for disciplines.
+
+# FinancialProductType
+financialProductType.name.label: Name
+financialProductType.description.label: Description
+financialProductType.isHidden.label: Hidden
+financialProductType.isHidden.info: If checked, this product is hidden. This is useful when the product can't be deleted, because it has been bought.
+financialProductType.initiallySelected.label: Initially selected
+financialProductType.initiallySelected.info: If checked, this product is initially selected when a player registers for the tournament. We can't force a player to purchase this product, but this makes it a bit easier.
+
+# FinancialType
+financialType.products.label: Products
+financialType.product.label: Product
+financialType.paymentCurrency.label: Currency
+financialType.paymentCurrency.currency.eur: Euro
+financialType.paymentCurrency.currency.gbp: GBP
+financialType.paymentCurrency.currency.nok: Norwegian Krone
+financialType.paymentUpdateStatus.label: Automatically update status on new payment
+financialType.paymentUpdateFromStatus.label: From status
+financialType.paymentUpdateToStatus.label: To status
+financialType.financialPayoutBankAccount.label: IBAN bank account for payout
+financialType.financialPayoutBankAccount.info: The outstanding amount will be transferred to this bank account. Make sure it's correct.
+financialType.financialPayoutPaypalEmail.label: Email address for PayPal payout
+financialType.financialPayoutPaypalEmail.info: The outstanding amount will be transferred to the PayPal account on this email address. Make sure it's correct.
+financialType.financialPayoutPaypalEmail.formComment: Because you have another currency than euros, we prefer to transfer the outstanding amount to a PayPal account. Please keep in mind that PayPal charges 0,5% transfer fees. Please contact us to discuss other transfer options.
+financialType.financialMethod.free: This tournament is free of charge.
+financialType.financialMethod.invoice: This tournament is charging money for participation, but we don't want Tournia to handle payments.
+financialType.financialMethod.payments: This tournament is charging money for participation, and we would like to offer participants the option to pay via Tournia.
+financialType.financialMethod.label: Payments
+financialType.financialMethod.formComment: You can change this later.
+financialType.organizationPaysServiceFee.no: Player pays the service fee
+financialType.organizationPaysServiceFee.yes: Tournament organization pays the service fee
+financialType.organizationPaysServiceFee.label: Service fee
+financialType.organizationPaysServiceFee.formComment: You can decide to pay for the service fee of the player.
+
+# OrganizerPersonType
+organizerPersonType.email.label: Email address
+
+# RegistrationFormFieldType
+registrationFormFieldType.name.label: Name
+registrationFormFieldType.infoText.label: Information text
+registrationFormFieldType.formComment.label: Extra text
+registrationFormFieldType.isRequired.label: Required
+registrationFormFieldType.isHidden.label: Hidden
+registrationFormFieldType.isHidden.info: If checked, this form field is hidden for new registrations. This is useful when the form field can't be deleted, because it's used.
+registrationFormFieldType.type.info: Form type
+registrationFormFieldType.type.choices.text: Text
+registrationFormFieldType.type.choices.textarea: Text box
+registrationFormFieldType.type.choices.checkbox: True or False
+registrationFormFieldType.type.choices.choice: Choice
+registrationFormFieldType.choiceExpanded.label: Choice selection
+registrationFormFieldType.choiceExpanded.choices.dropdown: Drop down selection list
+registrationFormFieldType.choiceExpanded.choices.radio: Radio box selection
+registrationFormFieldType.choiceOptions.label: Choice options
+registrationFormFieldType.choiceOptions.name: Name
+registrationFormFieldType.formOptions.label: Choice selection
+registrationFormFieldType.formOptions.choices.dropdown: Drop down selection list
+registrationFormFieldType.formOptions.choices.radio: Radio box selection
+
+# SitePageType
+sitePageType.title.label: Name
+sitePageType.title.info: Title will be shown in the navigation and browser name
+sitePageType.url.label: Url
+sitePageType.url.info: The last part of the internet address for this page
+sitePageType.showInfoBlock.label: Show info block
+sitePageType.showInfoBlock.info: Whether to display contact information and statistics on this page
+sitePageType.html.label: Content
+
+# SiteType
+sitePageType.locationAddress.label: Location address
+sitePageType.htmlTitle.label: Title
+sitePageType.htmlTitle.info: Main text in the header bar (can include html-code)
+sitePageType.htmlSubtitle.label: Subtitle
+sitePageType.htmlSubtitle.info: Text in the header bar under the main title (can include html-code)
+sitePageType.upload.label: Upload new file
+sitePageType.sitePages.label: Website pages
+sitePageType.sitePages.options.label: Field information
+sitePageType.metaKeywords.label: Meta keywords
+sitePageType.metaKeywords.info: Keywords are used by search engines (e.g. Google) and describe your tournament website. Words are comma separated.
+sitePageType.metaDescription.label: Meta description
+sitePageType.metaDescription.info: One or two sentences that describe your tournament website for search engines (e.g. Google).
+sitePageType.isPublished.label: Site online?
+sitePageType.isPublished.info: Is this tournament website visible online?
+sitePageType.choices.closed: Closed
+sitePageType.choices.open: Open
+sitePageType.choices.allowed: Allowed
+sitePageType.choices.notallowed: Not allowed
+sitePageType.position.lefttop: Left top
+sitePageType.position.leftcenter: Left center
+sitePageType.position.leftbottom: Left bottom
+sitePageType.position.centertop: Center top
+sitePageType.position.centercenter: Center center
+sitePageType.position.centerbottom: Center bottom
+sitePageType.position.righttop: Right top
+sitePageType.position.rightcenter: Right center
+sitePageType.position.rightbottom: Right bottom
+sitePageType.position.label: Position
+sitePageType.image.label: Image
+sitePageType.frontImage.emptyvalue: Default background
+sitePageType.headerBackgroundImage.emptyvalue: Default background
+sitePageType.infoBlockImage.emptyvalue: None
+sitePageType.facebookImage.emptyvalue: None
+sitePageType.editImage.frontImage: Front image
+sitePageType.editImage.headerBackgroundImage: Site header image
+sitePageType.editImage.infoBlockImage: Site block image
+sitePageType.editImage.facebookImage: Facebook image
+
+# CreateTournamentType
+createTournamentType.copyTournament.label: Copy tournament
+createTournamentType.copyTournament.placeholder: New tournament
+createTournamentType.copyTournament.formComment: You organized a tournament before, do you want to copy these settings?
+createTournamentType.name.label: Tournament name
+createTournamentType.name.placeholder: For example ISBT Olympia
+createTournamentType.tournamentUrl.label: Tournament URL
+createTournamentType.tournamentUrl.placeholder: For example olympia2015
+createTournamentType.tournamentUrl.info: This will be the location for your tournament website: www.tournia.net/url
+createTournamentType.emailFrom.label: Email address organization
+createTournamentType.emailFrom.info: Email address of the organization for players with questions
+createTournamentType.contactName.label: Contact name
+createTournamentType.contactName.info: Name of the organization used as the addressee when sending emails
+createTournamentType.registrationGroupEnabled.label: Use groups
+createTournamentType.registrationGroupEnabled.info: Make it possible for players to register in a group. This also enables pages to show players from the same group.
+createTournamentType.paymentCurrency.label: Currency
+createTournamentType.paymentCurrency.currency.eur: Euro
+createTournamentType.paymentCurrency.currency.gbp: GBP
+createTournamentType.paymentCurrency.currency.nok: Norwegian Krone
+createTournamentType.url.notUnique: This tournament url is already used
+
+createTournamentType.sport.badminton: Badminton
+createTournamentType.sport.tennis: Tennis
+createTournamentType.sport.other: Other
+createTournamentType.sport.label: Sport
+createTournamentType.sport.formComment: Select the sport the tournament is for. This is used to automatically set the correct rules of matches, but you can also set this manually by selecting Other sport.
+createTournamentType.financialEnabled.label: Use payments
+createTournamentType.locationAddress.info: This address is used to display where the tournament is held.
+createTournamentType.financialPayoutBankAccount.formComment: The money from registrations will be transferred to this account. Please make sure it's correct. We won't take money from this account, and it's not necessary to fill this in now.
+createTournamentType.financialPayoutPaypalEmail.formComment: Because you're not using euros, the only payment option offered is PayPal. The money from registrations will be transferred to this PayPal account. Please make sure it's correct. We won't take money from this account, and it's not necessary to fill this in now.
+
+# AuthorizationType
+authorizationType.choice.allowed: Allowed
+authorizationType.choice.notAllowed: Not allowed
+authorizationType.choice.dateSpecific: Date specific
+
+# ApiType
+apiKeyType.name.label: Name
+apiKeyType.writeAccess.label: Access
+apiKeyType.writeAccess.read: Read only
+apiKeyType.writeAccess.readWrite: Read & Write
+apiKeyType.secret.label: Secret
+apiKeyType.secret.empty: Will be filled when saved
+
+# TournamentType
+tournamentType.url.label: Url
+tournamentType.url.info: This will be the location for your tournament website: www.tournia.net/url
+tournamentType.emailFrom.label: Email address from
+tournamentType.contactName.label: Contact name
+tournamentType.organizationEmailOnChange.label: Email address to receive registration changes
+tournamentType.organizationEmailOnChange.info: Optional. Players receive an email when changes have been made to the registration. Enter an email address here to receive a (BCC) copy of this email.
+tournamentType.registrationGroupEnabled.label: Use groups
+tournamentType.registrationGroupEnabled.info: Make it possible for players to register in a group. This also enables pages to show players from the same group.
+tournamentType.registrationGroupRequired.label: Require group
+tournamentType.registrationGroupRequired.info: Oblige player to register in a group.
+tournamentType.newPlayerStatus.label: Status for new player
+tournamentType.statusOptions.label: Status options
+tournamentType.statusOptions.options.label: Name
+tournamentType.registrationFormFields.label: Registration form fields
+tournamentType.registrationFormFields.options.label: Field information
+tournamentType.nrSets.label: Number of sets playing
+tournamentType.startDateTime.label: Start of tournament
+tournamentType.startDateTime.info: Start date of the tournament.
+tournamentType.endDateTime.label: End of tournament
+tournamentType.endDateTime.info: End date of the tournament.
+tournamentType.checkScoreMin.label: Minimum score
+tournamentType.checkScoreMin.info: When entering a score, the score should be at least this number. Leave empty to prevent checking.
+tournamentType.checkScoreMax.label: Maximum score
+tournamentType.checkScoreMax.info: When entering a score, the score should be at most this number. Leave empty to prevent checking.
+tournamentType.maxRegistrationDisciplines.label: Max disciplines
+tournamentType.maxRegistrationDisciplines.formComment: Limit the number of disciplines for which a player can register
+tournamentType.maxRegistrationDisciplines.noLimit: No limit
+
+
+# Flash messages
+flash.form.error: There is some information missing in the form
+flash.createTournament.success: Great, your tournament has been created! This page is the your settings page. Here you can configure your tournament all over and make it just like you want it. Don't forget to push the GO LIVE button when you're ready. Enjoy!
+flash.discipline.delete.error: Discipline %name% could not be deleted because some player(s) are registered in it. However, you can hide it.
+flash.disciplineType.delete.error: Discipline type %name% could not be deleted because there are disciplines using it.
+flash.discipline.saved: Discipline settings updated
+flash.product.delete.error: Product %name% could not be deleted because it has been bought. However, you can hide it.
+flash.financial.saved: Financial settings updated
+flash.api.saved: API settings updated
+flash.organizers.hasaccess: %email% already has access to the tournament
+flash.organizers.added: %email% has now access to the tournament
+flash.organizers.saved: Organizers updated
+flash.authorizations.saved: Authorizations updated
+flash.site.saved: Website settings updated
+flash.file.deleted: File deleted
+flash.site.published: Your tournament site is now online!
+flash.registrationFormField.delete.error: Registration form field %name% could not be deleted because it is used by a player. However, you can hide it.
+flash.tournament.saved: Tournament settings updated
+flash.tournament.delete.error: There are players in this tournament that needs to be deleted first
+flash.tournament.deleted: Tournament deleted
+
+

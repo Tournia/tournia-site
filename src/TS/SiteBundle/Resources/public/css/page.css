@@ -1,0 +1,52 @@
+/* Tournament sidebar
+-------------------------------------------------- */
+
+#infoBlock {
+	padding-right: 0px;
+}
+
+.sidebar {
+	background: #fff;
+	margin-left: 0;
+	border-radius: 4px;
+	box-shadow: 0 1px 3px 1px #E0E0E0;
+	border: 1px solid #eee;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+.sidebar .img {
+	position: relative;
+}
+.sidebar .img .date {
+	background: #E8554E;
+	position: absolute;
+	padding: 2px 3px;
+	top: 0;
+	left: 11px;
+}
+.sidebar .img .date p {
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+	font-style: italic;
+	margin: 0;
+}
+.sidebar .img img {
+	min-height: 120px;
+}
+.sidebar .map #mapCanvas {
+	height: 120px;
+}
+.sidebar .text {
+	margin: 18px auto 0;
+	width: 83%;
+}
+
+.sidebar .table-stats td {
+	border: none;
+	padding: 4px;
+}
+.sidebar .table-stats td a {
+	font-weight: bold;
+}
+

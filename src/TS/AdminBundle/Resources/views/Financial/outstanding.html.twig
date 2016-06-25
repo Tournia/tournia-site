@@ -1,0 +1,36 @@
+{% extends "TSAdminBundle::baseAdmin.html.twig" %}
+
+{% block title "Financial Admin" %}
+
+{% block content %}
+    {{ parent() }}
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Outstanding</h2>
+                <table class="table table-hover table-striped ajaxDataTable">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tournament</th>
+                        <th>Outstanding</th>
+                        <th>Create pay-out</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for tournament in outstandingTournaments %}
+                        <tr>
+                            <td>{{ tournament.0.id }}</td>
+                            <td>{{ tournament.0.name }}</td>
+                            <td>{{ tournament.0.paymentCurrency }} {{ (tournament.outstandingAmount/100)|number_format(2, ',', '.') }}</td>
+                            <td>
+                                <a href="{{ path('admin_financial_payout_create', {'tournamentId': tournament.0.id}) }}"><i class="fa fa-plus"></i> Create pay-out</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+{%  endblock %}
+

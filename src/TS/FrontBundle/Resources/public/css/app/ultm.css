@@ -1,0 +1,191 @@
+
+.ultm {
+	display: inline-block;
+	margin: 5px;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.ultm-32 {
+	width: 32px;
+	height: 32px;
+}
+
+/* Square */
+.ultm-32.ultm-square {
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+
+/* Circle */
+.ultm-32.ultm-circle {
+	-moz-border-radius: 26px;
+	-webkit-border-radius: 26px;
+	border-radius: 26px;
+}
+
+
+/* Gray to colored on hover */
+.ultm-gray-to-color {
+	background-color: #888;
+	-o-transition: all .2s;
+	-moz-transition: all .2s;
+	-webkit-transition: all .2s;
+	-ms-transition: all .2s;
+	transition: all .2s;
+}
+
+/* Colored to gray on hover */
+.ultm-color-to-gray {
+	-o-transition: all .2s;
+	-moz-transition: all .2s;
+	-webkit-transition: all .2s;
+	-ms-transition: all .2s;
+	transition: all .2s;
+}
+
+.ultm-color-to-gray:hover {
+	background-color: #888;
+}
+
+
+.ultm-twitter, 
+.ultm-twitter.ultm-gray-to-color:hover { background-color: #54c1de; }
+
+.ultm-rss, 
+.ultm-rss.ultm-gray-to-color:hover { background-color: #fcba55; }
+
+.ultm-facebook, 
+.ultm-facebook.ultm-gray-to-color:hover { background-color: #6686b7; }
+
+.ultm-dribbble, 
+.ultm-dribbble.ultm-gray-to-color:hover { background-color: #f5a1bb; }
+
+.ultm-vimeo, 
+.ultm-vimeo.ultm-gray-to-color:hover { background-color: #4bbae0; }
+
+.ultm-pinterest, 
+.ultm-pinterest.ultm-gray-to-color:hover { background-color: #ff5e63; }
+
+.ultm-instagram-1, 
+.ultm-instagram-1.ultm-gray-to-color:hover { background-color: #527fa4; }
+
+.ultm-linkedin, 
+.ultm-linkedin.ultm-gray-to-color:hover { background-color: #50a6c1; }
+
+.ultm-youtube-1, 
+.ultm-youtube-1.ultm-gray-to-color:hover { background-color: #ee4442; }
+
+.ultm-skype, 
+.ultm-skype.ultm-gray-to-color:hover { background-color: #3cb0ee; }
+
+.ultm-flickr-2, 
+.ultm-flickr-2.ultm-gray-to-color:hover { background-color: #4c98ff; }
+
+.ultm-myspace-2, 
+.ultm-myspace-2.ultm-gray-to-color:hover { background-color: #30a8ed; }
+
+.ultm-google-plus-1, 
+.ultm-google-plus-1.ultm-gray-to-color:hover { background-color: #e55e4c; }
+
+.ultm-digg-1, 
+.ultm-digg-1.ultm-gray-to-color:hover { background-color: #16acdb; }
+
+.ultm-deviantart, 
+.ultm-deviantart.ultm-gray-to-color:hover { background-color: #6caf7e; }
+
+.ultm-wordpress, 
+.ultm-wordpress.ultm-gray-to-color:hover { background-color: #47a5cf; }
+
+.ultm-github-1, 
+.ultm-github-1.ultm-gray-to-color:hover { background-color: #b3b3b3; }
+
+.ultm-stumbleupon, 
+.ultm-stumbleupon.ultm-gray-to-color:hover { background-color: #ff7144; }
+
+.ultm-behance, 
+.ultm-behance.ultm-gray-to-color:hover { background-color: #2faee1; }
+
+.ultm-tumblr, 
+.ultm-tumblr.ultm-gray-to-color:hover { background-color: #476b89; }
+
+.ultm-feedburner-1, 
+.ultm-feedburner-1.ultm-gray-to-color:hover { background-color: #f5535a; }
+
+.ultm-android, 
+.ultm-android.ultm-gray-to-color:hover { background-color: #a3ca30; }
+
+.ultm-apple, 
+.ultm-apple.ultm-gray-to-color:hover { background-color: #b3b3b3; }
+
+.ultm-email-1, 
+.ultm-email-1.ultm-gray-to-color:hover { background-color: #35c7ed; }
+
+.ultm-blogger, 
+.ultm-blogger.ultm-gray-to-color:hover { background-color: #f39d38; }
+
+
+/* Devices with normal screens */
+.ultm-32.ultm-twitter { background-image: url(ultm-bg-images/20x20/twitter.png); }
+.ultm-32.ultm-rss { background-image: url(ultm-bg-images/20x20/rss.png); }
+.ultm-32.ultm-facebook { background-image: url(ultm-bg-images/20x20/facebook.png); }
+.ultm-32.ultm-dribbble { background-image: url(ultm-bg-images/20x20/dribbble.png); }
+.ultm-32.ultm-vimeo { background-image: url(ultm-bg-images/20x20/vimeo.png); }
+.ultm-32.ultm-pinterest { background-image: url(ultm-bg-images/20x20/pinterest.png); }
+.ultm-32.ultm-instagram-1 { background-image: url(ultm-bg-images/20x20/instagram-1.png); }
+.ultm-32.ultm-linkedin { background-image: url(ultm-bg-images/20x20/linkedin.png); }
+.ultm-32.ultm-youtube-1 { background-image: url(ultm-bg-images/20x20/youtube-1.png); }
+.ultm-32.ultm-skype { background-image: url(ultm-bg-images/20x20/skype.png); }
+.ultm-32.ultm-flickr-2 { background-image: url(ultm-bg-images/20x20/flickr-2.png); }
+.ultm-32.ultm-myspace-2 { background-image: url(ultm-bg-images/20x20/myspace-2.png); }
+.ultm-32.ultm-google-plus-1 { background-image: url(ultm-bg-images/20x20/google-plus-1.png); }
+.ultm-32.ultm-digg-1 { background-image: url(ultm-bg-images/20x20/digg-1.png); }
+.ultm-32.ultm-deviantart { background-image: url(ultm-bg-images/20x20/deviantart.png); }
+.ultm-32.ultm-wordpress { background-image: url(ultm-bg-images/20x20/wordpress.png); }
+.ultm-32.ultm-github-1 { background-image: url(ultm-bg-images/20x20/github-1.png); }
+.ultm-32.ultm-stumbleupon { background-image: url(ultm-bg-images/20x20/stumbleupon.png); }
+.ultm-32.ultm-behance { background-image: url(ultm-bg-images/20x20/behance.png); }
+.ultm-32.ultm-tumblr { background-image: url(ultm-bg-images/20x20/tumblr.png); }
+.ultm-32.ultm-feedburner-1 { background-image: url(ultm-bg-images/20x20/feedburner-1.png); }
+.ultm-32.ultm-android { background-image: url(ultm-bg-images/20x20/android.png); }
+.ultm-32.ultm-apple { background-image: url(ultm-bg-images/20x20/apple.png); }
+.ultm-32.ultm-email-1 { background-image: url(ultm-bg-images/20x20/email-1.png); }
+.ultm-32.ultm-blogger { background-image: url(ultm-bg-images/20x20/blogger.png); }
+
+
+/* Devices with high-resolution screens */
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (-moz-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min-device-pixel-ratio: 1.5) {
+
+	.ultm-32 { background-size: 20px 20px; }
+	
+	.ultm-32.ultm-twitter { background-image: url(ultm-bg-images/40x40/twitter.png); }
+	.ultm-32.ultm-rss { background-image: url(ultm-bg-images/40x40/rss.png); }
+	.ultm-32.ultm-facebook { background-image: url(ultm-bg-images/40x40/facebook.png); }
+	.ultm-32.ultm-dribbble { background-image: url(ultm-bg-images/40x40/dribbble.png); }
+	.ultm-32.ultm-vimeo { background-image: url(ultm-bg-images/40x40/vimeo.png); }
+	.ultm-32.ultm-pinterest { background-image: url(ultm-bg-images/40x40/pinterest.png); }
+	.ultm-32.ultm-instagram-1 { background-image: url(ultm-bg-images/40x40/instagram-1.png); }
+	.ultm-32.ultm-linkedin { background-image: url(ultm-bg-images/40x40/linkedin.png); }
+	.ultm-32.ultm-youtube-1 { background-image: url(ultm-bg-images/40x40/youtube-1.png); }
+	.ultm-32.ultm-skype { background-image: url(ultm-bg-images/40x40/skype.png); }
+	.ultm-32.ultm-flickr-2 { background-image: url(ultm-bg-images/40x40/flickr-2.png); }
+	.ultm-32.ultm-myspace-2 { background-image: url(ultm-bg-images/40x40/myspace-2.png); }
+	.ultm-32.ultm-google-plus-1 { background-image: url(ultm-bg-images/40x40/google-plus-1.png); }
+	.ultm-32.ultm-digg-1 { background-image: url(ultm-bg-images/40x40/digg-1.png); }
+	.ultm-32.ultm-deviantart { background-image: url(ultm-bg-images/40x40/deviantart.png); }
+	.ultm-32.ultm-wordpress { background-image: url(ultm-bg-images/40x40/wordpress.png); }
+	.ultm-32.ultm-github-1 { background-image: url(ultm-bg-images/40x40/github-1.png); }
+	.ultm-32.ultm-stumbleupon { background-image: url(ultm-bg-images/40x40/stumbleupon.png); }
+	.ultm-32.ultm-behance { background-image: url(ultm-bg-images/40x40/behance.png); }
+	.ultm-32.ultm-tumblr { background-image: url(ultm-bg-images/40x40/tumblr.png); }
+	.ultm-32.ultm-feedburner-1 { background-image: url(ultm-bg-images/40x40/feedburner-1.png); }
+	.ultm-32.ultm-android { background-image: url(ultm-bg-images/40x40/android.png); }
+	.ultm-32.ultm-apple { background-image: url(ultm-bg-images/40x40/apple.png); }
+	.ultm-32.ultm-email-1 { background-image: url(ultm-bg-images/40x40/email-1.png); }
+	.ultm-32.ultm-blogger { background-image: url(ultm-bg-images/40x40/blogger.png); }
+	
+}

@@ -1,0 +1,193 @@
+{% trans_default_domain "site" %}
+
+{% if form.registrationFor is defined %}
+var initialRegistrationEmail = $("#{{form.registrationEmail.vars.id}}").val();
+var initialFirstName = $("#{{form.firstName.vars.id}}").val();
+var initialLastName = $("#{{form.lastName.vars.id}}").val();
+var initialGender = $("#{{form.gender.vars.id}} :checked").val();
+	{% if app.user is not empty %}
+	$('#{{form.registrationFor.vars.id}}').change(function() {
+		// if registration is for me, user should not be able to change email address
+		if ($("#{{form.registrationFor.vars.id}} input[type='radio']:checked").val() == 'me') {
+			$("#{{form.registrationEmail.vars.id}} ").attr('disabled', 'disabled');
+			$("#{{form.registrationEmail.vars.id}} ").val('{{ app.user.person.email }}');
+
+            // set initial fields for firstName, lastName and gender
+            $("#{{form.firstName.vars.id}}").val(initialFirstName);
+            $("#{{form.lastName.vars.id}}").val(initialLastName);
+            $("#{{form.gender.vars.id}} [value='"+ initialGender +"']").prop('checked', true);
+		} else {
+			$("#{{form.registrationEmail.vars.id}} ").removeAttr('disabled');
+            $("#{{form.firstName.vars.id}}").val('');
+            $("#{{form.lastName.vars.id}}").val('');
+            $("#{{form.gender.vars.id}} :checked").prop('checked', false);
+			if (initialRegistrationEmail == '{{ app.user.person.email }}') {
+				// user registered "for me" -> show empty email
+				$("#{{form.registrationEmail.vars.id}} ").val('');
+			} else {
+				// user registered "for someone else" -> show initialRegistrationEmail
+				$("#{{form.registrationEmail.vars.id}} ").val(initialRegistrationEmail);
+			}
+		}
+	});
+
+	// initial loading
+	//$('#{{form.registrationFor.vars.id}}').change();
+	if ($("#{{form.registrationFor.vars.id}} input[type='radio']:checked").val() == 'me') {
+		$("#{{form.registrationEmail.vars.id}} ").attr('disabled', 'disabled');
+		$("#{{form.registrationEmail.vars.id}} ").val('{{ app.user.person.email }}');
+	}
+	{% else %}
+	$('#{{form.registrationFor.vars.id}}').closest(".form-group").hide();
+	{% endif %}
+{% endif %}
+
+
+// filter male or female discipline options
+var maleOptions = Array();
+var femaleOptions = Array();
+{% for disciplineType in tournament.disciplineTypes %}
+	maleOptions['{{ disciplineType.id }}'] = Array();
+	femaleOptions['{{ disciplineType.id }}'] = Array();
+{% endfor %}
+{% for discipline in tournament.disciplines if discipline.isHidden == false %}
+    {% if discipline.gender == "M" %}
+        maleOptions['{{ discipline.disciplineType.id }}'][{{ discipline.id }}] = '{{ discipline.name|e|raw }}';
+    {% elseif discipline.gender == "F" %}
+        femaleOptions['{{ discipline.disciplineType.id }}'][{{ discipline.id }}] = '{{ discipline.name|e|raw }}';
+    {% endif %}
+{% endfor %}
+
+function filterGenderDiscipline() {
+	male = $("#{{form.gender.vars.id}} :checked").val() == "M";
+	female = $("#{{form.gender.vars.id}} :checked").val() == "F";
+
+	{% for disciplineType in tournament.disciplineTypes %}
+		checkOptionsDiscipline(male, maleOptions['{{disciplineType.id}}'], $("#player_discipline-{{disciplineType.id}}"));
+		checkOptionsDiscipline(female, femaleOptions['{{disciplineType.id}}'], $("#player_discipline-{{disciplineType.id}}"));
+	{% endfor %}
+
+	limitNrOfRegistrationDisciplines();
+}
+
+function limitNrOfRegistrationDisciplines() {
+    var count = 0;
+    // Count selected disciplines
+	$('[id^=player_discipline-]').each(function() {
+		if ($(this).prop("value") != "") {
+			count++;
+		}
+	});
+
+	$('[id^=player_discipline-]').prop("disabled", false).removeAttr("title");
+
+	// no gender selected -> disable discipline selection
+	if ($("#{{form.gender.vars.id}} :checked").length == 0) {
+		$('[id^=player_discipline-]').prop("disabled", true).prop("title", "{{ 'player.jquery.genderfirst'|trans }}");
+	}
+
+	if (typeof isOrganizer != "undefined" && isOrganizer) {
+		$("#disciplinesOrganizer").show();
+		return; // is organizer -> can have more than maxRegistrationDisciplines disciplines
+	} else {
+		$("#disciplinesOrganizer").hide();
+	}
+
+	{% if tournament.maxRegistrationDisciplines > 0 %}
+    // If >= tournament.maxRegistrationDisciplines disciplines are selected, disable next discipline
+    if(count >= {{ tournament.maxRegistrationDisciplines }}) {
+		$('[id^=player_discipline-]').each(function() {
+			if ($(this).prop("value") == "") {
+				$(this).prop("disabled", true).prop("title", "{{ 'player.jquery.maxDisciplines'|trans({'%maxNr%': tournament.maxRegistrationDisciplines}) }}");
+			}
+		});
+    }
+	{% endif %}
+}
+
+function checkOptionsDiscipline(genderSelected, disciplineList, selectDisciplineObject) {
+	for (var id in disciplineList) {
+		optionInList = selectDisciplineObject.find("option[value='"+ id +"']");
+		if (genderSelected && optionInList.length == 0) {
+			// male/female is selected and not in list -> add it
+			selectDisciplineObject.append('<option value="'+ id +'">'+ disciplineList[id] +'</option>');
+		} else if (!genderSelected && optionInList.length > 0) {
+			// male/female is not selected and in list -> remove it
+			optionInList.remove();
+		}
+	}
+}
+$("#{{form.gender.vars.id}} :radio").on('change', function(e) {
+    filterGenderDiscipline();
+});
+filterGenderDiscipline();
+
+$('[id^=player_discipline-]').on('change', function(e) {
+    limitNrOfRegistrationDisciplines();
+});
+
+// add * to label when field is required
+$("label.required").each(function() {
+	if ($("#"+ $(this).attr('for')).attr('type') == 'radio') {
+		// don't set required star for all radio options
+		return;
+	}
+	$(this).append("*");
+})
+
+$("#{{form.gender.vars.id}} label").before(" ").after(" ");
+
+
+// move restRegistrationFields to tournament panel
+$("#restRegistrationFields [id^=player_discipline-], #restRegistrationFields [id^=player_disciplinePartner-]").each(function() {
+	$("#disciplineFields").append($(this).closest(".form-group"));
+});
+$("#tournamentSpecificRegistrationFields").append($("#restRegistrationFields"));
+$("#restRegistrationFields").show();
+
+// Append typeName to partner field
+$("[id^=player_disciplinePartner-]").each(function() {
+	typeName = $(this).closest(".form-group").prev().find("label").text();
+	partnerLabel = $(this).closest(".form-group").find("label");
+	$(partnerLabel).text($(partnerLabel).text() +' '+ typeName);
+});
+
+//Handle data-toggle tab for formwizard
+$('.wizard-tabs a[data-toggle="tab"], .wizard-step[data-toggle="tab"]').on('click', function (e) {
+    var selectedTab = $(this).attr('href');
+
+    $('.wizard-tabs a').removeClass('active');
+    $('.wizard-tabs').find('a[href="' + selectedTab + '"]').toggleClass('active');
+
+    $("html, body").animate({ scrollTop: $("#playerTabs").offset().top-50 });
+});
+
+$('input, select, textarea').on('change', function (e) {
+    updateSummaryValues();
+});
+
+//Calculate total costs in tab-pane
+$('input, select').on('change', function (e) {
+    tabPane = $(this).closest('.tab-pane');
+    calculateTotalCosts(tabPane);
+});
+
+// create summary fields for registrationFormFields
+calculateTotalCosts($('#financial-panel'));
+updateSummaryValues();
+
+
+// check for all pages with tabs and errors
+$(".tab-content .form-group.has-error").each(function() {
+    // for form elements with errors -> show error in tab
+    tabId = $(this).closest(".tab-pane").attr("id");
+    $(".wizard-tabs [href='#"+ tabId +"']").addClass("formError");
+});
+$(".wizard-tabs .formError").each(function() {
+    $(this).prepend('<i class="fa fa-warning"></i> ');
+});
+if ($(".wizard-tabs .formError").length > 0) {
+    // go to tab with form errors
+    $(".wizard-tabs .formError").first().click();
+}
+

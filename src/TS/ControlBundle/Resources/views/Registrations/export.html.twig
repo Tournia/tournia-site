@@ -1,0 +1,20 @@
+{% trans_default_domain "control" %}
+{% form_theme form 'TSControlBundle::form.html.twig' %}
+
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "export.title"|trans %}
+
+{% block content %}
+{% set content %}
+<form id="exportForm" class="form-horizontal notReplaceLink" action="{{ path('control_export', {'tournamentUrl': tournament.url}) }}" method="post" {{ form_enctype(form) }}>
+	{{ form_errors(form) }}
+	{{ form_rest(form) }}
+	<div class="form-actions">
+		<a class="btn btn-primary" onClick="$('#form_method').val('excel');$('#exportForm').submit();"><i class="fa fa-download"></i> {{ 'export.excel'|trans }}</a>
+		<a class="btn btn-primary" onClick="$('#form_method').val('isbt');$('#exportForm').submit();"><i class="fa fa-download"></i> {{ 'export.isbtOrganizer'|trans }}</a>
+	</div>
+</form>
+{% endset %}
+{{ macro.well(content) }}
+{% endblock %}

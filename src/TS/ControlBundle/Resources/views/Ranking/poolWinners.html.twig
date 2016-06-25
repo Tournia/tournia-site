@@ -1,0 +1,96 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "poolWinners.title"|trans %}
+
+{% block javascript %}
+<script type="text/javascript">
+///// post and receive server messages /////
+// setting commands for refresh of server data
+function getRefreshCommands() {
+	command = {
+		command : 'Rankings.poolWinners',
+		ranks: 2,
+	}
+	return new Array(command);
+}
+
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+	if (commandKey == "Rankings.poolWinners") {
+		$("#rankingTableTemplate").hide();
+		// go through pools
+		$.each(commandResponse, function(key2, poolObject) {
+			// create new template table
+			$("#rankingTableTemplate").after($("#rankingTableTemplate").clone()).attr("id", "pool-"+ poolObject['poolId']);
+			$("#pool-"+ poolObject['poolId'] +" h4").text(poolObject['poolName']);
+			// go through teams and create rows
+			trHtml = "";
+			$.each(poolObject['ranking'], function(key3, teamObject) {
+				trHtml += "<tr>\
+					<td>"+ teamObject['rank'] +"</td>\
+					<td>"+ renderPlayerNames(teamObject['players'], true) +"</td>\
+					<td>"+ teamObject['matchesPlayed'] +"</td>\
+					<td>"+ teamObject['matchesWon'] +"</td>\
+					<td>"+ teamObject['matchesDraw'] +"</td>\
+					<td>"+ teamObject['matchesLost'] +"</td>\
+					<td>"+ teamObject['matchesRelative'] +"</td>\
+					<td>"+ teamObject['setsWon'] +"</td>\
+					<td>"+ teamObject['setsLost'] +"</td>\
+					<td>"+ teamObject['setsRelative'] +"</td>\
+					<td>"+ teamObject['pointsWon'] +"</td>\
+					<td>"+ teamObject['pointsLost'] +"</td>\
+					<td>"+ teamObject['pointsRelative'] +"</td>\
+				</tr>";
+			});
+			$("#pool-"+ poolObject['poolId'] +" table tbody").append(trHtml);
+			$("#pool-"+ poolObject['poolId']).show();
+		});
+		stylePlayerNames(null);
+	}
+}
+
+</script>
+{% endblock %}
+
+{% block jQuery %}
+
+// retrieving initial data from server
+sendServerCommands(true);
+
+{% endblock %}
+
+{% block content %}
+{% set content %}
+<div id="rankingTableTemplate">
+<h4></h4>
+<table class="table table-hover" id="rankingTable">
+	<thead>
+		<tr>
+			<th rowspan="2">{{ 'ranking.table.rank'|trans }}</th>
+			<th rowspan="2">{{ 'ranking.table.player'|trans }}</th>
+			<th colspan="5">{{ 'ranking.table.matches'|trans }}</th>
+			<th colspan="3">{{ 'ranking.table.sets'|trans }}</th>
+			<th colspan="3">{{ 'ranking.table.points'|trans }}</th>
+		</tr>
+		<tr>
+			<th>{{ 'ranking.table.played'|trans }}</th>
+			<th>{{ 'ranking.table.won'|trans }}</th>
+			<th>{{ 'ranking.table.draw'|trans }}</th>
+			<th>{{ 'ranking.table.lost'|trans }}</th>
+			<th><a data-content="{{ 'ranking.table.relative.matches'|trans }}" data-trigger="hover" rel="popover" href="#" onClick="return false;">{{ 'ranking.table.relative'|trans }}</a></th>
+			<th>{{ 'ranking.table.won'|trans }}</th>
+			<th>{{ 'ranking.table.lost'|trans }}</th>
+			<th><a data-content="{{ 'ranking.table.relative.sets'|trans }}" data-trigger="hover" data-placement="left" rel="popover" href="#" onClick="return false;">{{ 'ranking.table.relative'|trans }}</a></th>
+			<th>{{ 'ranking.table.won'|trans }}</th>
+			<th>{{ 'ranking.table.lost'|trans }}</th>
+			<th><a data-content="{{ 'ranking.table.relative.points'|trans }}" data-trigger="hover" data-placement="left" rel="popover" href="#" onClick="return false;">{{ 'ranking.table.relative'|trans }}</a></th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+{% endset %}
+{{ macro.well(content) }}
+
+{% endblock %}

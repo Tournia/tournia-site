@@ -1,0 +1,228 @@
+{% trans_default_domain "financial" %}
+{% form_theme cartForm _self %}
+{% form_theme paymentForm 'TSFrontBundle::form.html.twig' %}
+{% if addItemForm is not empty %}
+    {% form_theme addItemForm 'TSFrontBundle::form.html.twig' %}
+{% endif %}
+{% set siteContentBlockClass = 'block alt' %}
+{% set footerClass = '' %}
+
+{% extends "TSFrontBundle::base.html.twig" %}
+
+{% block title "summary.title"|trans %}
+
+{% block css %}
+
+#{{ paymentForm.method.vars.id }} {
+    height: 100%;
+}
+
+
+{% if paymentForm.data_mollie_ideal is defined %}
+#{{ paymentForm.data_mollie_ideal.vars.id }} {
+    height: 47px;
+}
+{% endif %}
+
+#wellBox {
+    height: 70px;
+}
+{% endblock %}
+
+{% block javascript %}
+    {% if selectUserVatCountry %}
+        <script type="text/javascript" src="https://www.google.com/jsapi?key=AIzaSyAOUh6pRbt-zjyvEJRFrLsPFfXgDqzdq6k"></script>
+        <script type="text/javascript">
+            google.load("maps", "3",  {callback: initialize, other_params:"sensor=false"});
+
+            function initialize() {
+                // If ClientLocation was filled in by the loader, use that info instead
+                if (google.loader.ClientLocation) {
+                    countryCode = google.loader.ClientLocation.address.country_code;
+                    $("#{{ paymentForm.vatCountry.vars.id }}").val(countryCode).trigger("change");
+                }
+            }
+        </script>
+    {% endif %}
+    <script type="text/javascript">
+        function submitPaymentForm() {
+            $("#paymentFormPay").val('true');
+            $("#{{ paymentForm.vatCountry.vars.id }}").closest("form").submit();
+        }
+    </script>
+{% endblock %}
+
+{% block jQuery %}
+
+// layout improvements for checkboxes
+$("#{{ paymentForm.method.vars.id }} label").after("<br />");
+
+// do submit form when payment method or country has changed, so payment fees / VAT can be recalculated
+$("#{{ paymentForm.method.vars.id }} :radio, #{{ paymentForm.vatCountry.vars.id }}").change(function() {
+    $(this).closest("form").submit();
+});
+
+    {% if addItemForm is not empty %}
+        // layout improvements for checkboxes
+        $("#{{ addItemForm.addProduct.vars.id }} label").before(" ").after("<br />");
+        $("#{{ addItemForm.addProduct.vars.id }}").css('height', '100%');
+    {% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div id="tournament" class="block">
+            <div class="container">
+                <div class="row charts">
+                    <div class="col-md-12" id="contentBlock">
+                        <div class="chart" id="siteHeader">
+                            <header>
+                                <h3><span class="fa fa-shopping-cart"></span> {{ 'summary.title'|trans }}</h3>
+                            </header>
+
+                            <main class="row">
+                                <div class="content col-md-12">
+
+                                    {% if cart.empty %}
+                                        <p>{{ 'summary.cart.empty'|trans }}</p>
+                                    {% else %}
+                                        {{ form_errors(cartForm) }}
+
+                                        <form action="{{ path('sylius_cart_save') }}" method="post" novalidate>
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>{{ 'summary.table.player'|trans }}</th>
+                                                    <th>{{ 'summary.table.product'|trans }}</th>
+                                                    <th>{{ 'summary.table.quantity'|trans }}</th>
+                                                    <th></th>
+                                                    <th>{{ 'summary.table.price'|trans }}</th>
+                                                    <th style="text-align: right;">{{ 'summary.table.totPrice'|trans }}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for item in cart.items %}
+                                                    <tr>
+                                                        <td class="col-md-1">{{ loop.index }}</td>
+                                                        <td>
+                                                            {% if item.player is not empty %}
+                                                                {{ item.player.name }}
+                                                            {% else %}
+                                                                -
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>
+                                                            {{ item.product.name }}
+                                                        </td>
+                                                        <td class="col-md-2">
+                                                            {{ form_row(cartForm.items[loop.index0].quantity, {'label': false}) }}
+                                                        </td>
+                                                        <td class="col-md-1">
+                                                            <a href="{{ path('sylius_cart_item_remove', {'id': item.id}) }}" class="btn btn-custom-danger"><i class="fa fa-trash-o"></i> {{ 'summary.cart.remove'|trans }}</a>
+                                                        </td>
+                                                        <td class="col-md-1">
+                                                            {{ item.unitPrice|sylius_price }}
+                                                        </td>
+                                                        <td class="col-md-1" style="text-align: right">
+                                                            {{ item.total|sylius_price }}
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                                <tfoot>
+                                                {% if cart.promotionTotal is defined and cart.promotionTotal %}
+                                                    <tr>
+                                                        <td colspan="7" style="text-align: right;">
+                                                            <strong>{{ 'sylius.order.promotion_total'|trans }}</strong>: {{ cart.promotionTotal|sylius_price }}
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                                {% for adjustment in cart.adjustments %}
+                                                <tr>
+                                                    <td colspan="7" style="text-align: right;">
+                                                        <strong>{{ adjustment.label }}</strong> <span class="fa fa-info-circle infoIcon" data-toggle="popover" data-content="{{ adjustment.description }}"></span> : {{ adjustment.amount|sylius_price }}
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                                <tr>
+                                                    <td colspan="7" style="text-align: right;">
+                                                        <strong>{{ 'summary.cart.total'|trans }}</strong>: {{ cart.total|sylius_price }}
+                                                    </td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+
+                                            {{ form_rest(cartForm) }}
+                                            <div class="well" id="wellBox">
+                                                <div class="pull-left">
+                                                    <a href="{{ path('sylius_cart_clear') }}" class="btn btn-custom-danger"><i class="fa fa-times"></i> {{ 'summary.cart.clear'|trans }}</a>
+                                                </div>
+                                                <div class="pull-right">
+                                                    {#<a href="{{ path('sylius_checkout_start') }}" class="btn btn-custom-green btn-lg"><i class="icon-shopping-cart"></i> {{ 'sylius.cart.summary.checkout'|trans }}</a>#}
+                                                    <button type="submit" class="btn btn-custom-primary"><i class="fa fa-save"></i> {{ 'summary.cart.save'|trans }}</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    {% endif %}
+
+                                    {% if addItemForm is not empty %}
+                                        <div class="panel panel-success">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">{{ 'summary.addItem.title'|trans }}</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                {{ 'summary.addItem.text'|trans }}
+                                                <form class="form-horizontal" action="{{ path('sylius_cart_summary', {'tournament': addItemTournament.url}) }}" method="post" {{ form_enctype(addItemForm) }} role="form">
+                                                    {{ form_errors(addItemForm) }}
+
+                                                    {{ form_row(addItemForm.player) }}
+                                                    {{ form_row(addItemForm.addProduct) }}
+
+                                                    {{ form_rest(addItemForm) }}
+
+                                                    <input type="hidden" name="addItemFormSubmit" value="true" />
+                                                    <button type="submit" class="btn btn-custom-primary pull-right"><i class="fa fa-plus"></i> {{ 'summary.addItem.submit'|trans }}</button>
+                                                    {{ form_end(addItemForm) }}
+                                                </form>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if not cart.empty %}
+                                        <form id="paymentForm" class="form-horizontal" action="{{ path('sylius_cart_summary') }}" method="post" {{ form_enctype(paymentForm) }} role="form">
+                                            <fieldset>
+                                                <legend>{{ 'summary.payment.legend'|trans }}</legend>
+                                                {{ form_errors(paymentForm) }}
+                                                <div style="display: none">
+                                                    {{ form(paymentForm.data_test_payment) }}
+                                                    {{ form(paymentForm.data_paypal_express_checkout) }}
+                                                </div>
+                                                {{ form_row(paymentForm.method) }}
+                                                {{ form_row(paymentForm.vatCountry) }}
+                                                {{ form_row(paymentForm.conditions) }}
+                                                {{ form_rest(paymentForm) }}
+                                                <input type="hidden" name="paymentFormPay" value="" id="paymentFormPay" />
+                                                <div class="form-actions text-center">
+                                                    <button type="button" class="btn btn-custom-green btn-lg" onClick="submitPaymentForm()"><i class="fa fa-angle-double-right"></i> {{ 'summary.payment.submit'|trans }}</button>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    {% endif %}
+                                        <br /><br />
+                                    </div>
+                                </div>
+                            </main>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{%  endblock %}
+
+{% block sylius_cart_item_row %}
+    {% block form_message %}{% endblock %}
+{% endblock %}

@@ -1,0 +1,97 @@
+{% trans_default_domain "control" %}
+{% import 'TSControlBundle::macro.html.twig' as macro %}
+
+{% if title is defined %}
+<div id="pageTitle">
+    {{ title }}
+</div>
+{% endif %}
+
+{% block stylesheet %}{% endblock %}
+<style type="text/css">
+    {% block css %}{% endblock %}
+</style>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+
+    <!-- row -->
+    <div class="row">
+
+        <!-- NEW WIDGET START -->
+        <article class="col-sm-12">
+
+        {% if error is defined %}
+            {% if error %}
+            <div class="alert alert-danger fade in">
+                <button class="close" data-dismiss="alert">
+                    ×
+                </button>
+                <i class="fa-fw fa fa-times"></i>
+                <strong>{{ 'general.error'|trans }}:</strong> {{ error.message }}
+            </div>
+            {% endif %}
+        {% endif %}
+
+
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-success fade in">
+                <button class="close" data-dismiss="alert">
+                    ×
+                </button>
+                <i class="fa-fw fa fa-check"></i>
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('info') %}
+            <div class="alert alert-info fade in">
+                <button class="close" data-dismiss="alert">
+                    ×
+                </button>
+                <i class="fa-fw fa fa-info-circle"></i>
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger fade in">
+                <button class="close" data-dismiss="alert">
+                    ×
+                </button>
+                <i class="fa-fw fa fa-times"></i>
+                <strong>{{ 'general.error'|trans }}</strong>: {{ flashMessage }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('warning') %}
+            <div class="alert alert-warning fade in">
+                <button class="close" data-dismiss="alert">
+                    ×
+                </button>
+                <i class="fa-fw fa fa-warning"></i>
+                <strong>{{ 'general.warning'|trans }}</strong>: {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        </article>
+        <!-- WIDGET END -->
+
+    </div>
+
+    <!-- end row -->
+    
+    
+    <div class="row">
+        {% block content %}{% endblock %}
+    </div>
+</section>
+
+{% block javascript %}
+{% endblock %}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        afterPageLoad(false);
+        {% block jQuery %}
+        {% endblock %}
+    });
+
+</script>

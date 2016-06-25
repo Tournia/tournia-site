@@ -1,0 +1,126 @@
+tournament_index:
+    path: /
+    defaults: {_controller: TSSiteBundle:Page:index}
+
+player_overview:
+    path: /players
+    defaults: {_controller: TSSiteBundle:Player:overview}
+player_create:
+    path: /player/create
+    defaults: {_controller: TSSiteBundle:Player:create }
+    schemes:  [%httpProtocol%]
+player_edit:
+    path: /player/{playerId}
+    defaults: {_controller: TSSiteBundle:Player:edit}
+    schemes:  [%httpProtocol%]
+player_delete:
+    path: /player/delete/{playerId}
+    defaults: {_controller: TSSiteBundle:Player:delete }
+
+group_overview:
+    path: /groups
+    defaults: {_controller: TSSiteBundle:Group:overview }
+group_create:
+    path: /group/create.html
+    defaults: {_controller: TSSiteBundle:Group:create }
+group_edit:
+    path: /group/{groupId}
+    defaults: {_controller: TSSiteBundle:Group:edit }
+group_delete:
+    path: /group/delete/{groupId}
+    defaults: {_controller: TSSiteBundle:Group:delete }
+
+live_index:
+    path: /live
+    defaults: {_controller: TSSiteBundle:Live:index }
+live_overview:
+    pattern:  /live/overview
+    defaults: { _controller: TSSiteBundle:Live:overview }
+live_current_matches:
+    pattern:  /live/currentmatches
+    defaults: { _controller: TSSiteBundle:Live:currentMatches }
+live_upcoming_matches:
+    pattern:  /live/upcomingmatches
+    defaults: { _controller: TSSiteBundle:Live:upcomingMatches }
+live_all_matches:
+    pattern:  /live/allmatches
+    defaults: { _controller: TSSiteBundle:Live:allMatches }
+live_ranking_pool:
+    pattern:  /live/ranking/pool
+    defaults: { _controller: TSSiteBundle:Live:rankingPool }
+live_ranking_players:
+    pattern:  /live/ranking/players
+    defaults: { _controller: TSSiteBundle:Live:rankingPlayers }
+live_ranking_groups:
+    pattern:  /live/ranking/groups
+    defaults: { _controller: TSSiteBundle:Live:rankingGroups }
+live_player:
+    pattern:  /live/player
+    defaults: { _controller: TSSiteBundle:Live:player }
+    options:
+        expose: true
+live_ajax:
+    pattern: /live.json
+    defaults: { _controller: TSSiteBundle:Live:ajax, _format:json }
+    requirements: { _format:(json), _method: POST }
+
+# redirects to avoid a lot of annoying errors from search enginges
+site_redirect1:
+    pattern:  /player
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: player_overview
+        permanent: true
+site_redirect3:
+    pattern:  /team
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: group_overview
+        permanent: true
+site_redirect4:
+    pattern:  /player.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: player_overview
+        permanent: true
+site_redirect5:
+    pattern:  /team.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: group_overview
+        permanent: true
+site_redirect6:
+    pattern:  /live/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: live_index
+        permanent: true
+site_redirect7:
+    pattern:  /players.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: player_overview
+        permanent: true
+site_redirect8:
+    pattern:  /player/create.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: player_create
+        permanent: true
+site_redirect9:
+    pattern:  /groups.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: group_overview
+        permanent: true
+site_redirect10:
+    pattern:  /group/create.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: group_create
+        permanent: true
+
+# Specific website page
+website_page:
+    pattern: /{page}
+    defaults: { _controller: TSSiteBundle:Page:page }

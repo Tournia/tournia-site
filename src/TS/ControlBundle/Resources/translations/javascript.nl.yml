@@ -1,0 +1,13 @@
+matchModal.create.title: Nieuwe wedstrijd
+matchModal.create.submit: Toevoegen
+matchModal.edit.title: Wedstrijd wijzigen
+matchModal.edit.submit: Opslaan
+matchModal.noScore: Geen stand ingevuld
+
+page.loading: Laden...
+page.error: Fout
+nonready.reason: Reden
+
+teams.registeredNotInPool: "{1} Er is een speler die is geregistreerd, maar niet in deze poule speelt. Je kan deze speler %startLink%toevoegen%endLink%.|]1,Inf] Er zijn %nrPlayers% spelers die hebben geregistreerd, maar niet in deze poule spelen. Je kan deze spelers %startLink%toevoegen%endLink%."
+
+

@@ -1,0 +1,48 @@
+{% trans_default_domain "site" %}
+{% form_theme form 'TSFrontBundle::form.html.twig' %}
+
+{% extends "TSSiteBundle::base.html.twig" %}
+
+{% set pageClass = "subscribe" %}
+{% set showInfoBlock = true %}
+{% set useDefaultFlashbagNotifications = false %}
+{% set new = player.id is null %}
+
+{% block title %}
+{% if new %}
+    {{ 'playeredit.title.new'|trans }}
+{% else %}
+    {{ 'playeredit.title.change'|trans }}
+{% endif %}
+{% endblock %}
+
+{% block jQuery %}
+	var isOrganizer = {% if isOrganizer %}true{% else %}false{% endif %};
+ 	{% include "TSSiteBundle:Player:includeEditJquery.js.twig" %}
+{% endblock %}
+
+{% block javascript %}
+    {% include "TSSiteBundle:Player:includeEditJavascript.js.twig" %}
+{% endblock %}
+
+
+{% block content %}
+{{ macros.flashbagNotifications(useDefaultFlashbagNotifications, 'col-md-12') }}
+<div id="playerForm">
+    <h3 class="page-title"><span class="glyphicon glyphicon-pencil"></span> {% if new %}{{ 'playeredit.title2.new'|trans }}{% else %}{{ 'playeredit.title2.change'|trans }}{% endif %}</h3>
+
+
+    <form class="form-horizontal" role="form" action="{% if new %}{{ path('player_create', {'tournamentUrl': tournament.url, 'anonymous': anonymous}) }}{% else %}{{ path('player_edit', {'tournamentUrl': tournament.url, 'playerId':player.id}) }}{% endif %}" method="post" {{ form_enctype(form) }}>
+        {% include "TSSiteBundle:Player:includeEditForm.html.twig" %}
+    </form>
+
+    {#
+    <div class="form-actions">
+					<button type="submit" class="btn btn-primary">{% trans %}Save{% endtrans %}</button>
+					<a href="{{ path('player_overview', {'tournamentUrl':tournament.url}) }}" class="btn btn-default">{% trans %}Cancel{% endtrans %}</a>
+
+					{% if not new and is_granted("DELETE", player) %}<a href="{{ path('player_delete', {'tournamentUrl':tournament.url, 'playerId': player.id}) }}" onClick="return confirm('{% trans %}Are you sure you want to delete this player?{% endtrans %}');" class="btn btn-danger pull-right"><i class="fa fa-trash-o"></i> {% trans %}Delete player{% endtrans %}</button></a>{% endif %}
+				</div>
+    #}
+</div>
+{% endblock %}

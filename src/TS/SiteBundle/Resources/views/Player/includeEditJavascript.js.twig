@@ -1,0 +1,184 @@
+{% trans_default_domain "site" %}
+<script type="text/javascript">
+
+    /*
+     * Update summary fields, every time user changes a value
+     */
+    function updateSummaryValues() {
+        name = $("#{{form.firstName.vars.id}}").val() +" "+ $("#{{form.lastName.vars.id}}").val();
+        $("#summaryValueName").text(name);
+
+        gender = "";
+        if ($("#{{form.gender.vars.id}} input:checked").val() == "M") {
+            gender = "{{ 'player.javascript.male'|trans }}";
+        }
+        if ($("#{{form.gender.vars.id}} input:checked").val() == "F") {
+            gender = "{{ 'player.javascript.female'|trans }}";
+        }
+        $("#summaryValueGender").text(gender);
+        $("#summaryValueEmail").text($("#{% if form.registrationEmail is defined %}{{form.registrationEmail.vars.id}}{% else %}{{form.newPersonEmail.vars.id}}{% endif %}").val());
+        {% if form.registrationEmail is defined and app.user is not empty %}
+        if ($("#{{form.registrationEmail.vars.id}}").prop('disabled')) {
+            $("#summaryValueEmail").text('{{ app.user.person.email }}');
+        }
+        {% elseif form.newPersonEmail is defined and player.person != null %}
+        if ($("#{{form.newPersonEmail.vars.id}}").val() == '') {
+            $("#summaryValueEmail").text('{{ player.person.email }}');
+        }
+        {% endif %}
+
+        {% if form.registrationGroup is defined %}
+        $("#summaryValueGroup").text($("#{{form.registrationGroup.vars.id}} option:selected").text());
+        {% endif %}
+
+        disciplinesTxt = '';
+        $('[id^=player_discipline-] option:selected').each(function() {
+            if ($(this).val() != '') {
+                disciplinesTxt += '<p class="form-control-static">'+ $(this).text() +'</p>';
+            }
+        });
+        $("#summaryValueDisciplines").html(disciplinesTxt);
+
+        // show values of RegistrationFormFields
+        $("#summaryValueFormFields").html('');
+        $("#tournamentSpecificRegistrationFields .form-group").each(function() {
+            formField = $(this).find("input, select, textarea").first();
+            fieldValue = $(formField).val(); // fieldValue is by default for textarea and text in value
+
+            if ($(formField).attr('type') == "checkbox") {
+                // display fancy checkbox in front of value
+                fieldValue = $(formField).prop("checked") ? '<span class="fa fa-check-circle fa-fw"></span> {{ 'player.javascript.yes'|trans }}' : '<span class="fa fa-minus-circle fa-fw"></span> {{ 'player.javascript.no'|trans }}';
+            }
+            if ($(formField).prop('tagName') == "SELECT") {
+                // display selected text
+                fieldValue = $(formField).find(":selected").text();
+            }
+            if ($(formField).attr('type') == "radio") {
+                // display text of only selected radio button
+                selectedRadioId = $(this).find("input:checked").attr('id');
+                fieldValue = $(this).find("label[for="+ selectedRadioId +"]").text();
+            }
+
+            summaryHtml = '' +
+                    '<div class="form-group">' +
+                    '<label for="summaryValue-'+ $(formField).attr('id') +'" class="col-sm-6 control-label">'+ $(this).find("label").first().text() +'</label>' +
+                    '<div class="col-sm-6" id="summaryValue-'+ $(formField).attr('id') +'">' +
+                    '<p class="form-control-static">' +
+                    fieldValue +
+                    '</p>' +
+                    '</div>' +
+                    '</div>';
+
+            $("#summaryValueFormFields").append(summaryHtml);
+        });
+    }
+
+    /**
+     * Calculate the total payment costs, and put this in #paymentTotal
+     * After that, calls updateSummaryFinancial()
+     * @param tabPane only run in a .tab-pane element
+     */
+    function calculateTotalCosts(tabPane) {
+        //Only run if the tab has price nodes
+        if (tabPane.find('.price').length > 0) {
+            var total = 0.00;
+            tabPane.find('.price').each(function () {
+                //Just get the selected prices
+                if ($(this).closest('.form-group').find('input').prop('checked')) {
+                    var amount = parseFloat($(this).find('.priceInCents').text());
+                    total = total + amount;
+                }
+            });
+
+            total = total / 100;
+            total = total.toString().replace(/[.]/g, ",");
+            if (total.indexOf(',') < 0) {
+                total += ',00';
+            }
+            if (total.indexOf(',') == (total.length - 2)) {
+                total += '0';
+            }
+
+            // Write total
+            tabPane.find('#paymentTotal').text(total);
+
+            updateSummaryFinancial();
+        }
+    }
+
+    /**
+     * Update the data in the summary tab, regarding financial information
+     */
+    function updateSummaryFinancial() {
+        //Only run if the tab has price nodes
+        if ($("#newPaymentsFieldset .price").length == 0) {
+            // no available products -> hide in summary
+            $("#summaryCosts").hide();
+        } else {
+            $("#summaryCosts").show();
+            // show financial rows in summaryValueFinancialTable
+            $("#summaryValueFinancialTable").html('');
+            $("#newPaymentsFieldset .form-group").each(function() {
+                if ($(this).find("input[type=checkbox]").prop("checked")) {
+                    // new payment
+                    financialHtml = '' +
+                            '<tr>' +
+                            '   <td class="element">' +
+                            $(this).find('label').text() +
+                            '   </td>' +
+                            '   <td class="price">' +
+                            $(this).find('.price').html() +
+                            '   </td>' +
+                            '</tr>';
+                    $("#summaryValueFinancialTable").append(financialHtml);
+                }
+            });
+            if ($("#summaryValueFinancialTable").html() == '') {
+                // no payments selected
+                $("#summaryValueFinancialTable").append('<tr><td colspan="2">{{ 'player.javascript.nopayments'|trans }}</td></tr>');
+            }
+            financialTotal = '' +
+                    '<tr>' +
+                    '   <td colspan="2" class="price total">' +
+                    '       {{ 'player.javascript.total'|trans }} {{ tournament.paymentCurrency }} '+ $('#paymentTotal').text() +
+                    '   </td>' +
+                    '</tr>';
+            $("#summaryValueFinancialTable").append(financialTotal);
+        }
+    }
+
+
+    // check form and submit. This is necessary, because chrome wants to focus on required input fields that
+    // are not filled in (which is not possible because of the tabs)
+    function checkAndSendForm() {
+        submitForm = true;
+        form = $("#playerTabs").closest("form");
+        /*$(form).find("input[required]").each(function() {
+            // check if this required field has input
+            if ($(this).val() == '') {
+                console.log("input required, no val: "+ $(this).attr('id'));
+            }
+        });*/
+        if ($("#{{ form.conditions.vars.id }}").prop('checked') == false) {
+            alert("{{ 'player.javascript.agreeterms'|trans }}");
+            $("#{{ form.conditions.vars.id }}").focus();
+            submitForm = false;
+        }
+
+        if (submitForm) {
+            {% if form.registrationEmail is defined %}
+                // enable form to submit value
+                $("#{{form.registrationEmail.vars.id}} ").prop('disabled', false);
+            {% endif %}
+
+            if ((typeof isControl != "undefined") && isControl) {
+                postURL($(form).attr("action"), $(form));
+            } else {
+                $(form).submit();
+            }
+        }
+    }
+
+
+
+</script>

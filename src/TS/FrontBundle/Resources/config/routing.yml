@@ -1,0 +1,97 @@
+front_index:
+    pattern:  /index
+    defaults: { _controller: TSFrontBundle:Default:index }
+
+front_all_tournaments:
+    pattern:  /tournaments
+    defaults: { _controller: TSFrontBundle:Default:allTournaments }
+
+front_contact:
+    pattern:  /contact
+    defaults: { _controller: TSFrontBundle:Default:contact }
+
+front_about:
+    pattern:  /about
+    defaults: { _controller: TSFrontBundle:Default:about }
+
+front_privacy_statement:
+    pattern:  /privacy
+    defaults: { _controller: TSFrontBundle:Default:privacyStatement }
+
+front_developers:
+    pattern:  /developers
+    defaults: { _controller: TSFrontBundle:Default:developers }
+
+front_start_tournament:
+    pattern:  /start
+    defaults: { _controller: TSFrontBundle:Default:startTournament }
+
+front_app:
+    pattern:  /app
+    defaults: { _controller: TSFrontBundle:Default:app }
+
+
+# redirects to avoid errors from search enginges
+front_index2:
+    pattern:  /
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: front_index
+        permanent: true
+
+front_redirect1:
+    pattern:  /login
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: account_login
+        permanent: true
+
+front_redirect_sendemail:
+    pattern:  /resetting/send-email
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: front_index
+        permanent: true
+    methods: [GET]
+
+front_redirect2:
+    pattern:  /login.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: account_login
+        permanent: true
+
+front_redirect3:
+    pattern:  /reset.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: account_reset
+        permanent: true
+
+front_redirect4:
+    pattern:  /start.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: front_start_tournament
+        permanent: true
+
+front_redirect5:
+    pattern:  /about.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: front_about
+        permanent: true
+
+front_redirect6:
+    pattern:  /contact.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: front_contact
+        permanent: true
+
+front_redirect7:
+    pattern:  /index.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: front_index
+        permanent: true

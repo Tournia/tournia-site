@@ -1,0 +1,426 @@
+{% trans_default_domain "site" %}
+
+<div class="wizard-tabs" id="playerTabs">
+    <div class="btn-group btn-group-justified no-margin">
+        <a href="#personalia-panel" class="active btn btn-default" data-toggle="tab">
+            <div class="indicator">1</div>
+            {{ 'player.tabs.personalia'|trans }}
+        </a>
+        <a href="#tournament-panel" class="btn btn-default" data-toggle="tab">
+            <div class="indicator">2</div>
+            {{ 'player.tabs.tournament'|trans }}
+        </a>
+        {% if tournament.financialEnabled %}<a href="#financial-panel" class="btn btn-default" data-toggle="tab">
+            <div class="indicator">3</div>
+            {{ 'player.tabs.financial'|trans }}
+        </a>{% endif %}
+        <a href="#summary-panel" class="btn btn-default" data-toggle="tab">
+            <div class="indicator">{% if tournament.financialEnabled %}4{% else %}3{% endif %}</div>
+            {{ 'player.tabs.summary'|trans }}
+        </a>
+    </div>
+</div>
+
+{{ form_errors(form) }}
+
+<div class="tab-content">
+<div class="tab-pane active" id="personalia-panel">
+    <p>* {{ 'player.form.required'|trans }}</p>
+    <fieldset>
+        <legend>{{ 'player.form.contact'|trans }}</legend>
+        {% if form.registrationFor is defined %}{{ form_row(form.registrationFor) }}{% endif %}
+        {% if form.newPersonEmail is defined %}
+            <div class="form-group selected">
+                <label class="col-sm-2 control-label">{{ 'player.form.person'|trans }}</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        {% if player.person == null %}
+                            {{ 'player.form.notset'|trans }}
+                        {% else %}
+                            {{ player.person.name }}{% if player.person.email is not empty %} ({{ player.person.email }}){% endif %}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            {{ form_row(form.newPersonEmail) }}
+        {% elseif form.registrationEmail is defined %}
+            {{ form_row(form.registrationEmail) }}
+        {% endif %}
+    </fieldset>
+    <fieldset>
+        <legend>{{ 'player.form.personal'|trans }}</legend>
+        {{ form_row(form.firstName) }}
+        {{ form_row(form.lastName) }}
+        {{ form_row(form.gender) }}
+    </fieldset>
+    <fieldset>
+        <div class="form-group last">
+            <div class="col-sm-2 col-sm-offset-9 text-right">
+                <a href="#tournament-panel" class="wizard-step btn btn-custom-inverse btn-lg"
+                   data-toggle="tab"><span class="fa fa-chevron-right fa-fw"></span>{{ 'player.form.next'|trans }}</a>
+            </div>
+        </div>
+    </fieldset>
+</div>
+
+<!-- Tournament panel -->
+<div class="tab-pane" id="tournament-panel">
+    <p>* {{ 'player.form.required'|trans }}</p>
+    <fieldset>
+        {% if form.registrationGroup is defined %}
+            <legend>{{ 'player.form.group.legend'|trans }}</legend>
+            <div class="form-group {% if form.registrationGroup.vars.errors|length > 0 %}has-error{% endif %} selected">
+                {{ form_label(form.registrationGroup, null, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                <div class="col-sm-10 form-values">
+                    {{ form_widget(form.registrationGroup, {'attr': {'class': 'form-control'}}) }}
+                    <span class="help-block">{{ 'player.form.group.notinlist'|trans }} <a href="{{ path('group_create', {'tournamentUrl':tournament.url}) }}">{{ 'player.form.group.create'|trans }}</a></span>
+                    {{ form_errors(form.registrationGroup) }}
+                </div>
+            </div>
+        {% endif %}
+
+        <legend>{{ 'player.form.disciplines.legend'|trans }}</legend>
+        <div class="form-group">
+            {% if tournament.maxRegistrationDisciplines > 0 %}
+            <div class="col-sm-10 col-sm-offset-2">
+                {{ 'player.form.disciplines.maxDisciplines'|transchoice(tournament.maxRegistrationDisciplines, {'%maxNr%': tournament.maxRegistrationDisciplines}) }}
+                <span id="disciplinesOrganizer"><br />{{ 'player.form.disciplines.organizer'|trans }}</span>
+            </div>
+            {% endif %}
+        </div>
+        <div id="disciplineFields">
+        </div>
+
+        <legend>{{ 'player.form.tournament.legend'|trans }}</legend>
+        <div id="tournamentSpecificRegistrationFields">
+        </div>
+
+        <div class="form-group last">
+            <div class="col-sm-2">
+                <a href="#personalia-panel" class="wizard-step btn btn-custom-default btn-lg"
+                   data-toggle="tab"><span class="fa fa-chevron-left fa-fw"></span>{{ 'player.form.previous'|trans }}</a>
+            </div>
+            <div class="col-sm-2 col-sm-offset-7 text-right">
+                <a href="#{% if tournament.financialEnabled %}financial{% else %}summary{% endif %}-panel" class="wizard-step btn btn-custom-inverse btn-lg" data-toggle="tab">
+                    <span class="fa fa-chevron-right fa-fw"></span>{{ 'player.form.next'|trans }}
+                </a>
+            </div>
+        </div>
+    </fieldset>
+</div>
+
+{% if tournament.financialEnabled %}
+<!-- Financial panel -->
+<div class="tab-pane" id="financial-panel">
+    {% if not new %}
+    <fieldset>
+        <legend>{{ 'player.form.transactions.legend'|trans }}</legend>
+
+        {% for boughtProduct in player.boughtProducts %}
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-6">
+                    <div class="checkbox">
+                        <label>
+                            {% if boughtProduct.cartOrder.execPerson is not empty %}
+                                {{ 'player.form.transactions.person'|trans({'%quantity%': boughtProduct.quantity, '%productName%': boughtProduct.name, '%amount%': boughtProduct.amount|sylius_price, '%date%': boughtProduct.cartOrder.updatedAt|date('d-M-Y H:i:s'), '%execName%': boughtProduct.cartOrder.execPerson.name, '%execEmail%': boughtProduct.cartOrder.execPerson.email})|raw }}
+                            {% else %}
+                                {{ 'player.form.transactions.anonymous'|trans({'%quantity%': boughtProduct.quantity, '%productName%': boughtProduct.name, '%amount%': boughtProduct.amount|sylius_price, '%date%': boughtProduct.cartOrder.updatedAt|date('d-M-Y H:i:s')})|raw }}
+                            {% endif %}
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-sm-offset-1 text-right">
+                    <div class="priceBoughtProduct">
+                        {{ tournament.paymentCurrency }} {{ boughtProduct.amount|sylius_price }}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <div class="checkbox">
+                        {{ 'player.form.transactions.none'|trans }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% if player.boughtProducts|length > 0 %}
+        <div class="form-group sum">
+            <div class="col-sm-4 col-sm-offset-7 text-right">
+                <div class="total">
+                    <strong>{{ 'player.form.transactions.balance'|trans }}: {{ tournament.paymentCurrency }} {{ player.paymentBalance|sylius_price }}</strong>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </fieldset>
+    {% endif %}
+
+    <fieldset id="newPaymentsFieldset">
+        <legend>{{ 'player.form.payment.legend'|trans }}</legend>
+
+        {% set hasProducts = false %}
+        {% for formProduct in form.addProduct %}
+            {% set product = financialProducts[formProduct.vars.value] %}
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-6">
+                    <div class="checkbox">
+                        <label>
+                            {% if product.initiallySelected and new %}
+                                {{ form_widget(formProduct, { 'attr': {'checked': 'checked'} }) }}
+                            {% else %}
+                                {{ form_widget(formProduct) }}
+                            {% endif %}
+                            {#<span class="glyphicon glyphicon-info-sign" data-toggle="popover" data-content="{{ product.description }}"></span>#}
+                            {{ product.name }}
+                        </label>
+                        {% if product.description is not empty %}<p><small>{{ product.description }}</small></p>{% endif %}
+                    </div>
+                </div>
+                <div class="col-sm-3 col-sm-offset-1 text-right">
+                    <div class="price">
+                        {{ product.price|sylius_price }}
+                        <span class="priceInCents">{{ product.price }}</span>
+                    </div>
+                </div>
+            </div>
+            {% set hasProducts = true %}
+        {% else %}
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-11">
+                    <div class="checkbox">
+                        {{ 'player.form.payment.none'|trans }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% do form.addProduct.setRendered %}
+
+        {% if hasProducts == true %}
+            <div class="form-group sum">
+                <div class="col-sm-4 col-sm-offset-7 text-right">
+                    <div class="total">
+                        <strong>{{ 'player.form.payment.total'|trans }}: {{ tournament.paymentCurrency }} <span id="paymentTotal">0,00</span></strong>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+    </fieldset>
+{#
+    <fieldset>
+        <legend>Choose you preferred payment method</legend>
+        <div class="form-group">
+            <div class="col-sm-10 col-md-offset-1">
+                <a href="#summary-panel" class="billing-method wizard-step btn btn-custom-default btn-lg col-sm-12"
+                   data-toggle="tab">
+                    <img class="payment-method-icon" src="{{ asset('bundles/tssite/img/icon-ideal.png') }}" alt="iDeal" /> iDeal (+ &euro;
+                    1,50)<span class="fa fa-chevron-right pull-right"></span>
+                </a>
+                <a href="#summary-panel" class="billing-method wizard-step btn btn-custom-default btn-lg col-sm-12"
+                   data-toggle="tab">
+                    <img class="payment-method-icon" src="{{ asset('bundles/tssite/img/icon-paypal.png') }}" alt="PayPal" /> PayPal (+
+                    &euro; 1,50)<span class="fa fa-chevron-right pull-right"></span>
+                </a>
+                <a href="#summary-panel" class="billing-method wizard-step btn btn-custom-default btn-lg col-sm-12"
+                   data-toggle="tab">
+                    <img class="payment-method-icon" src="{{ asset('bundles/tssite/img/icon-arrival.png') }}" alt="Arrival" /> Pay on
+                    arrival<span class="fa fa-chevron-right pull-right"></span>
+                </a>
+            </div>
+        </div>
+    </fieldset>
+#}
+    <div class="form-group last">
+        <div class="col-sm-2">
+            <a href="#tournament-panel" class="wizard-step btn btn-custom-default btn-lg"
+               data-toggle="tab"><span class="fa fa-chevron-left fa-fw"></span>{{ 'player.form.previous'|trans }}</a>
+        </div>
+        <div class="col-sm-2 col-sm-offset-7 text-right">
+            <a href="#summary-panel" class="wizard-step btn btn-custom-inverse btn-lg" data-toggle="tab">
+                <span class="fa fa-chevron-right fa-fw"></span>{{ 'player.form.next'|trans }}
+            </a>
+        </div>
+    </div>
+</div>
+{% endif %} {# endof tournament.financialEnabled #}
+
+<!-- Summary panel -->
+<div class="tab-pane" id="summary-panel">
+    {% if not new or form.status is defined %}
+    <div class="col-sm-12">
+        <fieldset id="summaryRegistrationData">
+            <legend>{{ 'player.form.summary.registration.legend'|trans }}</legend>
+            {% if not new %}
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{ 'player.form.summary.registration.date'|trans }}</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">{{ player.registrationDate|date('d-M-Y H:i:s') }}</p>
+                </div>
+            </div>
+            {% endif %}
+            {% if form.status is defined %}
+                {{ form_row(form.status) }}
+            {% else %}
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">{{ 'player.form.summary.registration.status'|trans }}</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">{{ player.status }}</p>
+                    </div>
+                </div>
+            {% endif %}
+
+        </fieldset>
+    </div>
+    {% endif %}
+
+    <div class="col-sm-6">
+        <fieldset>
+            <legend>{{ 'player.form.summary.personalia.legend'|trans }}
+                <span class="pull-right"><a class="wizard-step" data-toggle="tab" href="#personalia-panel"><i class="fa fa-pencil"></i> {{ 'player.form.summary.edit'|trans }}</a></span>
+            </legend>
+            <div class="form-group">
+                <label for="summaryValueName" class="col-sm-4 control-label">{{ 'player.form.summary.personalia.name'|trans }}</label>
+
+                <div class="col-sm-8">
+                    <p class="form-control-static" id="summaryValueName"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="summaryValueGender" class="col-sm-4 control-label">{{ 'player.form.summary.personalia.gender'|trans }}</label>
+
+                <div class="col-sm-8">
+                    <p class="form-control-static" id="summaryValueGender"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="summaryValueEmail" class="col-sm-4 control-label">{{ 'player.form.summary.personalia.email'|trans }}</label>
+
+                <div class="col-sm-8">
+                    <p class="form-control-static" id="summaryValueEmail"></p>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="col-sm-6">
+        <fieldset>
+            <legend>{{ 'player.form.summary.tournament.legend'|trans }}
+                <span class="pull-right"><a class="wizard-step" data-toggle="tab" href="#tournament-panel"><i class="fa fa-pencil"></i> {{ 'player.form.summary.edit'|trans }}</a></span>
+            </legend>
+            {% if form.registrationGroup is defined %}
+            <div class="form-group">
+                <label for="summaryValueGroup" class="col-sm-6 control-label">{{ 'player.form.summary.tournament.group'|trans }}</label>
+                <div class="col-sm-6">
+                    <p class="form-control-static" id="summaryValueGroup"></p>
+                </div>
+            </div>
+            {% endif %}
+            <div class="form-group">
+                <label for="summaryValueDisciplines" class="col-sm-6 control-label">{{ 'player.form.summary.tournament.disciplines'|trans }}</label>
+
+                <div class="col-sm-6" id="summaryValueDisciplines">
+                </div>
+            </div>
+            <div id="summaryValueFormFields">
+            </div>
+        </fieldset>
+    </div>
+    <div class="col-sm-12" id="summaryCosts">
+        <fieldset>
+            <legend>{{ 'player.form.summary.costs.legend'|trans }}
+                <span class="pull-right"><a class="wizard-step" data-toggle="tab" href="#financial-panel"><i class="fa fa-pencil"></i> {{ 'player.form.summary.edit'|trans }}</a></span>
+            </legend>
+            <table class="table table-striped" id="summaryValueFinancialTable">
+            </table>
+            {# <div class="form-group">
+                <label for="paymentMethod" class="col-sm-2 control-label">Payment method</label>
+
+                <div class="col-sm-8">
+                    <p class="form-control-static" id="paymentMethod"><img class="payment-method-icon"
+                                                        src="{{ asset('bundles/tssite/img/icon-ideal.png') }}" alt="iDeal"> iDeal</p>
+                </div>
+            </div>#}
+
+        </fieldset>
+    </div>
+
+    <div class="col-sm-12">
+        <fieldset>
+            <legend>{{ 'player.form.summary.finish.legend'|trans }}</legend>
+            <p>
+                {{ 'player.form.summary.finish.text'|trans }}
+            </p>
+
+            <p>
+                <div class="checkbox">
+                    <p>
+                        <label>
+                            {{ form_widget(form.conditions) }}
+                            <label for="{{ form.conditions.vars.id }}">
+                                {{ 'player.form.summary.finish.conditions'|trans({'%startLink%': '<a data-toggle="modal" data-target="#termsModal">', '%endLink%': '</a>'})|raw }}
+                            </label>
+                        </label>
+                    </p>
+                </div>
+            </p>
+
+            {% if form.sendPlayerNotification is defined %}
+            <legend>{{ 'player.form.summary.finish.notify'|trans }}</legend>
+            <p>
+                <div class="checkbox">
+                    <p>
+                        <label>
+                            {{ form_widget(form.sendPlayerNotification) }} {{ form_label(form.sendPlayerNotification) }}
+                        </label>
+                    </p>
+                </div>
+            </p>
+            {% endif %}
+            <!--
+                                                                            <div class="form-group">
+                                                                                <div class="col-md-12">
+                                                                                    <a href="#" class="billing-method wizard-step btn btn-custom-default btn-lg col-md-3"><img class="payment-method-icon" src="{{ asset('bundles/tssite/img/icon-ideal.png') }}" alt="iDeal"> iDeal (+ € 1,50)<span class="fa fa-chevron-right pull-right"></span></a>
+                                                                                    <a href="#" class="billing-method wizard-step btn btn-custom-default btn-lg col-md-3"><img class="payment-method-icon" src="{{ asset('bundles/tssite/img/icon-paypal.png') }}" alt="PayPal"> PayPal (+ € 1,50)<span class="fa fa-chevron-right pull-right"></span></a>
+                                                                                    <a href="#" class="billing-method wizard-step btn btn-custom-default btn-lg col-md-3"><img class="payment-method-icon" src="{{ asset('bundles/tssite/img/icon-arrival.png') }}" alt="Arrival"> Pay on arrival<span class="fa fa-chevron-right pull-right"></span></a>
+                                                                            </div>
+                        -->
+            <div class="form-group last">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-custom-primary btn-lg pull-right" id="submitButton" {% if player.id is null or is_granted("EDIT", player) %}onClick="checkAndSendForm()"{% else %}disabled="disabled"{% endif %}>
+                        <span class="fa fa-chevron-right fa-fw"></span>
+                        {{ 'player.form.summary.send'|trans }}
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+</div>
+
+{% if not new and is_granted("DELETE", player) %}
+    <div id="playerDeleteBox">
+        <a href="{{ path('player_delete', {'tournamentUrl':tournament.url, 'playerId': player.id}) }}" onClick="return confirm('{{ 'player.delete.confirm'|trans }}');" class="btn btn-danger pull-left"><i class="fa fa-trash-o"></i> {{ 'player.delete.button'|trans }}</a>
+    </div>
+{% endif %}
+
+<div id="restRegistrationFields" style="display: none">
+    {{ form_rest(form) }}
+</div>
+
+<!-- Terms of Service modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{{ 'player.terms.close'|trans }}</span></button>
+                <h4 class="modal-title" id="termsModalLabel">{{ 'player.terms.label'|trans }}</h4>
+            </div>
+            <div class="modal-body">
+                {{ 'player.terms.text'|trans|raw }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'player.terms.close'|trans }}</button>
+            </div>
+        </div>
+    </div>
+</div>

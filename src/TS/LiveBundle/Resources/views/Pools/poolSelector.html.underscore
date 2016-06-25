@@ -1,0 +1,5 @@
+<script id="PoolSelectorView" type="text/template">
+
+    <div><%= name %> <a class="themecolor" href="#rankings/<%= id %>"><i class="glyphicon glyphicon-arrow-right pull-right"></i></a></div>
+
+</script>

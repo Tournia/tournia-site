@@ -1,0 +1,26 @@
+parameters:
+#    ts_site.example.class: TS\SiteBundle\Example
+    security.acl.voter.class: TS\AccountBundle\Security\Authorization\Voter\TournamentVoter
+
+services:
+#    ts_site.example:
+#        class: %ts_isbt.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    security.access.tournament_voter:
+        class:      TS\AccountBundle\Security\Authorization\Voter\TournamentVoter
+        arguments:  [@service_container]
+        public:     false
+        tags:
+            -       { name: security.voter }
+    doctrine.listener:
+        class: TS\SiteBundle\EventListener\MailChanges
+        arguments:  [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: onFlush }
+    
+    ts_site.pre_action:
+        class: TS\SiteBundle\EventListener\PreActionListener
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }

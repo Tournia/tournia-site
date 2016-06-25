@@ -1,0 +1,43 @@
+{% trans_default_domain "control" %}
+
+{% form_theme form 'TSControlBundle::form.html.twig' %}
+
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "email.title"|trans %}
+
+
+{% block jQuery %}
+// select all status options, but only if all are unchecked
+if ($('#{{ form.status.vars.id}} :checked').length == 0) {
+	$('#{{ form.status.vars.id}} :checkbox').each(function() {
+		$(this).prop('checked', true);
+	});
+}
+	
+{% endblock %}
+
+{% block content %}
+{% set content %}
+	<form class="form-horizontal" role="form" action="{{ path('control_email', {'tournamentUrl': tournament.url}) }}" method="post" {{ form_enctype(form) }}>
+		<fieldset>
+			<legend>{{ 'email.legend'|trans }}</legend>
+			{{ form_errors(form) }}
+			
+		    {{ form_rest(form) }}
+		    <div class="form-group">
+			    <div class="col-sm-offset-2 col-sm-10">
+			        {{ 'email.tags'|trans }}: &nbsp; &#123;&#123;firstName&#125;&#125; &nbsp; &#123;&#123;lastName&#125;&#125;
+				</div>
+			</div>
+			<div class="form-group">
+			    <div class="col-sm-offset-2 col-sm-10">
+			    	<button type="submit" class="btn btn-primary"><i class="fa fa-envelope"></i> {{ 'email.send'|trans }}</button>
+			    </div>
+			</div>
+		</fieldset>
+	</form>
+{% endset %}
+{{ macro.well(content) }}
+
+{% endblock %}

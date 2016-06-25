@@ -1,0 +1,258 @@
+{% trans_default_domain "settings" %}
+{% import _self as macro %}
+{% extends "TSSettingsBundle::baseSettings.html.twig" %}
+
+{% block title "authorizations.title"|trans %}
+
+    {% block css %}
+        #charts #chart-option .chart {
+            margin-top: 0px;
+        }
+
+        #charts #chart-option {
+            margin-top: 0px;
+        }
+
+        #charts #chart-option .chart .plan-col .header {
+            padding: 23px 0px;
+        }
+
+        #authMatrix select {
+            width: 100%;
+        }
+
+        #authMatrix .form-group {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+
+        #authMatrix .form-group .input-group {
+            width: 100%;
+        }
+
+        .dateSpecific {
+            height: 120px !important;
+        }
+
+        .dateSpecific.livePasswordSpec {
+            height: 150px !important;
+        }
+
+        .authDate {
+            margin-bottom: 0px !important;
+        }
+
+        .authDate .input-group-addon {
+            width: 62px;
+        }
+
+        .date-picker-wrapper {
+            z-index: 999;
+        }
+
+        .popover {
+            width: 300px;
+        }
+
+        .spec label {
+            font-weight: normal;
+            margin-left: 1px;
+            margin-top: 5px;
+        }
+
+        #charts #chart-option .chart .features-col .spec, #charts #chart-option .chart .plan-col .spec, #charts #chart-option .chart .plan-col .spec {
+            height: 60px;
+        }
+
+        #livePasswordBlock label {
+            float: left;
+            color: inherit;
+            margin-top: 10px;
+        }
+    {% endblock %}
+
+    {% block jQuery %}
+        {{  parent() }}
+
+        // initialize daterangepicker for dates
+        $(".authDate input").each(function() {
+            $(this).dateRangePicker({
+                format: 'DD-MM-YYYY HH:mm',
+                time: {
+                    enabled: true
+                },
+                startOfWeek: 'monday',
+                showShortcuts:false,
+                singleDate: true,
+                getValue: function() {
+                    return $(this).val();
+                },
+            })
+        });
+
+        $(".spec select").on("change", function() {
+            // show/hide dateSpecific
+            indexElement = $(this).closest(".spec").index() - 1;
+            if ($(this).val() == '-1') {
+                // date specific
+                $("#features-col .spec:eq("+ indexElement +"), #-col .spec:eq("+ indexElement +"), #registered-col .spec:eq("+ indexElement +"), #organizers-col .spec:eq("+ indexElement +")").addClass("dateSpecific");
+                $(this).closest(".spec").find(".authDate").show();
+            } else {
+                $(this).closest(".spec").find(".authDate").hide();
+                if ($("#-col .spec:eq("+ indexElement +") .authDate:visible, #registered-col .spec:eq("+ indexElement +") .authDate:visible").length == 0) {
+                    // only hide when there are no other authDate
+                    $("#features-col .spec:eq("+ indexElement +"), #-col .spec:eq("+ indexElement +"), #registered-col .spec:eq("+ indexElement +"), #organizers-col .spec:eq("+ indexElement +")").removeClass("dateSpecific");
+                }
+            }
+
+            // show/hide ly accessible
+            if ($(this).val() == 0) {
+                $(this).parent().find("label").hide();
+            } else {
+                $(this).parent().find("label").show();
+            }
+        }).trigger("change");
+
+        // show/hide livePassword block
+        $("#{{ form.apiChoice.vars.id }}").on("change", function() {
+            if ($(this).val() == '0') {
+                $("#livePasswordBlock").hide();
+            } else {
+                $("#livePasswordBlock").show();
+            }
+        }).trigger("change");
+
+
+    {% endblock %}
+
+
+
+    {% block settingsContent %}
+
+        <form role="form" class="form-horizontal" action="{{ path('settings_authorizations', {'tournamentUrl': tournament.url}) }}" method="post" {{ form_enctype(form) }}>
+            <header>
+                <h1 class="tab-title">{{ 'authorizations.tab.title'|trans }}</h1>
+                <p class="tab-subtitle">{{ 'authorizations.tab.subtitle'|trans }}</p>
+            </header>
+
+            <div class="static-content" id="authMatrix">
+                <div class="alert alert-info" role="alert">
+                    <p>
+                        {{ 'authorizations.explanation'|trans|nl2br }}
+                    </p>
+                </div>
+
+                {{ form_errors(form) }}
+                <div class="row" id="charts">
+                    <div class="col-md-12" id="chart-option">
+                        <div class="chart clearfix">
+                            <div class="features-col col-sm-4" id="features-col">
+                                <div class="header">
+                                    {{ 'authorizations.heading.features'|trans }}
+                                </div>
+                                <div class="spec" data-toggle="popover" data-content="{{ 'authorizations.access.createRegistration.popover'|trans }}">
+                                    <span class="icon brankic-plus2"></span>
+                                    {{ 'authorizations.access.createRegistration'|trans }}
+                                </div>
+                                <div class="spec" data-toggle="popover" data-content="{{ 'authorizations.access.changeRegistration.popover'|trans }}">
+                                    <span class="icon brankic-edit"></span>
+                                    {{ 'authorizations.access.changeRegistration'|trans }}
+                                </div>
+                                <div class="spec livePasswordSpec" data-toggle="popover" data-content="{{ 'authorizations.access.apiAccess.popover'|trans }}">
+                                    <span class="icon brankic-tablet"></span>
+                                    {{ 'authorizations.access.apiAccess'|trans }}
+                                </div>
+                                <div class="spec" data-toggle="popover" data-content="{{ 'authorizations.access.liveScore.popover'|trans }}">
+                                    <span class="icon brankic-clipboard2"></span>
+                                    {{ 'authorizations.access.liveScore'|trans }}
+                                </div>
+                                <div class="spec" data-toggle="popover" data-content="{{ 'authorizations.access.live2ndCall.popover'|trans }}">
+                                    <span class="icon brankic-megaphone"></span>
+                                    {{ 'authorizations.access.live2ndCall'|trans|raw }}
+                                </div>
+                            </div>
+                            <div class="plan-col col-sm-5" id="registered-col">
+                                <div class="header">
+                                    {{ 'authorizations.heading.access'|trans }}
+                                </div>
+                                <div class="spec">
+                                    {{ form_widget(form.createRegistrationChoice, {'attr': {'class': 'form-control'}}) }}
+                                    {{  macro.authDateWidgets(form.createRegistrationStart, form.createRegistrationEnd) }}
+                                </div>
+                                <div class="spec">
+                                    {{ form_widget(form.changeRegistrationChoice, {'attr': {'class': 'form-control'}}) }}
+                                    {{  macro.authDateWidgets(form.changeRegistrationStart, form.changeRegistrationEnd) }}
+                                </div>
+                                <div class="spec livePasswordSpec">
+                                    {{ form_widget(form.apiChoice, {'attr': {'class': 'form-control'}}) }}
+                                    {{  macro.authDateWidgets(form.apiStart, form.apiEnd) }}
+
+                                    <div id="livePasswordBlock">
+                                        <label for="{{ form.livePassword.vars.id }}" data-toggle="popover" data-content="{{ 'authorizations.livePassword.info'|trans }}">
+                                            {{ 'authorizations.livePassword.label'|trans }}
+                                        </label>
+                                        <div class="col-sm-7 form-values">
+                                            {{ form_widget(form.livePassword, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="spec">
+                                    {{ form_widget(form.liveScoreChoice, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="spec">
+                                    {{ form_widget(form.live2ndCallChoice, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="plan-col last col-sm-3" id="organizers-col">
+                                <div class="header">
+                                    {{ 'authorizations.heading.organizers'|trans }}
+                                </div>
+                                <div class="spec">
+                                    <img src="{{ asset('bundles/tsfront/img/checkmark.png') }}" class="check" alt="checkmark">
+                                </div>
+                                <div class="spec">
+                                    <img src="{{ asset('bundles/tsfront/img/checkmark.png') }}" class="check" alt="checkmark">
+                                </div>
+                                <div class="spec livePasswordSpec">
+                                    <img src="{{ asset('bundles/tsfront/img/checkmark.png') }}" class="check" alt="checkmark">
+                                </div>
+                                <div class="spec">
+                                    <img src="{{ asset('bundles/tsfront/img/checkmark.png') }}" class="check" alt="checkmark">
+                                </div>
+                                <div class="spec">
+                                    <img src="{{ asset('bundles/tsfront/img/checkmark.png') }}" class="check" alt="checkmark">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                {{ form_rest(form) }}
+
+
+                <div class="form-group actions">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-custom-primary btn-lg"><span class="fa fa-check"></span> {{ 'save'|trans }}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    {% endblock %}
+
+{% macro authDateWidgets(startDateObject, endDateObject) %}
+    {{ form_errors(startDateObject) }}
+    <div class="form-group authDate">
+        <div class="input-group">
+            <div class="input-group-addon">{{ 'authorizations.start'|trans }}</div>
+            {{ form_widget(startDateObject, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group authDate">
+        <div class="input-group">
+            <div class="input-group-addon">{{ 'authorizations.end'|trans }}</div>
+            {{ form_widget(endDateObject, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+{% endmacro %}

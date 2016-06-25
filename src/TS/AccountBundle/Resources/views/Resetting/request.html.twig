@@ -1,0 +1,50 @@
+{% trans_default_domain 'account' %}
+{% extends "TSFrontBundle::base.html.twig" %}
+
+{% block title "reset.request.title"|trans %}
+
+{% block stylesheets %}
+	{{ parent() }}
+
+	{% stylesheets
+		'bundles/tsfront/css/reset.css'
+		filter='cssrewrite,?yui_css' %}
+		 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen" />
+	{% endstylesheets %}
+{% endblock %}
+
+{% block jQuery %}
+$("#resetEmail").focus();
+{% endblock %}
+
+
+{% block content %}
+
+<div id="reset_pwd" class="reset_page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 box_wrapper">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="head">
+                            <h4>{{ 'reset.request.text'|trans }}</h4>
+                            <div class="line"></div>
+                        </div>
+                        <div class="form">
+                            <form action="{{ path('fos_user_resetting_send_email') }}" method="POST">
+						        {% if invalid_username is defined %}
+						            <p>{{ 'reset.request.emailNotexist'|trans({'%email%': invalid_username}) }}</p>
+						        {% endif %}
+						        <input type="text" class="control-form" placeholder="{{ 'reset.request.placeholder'|trans }}" name="username" required="required" id="resetEmail" />
+						        <input type="submit" class="btn" value="{{ 'reset.request.submit'|trans }}" />
+							</form>
+                        </div>
+                    </div>
+                </div>
+                <p class="already">{{ 'reset.request.login'|trans({'%startLink%': '<a href="'~ path('account_login') ~'">', '%endLink%': '</a>'})|raw }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+	
+{% endblock %}

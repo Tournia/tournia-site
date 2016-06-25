@@ -1,0 +1,744 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "currentMatches.title"|trans %}
+
+{% block css %}
+.matchStartTimeData {
+	display: none;
+}
+
+#startMatchWarningLocation, #startMatchWarningPlaying {
+	display: none;
+}
+
+#editLocationModal .bootstrap-switch {
+    width: 100%;
+}
+
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+///// post and receive server messages /////
+
+// setting commands for refresh of server data
+function getRefreshCommands() {
+	command1 = {
+		command : 'Matches.listPlaying',
+	}
+	command2 = {
+		command : 'Matches.listStatus',
+		status: 'ready',
+		setCommandKey: 'upcomingMatches'
+	}
+	command3 = {
+		command : 'Matches.listStatus',
+		status: {'0': 'postponed', '1': 'finished' },
+		setCommandKey: 'postponedNonscoredMatches'
+	}
+	return new Array(command1, command2, command3);
+}
+// setting on which updates data should be refreshed
+observerUpdateSection.push('match');
+
+// setting datatable options
+ajaxDataTableOptions.playingMatchesTable = {};
+ajaxDataTableOptions.playingMatchesTable.bFilter = false;
+ajaxDataTableOptions.playingMatchesTable.bInfo = false;
+ajaxDataTableOptions.playingMatchesTable.bPaginate = false;
+ajaxDataTableOptions.playingMatchesTable.bSort = false;
+ajaxDataTableOptions.postponedNonscoredTable = {};
+ajaxDataTableOptions.postponedNonscoredTable.bFilter = false;
+ajaxDataTableOptions.postponedNonscoredTable.bInfo = false;
+ajaxDataTableOptions.postponedNonscoredTable.bPaginate = false;
+ajaxDataTableOptions.postponedNonscoredTable.bSort = false;
+ajaxDataTableOptions.upcomingMatchesTable = {};
+ajaxDataTableOptions.upcomingMatchesTable.bFilter = true;
+ajaxDataTableOptions.upcomingMatchesTable.bInfo = true;
+ajaxDataTableOptions.upcomingMatchesTable.bPaginate = true;
+ajaxDataTableOptions.upcomingMatchesTable.bSort = true;
+ajaxDataTableOptions.upcomingMatchesTable.aoColumnDefs = [
+    { "sType": "num-html",  "aTargets": [ 0 ] },
+];
+
+var handleResponseStartTime;
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+	if (commandKey == "Matches.listPlaying") {
+		// go through matches
+		$('#playingMatchesTable').dataTable().fnClearTable();
+		$.each(commandResponse, function(key2, matchObject) {
+            if (typeof matchObject['location'] == "undefined") {
+				locationTxt = "Undefined";
+			} else {
+                locationTxt = ' <a href="#" onClick="openEditLocation(\''+ matchObject['locationId'] +'\');return false;">' +
+                        '   <i class="fa fa-gears"></i> ' +
+                        '   <span id="locationId-'+ matchObject['locationId'] +'">'+ matchObject['location'] +'</span>' +
+                        '</a> ';
+			}
+            if (matchObject['locationOnHold']) {
+                link = convertUrlToHash('{{ path('control_locations', {'tournamentUrl':tournament.url}) }}');
+                locationTxt += ' <a href="'+ link +'" class="noLinkUnderline"><span class="label label-danger">{{ 'label.location.onHold'|trans }}</span></a>';
+
+                currentNonreadyReason = matchObject['locationNonreadyReason'] == null ? '' : matchObject['locationNonreadyReason'].replace(/"/g, '&quot;');
+                locationTxt += ' <span class="nonreadyReasonTooltip" rel="tooltip" data-placement="right" data-reason="'+ currentNonreadyReason +'" data-objectId="'+ matchObject['locationId'] +'"><i class="fa fa-info-circle"></i></span>';
+            }
+			locationTxt += '<span class="hiddenMatchId">'+ matchObject['matchId'] +'</span>';
+
+			localMatchTxt = '';
+			team1 = '';
+			team2 = '';
+			pool = '';
+			round = '';
+			playingTime = '';
+			button = '';
+			if (typeof matchObject['matchId'] !== 'undefined') {
+                localMatchTxt = '<a href="javascript:editMatch(\''+ matchObject['matchId'] +'\')">'+ matchObject['localId'] +'</a>';
+				team1 = renderPlayerNames(matchObject['team1Players'], true);
+				team2 = renderPlayerNames(matchObject['team2Players'], true);
+				pool = matchObject['pool'];
+				round = matchObject['round'];
+				playingTime = "<span class=\"matchStartTimeData\">"+ matchObject['deltaStartTime'] +"</span><span class=\"matchStartTimeTxt\"></span>";
+				button = '' +
+                        '<div class="btn-group">' +
+                        '   <button type="button" class="btn btn-primary" onClick="openEndMatch('+ matchObject["matchId"] +')"><i class="fa fa-stop"></i> {{ 'currentMatches.endMatch'|trans }}</button>' +
+                        '   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">' +
+                        '       <span class="caret"></span>' +
+                        '       <span class="sr-only">{{ 'dropdown.toggle'|trans }}</span>' +
+                        '   </button>' +
+                        '   <ul class="dropdown-menu" role="menu">' +
+                        '       <li><a href="#" onClick="openEndMatch('+ matchObject["matchId"] +');return false;"><i class="fa fa-stop"></i> {{ 'currentMatches.endMatch'|trans }}</a></li>' +
+                        '       <li class="divider"></li>' +
+                        '       <li><a href="#" onClick="openSecondCall('+ matchObject["matchId"] +');return false;"><i class="fa fa-bullhorn"></i> {{ 'currentMatches.2ndCall'|trans|raw }}</a></li>' +
+                        '       <li><a href="#" onClick="openChangeLocation('+ matchObject["matchId"] +', '+ matchObject["locationId"] +');return false;"><i class="fa fa-sort"></i> {{ 'currentMatches.changeLocation'|trans }}</a></li>' +
+                        '   </ul>' +
+                        '</div>';
+			}
+			$('#playingMatchesTable').dataTable().fnAddData( [
+				locationTxt,
+				localMatchTxt,
+				team1,
+				team2,
+				pool,
+				round,
+				playingTime,
+				button
+			]);
+		});
+		
+		handleResponseStartTime = new Date();
+		updateStartTimes();
+        enableNonreadyReasonTooltip('#playingMatchesTable', sendNonreadyReasonLocation);
+
+		dataTableFinishedLoading("playingMatchesTable");
+	} else if ((commandKey == "upcomingMatches") || (commandKey == "postponedNonscoredMatches")) {
+		// go through matches
+		if (commandKey == 'upcomingMatches') {
+			$('#upcomingMatchesTable').dataTable().fnClearTable();
+		} else if (commandKey == 'postponedNonscoredMatches') {
+			$('#postponedNonscoredTable').dataTable().fnClearTable();
+			nrPostponedMatches = 0;
+			nrNonscoredMatches = 0;
+		}
+		$.each(commandResponse, function(key2, matchObject) {
+			playersPlaying = false;
+			playersNotReady = false;
+
+            localMatchTxt = "";
+			if (matchObject['priority']) {
+				// add 000 for ordering of table, so that priority match is displayed first
+                localMatchTxt = '<span class="cellInvisible">000</span><span class="label label-info">{{ 'label.priority'|trans }}</span> ';
+			}
+            localMatchTxt += '<a href="javascript:editMatch(\''+ matchObject['matchId'] +'\')">'+ matchObject['localId'] +'</a>';
+            localMatchTxt += '<span class="hiddenMatchId">'+ matchObject['matchId'] +'</span>';
+			
+			if (matchObject['team1'] == null) {
+				team1 = "-";
+			} else {
+				// write down name of players
+				team1 = renderPlayerNames(matchObject['team1']['players'], true);
+			}
+
+			if (matchObject['team2'] == null) {
+				team2 = "-";
+			} else {
+				// write down name of players
+				team2 = renderPlayerNames(matchObject['team2']['players'], true);
+			}
+			
+			if (commandKey == 'upcomingMatches') {
+				showStartBtn = "";
+				status = "";
+				if (playersNotReady || playersPlaying || matchObject['priority']) {
+					if (playersNotReady) {
+						status += '<span class="label label-danger">{{ 'label.playersNotReady'|trans }}</span>';
+					}
+					if (playersNotReady && playersPlaying) {
+						status += "<br />";
+					}
+					if (playersPlaying) {
+						status += '<span class="label label-warning">{{ 'label.playersPlaying'|trans }}</span>';
+					}
+					
+					showStartBtn = "overrule";
+					
+					if (matchObject['priority']) {
+						// priority match
+						if (playersNotReady || playersPlaying) {
+							status += "<br />";
+						} else {
+							showStartBtn = "start";
+						}
+						status += '<span class="label label-info">{{ 'label.priority'|trans }}</span>';
+					}
+				} else {
+					status += '<span class="label label-success">{{ 'label.readyToStart'|trans }}</span>';
+					showStartBtn = "start";
+				}
+				
+				if (showStartBtn == "start") {
+					options = "<button class=\"btn btn-success\" onClick=\"openStartMatch("+ matchObject['matchId'] +")\"><i class=\"fa fa-play\"></i> {{ 'currentMatches.start'|trans }}</button>";
+				} else if (showStartBtn == "overrule") {
+					options = "<button class=\"btn btn-danger\" onClick=\"openStartMatch("+ matchObject['matchId'] +")\"><i class=\"fa fa-forward\"></i> {{ 'currentMatches.overruleStart'|trans }}</button>";
+				}
+				
+				$('#upcomingMatchesTable').dataTable().fnAddData( [
+					localMatchTxt,
+					team1,
+					team2,
+					matchObject['pool'],
+					matchObject['round'],
+					status,
+					options
+				]);
+			} else if (commandKey == 'postponedNonscoredMatches') {
+				if (matchObject['status'] == 'Postponed') {
+					status = "<span class=\"label label-default\">{{ 'label.postponed'|trans }}</span>";
+                    currentNonreadyReason = matchObject['nonreadyReason'] == null ? '' : matchObject['nonreadyReason'].replace(/"/g, '&quot;');
+                    status += ' <span class="nonreadyReasonTooltip" rel="tooltip" data-placement="right" data-reason="'+ currentNonreadyReason +'" data-objectId="'+ matchObject['matchId'] +'"><i class="fa fa-info-circle"></i></span>';
+
+					options = "<button class=\"btn btn-danger\" onClick=\"openStartMatch("+ matchObject['matchId'] +")\"><i class=\"fa fa-forward\"></i> {{ 'currentMatches.overruleStart'|trans }}</button>";
+					nrPostponedMatches++;
+				} else if (matchObject['status'] == 'Finished') {
+					status = "<span class=\"label label-info\">{{ 'currentMatches.finishedNoScore'|trans }}</span>";
+					options = "<button class=\"btn btn-primary\" onClick=\"openScoreMatch("+ matchObject['matchId'] +")\"><i class=\"fa fa-pencil\"></i> {{ 'currentMatches.enterScore'|trans }}</button>";
+					nrNonscoredMatches++;
+				}
+				
+				$('#postponedNonscoredTable').dataTable().fnAddData( [
+                    localMatchTxt,
+					team1,
+					team2,
+					matchObject['pool'],
+					matchObject['round'],
+					status,
+					options
+				]);
+			}
+		});
+		if (commandKey == 'postponedNonscoredMatches') {
+			if (nrPostponedMatches + nrNonscoredMatches == 0) {
+				// no postponed or non scored matches -> hide block
+				$("#widgetPostponedNonscored").removeClass("jarviswidget-color-redLight").addClass("jarviswidget-color-greenLight");
+                $("#widgetPostponedNonscored .widget-toolbar .badge").removeClass("bg-color-red").addClass("bg-color-green").text('0');
+                $("#widgetPostponedNonscored h2").text("{{ 'currentMatches.widget.postponedNonscored'|trans }}");
+			} else {
+				// postponed or non-scored matches -> show text with the number of matches
+                $("#widgetPostponedNonscored").removeClass("jarviswidget-color-greenLight").addClass("jarviswidget-color-redLight");
+                $("#widgetPostponedNonscored .widget-toolbar .badge").removeClass("bg-color-green").addClass("bg-color-red").text(nrPostponedMatches + nrNonscoredMatches);
+				
+				messageTxt = '';
+				
+				if (nrPostponedMatches > 0) {
+					messageTxt += nrPostponedMatches +" {{ 'currentMatches.postponedNonscored.postponed'|trans }}";
+				}
+				if ((nrPostponedMatches > 0) && (nrNonscoredMatches > 0)) {
+					messageTxt += " {{ 'currentMatches.postponedNonscored.and'|trans }} ";
+				}
+				if (nrNonscoredMatches > 0) {
+					messageTxt += nrNonscoredMatches +" {{ 'currentMatches.postponedNonscored.nonScored'|trans }}";
+				}
+				
+				if (nrPostponedMatches + nrNonscoredMatches == 1) {
+					messageTxt = "{{ 'currentMatches.postponedNonscored.thereIs'|trans }} "+ messageTxt +" {{ 'currentMatches.postponedNonscored.match'|trans }}";
+				} else {
+					messageTxt = "{{ 'currentMatches.postponedNonscored.thereAre'|trans }} "+ messageTxt +" {{ 'currentMatches.postponedNonscored.matches'|trans }}";
+				}
+                $("#widgetPostponedNonscored h2").text(messageTxt);
+			}
+		}
+
+        enableNonreadyReasonTooltip("#postponedNonscoredTable", editNonreadyReasonMatch);
+		dataTableFinishedLoading("upcomingMatchesTable");
+		$("#postponedNonscoredTable").css("width", "");
+		dataTableFinishedLoading("postponedNonscoredTable");
+	} else if (commandKey == "editLocationModal") {
+        // fill edit location modal
+        $("#editLocationModal .modalLocationId").val(commandResponse['id']);
+        $("#editLocationName").val(commandResponse['name']);
+        $("#editLocationNameOriginal").val(commandResponse['name']);
+
+        $("#editLocationStatusSwitch").bootstrapSwitch('destroy');
+        $("#editLocationStatusSwitch").prop('checked', !commandResponse['onHold']);
+        $("#editLocationStatusSwitchOriginal").val(!commandResponse['onHold']);
+        $("#editLocationStatusSwitch").bootstrapSwitch().on('switchChange.bootstrapSwitch', function(event, state) {
+            if (state) {
+                $("#editLocationNonreadyReasonBox").hide();
+            } else {
+                $("#editLocationNonreadyReasonBox").show();
+            }
+        });
+
+        $("#editLocationNonreadyReason").val(commandResponse['nonreadyReason']);
+        $("#editLocationNonreadyReasonOriginal").val(commandResponse['nonreadyReason']);
+
+        if (commandResponse['onHold']) {
+            $("#editLocationNonreadyReasonBox").show();
+        } else {
+            $("#editLocationNonreadyReasonBox").hide();
+        }
+    }
+}
+
+// process a new row in datatable
+function datatableProcessRow(row, table) {
+	stylePlayerNames(row);
+
+	// add matchId to rowId
+	if ($('td:first span', row).hasClass("hiddenMatchId")) {
+		$(row).prop("id", "matchId-"+ $('td:first .hiddenMatchId', row).text());
+	}
+	$('td:first .hiddenMatchId', row).remove();
+
+	if ($(table).prop("id") == "playingMatchesTable") {
+		// add row color code, dependent on the location
+		if ($('td:first', row).text() == "{{ 'label.location.undefined'|trans }}") {
+			// location is undefined
+			$(row).addClass("warning");
+		} else if ($('td:first .label-danger', row).length > 0) {
+			// location is on hold
+			$(row).addClass("error");
+		} else if ($('td:nth-child(2)', row).text() == "") {
+			// location is available
+			$(row).addClass("success");
+		}
+	}
+}
+
+// update the playing times in currently playing matches
+function updateStartTimes() {
+	currentDate = new Date();
+	timeOnPage = (currentDate.getTime() - handleResponseStartTime.getTime()) / 1000;
+	$(".matchStartTimeData").each(function() {
+		date = parseInt($(this).text());
+		delta = date + timeOnPage;
+		txt = '';
+		
+		days = Math.floor(delta / (60*60*24));
+		if (days > 0) {
+			dayTxt = (days == 1) ? "{{ 'currentMatches.time.day'|trans }}" : "{{ 'currentMatches.time.days'|trans }}";
+			txt += days +" "+ dayTxt +" ";
+		}
+		remainingDelta = delta - (days * 24 * 60 * 60);
+		hours = Math.floor(remainingDelta / (60*60));
+		if (hours > 0) {
+			hoursText = (hours == 1) ? "{{ 'currentMatches.time.hour'|trans }}" : "{{ 'currentMatches.time.hours'|trans }}";
+			min = Math.floor(delta % (60*60) / 60);
+			txt += hours +" "+ hoursText +" "+ min +" {{ 'currentMatches.time.min'|trans }}";
+		} else {
+			txt += Math.floor(remainingDelta / 60) +" {{ 'currentMatches.time.min'|trans }}";
+		}
+		if(delta > 1800) {
+			// Long length match (30 min)
+			timeIcon = "<i class=\"fa fa-warning\"><\/i>";
+			$(this).parent().find(".matchStartTimeTxt").addClass("text-danger");
+		}
+		else if(delta > 1200) {
+			// Medium length match (20 min)
+			timeIcon = "<i class=\"fa fa-info-circle\"><\/i>";
+			$(this).parent().find(".matchStartTimeTxt").addClass("text-info");
+		}
+		else {
+			timeIcon = "<i class=\"fa fa-clock-o\"><\/i>";
+		}
+		$(this).parent().find(".matchStartTimeTxt").html(timeIcon + " " + txt);
+	});
+}
+
+// update playing times
+setInterval(updateStartTimes, 60000);
+
+function openStartMatch(matchId) {
+	fillModalData("startMatchModal", matchId);
+	
+	// location selector. Look in currently playing matches table for available locations
+	$("#startMatchLocation").html('');
+	$("#playingMatchesTable tbody tr").each(function() {
+		if ($(this).hasClass('success')) {
+			// available location
+			optionHtml = '<option value="'+ getId($(this).find("td:first span").attr('id')) +'">'+ $(this).find("td:nth-child(1)").html() +'</option>';
+			$("#startMatchLocation").append(optionHtml);
+		}
+	});
+	$("#startMatchLocation").append('<option value="">{{ 'label.location.undefined'|trans }}</option>');
+
+    $("#startMatchModal .modal-title").text('Start match');
+    $("#startMatchButton").show();
+    $("#changeLocationButton").hide();
+	
+	$("#startMatchModal").modal('show');
+}
+
+function openChangeLocation(matchId, currentLocationId) {
+    fillModalData("startMatchModal", matchId);
+
+    // location selector. Look in currently playing matches table for available locations
+    $("#startMatchLocation").html('');
+    $("#playingMatchesTable tbody tr").each(function() {
+        locationId = getId($(this).find("td:first span").attr('id'));
+        if (($(this).hasClass('success')) || (locationId == currentLocationId)) {
+            // available location, or same location
+            selectedHtml = (locationId == currentLocationId) ? ' selected="selected"' : '';
+            optionHtml = '<option value="'+ locationId +'" '+ selectedHtml +'>'+ $(this).find("td:nth-child(1)").html() +'</option>';
+            $("#startMatchLocation").append(optionHtml);
+        }
+    });
+    $("#startMatchLocation").append('<option value="">{{ 'label.location.undefined'|trans }}</option>');
+
+    $("#startMatchModal .modal-title").text('{{ 'currentMatches.changeLocation'|trans }}');
+    $("#startMatchButton").hide();
+    $("#changeLocationButton").show();
+
+    $("#startMatchModal").modal('show');
+}
+
+function sendStartMatch() {
+	command = {
+		command : 'Matches.start',
+		matchId: $("#startMatchModal .modalMatchId").val(),
+		locationId: $("#startMatchLocation").val(),
+	}
+	addServerCommand(command);
+	sendServerCommands(true);
+	$("#startMatchModal").modal('hide');
+}
+
+function sendChangeLocation() {
+    command = {
+        command : 'Matches.stop',
+        matchId: $("#startMatchModal .modalMatchId").val(),
+    }
+    addServerCommand(command);
+    command = {
+        command : 'Matches.start',
+        matchId: $("#startMatchModal .modalMatchId").val(),
+        locationId: $("#startMatchLocation").val(),
+    }
+    addServerCommand(command);
+    sendServerCommands(true);
+    $("#startMatchModal").modal('hide');
+}
+
+function openEndMatch(matchId) {
+	fillModalData("endMatchModal", matchId);
+	$("#endMatchModal").modal('show');
+}
+
+function sendStopMatch() {
+	command = {
+		command : 'Matches.stop',
+		matchId: $("#endMatchModal .modalMatchId").val(),
+	}
+	addServerCommand(command);
+	sendServerCommands(true);
+	$("#endMatchModal").modal('hide');
+}
+
+function sendFinishMatch() {
+	command = {
+		command : 'Matches.finish',
+		matchId: $("#endMatchModal .modalMatchId").val(),
+	}
+	addServerCommand(command);
+	sendServerCommands(true);
+	$("#endMatchModal").modal('hide');
+}
+
+function openSecondCall(matchId) {
+    fillModalData("secondCallModal", matchId);
+    $("#secondCallModal").modal('show');
+}
+
+function openEditLocation(locationId) {
+    $("#editLocationModal :input").val('');
+
+    // request location info, to fill modal
+    command = {
+        command : 'Locations.get',
+        locationId: locationId,
+        setCommandKey: 'editLocationModal'
+    }
+    addServerCommand(command);
+    sendServerCommands(false);
+
+    $("#editLocationModal").modal('show');
+}
+
+function sendEditLocation() {
+    somethingChanged = false;
+
+    // check for changed name
+    if ($("#editLocationName").val() != $("#editLocationNameOriginal").val()) {
+        somethingChanged = true;
+        command = {
+            command : 'Locations.edit',
+            locationId: $("#editLocationModal .modalLocationId").val(),
+            name: $("#editLocationName").val(),
+        }
+        addServerCommand(command);
+    }
+
+    // check for changed onHold switch
+    if ($("#editLocationStatusSwitch").prop('checked') != ($("#editLocationStatusSwitchOriginal").val() == "true")) {
+        somethingChanged = true;
+        command = {
+            command : 'Locations.setOnHold',
+            locationId: $("#editLocationModal .modalLocationId").val(),
+            onHold: !$("#editLocationStatusSwitch").prop('checked'),
+        }
+        addServerCommand(command);
+    }
+
+    // check for changed non-ready reason
+    if ($("#editLocationNonreadyReason").val() != $("#editLocationNonreadyReasonOriginal").val()) {
+        somethingChanged = true;
+        command = {
+            command : 'Locations.setOnHold',
+            locationId: $("#editLocationModal .modalLocationId").val(),
+            onHold: !$("#editLocationStatusSwitch").prop('checked'),
+            nonreadyReason: $("#editLocationModal #editLocationNonreadyReason").val(),
+        }
+        addServerCommand(command);
+    }
+
+    if (somethingChanged) {
+        sendServerCommands(true);
+    }
+
+    $("#editLocationModal").modal('hide');
+}
+
+function sendNonreadyReasonLocation(locationId, newReason) {
+    command = {
+        command : 'Locations.setOnHold',
+        locationId: locationId,
+        onHold: true,
+        nonreadyReason: newReason,
+    }
+    addServerCommand(command);
+    sendServerCommands(true);
+}
+
+function editNonreadyReasonMatch(matchId, newReason) {
+    command = {
+        command : 'Matches.setStatus',
+        matchId: matchId,
+        status: 'postponed',
+        nonreadyReason: newReason,
+    }
+    addServerCommand(command);
+    sendServerCommands(true);
+}
+
+</script>
+
+{% endblock %}
+
+{% block jQuery %}
+$("#startMatchModal").on("show.bs.modal", function() {
+	$("#startMatchLocation").triggerHandler("change");
+	
+	if ($(this).find(".modalTeam1 .label-warning, .modalTeam2 .label-warning").length > 0) {
+		$("#startMatchWarningPlaying").show();
+	} else {
+		$("#startMatchWarningPlaying").hide();
+	}
+});
+$("#startMatchLocation").on("change", function() {
+	// show warning if location is undefined
+	if ($(this).val() == '') {
+		$("#startMatchWarningLocation").show();
+	} else {
+		$("#startMatchWarningLocation").hide();
+	}
+});
+
+$("#editLocationStatusSwitch").bootstrapSwitch();
+
+// retrieving initial data from server
+sendServerCommands(true);
+{% endblock %}
+
+{% block content %}
+<article class="col-sm-12">
+
+{% set content %}
+    <table class="table table-hover ajaxDataTable" id="playingMatchesTable">
+        <thead>
+            <tr>
+                <th>{{ 'table.location'|trans }}</th>
+                <th>{{ 'table.matchNr'|trans }}</th>
+                <th>{{ 'table.team1'|trans }}</th>
+                <th>{{ 'table.team2'|trans }}</th>
+                <th>{{ 'table.pool'|trans }}</th>
+                <th>{{ 'table.round'|trans }}</th>
+                <th>{{ 'currentMatches.table.playingTime'|trans }}</th>
+                <th>{{ 'table.options'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+{% endset %}
+{% set options = {'sortable': true} %}
+{{ macro.widget("widgetCurrentlyPlaying", content, "currentMatches.widget.currentlyPlaying"|trans, options) }}
+
+{% set content %}
+    <table class="table table-hover ajaxDataTable" id="postponedNonscoredTable">
+        <thead>
+            <tr>
+                <th>{{ 'table.matchNr'|trans }}</th>
+                <th>{{ 'table.team1'|trans }}</th>
+                <th>{{ 'table.team2'|trans }}</th>
+                <th>{{ 'table.pool'|trans }}</th>
+                <th>{{ 'table.round'|trans }}</th>
+                <th>{{ 'table.status'|trans }}</th>
+                <th>{{ 'table.options'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+{% endset %}
+{% set options = {'color': 'greenLight', 'toolbar': '<div class="badge bg-color-green">0</div>', 'sortable': true} %}
+{{ macro.widget("widgetPostponedNonscored", content, "currentMatches.widget.postponedNonscored"|trans, options) }}
+
+{% set content %}
+	<table class="table table-hover table-bordered ajaxDataTable" id="upcomingMatchesTable">
+		<thead>
+			<tr>
+                <th>{{ 'table.matchNr'|trans }}</th>
+                <th>{{ 'table.team1'|trans }}</th>
+                <th>{{ 'table.team2'|trans }}</th>
+                <th>{{ 'table.pool'|trans }}</th>
+                <th>{{ 'table.round'|trans }}</th>
+                <th>{{ 'table.status'|trans }}</th>
+                <th>{{ 'table.options'|trans }}</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+{% endset %}
+{% set options = {'sortable': true} %}
+{{ macro.widget("widgetUpcomingMatches", content, "currentMatches.widget.upcoming"|trans, options) }}
+</article>
+
+<!-- Start match modal -->
+{% set modalContent %}
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>{{ 'matchModal.match'|trans }} <span class="modalLocalId"></span></th>
+				<th><span class="modalRound"></span></th>
+				<th><span class="modalPool"></span></th>
+			</tr>
+			<tr>
+				<td><span class="modalTeam1"></span></td>
+				<td>{{ 'matchModal.vs'|trans }}</td>
+				<td><span class="modalTeam2"></span></td>
+			</tr>
+		</tbody>
+	</table>
+	<p>{{ 'matchModal.location'|trans }}
+		<select id="startMatchLocation"></select>
+	</p>
+	<input type="hidden" class="modalMatchId" value="" />
+	<div class="alert alert-danger" id="startMatchWarningLocation">
+		<b>{{ 'general.warning'|trans }}</b>: {{ 'matchModal.alert.undefinedLocation'|trans }}
+	</div>
+	<div class="alert alert-danger" id="startMatchWarningPlaying">
+		<b>{{ 'general.warning'|trans }}</b>: {{ 'matchModal.alert.playersPlaying'|trans }}
+	</div>
+{% endset %}
+{% set modalFooter %}
+	<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+	<button type="button" class="btn btn-success" id="startMatchButton" onClick="sendStartMatch();"><i class="fa fa-play"></i> {{ 'matchModal.start'|trans }}</button>
+	<button type="button" class="btn btn-success" id="changeLocationButton" onClick="sendChangeLocation();"><i class="fa fa-sort"></i> {{ 'matchModal.changeLocation'|trans }}</button>
+{% endset %}
+{{ macro.modal("startMatchModal", "matchModal.startMatch"|trans, modalContent, modalFooter) }}
+
+<!-- End match modal -->
+{% set modalContent %}
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>{{ 'matchModal.match'|trans }} <span class="modalLocalId"></span></th>
+				<th><span class="modalRound"></span></th>
+				<th><span class="modalPool"></span></th>
+			</tr>
+			<tr>
+				<td><span class="modalTeam1"></span></td>
+				<td>{{ 'matchModal.vs'|trans }}</td>
+				<td><span class="modalTeam2"></span></td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="hidden" class="modalMatchId" value="" />
+{% endset %}
+{% set modalFooter %}
+	<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'matchModal.cancel'|trans }}</button>
+	<button type="button" class="btn btn-warning" onClick="sendStopMatch();">{{ 'matchModal.stop'|trans }}</button>
+	<button type="button" class="btn btn-info" onClick="sendFinishMatch();">{{ 'matchModal.finishedNoScore'|trans }}</button>
+	<button type="button" class="btn btn-primary" onClick="sendFinishMatch();openScoreMatch($('#endMatchModal .modalMatchId').val());"><i class="fa fa-pencil"></i> {{ 'matchModal.finishedEnterScore'|trans }}</button>
+{% endset %}
+{{ macro.modal("endMatchModal", "matchModal.endMatch"|trans, modalContent, modalFooter) }}
+
+<!-- Edit location modal -->
+{% set modalContent %}
+<div class="form-horizontal">
+    <p>
+        {% set locationSettingsLink = '<a href="#" onClick="openUrlAsHash(\''~ path('control_locations', {'tournamentUrl':tournament.url}) ~'\');return false;">' %}
+        {{ 'currentMatches.locationsModal.text'|trans({'%startLink%': locationSettingsLink, '%endLink%': '</a>'})|raw }}
+    </p>
+    <div class="form-group">
+        <label class="control-label col-sm-4" for="editLocationName">{{ 'currentMatches.locationsModal.name'|trans }}</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" value="" id="editLocationName" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-4" for="editLocationStatusSwitch">{{ 'currentMatches.locationsModal.status'|trans }}</label>
+        <div class="col-sm-8">
+            <input type="checkbox" data-on-color="success" data-off-color="danger" data-on-text="{{ 'locations.onHoldSwitch.ok'|trans }}" data-off-text="{{ 'locations.onHoldSwitch.hold'|trans }}" id="editLocationStatusSwitch"/>
+        </div>
+    </div>
+    <div class="form-group" id="editLocationNonreadyReasonBox">
+        <label class="control-label col-sm-4" for="editLocationNonreadyReason">{{ 'currentMatches.locationsModal.reason'|trans }}</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" value="" id="editLocationNonreadyReason" />
+        </div>
+    </div>
+</div>
+<input type="hidden" class="modalLocationId" value="" />
+<input type="hidden" id="editLocationNameOriginal" value="" />
+<input type="hidden" id="editLocationStatusSwitchOriginal" value="" />
+<input type="hidden" id="editLocationNonreadyReasonOriginal" value="" />
+{% endset %}
+{% set modalFooter %}
+<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+<button type="button" class="btn btn-primary" id="editLocationButton" onClick="sendEditLocation();"><i class="fa fa-pencil"></i> {{ 'modal.save'|trans }}</button>
+{% endset %}
+{{ macro.modal("editLocationModal", "currentMatches.locationsModal.title"|trans, modalContent, modalFooter) }}
+
+{% endblock content %}

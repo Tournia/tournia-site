@@ -1,0 +1,167 @@
+{% trans_default_domain "settings" %}
+{% extends "TSSettingsBundle::baseSettings.html.twig" %}
+
+{% block title "financial.title"|trans %}
+
+{% block jQuery %}
+    {{ parent() }}
+    // add and remove options for products
+    setupAccordion('productsAccordion', '{{ 'financial.product.add'|trans }}', true);
+
+    // checkbox for first payment update status can show/hide fields
+    $('#{{ form.paymentUpdateStatus.vars.id}}').change(function() {
+    if ($('#{{ form.paymentUpdateStatus.vars.id}}').prop('checked')) {
+        $("#paymentUpdateStatusRows").show("slow");
+    } else {
+        $("#paymentUpdateStatusRows").hide("slow");
+        }
+    });
+    $('#{{ form.paymentUpdateStatus.vars.id}}').triggerHandler('change');
+
+    fixPrototypeColsize();
+
+    $('.spec[data-content]').popover({
+        container: 'body',
+        trigger: 'hover',
+        placement: 'auto',
+    });
+
+    // show/hide fields depending on selected financial method
+    $("#{{form.financialMethod.vars.id}}").on("change", function() {
+        selectedFinancialMethod = $("#{{form.financialMethod.vars.id}}").val();
+        if (selectedFinancialMethod == "free") {
+            $("#financialInvoice").hide();
+            $(".nav-tabs").hide();
+            $("#seriviceFeeBlock").hide();
+        } else if (selectedFinancialMethod == "invoice") {
+            $("#financialInvoice").show();
+            $(".nav-tabs").hide();
+            $("#seriviceFeeBlock").hide();
+        } else {
+            $("#financialInvoice").hide();
+            $(".nav-tabs").show();
+            $("#seriviceFeeBlock").show();
+        }
+    }).trigger("change");
+
+    // change payout option depending on currency
+    $("#{{form.paymentCurrency.vars.id}}").on("change", function() {
+        if ($(this).val() == "EUR") {
+            //payout is via IBAN
+            $("#{{form.financialPayoutBankAccount.vars.id}}").closest(".form-group").show();
+            $("#{{form.financialPayoutPaypalEmail.vars.id}}").closest(".form-group").hide();
+        } else {
+            //payout is via paypal
+            $("#{{form.financialPayoutBankAccount.vars.id}}").closest(".form-group").hide();
+            $("#{{form.financialPayoutPaypalEmail.vars.id}}").closest(".form-group").show();
+        }
+    }).trigger("change");
+
+{% endblock %}
+
+{% block settingsContent %}
+    <form role="form" class="form-horizontal" action="{{ path('settings_financial', {'tournamentUrl': tournament.url}) }}" method="post" {{ form_enctype(form) }}>
+        <header>
+            <h1 class="tab-title">{{ 'financial.tab.title'|trans }}</h1>
+            <p class="tab-subtitle">{{ 'financial.tab.subtitle'|trans }}</p>
+        </header>
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#generalTab" data-toggle="tab">{{ 'financial.general.tab'|trans }}</a></li>
+            <li><a href="#productsTab" data-toggle="tab">{{ 'financial.products.tab'|trans }}</a></li>
+            <li><a href="#paymentInfoTab" data-toggle="tab">{{ 'financial.paymentInfo.tab'|trans }}</a></li>
+            <li><a href="#payoutTab" data-toggle="tab">{{ 'financial.payout.tab'|trans }}</a></li>
+        </ul>
+
+        {{ form_errors(form) }}
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="generalTab">
+                <fieldset>
+                    <legend>{{ 'financial.general.legend'|trans }}</legend>
+                    <p>{{ 'financial.general.text'|trans }}</p>
+                    <p>
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseFinancialExplanation" aria-expanded="false" aria-controls="collapseFinancialExplanation">
+                            {{ 'financial.general.readMore.button'|trans }} <span class="caret"></span>
+                        </button>
+                    </p>
+                    <div class="collapse" id="collapseFinancialExplanation">
+                        <div class="alert alert-success">
+                            <p>{{ 'financial.general.readMore.1'|trans|raw }}</p>
+                            <p>{{ 'financial.general.readMore.2'|trans|raw }}</p>
+                            <p>{{ 'financial.general.readMore.3'|trans|raw }}</p>
+                        </div>
+                    </div>
+
+                    <p>&nbsp;</p>
+                    {{ form_row(form.financialMethod) }}
+                    <div id="financialInvoice" class="alert alert-info">
+                        <p>{{ 'financial.general.invoice' | trans | nl2br }}</p>
+                    </div>
+                </fieldset>
+                <fieldset id="seriviceFeeBlock">
+                    <legend>{{ 'financial.serviceFee.legend'|trans }}</legend>
+                    {{ form_row(form.organizationPaysServiceFee) }}
+                </fieldset>
+            </div>
+            <div class="tab-pane fade" id="productsTab">
+                <fieldset>
+                    <legend>{{ 'financial.products.legend'|trans }}</legend>
+                    <div class="panel-group" id="productsAccordion" data-prototype="{{ form_widget(form.products.vars.prototype)|e }}">
+                        {% for index,product in form.products %}
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" data-parent="#productsAccordion" href="#existingProductAccordion-{{ index }}">
+                                        <span class="accordion-title">{{ index }}</span>
+                                    </a>
+                                </div>
+                                <div id="existingProductAccordion-{{ index }}" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        {% for row in product %}
+                                            {{ form_row(row) }}
+                                        {% endfor %}
+                                        <div class="form-group removeRow">
+                                            <label class="col-sm-2 control-label"></label>
+                                            <div class="col-sm-10 form-values"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% do form.products.setRendered %}
+                    </div>
+                </fieldset>
+            </div>
+            <div class="tab-pane fade" id="paymentInfoTab">
+                <fieldset>
+                    <legend>{{ 'financial.paymentInfo.legend'|trans }}</legend>
+                    {{ form_row(form.paymentCurrency) }}
+                </fieldset>
+                <fieldset>
+                    <legend>{{ 'financial.paymentInfo.statusUpdate'|trans }}</legend>
+                    {{ form_row(form.paymentUpdateStatus) }}
+                    <div id="paymentUpdateStatusRows">
+                        {{ form_row(form.paymentUpdateFromStatus) }}
+                        {{ form_row(form.paymentUpdateToStatus) }}
+                    </div>
+                </fieldset>
+            </div>
+            <div class="tab-pane fade" id="payoutTab">
+                <fieldset>
+                    <legend>{{ 'financial.payout.legend'|trans }}</legend>
+                    {{ 'financial.payout.text'|trans({'%outstanding%': outstandingAmount|sylius_price})|raw|nl2br }}
+                    <br /><br />
+                    {{ form_row(form.financialPayoutBankAccount) }}
+                    {{ form_row(form.financialPayoutPaypalEmail) }}
+                </fieldset>
+            </div>
+        </div>
+
+        {{ form_rest(form) }}
+
+        <div class="form-group actions">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" onClick="$(this).closest('form').submit();" class="btn btn-custom-primary btn-lg"><span class="fa fa-check"></span> {{ 'save'|trans }}</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

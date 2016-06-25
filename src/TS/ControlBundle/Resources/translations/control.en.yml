@@ -1,0 +1,464 @@
+# Flash messages
+flash.payment.created: New manual payment created
+flash.payment.updated: Manual payment updated
+flash.payment.deleted: Manual payment deleted
+flash.email.sent: Emails sent to %count% players (it is possible that players haven't filled in an email address)
+
+# ManualPaymentType
+manualPaymentType.name.label: Product
+manualPaymentType.player.label: Player
+manualPaymentType.player.emptyvalue: Select a player
+
+# OrganizerEmailType
+organizerEmailType.contactPlayers.label: Send email to
+organizerEmailType.contactPlayers.choices.onlyContactPlayers: Only contact persons
+organizerEmailType.contactPlayers.choices.allPlayers: All players
+organizerEmailType.status.label: With status
+organizerEmailType.subject.label: Subject of email
+organizerEmailType.message.label: Message
+
+# General translations
+label.playersNotReady: Players not ready
+label.playersPlaying: Players playing
+label.priority: Priority
+label.readyToStart: Ready to start
+label.postponed: Postponed
+label.played: Played
+label.location.onHold: On hold
+label.location.undefined: Undefined
+
+table.matchNr: Match number
+table.team1: Team 1
+table.team2: Team 2
+table.pool: Pool
+table.round: Round
+table.location: Location
+table.status: Status
+table.score: Score
+table.loading: Loading...
+table.options: Options
+
+switch.on: ON
+switch.off: OFF
+
+modal.close: Close
+modal.save: Save
+modal.add: Add
+modal.create: Create
+modal.delete: Delete
+modal.cancel: Cancel
+
+dropdown.toggle: Toggle Dropdown
+
+general.allPools: All pools
+general.allRounds: All rounds
+general.warning: Warning
+general.important: Important
+general.error: Error
+general.selectPool: Select pool
+general.selectRound: Select round
+general.pool: Pool
+general.round: Round
+general.set: Set
+general.male: Male
+general.female: Female
+
+# Announcements
+announcements.title: Announcements
+announcements.table.called: Called?
+announcements.clearOnce: Clear once
+announcements.autoClear: Auto-clear called announcements
+announcements.widget.2ndCall: 2nd Call
+announcements.widget.newMatches: New matches
+announcements.widget.upcomingMatches: Upcoming matches
+
+# Locations
+locations.title: Locations
+locations.onHoldSwitch.ok: OK
+locations.onHoldSwitch.hold: On hold
+locations.editName: Edit name
+locations.removeLocation: Remove location
+locations.addLocation: Add new location
+locations.table.id: '#'
+locations.table.name: Name
+locations.table.status: Status
+locations.table.edit: Edit
+locations.modal.name: Name
+locations.modal.newLocation: New location
+locations.modal.editLocation: Edit location
+locations.modal.removeLocation: Remove location
+
+# Pools
+pools.title: Pools
+pools.editName: Edit pool
+pools.removePool: Remove pool
+pools.addPool: Add new pool
+pools.table.id: '#'
+pools.table.nrPlayersInTeam: Players in team
+pools.table.name: Name
+pools.table.algorithm: Algorithm
+pools.table.input: Input
+pools.table.edit: Edit
+pools.modal.name: Name
+pools.modal.nrPlayersInTeam: Number of players in team
+pools.modal.algorithm: Algorithm
+pools.modal.inputDisciplines: Input disciplines
+pools.modal.autoCreatePools.name: The name of the pool will be the same as the name of the discipline.
+pools.modal.newPool: New pool
+pools.modal.editPool: Edit pool
+pools.modal.autoCreatePools: Auto create pools
+pools.modal.removePool: Remove pool
+pools.algorithm.swissladder: Swiss Ladder
+pools.algorithm.roundrobin: Round Robin
+
+# Messages
+messages.title: Server messages
+messages.table.title: Title
+messages.table.person: Person
+messages.table.message: Message
+messages.table.date: Date
+
+# Dashboard
+dashboard.title: Dashboard
+dashboard.cumulativeRegistrations: Cumulative registrations
+dashboard.newRegistrations: New registrations
+
+# All matches
+allMatches.title: All matches
+
+# Current matches
+currentMatches.title: Matches
+currentMatches.endMatch: End match
+currentMatches.2ndCall: 2<sup>nd</sup> Call
+currentMatches.changeLocation: Change location
+currentMatches.start: Start
+currentMatches.overruleStart: Overrule, start
+currentMatches.enterScore: Enter score
+currentMatches.finishedNoScore: Finished, no score
+currentMatches.postponedNonscored.postponed: postponed
+currentMatches.postponedNonscored.and: and
+currentMatches.postponedNonscored.nonScored: non-scored
+currentMatches.postponedNonscored.thereIs: There is
+currentMatches.postponedNonscored.thereAre: There are
+currentMatches.postponedNonscored.match: match
+currentMatches.postponedNonscored.matches: matches
+currentMatches.time.day: day
+currentMatches.time.days: days
+currentMatches.time.hour: hour
+currentMatches.time.hours: hours
+currentMatches.time.min: min
+currentMatches.changeLocation: Change location
+currentMatches.table.playingTime: Playing time
+currentMatches.widget.currentlyPlaying: Currently playing
+currentMatches.widget.postponedNonscored: Postponed or non-scored matches
+currentMatches.widget.upcoming: Upcoming matches
+currentMatches.locationsModal.text: For more location options, go to the %startLink%location settings%endLink%.
+currentMatches.locationsModal.name: Name
+currentMatches.locationsModal.status: Status
+currentMatches.locationsModal.reason: Reason
+currentMatches.locationsModal.title: Edit location
+
+matchModal.match: Match
+matchModal.vs: vs
+matchModal.location: Location
+matchModal.alert.undefinedLocation: This location is non-existing
+matchModal.alert.playersPlaying: There are players currently already playing
+matchModal.start: Start
+matchModal.changeLocation: Change location
+matchModal.startMatch: Start match
+matchModal.cancel: Cancel
+matchModal.stop: Stop match
+matchModal.finishedNoScore: Finished, no score
+matchModal.finishedEnterScore: Finished, enter score
+matchModal.endMatch: End match
+
+matchModal.number: Number
+matchModal.priorityMatch: Priority match
+matchModal.status.postponed: Postponed
+matchModal.status.ready: Ready
+matchModal.status.finished: Finished
+matchModal.status.played: Played
+matchModal.reason: Reason
+matchModal.score: Score
+matchModal.deleteMatch: Delete match
+matchModal.editMatch.title: Edit match
+
+# Plan matches
+planMatches.title: Plan matches
+planMatches.noPlayersInTeam: No players in this team
+planMatches.notPlayedYet: Not played yet
+planMatches.noScoreYet: No score yet
+planMatches.edit: Edit
+planMatches.switch.ready: Ready
+planMatches.switch.postponed: Postponed
+planMatches.noMatchesPlanned: No matches planned
+planMatches.matchHasPlayed: Match has already been played
+planMatches.matchesFor: Matches for
+planMatches.matchesFor.in: in
+planMatches.noteams: <strong>There are no teams in this discipline</strong>, you need to have a %startTeamLink%team%endTeamLink% first.<br />After that, you can %startRoundLink%create a new round%endRoundLink%.
+planMatches.noround: <strong>There are no rounds in this discipline</strong>, you need to %startRoundLink%create a new round%endRoundLink% first.
+planMatches.matchesPlayed: Some matches have already been played
+planMatches.matches: Matches
+planMatches.teamByeThisRound: The following teams have a bye in this round
+planMatches.sidebar.newMatch: Add new match
+planMatches.sidebar.newRound: Create new round
+planMatches.sidebar.deleteRound: Delete round
+planMatches.sidebar.showRanking: Show ranking
+planMatches.sidebar.printCourtNotes: Print court notes
+planMatches.createRound.title: Create new round
+planMatches.createRound.text: This will create a new round, based on the current ranking of players.
+planMatches.createRound.unfinishedMatches: There are unfinished matches in this discipline. Because the new round is based on the current ranking, this could result in an incorrect new round.
+planMatches.deleteRound.title: Delete round
+planMatches.deleteRound.text: This will delete the round and the matches in it.
+planMatches.deleteRound.warningText: Please be aware that scores of matches played will also be deleted!
+
+# scoreBlocks
+scoreBlocks.confirm.incorrectScore: Set %setNr% is an incorrect score, do you want to continue saving it?
+scoreBlocks.score.title: Match score
+scoreBlocks.score.save: Save score
+scoreBlocks.2ndcall.title: 2nd Call
+scoreBlocks.2ndcall.text: Select the players that should have a 2<sup>nd</sup> call; these will be displayed on the organization's announcements page.
+scoreBlocks.2ndcall.save: 2nd Call
+
+# Manual Payment
+editPayment.new.title: New manual payment
+editPayment.new.edit: Changing of manual payment
+editPayment.execPerson: Executing person
+editPayment.delete.confirm: Are you sure you want to delete this manual payment?
+editPayment.delete.btn: Delete payment
+
+# Overview payments
+overviewPayment.title: Payments
+overviewPayment.add: Add manual payment
+overviewPayment.totalAmount: Total amount: <b>%totalAmount%</b> of which <b>%outstandingAmount%</b> is outstanding.
+overviewPayment.financialPage: To transfer this outstanding amount to your account, go to the %startLink%financial settings page%endLink%
+overviewPayment.table.date: Date
+overviewPayment.table.product: Product
+overviewPayment.table.amount: Amount
+overviewPayment.table.player: Player
+overviewPayment.table.method: Method
+overviewPayment.table.execPerson: Executing person
+overviewPayment.table.outstandingAmount: Outstanding amount
+overviewPayment.table.edit: Edit
+
+# Player create
+playerCreate.title: Create player
+
+# Player info
+playerInfo.title: Player info
+playerInfo.pool.ready: Ready
+playerInfo.pool.givenUp: Given up
+playerInfo.tab.general: General information
+playerInfo.tab.registrationInfo: Registration information
+playerInfo.player.postponed: Player is postponed
+playerInfo.playerInfo: Player information
+playerInfo.name: Name
+playerInfo.status: Status
+playerInfo.group: Group
+playerInfo.contactPerson: Contact person
+playerInfo.email: Email
+playerInfo.email.unkonwn: Unknown
+playerInfo.registrationDate: Registration date
+playerInfo.ready: Ready
+playerInfo.pools: Pools
+playerInfo.pools.pool: Pool
+playerInfo.pools.givenUp: Given up
+playerInfo.pools.team: Team
+playerInfo.matches: Matches
+playerInfo.payments: Payments
+playerInfo.payments.none: No payments received
+playerInfo.payments.date: Date
+playerInfo.payments.product: Product
+playerInfo.payments.amount: Amount
+playerInfo.payments.execPerson: Executing person
+playerInfo.payments.anonymous: Anonymous
+playerInfo.payments.total: Total
+
+# Players in pools
+playersInPools.title: Players in pools
+playersInPools.readySwitch.ready: Ready
+playersInPools.readySwitch.postponed: Postponed
+playersInPools.selectStatus: Select specific status of players
+playersInPools.table.player: InPlayer
+playersInPools.table.status: Status
+playersInPools.table.ready: Ready
+playersInPools.table.type: Type
+playersInPools.table.registered: Registered
+playersInPools.table.pools: Pools
+
+# Players overview
+playersOverview.title: Players overview
+playersOverview.table.firstName: First Name
+playersOverview.table.lastName: Last Name
+playersOverview.table.fullName: Full Name
+playersOverview.table.registrationDate: Registration Date
+playersOverview.table.status: Status
+playersOverview.table.ready: Ready
+playersOverview.table.nonreadyReason: Postponed reason
+playersOverview.table.gender: Gender
+playersOverview.table.registrationDisciplines: Registration Disciplines
+playersOverview.table.tournamentPools: Tournament Pools
+playersOverview.table.registrationGroup: Registration Group
+playersOverview.table.registrationGroupContactPlayer: Registration Group contact person
+playersOverview.table.paymentBalance: Payment Balance
+playersOverview.table.personEmail: Person Email
+playersOverview.table.personName: Person Name
+playersOverview.table.boughtProducts: Bought Products
+playersOverview.pdf.title: Players
+playersOverview.pdf.message: Players overview
+playersOverview.print.title: print
+playersOverview.print.message: Player overview <i>(press Esc to close)</i>
+playersOverview.createPlayer: Create player
+
+# Print
+print.title: Print
+print.allPools: All pools
+print.allRounds: All rounds
+print.alertNotPositiveInt.fromMatch: From match number must be empty or a positive number
+print.alertNotPositiveInt.toMatch: To match number must be empty or a positive number
+print.courtNotes: Court notes
+print.matchesList: Matches list
+print.matchResults: Match results
+print.ranking: Ranking
+print.teams: Teams
+print.searchBy: Search by
+print.poolAndRound: Pool &amp; Round
+print.matchNumber: Match number
+print.fromMatchNr: From match number
+print.fromMatchNr.leaveEmpty: Leave empty to print form the first match number
+print.toMatchNr: To match number
+print.cutOffNames: Cut off too long player names
+print.cutOffNames.explain: If unchecked and a name of a player is too long, it will be put on a new line. After you print it and cut the court notes with a scissor, some notes will have a different height. On the other hand, shorter names can sometimes be confusing, so that's why this option is configurable.
+print.submit: Print
+
+# General ranking
+ranking.table.rank: Rank
+ranking.table.player: Player
+ranking.table.matches: Matches
+ranking.table.sets: Sets
+ranking.table.points: Points
+ranking.table.played: Played
+ranking.table.won: Won
+ranking.table.draw: Draw
+ranking.table.lost: Lost
+ranking.table.relative: Relative
+ranking.table.relative.matches: Relative score is between -1 en +1, with won matches resulting in a positive score and lost matches in a negative score. Counts first (most important) in ranking.
+ranking.table.relative.sets: Relative score is between 0 en +1, calculated as won sets divided by total sets. Counts second in ranking.
+ranking.table.relative.points: Relative score is between 0 en +1, calculated as won points divided by total points. Counts third (least important) in ranking.
+
+ranking.table.player: Player
+ranking.table.group: Group
+ranking.table.avgPoints: Average points
+ranking.table.totPoints: Total points
+ranking.table.nrPlayers: '# Players'
+ranking.table.gender: Gender
+
+# Pool ranking
+poolRanking.title: Pool ranking
+poolRanking.showMatches: Show matches
+poolRanking.printRanking: Print ranking
+
+# Pool winners
+poolWinners.title: Pool winners
+
+# Groups ranking
+groupsRanking.title: Groups ranking
+
+# Players ranking
+playersRanking.title: Players ranking
+
+# Email
+email.title: Email registrants
+email.legend: Send email to registrants
+email.tags: You can use these tags in the email message
+email.send: Send
+
+# Export
+export.title: Export
+export.excel: Download for Excel
+export.isbtOrganizer: Download for ISBT organizer
+
+# Teams
+teams.title: Teams
+teams.replacementPlayer: Replacement player
+teams.playerReplaces: This player replaces
+teams.gender: Gender
+teams.partner: Partner
+teams.openMoreOptions: Open more options
+teams.noPlayersForTeam: There are no players for this team, but there are matches associated to it (you can %startLink%delete%endLink% it)
+teams.delete: Delete
+teams.drop: Drop a player here to create a new team
+teams.drop.1: Drop a player here
+teams.drop.2: to create a new team
+teams.gender: Gender
+teams.team: Team
+teams.sidebar.addPlayer: Add new player
+teams.sidebar.collapsePlayers: Collapse all players
+teams.sidebar.expandPlayers: Expand all players
+teams.sidebar.import: Import registrations
+teams.sidebar.autoAssign: Auto assign players
+teams.addPlayer.playerName: Player name
+teams.addPlayer.playersNotInPool: Players not in pool
+teams.addPlayer.title: Add new player
+teams.import.text: |
+  Players that registered for a discipline can be automatically added to that pool.<br />
+  Select the status of registrations that should be imported.<br />
+  Players that are already in a pool will not be added again.
+teams.import.status: Status
+teams.import.title: Import from registrations
+teams.import.submit: Import
+teams.autoAssign.text1: This functionality is for pools with two or more players in a team. It detects players that have no partner yet, and automatically assigns players to each other.
+teams.autoAssign.text2: Do you want to continue?
+teams.autoAssign.submit: Assign
+teams.autoAssign.title: Auto assign players
+teams.moreOptions.player: Player
+teams.moreOptions.replacementPlayer: Replacement player
+teams.moreOptions.submitSet: Set
+teams.moreOptions.moveToPool: Move to pool
+teams.moreOptions.removeFromPool: Remove player from pool
+teams.moreOptions.title: More player options
+teams.disciplinesOverview.print: Print
+teams.disciplinesOverview.title: Disciplines overview
+teams.deleteTeam.title: Delete team
+teams.options.text: There are two ways to delete this team:
+teams.options.deleteTeam.btn: Delete the team
+teams.options.deleteTeam.text1: Please be aware that scores and matches of this team will also be deleted.
+teams.options.deleteTeam.text2: This could change the ranking of other players as well!
+teams.options.removePlayers.btn: Remove players
+teams.options.removePlayers.text: Players will be removed from the team, but scores and matches remain, although for an empty team.
+
+# Inconsistencies
+inconsistencies.title: Inconsistencies
+inconsistencies.table.player: Player
+inconsistencies.table.inconsistency: Inconsistency
+inconsistencies.table.explanation: Explanation
+inconsistencies.table.solution: Solution
+
+# Index
+index.title: Tournia.net
+index.navigation.dashboard: Dashboard
+index.navigation.registrations: Registrations
+index.navigation.email: Email
+index.navigation.payments: Payments
+index.navigation.export: Export
+index.navigation.playersOverview: Players overview
+index.navigation.pools: Pools
+index.navigation.playersInPools: Players in pools
+index.navigation.teams: Teams
+index.navigation.inconsistencies: Inconsistencies
+index.navigation.planMatches: Plan matches
+index.navigation.currentMatches: Current matches
+index.navigation.allMatches: All matches
+index.navigation.announcements: Announcements
+index.navigation.print: Print
+index.navigation.rankings: Rankings
+index.navigation.poolRanking: Pool ranking
+index.navigation.poolWinners: Pool winners
+index.navigation.playersRanking: Players ranking
+index.navigation.groupsRanking: Groups ranking
+index.navigation.settings: Settings
+index.navigation.locations: Locations
+index.navigation.messages: Messages
+index.navigation.otherSettings: Other settings
+index.questionOrIdea: Question or idea?
+

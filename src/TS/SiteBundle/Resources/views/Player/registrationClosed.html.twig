@@ -1,0 +1,9 @@
+{% trans_default_domain "site" %}
+{% extends "TSSiteBundle::base.html.twig" %}
+
+{% block content %}
+<p>{{ 'registrationclosed.text1'|trans({'%startLink%': '<a href="mailto:'~ tournament.emailFrom ~'">', '%endLink%': '</a>'})|raw }}</p>
+{% set playersLink = path('player_overview', {'tournamentUrl':tournament.url}) %}
+<p>{{ 'registrationclosed.text2'|trans({'%startLink%': '<a href="'~ playersLink ~'">', '%endLink%': '</a>'})|raw }}</p>
+
+{% endblock %}

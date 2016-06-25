@@ -1,0 +1,42 @@
+{% trans_default_domain "notificationEmail" %}
+{% extends "TSNotificationBundle:Email:emailBase.html.twig" %}
+
+{% block subject %}{{ 'email.registrationGroup.change.subject'|trans }}{% endblock %}
+
+{% block mailTextBody %}{% import 'TSNotificationBundle:Email:macro.html.twig' as macro %}
+{{ 'email.registrationGroup.change.start'|trans({'%group%': newGroup.name|raw, '%tournament%': tournament.name|raw}) }}
+{% if changesMadeBy is defined %}
+{{ 'email.registrationGroup.change.changesMadeBy'|trans({'%changesMadeBy%': changesMadeBy|raw}) }}
+{% endif %}
+
+{{ 'email.registrationGroup.change.changes'|trans }} {{ 'email.change.markedStar'|trans }}
+{{ macro.changeTxt('email.registrationGroup.name'|trans, newGroup.name, oldGroup.name) }}
+{{ macro.changeTxt('email.registrationGroup.country'|trans, newGroup.country, oldGroup.country) }}
+{{ macro.changeTxt('email.registrationGroup.contactPlayers'|trans, newGroupContactPlayers|join(', '), oldGroupContactPlayers|join(', ')) }}
+
+{{ 'email.registrationGroup.end'|trans }}
+{% endblock %}
+
+{% block mailHtmlBody %}
+    {% import 'TSNotificationBundle:Email:macro.html.twig' as macro %}
+    {{ 'email.registrationGroup.change.start'|trans({'%group%': newGroup.name, '%tournament%': tournament.name})|nl2br }}
+
+    {% if changesMadeBy is defined %}
+        {{ 'email.registrationGroup.change.changesMadeBy'|trans({'%changesMadeBy%': changesMadeBy}) }}<br />
+    {% endif %}
+    <br /><br />
+    {{ 'email.registrationGroup.change.changes'|trans }} {{ 'email.change.markedBold'|trans }}
+    <table style="border:1px">
+        <tr>
+            <td>&nbsp;</td>
+            <td>{{ 'email.change.new'|trans }}</td>
+            <td>{{ 'email.change.old'|trans }}</td>
+        </tr>
+
+        {{ macro.changeHtml('email.registrationGroup.name'|trans, newGroup.name, oldGroup.name) }}
+        {{ macro.changeHtml('email.registrationGroup.country'|trans, newGroup.country, oldGroup.country) }}
+        {{ macro.changeHtml('email.registrationGroup.contactPlayers'|trans, newGroupContactPlayers|join(', '), oldGroupContactPlayers|join(', ')) }}
+    </table>
+    <br />
+    {{ 'email.registrationGroup.end'|trans|nl2br }}
+{% endblock %}

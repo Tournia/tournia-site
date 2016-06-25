@@ -1,0 +1,67 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "overviewPayment.title"|trans %}
+
+{% block jQuery %}
+
+$(".dataTableLoadingIndicator").remove();
+
+{% if resetUrl %}
+    openUrlAsHash('{{ path('control_payment_overview', {'tournamentUrl': tournament.url}) }}');
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+{% set content %}
+    <p class="pull-right">
+        <a href="{{ path('control_payment_create', {'tournamentUrl': tournament.url}) }}" class="btn btn-primary"><i class="fa fa-plus"></i> {{ 'overviewPayment.add'|trans }}</a>
+    </p>
+
+    <p>
+        {{ 'overviewPayment.totalAmount'|trans({'%totalAmount%': totalAmount|sylius_price, '%outstandingAmount%': outstandingAmount|sylius_price})|raw }}<br />
+        {% set financialLink = '<a href="'~ path('settings_financial', {'tournamentUrl': tournament.url}) ~'?tab=payoutTab">' %}
+        {{ 'overviewPayment.financialPage'|trans({'%startLink%': financialLink, '%endLink%': '</a>'})|raw }}
+    </p>
+    <br />
+
+	<table class="table table-hover table-bordered ajaxDataTable">
+		<thead>
+			<tr>
+                <th>{{ 'overviewPayment.table.date'|trans }}</th>
+                <th>{{ 'overviewPayment.table.product'|trans }}</th>
+                <th>{{ 'overviewPayment.table.amount'|trans }}</th>
+                <th>{{ 'overviewPayment.table.player'|trans }}</th>
+                <th>{{ 'overviewPayment.table.method'|trans }}</th>
+                <th>{{ 'overviewPayment.table.execPerson'|trans }}</th>
+                <th>{{ 'overviewPayment.table.outstandingAmount'|trans }}</th>
+                <th>{{ 'overviewPayment.table.edit'|trans }}</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for boughtProduct in boughtProducts %}
+			<tr>
+                <td>{{ boughtProduct.cartOrder.updatedAt|date("d-M-Y H:i:s") }}</td>
+                <td>{{ boughtProduct.quantity }} {{ boughtProduct.name }}</td>
+                <td>{{ boughtProduct.amount|sylius_price }}</td>
+				<td><a href="{{ path('control_player_info', {'tournamentUrl': tournament.url, 'playerId': boughtProduct.player.id}) }}">{{ boughtProduct.player.name }}</a></td>
+                <td>
+                    {% if boughtProduct.cartOrder.paymentInstruction.paymentSystemName == "paypal_express_checkout" %}Paypal
+                    {% else %}{{ boughtProduct.cartOrder.paymentInstruction.paymentSystemName }}
+                    {% endif %}
+                </td>
+                {% if boughtProduct.cartOrder.execPerson is not empty %}
+				    <td>{{ boughtProduct.cartOrder.execPerson.name }} ({{ boughtProduct.cartOrder.execPerson.email }})</td>
+                {% else %}
+                    <td>Anonymous</td>
+                {% endif %}
+                <td>{{ boughtProduct.outstandingAmount|sylius_price }}</td>
+                <td>{% if boughtProduct.cartOrder.paymentInstruction.paymentSystemName != "manual" %}&nbsp;{% else %}<a href="{{ path('control_payment_edit', {'tournamentUrl': tournament.url, 'boughtProductId': boughtProduct.id}) }}"><i class="fa fa-edit"></i> {{ 'overviewPayment.table.edit'|trans }}</a>{% endif %}</td>
+            </tr>
+		{% endfor %}
+		</tbody>
+	</table>
+{% endset %}
+{{ macro.well(content) }}
+{% endblock %}

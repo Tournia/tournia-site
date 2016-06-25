@@ -1,0 +1,42 @@
+{% extends "TSAdminBundle::baseAdmin.html.twig" %}
+
+{% block title "Financial Admin" %}
+
+{% block content %}
+    {{ parent() }}
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Pay-outs</h2>
+                <table class="table table-hover table-striped ajaxDataTable">
+                    <thead>
+                    <tr>
+                        <th>Payout ID</th>
+                        <th>Tournament ID</th>
+                        <th>Tournament</th>
+                        <th>Paid-out amount</th>
+                        <th>Invoice amount</th>
+                        <th>DateTime</th>
+                        <th>Invoice</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for payOut in payOuts %}
+                        <tr>
+                            <td>{{ payOut.id }}</td>
+                            <td>{{ payOut.tournament.id }}</td>
+                            <td><a href="{{ path('tournament_index', {'tournamentUrl': payOut.tournament.url}) }}">{{ payOut.tournament.name }}</a></td>
+                            <td>{{ payOut.tournament.paymentCurrency }} {{ (payOut.paidoutAmount/100)|number_format(2, ',', '.') }}</td>
+                            <td>{{ payOut.tournament.paymentCurrency }} {{ (payOut.invoice.cartOrder.total/100)|number_format(2, ',', '.') }}</td>
+                            <td>{{ payOut.dateTime|date("d-M-Y H:i:s") }}</td>
+                            <td>
+                                <a href="{{ path('financial_invoice', {'invoiceNr': payOut.invoice.invoiceNr}) }}"><span class="fa fa-file-pdf-o"></span> Open</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+{%  endblock %}
+

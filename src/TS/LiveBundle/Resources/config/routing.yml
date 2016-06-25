@@ -1,0 +1,7 @@
+ts_live_mobile:
+    pattern:  /mobile
+    defaults: { _controller: TSLiveBundle:Default:mobile }
+
+ts_live_presentationscreen:
+    pattern:  /presentationscreen
+    defaults: { _controller: TSLiveBundle:Default:presentationScreen }

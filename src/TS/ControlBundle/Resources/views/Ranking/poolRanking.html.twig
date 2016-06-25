@@ -1,0 +1,125 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "poolRanking.title"|trans %}
+
+{% block javascript %}
+<script type="text/javascript">
+///// post and receive server messages /////
+// setting commands for refresh of server data
+function getRefreshCommands() {
+	command = {
+		command : 'Rankings.pool',
+		poolId: $("#poolSelector").val(),
+	}
+	return new Array(command);
+}
+// setting on which updates data should be refreshed
+observerUpdateSection.push('match');
+
+// setting datatable options
+ajaxDataTableOptions.rankingTable = {};
+ajaxDataTableOptions.rankingTable.bFilter = false;
+ajaxDataTableOptions.rankingTable.bInfo = false;
+ajaxDataTableOptions.rankingTable.bPaginate = false;
+ajaxDataTableOptions.rankingTable.bSort = false;
+
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+	if (commandKey == "Rankings.pool") {
+		// go through players
+		$('#rankingTable').dataTable().fnClearTable();
+		$.each(commandResponse, function(key2, teamObject) {
+			$('#rankingTable').dataTable().fnAddData( [
+				teamObject['rank'],
+				renderPlayerNames(teamObject['players'], true),
+				teamObject['matchesPlayed'],
+				teamObject['matchesWon'],
+				teamObject['matchesDraw'],
+				teamObject['matchesLost'],
+				teamObject['matchesRelative'],
+				teamObject['setsWon'],
+				teamObject['setsLost'],
+				teamObject['setsRelative'],
+				teamObject['pointsWon'],
+				teamObject['pointsLost'],
+				teamObject['pointsRelative']
+			]);
+		});
+		dataTableFinishedLoading("rankingTable");
+	}
+}
+
+// process a new row in datatable
+function datatableProcessRow(row, table) {
+	stylePlayerNames(row);
+}
+
+
+function afterUpdatePoolSelector() {
+	// look for poolId in hash of url
+	if (getUrlParam("cid") != null) {
+	    $("#poolSelector option[value='"+ getUrlParam("cid") +"']").prop("selected", true);
+	}
+	
+	// fetch new data from server
+	sendServerCommands(true);
+}
+
+</script>
+{% endblock %}
+
+{% block jQuery %}
+$("#poolSelector").on("change", function() {
+	// get new data from server
+	setUrlParam('cid', $(this).val());
+	sendServerCommands(true);
+});
+
+// retrieving initial data from server
+updatePoolSelector(afterUpdatePoolSelector);
+
+{% endblock %}
+
+{% block content %}
+{% set content %}
+<table class="table table-hover ajaxDataTable" id="rankingTable">
+	<thead>
+		<tr>
+			<th rowspan="2">{{ 'ranking.table.rank'|trans }}</th>
+			<th rowspan="2">{{ 'ranking.table.player'|trans }}</th>
+			<th colspan="5">{{ 'ranking.table.matches'|trans }}</th>
+			<th colspan="3">{{ 'ranking.table.sets'|trans }}</th>
+			<th colspan="3">{{ 'ranking.table.points'|trans }}</th>
+		</tr>
+		<tr>
+			<th>{{ 'ranking.table.played'|trans }}</th>
+			<th>{{ 'ranking.table.won'|trans }}</th>
+			<th>{{ 'ranking.table.draw'|trans }}</th>
+			<th>{{ 'ranking.table.lost'|trans }}</th>
+			<th><a data-content="{{ 'ranking.table.relative.matches'|trans }}" data-trigger="hover" rel="popover" href="#" onClick="return false;">{{ 'ranking.table.relative'|trans }}</a></th>
+			<th>{{ 'ranking.table.won'|trans }}</th>
+			<th>{{ 'ranking.table.lost'|trans }}</th>
+			<th><a data-content="{{ 'ranking.table.relative.sets'|trans }}" data-trigger="hover" data-placement="left" rel="popover" href="#" onClick="return false;">{{ 'ranking.table.relative'|trans }}</a></th>
+			<th>{{ 'ranking.table.won'|trans }}</th>
+			<th>{{ 'ranking.table.lost'|trans }}</th>
+			<th><a data-content="{{ 'ranking.table.relative.points'|trans }}" data-trigger="hover" data-placement="left" rel="popover" href="#" onClick="return false;">{{ 'ranking.table.relative'|trans }}</a></th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+{% endset %}
+{% set sidebar %}
+    <p>
+        <label for="poolSelector">{{ 'general.selectPool'|trans }}:</label>
+        <select class="poolSelector" id="poolSelector"></select>
+    </p>
+    <p><button class="btn btn-success btn-block" onClick="openUrlAsHash('{{ path('control_plan_matches', {'tournamentUrl':tournament.url}) }}?cid='+ $('#poolSelector').val())"><i class="fa fa-list-alt"></i> {{ 'poolRanking.showMatches'|trans }}</button></p>
+    <p><button class="btn btn-warning btn-block" onClick="window.open('{{ path('control_print', {'tournamentUrl': tournament.url, 'type': 'ranking', 'searchBy': 'poolRound'}) }}&amp;poolId='+ $('#poolSelector').val())"><i class="fa fa-print"></i> {{ 'poolRanking.printRanking'|trans }}</button></p>
+{% endset %}
+{{ macro.well(content, sidebar) }}
+
+{% endblock %}
+
+

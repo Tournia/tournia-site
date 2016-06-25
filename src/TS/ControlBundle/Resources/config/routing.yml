@@ -1,0 +1,110 @@
+control_index:
+    pattern:  /
+    defaults: { _controller: TSControlBundle:Default:index }
+
+control_export:
+    path: /export
+    defaults: {_controller: TSControlBundle:RegistrationsExport:export }
+control_email:
+    path: /email
+    defaults: {_controller: TSControlBundle:Registrations:email }
+
+control_dashboard:
+    path: /dashboard
+    defaults: {_controller: TSControlBundle:Dashboard:dashboard }
+    
+control_teams:
+    pattern:  /teams
+    defaults: { _controller: TSControlBundle:Teams:index }
+
+control_inconsistencies:
+    pattern:  /inconsistencies
+    defaults: { _controller: TSControlBundle:Inconsistencies:inconsistencies }
+
+control_player_overview:
+    pattern:  /players
+    defaults: { _controller: TSControlBundle:Player:overview }
+control_player_pools:
+    pattern:  /playersinpools
+    defaults: { _controller: TSControlBundle:Player:pools }
+control_player_create:
+    path: /player/create
+    defaults: {_controller: TSControlBundle:Player:create }
+control_player_info:
+    path: /player/{playerId}
+    defaults: {_controller: TSControlBundle:Player:info}
+    options:
+        expose: true
+
+control_pools:
+    pattern:  /pools
+    defaults: { _controller: TSControlBundle:Pools:pools }
+
+control_messages:
+    pattern:  /configuration/messages
+    defaults: { _controller: TSControlBundle:Configuration:messages }
+control_locations:
+    pattern:  /configuration/locations
+    defaults: { _controller: TSControlBundle:Configuration:locations }
+
+control_payment_overview:
+    path: /payment
+    defaults: {_controller: TSControlBundle:Payment:overview }
+control_payment_create:
+    path: /payment/create
+    defaults: {_controller: TSControlBundle:Payment:create }
+control_payment_edit:
+    path: /payment/{boughtProductId}
+    defaults: {_controller: TSControlBundle:Payment:edit }
+control_payment_delete:
+    path: /payment/delete/{boughtProductId}
+    defaults: {_controller: TSControlBundle:Payment:delete }
+
+control_current_matches:
+    pattern:  /currentmatches
+    defaults: { _controller: TSControlBundle:Matches:currentMatches }
+
+control_all_matches:
+    pattern:  /allmatches
+    defaults: { _controller: TSControlBundle:Matches:allMatches }
+
+control_plan_matches:
+    pattern:  /planmatches
+    defaults: { _controller: TSControlBundle:MatchesPlan:index }
+    
+control_ranking_pool:
+    pattern:  /ranking/pool
+    defaults: { _controller: TSControlBundle:Ranking:pool }
+control_ranking_players:
+    pattern:  /ranking/players
+    defaults: { _controller: TSControlBundle:Ranking:players }
+control_ranking_groups:
+    pattern:  /ranking/groups
+    defaults: { _controller: TSControlBundle:Ranking:groups }
+control_ranking_pool_winners:
+    pattern:  /ranking/pool_winners
+    defaults: { _controller: TSControlBundle:Ranking:poolWinners }
+
+control_announcements:
+    pattern:  /announcements
+    defaults: { _controller: TSControlBundle:Announcements:index }
+    
+control_print:
+    pattern:  /print
+    defaults: { _controller: TSControlBundle:Print:index }
+control_print_courtnotes:
+    pattern:  /print/courtnotes
+    defaults: { _controller: TSControlBundle:Print:courtNotes }
+control_print_matcheslist:
+    pattern:  /print/matcheslist
+    defaults: { _controller: TSControlBundle:Print:matchesList }
+control_print_matchresults:
+    pattern:  /print/matchresults
+    defaults: { _controller: TSControlBundle:Print:matchResults }
+control_print_ranking:
+    pattern:  /print/ranking
+    defaults: { _controller: TSControlBundle:Print:ranking }
+control_print_teams:
+    pattern:  /print/teams
+    defaults: { _controller: TSControlBundle:Print:teams }
+

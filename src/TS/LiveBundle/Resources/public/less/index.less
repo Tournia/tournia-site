@@ -1,0 +1,772 @@
+/* ==========================================================================
+   Table of Contents
+   ========================================================================== */
+
+/*
+
+    -1. LESS Variables
+    
+    0.  General
+    1.  Bootstrap overrides
+    2.  Bootstrap additions
+    
+    3. Header
+        3.2. Navbar
+        3.1. Sub header
+    
+    4. Main
+        4.1. Select navbar
+        4.2. Loadingpane
+        4.3. Content tabs
+        4.4. Pool selector
+    
+    5.Footer
+        5.1. Main navbar
+      
+    6.  Tables
+    7.  Forms
+    8.  Media Queries
+    
+    9. Misc
+        9.1 Cards
+        9.2 Presentation screen
+
+*/
+
+/* ==========================================================================
+   -1. LESS Variables
+   ========================================================================== */
+
+    @defaultFontSize: 13px;
+
+    @defaultColor: #6bb50b;
+    @defaultBorderColor: darken(@defaultColor, 2%);
+    @defaultTextColor: #333;
+    
+    @defaultAltColor: #70726d;
+    
+    @backgroundColor: #f3f2f0;
+    @backgroundDarkenColor: darken(@backgroundColor, 2%);
+    
+    @headerBackgroundColor: @defaultColor;
+    @headerTextDarkenColor: darken(@headerTextColor, 8%);
+    @headerTextColor: #fff;
+
+
+  /* Special colors */
+  /* ======================================================================== */
+    @tableBackgroundColor: #fff;
+    @timerBackgroundColor: @backgroundColor;
+
+    @mutedTextColor: lighten(@defaultTextColor, 50%);;
+
+    @successColor: #3f963f;
+    @warningColor: #ba6f05;
+    @dangerColor: #85221f;
+
+      /* Related LESS COLORS */
+      /* ======================================================================== */
+        @subheaderBackgroundColor: @backgroundDarkenColor;
+        @subheaderBorderColor: darken(@subheaderBackgroundColor, 10%);
+        @subheaderTextColor: @defaultAltColor;
+
+        @navSelectColor: @subheaderTextColor;
+        @navSelectBackgroundColor: @navSelectColor;
+        @navSelectBorderColor: @navSelectColor;
+        @navSelectTextColor: @navSelectColor;
+        
+        @mainNavbarBackgroundColor: @backgroundDarkenColor;
+        @mainNavbarBorderColor: darken(@mainNavbarBackgroundColor, 10%);
+        @mainNavbarTextColor: @defaultAltColor;
+        @mainNavbarActiveTextColor: @defaultColor;
+        
+        @successTextColor: @successColor;
+        @successBackgroundColor: lighten(@successColor, 5%);
+        @successBorderColor: darken(@successColor, 5%);
+        @warningTextColor: @warningColor;
+        @warningBackgroundColor: lighten(@warningColor, 20%);
+        @warningBorderColor: darken(@warningColor, 5%);
+        @dangerTextColor: @dangerColor;
+        @dangerBackgroundColor: lighten(@dangerColor, 20%);;
+        @dangerBorderColor: darken(@dangerColor, 5%);
+
+/* ==========================================================================
+   0. General
+   ========================================================================== */
+
+    html,
+    body,
+    main {
+      background: @backgroundColor; /* #FFF */
+      font-size: @defaultFontSize !important;
+    }
+    
+    a,
+    a:link {
+      color: @defaultTextColor;
+    }
+
+    a.themecolor,
+    a.themecolor:link {
+      color: @defaultColor;
+    }
+   
+/* ==========================================================================
+   1 Bootstrap overrides
+   ========================================================================== */
+
+    .container,
+    .col-md-12 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .navbar-form input:focus {
+        border-color: @defaultBorderColor;
+    }
+
+
+/* ==========================================================================
+   2. Bootstrap additions
+   ========================================================================== */
+
+    .caret-right {
+      border-left: 4px solid @defaultTextColor;
+      border-right: 0;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+    }
+    
+    .vertical-align {
+      position: relative;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
+    
+    .muted {
+        color: @mutedTextColor;
+    }
+
+    .caret-right.muted {
+      border-left: 4px solid @mutedTextColor;
+      border-right: 0;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+    }
+
+
+/* ==========================================================================
+   3. Header
+   ========================================================================== */
+
+    #site-header {
+        margin-bottom: 20px;
+    }
+    
+    #site-header,
+    #site-header a,
+    #site-header .glyphicon {
+        color: @headerTextColor;
+        font-size: 1.1em;
+    }
+    
+    #site-header .muted {
+      color: @headerTextDarkenColor !important;
+    }
+
+/* ==========================================================================
+   3.1. Navbar
+   ========================================================================== */
+
+    /*
+    #header-navbar {
+        background: rgba(0,0,0,.4); /* if used add 15px to top-margin jumbotron wrapper *
+    }
+    */
+      
+    #header-navbar {
+        margin-bottom: 0; 
+        border-bottom: 0;
+        background: @defaultColor;
+        border-bottom: 1px solid @defaultBorderColor;
+    }
+      
+        /* Navbar title */
+        /* ======================================================================== */
+        #header-navbar .navbar-title {
+            position: absolute;
+            height: 50px;
+            width: 100%;
+            font-size: 1.25em;
+            line-height: 50px;
+            text-align: center;
+        }
+        
+        #header-navbar .navbar-title > div {
+            display: inline;
+            padding: 0 10px;
+            
+        }
+        
+        .navbar-title .title {
+            border-right: 2px solid @headerTextColor;
+        }
+        
+        #header-navbar .navbar-title .brand {
+            position: relative;
+            top: 2px;
+            font-size: 0.8em;
+        }
+        #header-navbar .navbar-title .brand .poweredBy {
+            position: absolute;
+            top: -28px;
+            width: 100%;
+            text-align: left;
+            font-size: 0.55em !important;
+            text-transform: uppercase;
+        }
+        
+        /* Navbar buttons */
+        /* ======================================================================== */
+        .navbar-btn {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            height: 50px;
+            border: 0;
+            background: transparent;
+        }
+        
+        .navbar-btn .glyphicon {
+            display: block;
+            font-size: 1.25em;
+            line-height: 20px;
+            padding: 15px 17px;
+        }
+
+        /* Navbar drawer button */
+        /* ======================================================================== */
+        #header-navbar .drawer-toggle {
+            padding: 19px 17px;
+        }
+        
+        #header-navbar .drawer-toggle .icon-bar {
+            background: @headerTextColor;
+            width: 18px;
+            height: 2px;
+            display: block;
+            width: 16px;
+            height: 2px;
+            border-radius: 1px;
+        }
+        
+        #header-navbar .drawer-toggle .icon-bar + .icon-bar {
+            margin-top: 3px;
+        }
+  
+/* ==========================================================================
+   3.2. Sub header
+   ========================================================================== */
+
+    #sub-header {
+        margin-top: 50px;
+        background: @subheaderBackgroundColor;
+        border-bottom: 1px solid @subheaderBorderColor;
+        height: 50px;
+        color: #222;
+    }
+    
+    #sub-header h1 {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        font-size: 1.25em;
+        color: @subheaderTextColor;
+        line-height: 50px;
+    }
+
+/* ==========================================================================
+   4. Main
+   ========================================================================== */
+   
+    #content {
+        margin-bottom: 55px;
+    }
+
+/* ==========================================================================
+   4.1. Select navbar
+   ========================================================================== */
+
+    #nav-select {
+        display: block;
+        padding: 0 15px;
+        margin-bottom: 20px;  
+    }
+    
+    #nav-select ul {
+        background: transparent;
+        border: 1px solid @navSelectBorderColor;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    
+    #nav-select li {
+        display: table-cell;
+        width: 1%;
+        border-right: 1px solid @navSelectBorderColor;
+    }
+    
+    #nav-select li:last-child {
+        border-right: 0;
+    }
+    
+    #nav-select li a {
+        color: @navSelectTextColor;
+        border-radius: 0;
+        padding: 6px 15px;
+        margin-bottom: 0;
+    }
+    
+    #nav-select li.active a {
+        color: @backgroundColor;
+        background: @navSelectBackgroundColor;
+    }
+
+/* ==========================================================================
+   4.2. Loading pane
+   ========================================================================== */
+    .loadingpane {
+        position: absolute;
+        background: @backgroundColor;
+        width: 100%;
+        height: 100%;
+    }
+    
+        /* Logo */
+        /* ======================================================================== */
+        .loadingpane .logo {
+            width: 200px;
+            height: 30px;
+/*             background-color: @defaultColor; */
+            
+            font-size: 1.5em;
+            color: @defaultColor;
+            text-align: center;
+            
+            margin: 100px auto;
+        }    
+
+        /* Spinner */
+        /* ======================================================================== */
+        /* Source: http://tobiasahlin.com/spinkit/ */
+        .spinner {
+            -webkit-animation: rotateplane 1.5s infinite ease-in-out;
+            animation: rotateplane 2.2s infinite ease-in-out;
+        }
+        
+        @-webkit-keyframes rotateplane {
+            0% { -webkit-transform: perspective(0px) }
+            50% { -webkit-transform: perspective(0px) rotateX(180deg) }
+            100% { -webkit-transform: perspective(0px) }
+        }
+        
+        @keyframes rotateplane {
+            0% { 
+                transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+                -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg) 
+            } 50% { 
+                transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+                -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg) 
+            } 100% { 
+                transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+                -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+            }
+        }
+
+/* ==========================================================================
+   4.3. Content tabs
+   ========================================================================== */
+    .content-tabs .content-tab {
+        display: none;
+    }
+
+    .content-tabs .content-tab.active {
+        display: block;
+    }
+
+/* ==========================================================================
+   4.4. Pool selector
+   ========================================================================== */
+
+    #pool-select {
+        cursor: pointer;
+    }
+
+        /* Current */
+        /* ======================================================================== */
+        #pool-select .current {
+            padding: 15px;
+        }
+
+        #pool-select .current div {
+            display: table-cell;
+            width: 1%;
+        }
+    
+        #pool-select .current div.pool,
+        #pool-select .current div.poule {
+            width: 2% !important;
+        }
+    
+        #pool-select .current div small {
+            margin-right: 15px;
+        }
+    
+        /* List */
+        /* ======================================================================== */        
+        #pool-select .list {
+            display: none;
+        }
+        
+        #pool-select .list > div {
+            border-top: 1px solid @subheaderBorderColor;
+            padding: 15px;
+        }
+
+/* ==========================================================================
+   5. Footer
+   ========================================================================== */
+
+    footer {
+        position: fixed;
+        bottom: 0;
+    }
+    
+/* ==========================================================================
+   5.1. Main navbar
+   ========================================================================== */
+
+    #main-navbar {
+        background: @mainNavbarBackgroundColor;
+        border-top: 1px solid @mainNavbarBorderColor;
+        border-width: 1px 0 0 0;
+        margin-bottom: 0;
+    }
+    
+    #main-navbar ul li {
+        display: table-cell;
+        width: 1%;
+        text-align: center;
+        border-right: 1px solid @mainNavbarBorderColor;
+    }
+    
+    #main-navbar ul li:last-child {
+        border-right: 0;
+    }
+    
+    #main-navbar ul li a {
+        line-height: 22px;
+        color: @mainNavbarTextColor;
+        padding: 5px 15px;
+    }
+    
+    #main-navbar ul li a span {
+        display: block;
+        font-size: 1.5em;
+        margin-bottom: 3px;
+    }
+    
+    #main-navbar ul li.active a {
+        color: @mainNavbarActiveTextColor;
+    }
+
+/* ==========================================================================
+   6. Tables
+   ========================================================================== */
+   table {
+       background: @tableBackgroundColor;
+   }
+
+    h2.table-title {
+        margin: 0 0 0 15px;
+        padding: 0;
+        font-size: 1.25em;
+        color: @defaultAltColor;
+        line-height: 30px;
+    }
+
+    #ranking-table {
+        cursor: pointer;
+    }
+
+/* ==========================================================================
+   6.1 Team table
+   ========================================================================== */
+
+    .team-table span.player,
+    .team-table span.set-score {
+        display: block;
+    }
+    
+    .team-table tr td {
+        vertical-align: middle !important;
+    }
+
+    .team-table tr th.status,
+    .team-table tr td.status,
+    .team-table tr th.pool,
+    .team-table tr td.pool {
+        text-align: center;
+        font-size: 0.85em;
+    }
+   
+        /* Status */
+        /* ======================================================================== */
+        .team-table tr th.status,
+        .team-table tr td.status {
+            padding: 15px 2px !important;
+        }
+        
+        .team-table tr td.status.match-playing {
+            background: @successBackgroundColor;
+            border-right: 1px solid @successBorderColor;
+        }
+        
+        .team-table tr td.status.match-playing,
+        .team-table tr td.status.match-playing .glyphicon {
+            color: #2d572d;
+        }
+        
+        .team-table tr td.status.match-playing span.sub {
+            display: block;
+            font-size: 0.6em;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Pool */
+        /* ======================================================================== */
+        .team-table tr th.pool,
+        .team-table tr td.pool {
+            padding: 15px 4px !important;
+        }
+        
+        .team-table tr td.pool {
+            padding: 15px 4px !important;
+            color: #fff;
+            background: #999;
+        }
+
+        /* Delayed/postponed matches */
+        /* ======================================================================== */
+        .team-table tr.delayed-rows,
+        .team-table tr.postponed-rows {
+            display: none;
+        }
+        
+        .team-table tr.delayed-stacked td,
+        .team-table tr.postponed-stacked td {
+            padding: 10px 15px !important;
+        }
+        
+        .team-table tr td.status.delayed,
+        .team-table tr.delayed-stacked td {
+            background: @warningBackgroundColor;
+            border-color: @warningBorderColor;
+        }
+        
+        .team-table tr td.status.delayed,
+        .team-table tr td.status.delayed .glyphicon,
+        .team-table tr.delayed-stacked td,
+        .team-table tr.delayed-stacked td .glyphicon {
+            color: @warningTextColor;
+        }
+        
+        .team-table tr.delayed-stacked td .caret {
+            border-top-color: @warningTextColor;
+        }
+        
+        .team-table tr.delayed-stacked td .caret.caret-right {
+            border-left-color: @warningTextColor;
+            border-top-color: transparent;
+        }
+        
+        .team-table tr td.status.postponed,
+        .team-table tr.postponed-stacked td {
+            background: @dangerBackgroundColor;
+            border-color: @dangerBorderColor;
+            border-top-color: transparent;
+        }
+        
+        .team-table tr td.status.postponed,
+        .team-table tr td.status.postponed .glyphicon,
+        .team-table tr.postponed-stacked td,
+        .team-table tr.postponed-stacked td .glyphicon {
+            color: @dangerTextColor;
+        }
+        
+        .team-table tr.postponed-stacked td .caret {
+            border-top-color: @dangerTextColor;
+        }
+        
+        .team-table tr.postponed-stacked td .caret.caret-right {
+            border-left-color: @dangerTextColor !important;
+            border-top-color: transparent; 
+        }
+
+        /* Loadmore */
+        /* ======================================================================== */
+        .team-table tr td.loadmore-row {
+            background: @backgroundColor !important;
+        }
+
+/* ==========================================================================
+   7. Forms
+   ========================================================================== */
+   .navbar-form {
+       display: none;
+       position: absolute;
+       z-index: 99;
+       width: 100%;
+   }
+   .navbar-form .form-control {
+       width: 100%;
+   }
+
+/* ==========================================================================
+   8. Media Queries
+   ========================================================================== */
+
+    /* Large desktop */
+    @media (min-width: 1200px) {}
+    
+    @media (min-width: 980px) {}
+    
+    @media (max-width: 979px) {}
+    
+    /* Portrait tablet to landscape and desktop */
+    @media (min-width: 768px) and (max-width: 979px) {}
+    
+    /* Landscape phone to portrait tablet */
+    @media (max-width: 767px) {
+        .team-table span.set-score {
+            white-space: nowrap;
+        }
+        
+        .navbar-form {
+            padding: 0 10px;
+            margin-left: 0;
+        }
+    }
+    
+    /* Landscape phones and down */
+    @media (max-width: 480px)
+    {
+        .team-table span.player {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }   
+
+        #rankings .team-table span.player {
+            max-width: 175px;
+        }
+
+        #upcoming-matches-table.team-table span.player {
+            max-width: 120px;
+        }
+
+        #current-matches-table.team-table span.player {
+            max-width: 105px;
+        }
+
+        #finished-matches-table.team-table span.player {
+            max-width: 100px;
+        }
+
+        #search .team-table span.player {
+            max-width: 100px;
+        }
+
+        .team-table td.team1 {
+            padding-right: 5px !important;
+        }
+        .team-table td.team2 {
+            padding-left: 5px !important;
+        }
+    }
+
+/* ==========================================================================
+   9. Misc
+   ========================================================================== */
+   
+   .on-top {
+   }
+
+/* ==========================================================================
+   9.1 Cards
+   ========================================================================== */
+
+    .card,
+    .table-card {
+        background: #fff;
+        border: 1px solid @subheaderBorderColor;
+        border-radius: 6px;
+        margin: 15px;
+/*         padding: 10px 15px; */
+    }
+
+        /* Basic cards */
+        /* ======================================================================== */
+        .card .card-header,
+        .card .card-content,
+        .table-card th,
+        .table-card td {
+            padding: 15px !important;
+            border-bottom: 1px solid @subheaderBorderColor !important;
+        }
+        
+        .card .card-content:last-child {
+            border-bottom: 0;
+        }
+        
+        .card .card-header,
+        .table-card th {
+            color: #8d8985;
+            font-weight: normal;
+        }
+        
+        .card .card-footer {
+            border-top: 1px solid @subheaderBorderColor;
+        }
+
+/* ==========================================================================
+   9.2 Presentation screen
+   ========================================================================== */
+
+   .presentationscreen footer {
+       width: 100%;
+       height: 40px;
+      /* Safari 4-5, Chrome 1-9 */
+      background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(transparent), to(@backgroundColor));
+    
+      /* Safari 5.1, Chrome 10+ */
+      background: -webkit-linear-gradient(top, transparent, @backgroundColor);
+    
+      /* Firefox 3.6+ */
+      background: -moz-linear-gradient(top, @backgroundColor, transparent);
+    
+      /* IE 10 */
+      background: -ms-linear-gradient(top, @backgroundColor, transparent);
+    
+      /* Opera 11.10+ */
+      background: -o-linear-gradient(top, @backgroundColor, transparent);
+
+   }

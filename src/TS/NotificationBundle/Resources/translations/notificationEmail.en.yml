@@ -1,0 +1,128 @@
+email.tournamentNew.subject: "Welcome on Tournia.net"
+email.tournamentNew.message: |
+  Hi %tournamentContactName%,
+
+  You created a new tournament on Tournia.net, welcome! Tournia is an online platform to help tournament organizers with everything they need to organize an awesome tournament.
+
+  You have your own tournament website, which is located at %urlTournamentWebsite% You can promote this tournament website to potential participants.
+
+  You can change the address of "%tournamentUrl%" in the settings section. Under settings you can also add additional pages for your tournament website, upload files or pictures, and adjust many more options. You can find the settings at: %urlTournamentSettings%
+
+  It is advised that you configure your tournament in the best way, before you open your registrations. You need to setup the disciplines you're playing (for example Men Doubles B), and whether you want players to pay for their registration. It is also possible to add additional fields in the registration form, for example for a phone number or eating preferences.
+
+  When you start playing matches, you use the tournament control module, or in short: control. Your tournament control is located at %urlTournamentControl%. On the Teams page you import the registrations, after which you can Auto Assign Players. A Team is in Tournia considered as one player for singles, or the two players for doubles. After you've formed the teams, you can start creating the matches. In the Plan matches screen, just click the Create new round button. Now you've created matches, you can put them on a court in the Current matches screen.
+
+  On the top of the page you can search for players (press the search icon), see notifications, maximize the screen, etc. In the right top there is a green button, which you can use to navigate through all the modules in Tournia (very useful!).
+
+  Thanks for trying out Tournia, and we hope you have an awesome tournament! If you have any questions, please don't hesitate to send an email to info@tournia.net
+
+  Kind regards,
+  Tournia.net
+
+# New Person
+email.personNew.subject: "Welcome on Tournia.net"
+email.personNew.start: |
+  Hi %name%,
+
+  Welcome to Tournia.net! Your account has been created. With this account you can make changes to your tournament registration, show other players and during the tournament show the scores and rankings.
+
+  Your creditentials are:
+email.personNew.username: Username: %username%
+email.personNew.password: Password: %password%
+email.personNew.accessPlayer: With your account you have access to the player %name%. You are now able to make changes to this player, by going to %link%
+email.personNew.accessTournament: With your account you have access to the tournament %name%. You now have full control of this tournament, by going to %link%
+email.personNew.end: |
+  Have fun playing your tournament!
+  Tournia.net
+
+# Person authorization
+email.personAuthorized.subject: "Authorization added"
+email.personAuthorized.start: |
+  Hi %name%,
+
+  You have been granted additional access rights on your Tournia account.
+email.personAuthorized.accessPlayer: With your account you now have access to the player %name%. You are now able to make changes to this player, by going to %link%
+email.personAuthorized.accessTournament: With your account now you have access to the tournament %name%. You now have full control of this tournament, by going to %link%
+email.personAuthorized.end: |
+  Have fun playing your tournament!
+  Tournia.net
+email.person.forTournament: for tournament
+
+# Base
+email.base.footer.1: This mail has been send automatically to %email%
+email.base.footer.2: for tournament %tournament%
+email.base.footer.3: You can adjust the mail settings in your profile
+email.base.goToProfile: Go to your profile
+email.base.connect: Connect with Us:
+email.base.contactInfo: Contact Info:
+email.base.email: Email:
+
+# New player
+email.player.new.subject: New registration
+email.player.new.start: |
+  Dear %name%,
+
+  Thank you for your registration for %tournament%.
+email.player.new.changesMadeBy: You have been registered by: %changesMadeBy%.
+email.player.link: For more information about this tournament, please check %link%
+email.player.new.info: Your received information is:
+email.player.group: Group
+email.player.contactPerson: Contact person
+email.player.firstName: First name
+email.player.lastName: Last name
+email.player.gender: Gender
+email.player.male: Male
+email.player.female: Female
+email.player.partner: partner
+email.player.wanted: Wanted
+email.player.yes: Yes
+email.player.no: No
+email.player.status: Status
+email.player.registrationDate: Registration date
+email.player.new.end: |
+  Have fun playing your tournament!
+  Tournia.net
+
+# Changed player
+email.player.change.subject: Changes in registration
+email.player.change.start: |
+  Dear %name%,
+
+  There are some changes to your registration for %tournament%.
+email.player.changesMadeBy: Changes have been made by: %changesMadeBy%.
+email.player.change.changes: Your registration information is
+email.player.change.end: |
+  Have fun playing your tournament!
+  Tournia.net
+
+# Deleted player
+email.player.delete.subject: Deleted player
+email.player.delete.start: |
+  Dear %name%,
+
+  Your registration for %tournament% has been deleted.
+email.player.delete.changesMadeBy: You have been deleted by: %changesMadeBy%.
+email.player.delete.info: Your registration information was:
+email.player.delete.end: |
+  Tournia.net
+
+# Change RegistrationGroup
+email.registrationGroup.change.subject: Changes to group
+email.registrationGroup.change.start: |
+  Dear contact person(s),
+
+  There are some changes to your group %group% for %tournament%.
+email.registrationGroup.change.changesMadeBy: Changes have been made by: %changesMadeBy%.
+email.registrationGroup.change.changes: The changed values are
+email.registrationGroup.name: Name
+email.registrationGroup.country: Country
+email.registrationGroup.contactPlayers: Contact person(s)
+email.registrationGroup.end: |
+  Tournia.net
+
+# General
+email.change.markedBold: (changes marked in bold):
+email.change.markedStar: (changes marked with ***):
+email.change.was: was
+email.change.new: New
+email.change.old: Old

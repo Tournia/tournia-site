@@ -1,0 +1,10 @@
+{% trans_default_domain 'account' %}
+{% form_theme form 'TSFrontBundle::form.html.twig' %}
+
+<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
+    {{ form_widget(form) }}
+    <div>
+        <input type="submit" class="btn btn-primary" value="{{ 'reset.content.submit'|trans }}" />
+    </div>
+</form>
+

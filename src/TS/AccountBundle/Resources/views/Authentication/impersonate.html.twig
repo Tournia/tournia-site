@@ -1,0 +1,83 @@
+{% form_theme form 'TSFrontBundle::form.html.twig' %}
+
+{% extends "TSFrontBundle::base.html.twig" %}
+
+{% block title "Impersonate user" %}
+
+
+{% block css %}
+
+
+{% endblock %}
+
+
+
+{% block jQuery %}
+
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <h4>Impersonate user</h4>
+        <form class="form-horizontal" action="{{ path('account_impersonate') }}" method="post" {{ form_enctype(form) }} role="form">
+            {{ form_errors(form) }}
+            {{ form_rest(form) }}
+            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>  Search</button>
+            {{ form_end(form) }}
+        </form>
+        <br />
+        <p>Found {{ users|length }} LoginAccounts with "{{ query }}"</p>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>Url</th>
+                    <th>Username</th>
+                    <th>Person name</th>
+                    <th>Impersonate</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for loginAccount in users %}
+                <tr>
+                    <td>
+                        {% if loginAccount.method == 'email' %}
+                            <i class="fa fa-envelope-o"></i> Email
+                        {% elseif loginAccount.method == 'facebook' %}
+                            <i class="fa fa-facebook"></i> Facebook
+                        {% elseif loginAccount.method == 'google' %}
+                            <i class="fa fa-google-plus"></i> Google
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if loginAccount.method == 'email' %}
+                            {{ loginAccount.email }}
+                        {% else %}
+                            <a href="{{ loginAccount.socialUrl }}" target="_blank">{{ loginAccount.socialUrl }}</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        [{{ loginAccount.id }}] {{ loginAccount.username }}
+                    </td>
+                    <td>
+                        [{{ loginAccount.person.id }}] {{ loginAccount.person.name }}
+                    </td>
+                    <td>
+                        <a href="{{ path('account_impersonate', {'_impersonate_user': loginAccount.username, 'changed':'true' }) }}" class="btn btn-primary" role="button"><i class="fa fa-user"></i> Take over</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+{% endblock %}

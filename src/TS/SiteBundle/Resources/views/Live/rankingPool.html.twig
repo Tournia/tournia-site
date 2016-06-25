@@ -1,0 +1,112 @@
+{% trans_default_domain "live" %}
+{% extends "TSSiteBundle:Live:rankingMain.html.twig" %}
+
+{% block title "rankingPool.title"|trans %}
+
+{% block javascript %}
+{{ parent() }}
+<script type="text/javascript">
+///// post and receive server messages /////
+// setting commands for refresh of server data
+function getRefreshCommands() {
+	command = {
+		command : 'Rankings.pool',
+		poolId: $("#poolSelector").val(),
+	}
+	return new Array(command);
+}
+
+// setting datatable options
+ajaxDataTableOptions.rankingTable = {};
+ajaxDataTableOptions.rankingTable.bFilter = false;
+ajaxDataTableOptions.rankingTable.bInfo = false;
+ajaxDataTableOptions.rankingTable.bPaginate = false;
+ajaxDataTableOptions.rankingTable.bSort = false;
+
+function handleResponse(commandKey, commandResponse){
+	if (commandKey == "Rankings.pool") {
+		// go through players
+		$('#rankingTable').dataTable().fnClearTable();
+		$.each(commandResponse, function(key2, teamObject) {
+			$('#rankingTable').dataTable().fnAddData( [
+				teamObject['rank'],
+				renderPlayerNames(teamObject['players'], false),
+				teamObject['matchesPlayed'],
+				teamObject['matchesWon'],
+				teamObject['matchesDraw'],
+				teamObject['matchesLost'],
+				teamObject['matchesRelative'],
+				teamObject['setsWon'],
+				teamObject['setsLost'],
+				teamObject['setsRelative'],
+				teamObject['pointsWon'],
+				teamObject['pointsLost'],
+				teamObject['pointsRelative']
+			]);
+		});
+		dataTableFinishedLoading("rankingTable");
+	}
+}
+
+// process a new row in datatable
+function datatableProcessRow(row, table) {
+	stylePlayerNames(row);
+}
+
+function afterUpdatePoolSelector() {
+	// look for poolId in hash of url
+	if (location.hash.length > 1) {
+		hash = location.hash.slice(1);
+		$("#poolSelector option[value='"+ hash +"']").prop("selected", true);
+	}
+	
+	// fetch new data from server
+	sendServerCommands(true);
+}
+
+</script>
+{% endblock %}
+
+{% block jQuery %}
+{{ parent() }}
+
+// retrieving initial data from server
+updatePoolSelector(afterUpdatePoolSelector);
+
+$('.tooltipA').tooltip({
+	placement: 'top'
+});
+
+{% endblock %}
+
+{% block content %}
+{{ parent() }}
+
+<table class="table table-hover ajaxDataTable" id="rankingTable">
+	<thead>
+		<tr>
+			<th rowspan="2">{{ 'table.rank' }}</th>
+			<th rowspan="2">{{ 'rankingPool.table.player'|trans }}</th>
+			<th colspan="5">{{ 'rankingPool.table.matches'|trans }}</th>
+			<th colspan="3">{{ 'table.sets'|trans }}</th>
+			<th colspan="3">{{ 'rankingPool.table.points'|trans }}</th>
+		</tr>
+		<tr>
+			<th>{{ 'rankingPool.table.played'|trans }}</th>
+			<th>{{ 'rankingPool.table.won'|trans }}</th>
+			<th>{{ 'rankingPool.table.draw'|trans }}</th>
+			<th>{{ 'rankingPool.table.lost'|trans }}</th>
+			<th><a title="{{ 'rankingPool.table.tooltip.matches'|trans }}" data-toggle="tooltip" href="#" class="tooltipA">{{ 'rankingPool.table.relative'|trans }}</a></th>
+			<th>{{ 'rankingPool.table.won'|trans }}</th>
+			<th>{{ 'rankingPool.table.lost'|trans }}</th>
+			<th><a title="{{ 'rankingPool.table.tooltip.sets'|trans }}" data-toggle="tooltip" href="#" class="tooltipA">{{ 'rankingPool.table.relative'|trans }}</a></th>
+			<th>{{ 'rankingPool.table.won'|trans }}</th>
+			<th>{{ 'rankingPool.table.lost'|trans }}</th>
+			<th><a title="{{ 'rankingPool.table.tooltip.points'|trans }}" data-toggle="tooltip" href="#" class="tooltipA">{{ 'rankingPool.table.relative'|trans }}</a></th>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+
+
+{% endblock %}

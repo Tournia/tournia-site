@@ -1,0 +1,27 @@
+<style>
+	.topField {
+		margin: 10px;
+	}
+</style>
+<script>
+$("#api_key").on("change", function() {
+	apiKey = $(this).val();
+	$(".sandbox .key[value='tournamentUrl']").parent().find('.value').val(apiKey);
+});
+$("#request_format").on("change", function() {
+	requestFormat = $(this).val();
+	$(".sandbox .key[value='_format']").parent().find('.value').val(requestFormat);
+});
+$( document ).ready(function() {
+	$("#api_key").val('test');
+	$("#api_key").triggerHandler('change');
+	$("#request_format").triggerHandler('change');
+});
+</script>
+
+<p class="topField">
+	This is the API documentation of Tournia.net<br />
+	Fill in the tournament url in the api key field (right top) to be able to use the sandbox functionality for this tournament.<br />
+	You can use "test" as tournament url for testing
+	
+</p>

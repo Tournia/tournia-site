@@ -1,0 +1,223 @@
+# Index page
+index.title: Index
+# Index page - TopBar
+index.topBar.title: Maak je toernooi awesome!
+index.topBar.button: Start je eigen toernooi
+# Index page - Upcoming toernoois
+index.upcoming.title: Komende toernooien
+index.upcoming.subtitle: Wat wordt jouw volgende toernooi?
+index.upcoming.pagination: %results% resultaten / pagina
+index.upcoming.button.played: Gespeeld
+index.upcoming.button.live: NU LIVE!
+index.upcoming.button.moreInfo: Meer info
+index.upcoming.button.register: Registreer
+index.upcoming.none: Geen toernooien gevonden
+index.past.title: Eerdere toernooien
+index.past.subtitle: Waar andere speelden.
+# Index page - Currently playing toernoois
+index.current.title: Live toernooien
+index.current.subtitle: Waar NU gespeeld wordt!
+index.current.button.moreInfo: Meer info
+index.current.button.live: Nu live!
+index.current.button.ranking: Rankings
+# Indexe page - Tournament details
+index.tournament.by: door
+index.tournament.registrations: '{0} registraties|{1} registratie|]1,Inf[ registraties'
+# Index page - Features
+index.features.title: Zoek je een makkelijke manier om je toernooi te organiseren?
+index.features.subtitle: Tournia biedt alle functies die je nodig hebt.
+index.features.1.title: Ondersteuning van toernooi organisatoren
+index.features.1.text: Tournia is een online dienst voor het ondersteunen van de toernooi organisatie met alles wat ze nodig hebben voor het organiseren van een geweldig toernooi. Je kan registraties van spelers beheren, hebt een eigen toernooi website, teams aanmaken, wedstrijden starten, ranglijsten publiceren, etc.
+index.features.2.title: Beheer je toernooi online, overal!
+index.features.2.text: Je hoeft geen software te installeren. Tournia staat in de "cloud", wat betekent dat je niks hoeft te installeren op je computer of updates krijgt. Ga simpelweg naar tournia.net en open jouw toernooi. Je kunt ook je toernooi beheren met meerdere computers tegelijkertijd. Alle informatie wordt automatisch naar alle computers gestuurd.
+index.features.3.title: Werkt op mobiel, en voor spelers is Live toernooi informatie
+index.features.3.text: Zodra je de Live functionaliteit aanzet, kunnen spelers informatie opvragen over huidige, komende en gespeelde wedstrijden. Het is ook mogelijk om spelers op te zoeken, statistieken te bekijken en de stand van een westrijd in te vullen. Allemaal op een smartphone of tablet.
+index.features.4.title: Maak je eigen toernooi website, ook mobiel
+index.features.4.text: Het is makkelijk om je eigen een toernoeiwebsite op te zetten. Vul een paar velden in over je toernooi, de inhoud van je pagina's, en het staat online! Het werkt ook allemaal automatisch op smartphones en tablets.
+index.try.title: Probeer Tournia nu en beheer je eigen toernooi
+index.try.button: Bekijk alle functies
+index.app.title: Beschikbaar in de App Store
+index.app.text: De Tournia app is nu beschikbaar in de App Store! Download de app om te kijken naar je toernooien en om notificaties ontvangen gedurende het toernooi!
+index.app.button: Download gratis
+
+
+# allTournaments page
+allTournaments.title: Alle toernooien
+# allTournaments page - Filter
+allTournaments.filter.title: Filter
+allTournaments.filter.keyword: Zoekwoord
+allTournaments.filter.period: Periode
+allTournaments.filter.location: Locatie
+allTournaments.filter.submit: Filter
+allTournaments.filter.placeholder.keyword: Zoekwoord
+allTournaments.filter.placeholder.startDate: Geen startdatum
+allTournaments.filter.placeholder.endDate: Geen einddatum
+allTournaments.filter.placeholder.location: Utrecht, Nederland
+
+
+# startToernooi page
+start.title: Start een toernooi
+# startToernooi page - header
+start.header.title: <strong>Ja!</strong> Ik wil een toernooi beginnen met de naam:
+start.header.button: Doorgaan
+# startToernooi page - features
+start.features.title: Tournia biedt alle functies die je nodig hebt
+start.features.subtitle: Slechts een paar van onze functies wat uitgelicht
+start.features.1.button: Je eigen toernooi website
+start.features.1.title: Promoot je toernooi online
+start.features.1.text1: Met Tournia kan je makkelijk je eigen toernooi website aanmaken. De registraties van spelers zijn hier ook beschikbaar, net al de contact informatie, locatie, en een link om te registreren voor het toernooi.
+start.features.1.text2: Je hebt volledige controle over de lay-out van jouw website. Je kan afbeeldingen uploaden, pagina's aanmaken, en meta-data aanpassen zodat je goed gevonden wordt door zoekmachines. Het is makkelijk op te zetten; je eigen website is online in een paar minuten.
+start.features.2.button: Flexibele registraties &amp; betalingen
+start.features.2.title: Simpele registraties en betalingen
+start.features.2.text1: Spelers kunnen registreren voor je toernooi in slechts enkele simpele stappen. Daarna ontvangt de speler een bevestiging e-mail, en kan dan ook de informatie later wijzigen. Dit helpt jouw als organisator, omdat spelers je niet meer hoeven te mailen met wijzigingen.
+start.features.2.text2: Je hebt volledige controle over het registratieformulier. Je kan aanvullende tekstvelden, selectielijsten of opmerkingenvelden toevoegen. Alle informatie wordt voor deze speler automatisch opgeslagen.
+start.features.2.text3: Tournia biedt ook betalingen aan. Je kan het bedrag en de producten instellen, en Tournia zorgt voor de rest. Betalingen worden periodiek naar jouw bankrekening overgemaakt.
+start.features.3.button: Live toernooi informatie
+start.features.3.title: Laat spelers online meekijken
+start.features.3.text1: Tijdens het toernooi kan je Live functionaliteit aanzetten. Beschikbaar op een desktop computer, tablet of smartphone, kunnen mensen komende en huidige wedstrijden bekijken, standen zien en ranglijsten opvragen.
+start.features.3.text2: Live kan ook gebruikt worden voor een presentatie scherm voor op een beamer of computerscherm. Dit helpt je als organisator, omdat je minder vragen krijgt over waar iemand moet spelen, of wanneer een bepaalde wedstrijd wordt gespeeld.
+start.features.4.button: Wedstrijden en ranglijsten
+start.features.4.title: Simpel beheer van je toernooi
+start.features.4.text1: Tournia biedt alles wat je nodig hebt om je toernooi te beheren. Bereid je toernooi voor door poules op te zetten, teams aan te maken door te bepalen wie met wie speelt, en maak nieuwe rondes en wedstrijden aan. Je kan westrijden starten op een bepaalde locatie (bijv. baan), en Tournia weet welke spelers er op dit moment spelen.
+start.features.4.text2: Na het invullen van een stand van een wedstrijd, worden de ranglijsten automatisch bijgewerkt. Je kan wedstrijden, wedstrijdbriefjes, teams en ranglijsten printen.
+start.features.4.text3: Op dit moment ondersteunt Tournia alleen het %linkStart%Zwitsers ladder systeem%linkEnd%, maar er zijn plannen om uit te breiden met Round-robin.
+# startToernooi page - screenshots
+start.screenshots.title: Beheer je toernooi op een simpele en intuïtieve manier
+# startToernooi page - pricing
+start.pricing.title: Kosten
+start.pricing.subtitle: Gratis als je toernooi gratis, of &euro; 0,50 per speler
+start.pricing.explain1: Het is gratis voor organisatoren om Tournia te gebruiken, zolang je geen geld vraagt voor deelname! Er zijn geen maandelijkse kosten, aanmeldkosten of installatie kosten.
+start.pricing.explain2: Als je een commercieel toernooi organiseert (d.w.z. geld vraagt voor deelname), brengen we servicekosten in rekening van &euro; 0.50 per transactie die de speler betaalt. De toernooiorganisatie kan ervoor kiezen om de servicekosten zelf te betalen.
+start.pricing.explain3: Alhoewel de organisator kan kiezen voor het betalen van de servicekosten, kunnen er ook transactiekosten zijn. Betalen met een credit-cart of iDeal kost geld, en de prijs hiervan (afhankelijk van de gekozen betaalmethode) wordt doorberekend aan de speler.
+start.pricing.features: Functionaliteit
+start.pricing.features.1.title: Toernooi website
+start.pricing.features.1.text: Maak je eigen toernooi website.
+start.pricing.features.2.title: Toernooi beheer
+start.pricing.features.2.text: Maak wedstrijden, houd standen bij en genereer ranglijsten
+start.pricing.features.3.title: Live toernooi informatie
+start.pricing.features.3.text: Het betaalde plan bevat Live toernooi informatie.
+start.pricing.features.4.title: Gratis betalingen
+start.pricing.features.4.text: Tournia berekend servicekosten van &euro; 0.50 voor spelers per transactie Wanneer gekozen wordt voor het betaalde plan, is dit gratis. Met andere woorden: jij als organisator betaalt de servicekosten voor je spelers.
+start.pricing.features.5.title: Geavanceerde instellingen
+start.pricing.features.5.text: In het betaalde plan kan je je toernooi website verder instellen, en krijgt extra instellingen.
+start.pricing.plan.free.title: Gratis plan
+start.pricing.plan.free.price: gratis
+start.pricing.plan.paid.title: Betaald plan
+start.pricing.plan.paid.price: "&euro; 0.50/speler"
+start.pricing.signup: Meld je nu aan
+start.pricing.message: Alle prijzen zijn exclusief BTW. Het uiteindelijk bedrag is afhankelijk van het land waar je woont, zie de %linkStart%vraag over BTW hieronder%linkEnd%.
+# startToernooi page - FAQ
+start.faq.title: Veel gestelde vragen
+start.faq.1.title: Hoe werkt het met betalingen?
+start.faq.1.text: Wanneer een speler registreerd voor een toernooi, heeft hij/zij ook de mogelijkheid om een betaling te doen. Het geld wordt betaald aan Tournia, en periodiek overgemaakt naar jouw bankrekening. Hierdoor hoef je geen technische dingen op te zetten om credit-cards of iDeal te acceptern. Tournia regelt alles, en maakt het geld over de rekening die je instelt.
+start.faq.2.title: Zijn andere valuta's mogelijk?
+start.faq.2.text: We geven de voorkeur aan euro's, alhoewel Tournia alle valuta's ondersteunt. Echter, we kunnen extra transactiekosten in rekening brengen, aangezien we geld moeten overmaken van een euro rekening naar een buitenlandse valuta. Neem a.u.b. contact met ons op om de mogelijkheden te bespreken.
+start.faq.3.title: Heb ik een credit-card nodig?
+start.faq.3.text: Nee, dat is niet nodig. Je moet alleen een bankrekeningnummer invullen, waar Tournia het geld naar moet overmaken.
+start.faq.4.title: Hoe werkt het met BTW?
+start.faq.4.text: We gaan er vanuit dat je geen BTW-nummer hebt; als dat wel zo is, neem dan contact met ons op. Tournia is een tussenpersoon, en betalingen van spelers zijn bedoeld voor jouw toernooi. Tournia maakt het geld van spelers direct over naar jou, en brengt daarom geen BTW in rekening. We moeten echter wel BTW in rekening brengen op servicekosten en transactiekosten. Het BTW-percentage is afhankelijk van waar de speler woont.
+start.faq.5.title: Welke kosten worden in rekening gebracht?
+start.faq.5.text: Tournia brengt twee soorten kosten in rekening op de transacties van spelers: transactiekosten en servicekosten. De transactiekosten zijn afhankelijk van de gekozen betalingsmethode (bijv. credit-card of iDeal), en daar maken we geen winst op. De servicekosten zijn &euro; 0.50 per transactie. We zijn wettelijk verplicht om hier ook BTW voor in rekening te brengen; thet BTW-percentage is afhankelijk van waar de speler woont.
+start.faq.6.title: Waar kan ik betalingen configureren?
+start.faq.6.text: In het instellingen scherm, onder de betalingen tab, kan je dit aanpassen.
+startTournamentType.name.placeholder: jouw toernooi...
+
+# about page
+about.title: Over ons
+about.text.title: Jou je toernooi laten beheren met een paar simpele klikken... dat is ons doel
+about.text.1: Tournia.net is opgericht door mensen die weten hoe een toernooi is georganiseerd. Maar ook, hoeveel makkelijker goede software het kan maken. Software die we hebben ontwikkeld voor ons eigen toernooi is nu beschikbaar gemaakt voor iedereen om te gebruiken!
+about.text.2: Wij geloven dat goede software een verschil kan maken bij het organiseren van een toernooi. Tournia is nog niet af, maar we geloven dat dat het nooit is. We zullen altijd aan onze gebruikers vragen wat zij er van vinden, en hoe het kan worden verbeterd. Als je een goed idee hebt, of feedback, laat het ons weten!
+about.text.3: |
+  Tournia.net is een product van Agonian v.o.f. We zijn geregistreerd bij de Kamer van Koophandel onder nummer 61505838 en hebben het BTW nummer NL854371692B01. We geven er de voorkeur aan om wat van je te horen via e-mail (info at agonian dot com) of telefoon (+316 4961 2483), maar op de traditionele manier kan je je postduif sturen naar:
+  <br /><br />
+  Agonian VOF<br />
+  Lauwerecht 235<br/>
+  3552 XB Utrecht<br />
+  Nederland
+about.button: Stuur een e-mail
+
+# privacy statement
+privacyStatement.title: Privacy statement
+privacyStatement.text.title: Privacy statement
+
+# contact page
+contact.title: Neem contact met ons op
+contact.form.title: Neem contact met ons op
+contact.form.text: Geïnteresserd in onze software? Of heb je er vragen over? We horen het graag!<br /> Vul onderstaand formulier in en we zullen zo snel mogelijk contact met je opnemen.
+contact.form.name.label: Je naam
+contact.form.email.label: E-mailadres
+contact.form.phone.label: Telefoonnummer
+contact.form.message.label: Bericht
+contact.form.submit: Verstuur
+contact.social: Op social media
+
+# app page
+app.title: Tournia App
+app.subtitle: Ideaal voor tijdens het toernooi!
+app.description: De Tournia app is gratis om te downloaden. Log in met je Tournia account, en bekijk scores, komende wedstrijden en ranglijsten.
+app.ios.1: Download in de
+app.ios.2: App Store
+app.android.1: Installeer voor
+app.android.2: Android
+
+# header
+header.control.search.placeholder: Zoek speler...
+header.control.search.title: Bijvoorbeeld: wedstrijdnummer, naam, etc. Sneltoets: alt-F
+header.else.search.placeholder: Zoek toernooi
+header.else.alltournaments: Alle <small>toernooien</small>
+header.else.starttournament: Start <small>voor jezelf</small>
+header.control.notificationtop.messages: Berichten
+header.control.notificationtop.settings: Instellingen
+header.control.notificationsettings.title: Notificatie instellingen
+header.control.notificationsettings.text: Kies welke notificaties je wilt zien:
+header.control.notificationsettings.me: Mijn wijzigingen
+header.control.notificationsettings.otherPerson: Wijzigingen van andere personen
+header.control.notificationsettings.round: Ronde einde
+header.control.nomessages.title: Er zijn op dit moment geen berichten
+header.control.nomessages.text: Berichten worden automatisch geladen.
+header.control.allmessages: Bekijk alle berichten
+header.control.fullscreen: Volledig scherm
+header.control.presentationscreen: Open presentatie scherm
+header.control.reset: Reset schermvoorkeuren
+header.control.collapse: Menu inklappen
+header.else.cart: WINKELWAGEN
+header.else.tournaments: Mijn toernooien
+header.else.profile: Mijn profiel
+header.else.account: Account instellingen
+header.else.invoices: Facturen
+header.else.logout: Uitloggen
+header.else.login: Inloggen
+header.language.title: Selecteer taal:
+header.language.english: Engels
+header.language.dutch: Nederlands
+
+header.js.website: Website
+header.js.live: Live
+header.js.screen: Scherm
+header.js.settings: Instellingen
+header.js.control: Wedstrijd beheer
+header.js.modules: Organisator Opties
+header.js.tournamentOptions: Toernooi opties
+
+# base - footer
+base.footer.overview: Overzicht
+base.footer.features: Functies
+base.footer.support: Vragen
+base.footer.api: API docs
+base.footer.menu: Menu
+base.footer.about: Over ons
+base.footer.contact: Neem contact op
+base.footer.privacyStatement: Privacy statement
+base.footer.social: Sociaal
+base.footer.facebook: Facebook
+base.footer.twitter: Twitter
+base.footer.languages: Talen
+base.footer.dutch: Dutch / Nederlands
+base.footer.english: English / Engels
+base.footer.copyright1: Copyright &copy; 2013-
+base.footer.copyright2: Tournia.net. Alle rechten voorbehouden.
+
+# Flash messages
+flash.contact.error: Dit formulier is niet volledig ingevuld, kijk s.v.p. hieronder
+flash.contact.success: Bedankt voor je bericht! We nemen z.s.m. contact met je op.
+flash.starttournament.error: Je moet een toernooi naam invullen

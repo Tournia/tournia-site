@@ -1,0 +1,77 @@
+{% trans_default_domain "live" %}
+{% extends "TSSiteBundle:Live:index.html.twig" %}
+
+{% block title "rankingMain.title"|trans %}
+
+{% block head %}
+{{ parent() }}
+
+<style>
+
+#rankingTypeBox label {
+	display: inline;
+}
+
+#rankingTypeBox input {
+	margin-top: -2px;
+}
+
+#rankingTypeBox select {
+	margin-top: 5px;
+}
+
+#rankingRowSelect {
+	margin-bottom: 0px;
+}
+
+</style>
+
+{% endblock %}
+
+{% block jQuery %}
+{{ parent() }}
+
+$("#rankingTypeBox input[name=rankingType]").on("change", function() {
+	// changing of ranking selector
+	selectedVal = $("#rankingTypeBox input[name=rankingType]:checked").val();
+	if (selectedVal == 'pool') {
+		window.location.href = '{{ path('live_ranking_pool', {'tournamentUrl':tournament.url}) }}';
+	} else if (selectedVal == 'players') {
+		window.location.href = '{{ path('live_ranking_players', {'tournamentUrl':tournament.url}) }}';
+	} else if (selectedVal == 'groups') {
+		window.location.href = '{{ path('live_ranking_groups', {'tournamentUrl':tournament.url}) }}';
+	}
+});
+
+$("#poolSelector").on("change", function() {
+	// get new data from server
+	location.hash = $(this).val();
+	sendServerCommands(true);
+});
+
+
+{% endblock %}
+
+{% block content %}
+{{ parent() }}
+<div class="row">
+	<div class="alert alert-info" id="rankingTypeBox">
+		<p id="rankingRowSelect">
+			<input type="radio" id="rankingType_pool" name="rankingType" value="pool"{% if app.request.get('_route') == "live_ranking_pool" %} checked="checked"{% endif %} />
+			<b><label for="rankingType_pool">{{ 'rankingMain.pool'|trans }}</label> </b>
+			<select class="poolSelector" id="poolSelector" {% if app.request.get('_route') != "live_ranking_pool" %}disabled="disabled"{% endif %}></select>
+		</p>
+		<p>
+			<input type="radio" id="rankingType_players" name="rankingType" value="players"{% if app.request.get('_route') == "live_ranking_players" %} checked="checked"{% endif %} />
+			<b><label for="rankingType_players">{{ 'rankingMain.players'|trans }}</label></b>
+		</p>
+        {% if tournament.registrationGroupEnabled %}
+		<p>
+			<input type="radio" id="rankingType_groups" name="rankingType" value="groups"{% if app.request.get('_route') == "live_ranking_groups" %} checked="checked"{% endif %} />
+			<b><label for="rankingType_groups">{{ 'rankingMain.groups'|trans }}</label></b>
+		</p>
+        {% endif %}
+	</div>
+</div>
+
+{% endblock %}

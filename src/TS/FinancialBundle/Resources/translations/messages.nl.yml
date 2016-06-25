@@ -1,0 +1,13 @@
+# messages.nl.yml
+
+#----------------------------------------#
+# General financial
+#----------------------------------------#
+
+form.label.paypal_express_checkout: Betaal met PayPal
+form.label.test_payment: Test betaling (alleen dev)
+form.label.mollie_ideal: iDeal
+ruudk_payment_mollie.ideal.bank.label: Alleen voor iDeal
+ruudk_payment_mollie.ideal.bank.empty_value: Selecteer je bank
+Data mollie ideal: Bank selectie
+form.label.mollie_creditcard: Credit card

@@ -1,0 +1,21 @@
+<script id="UpcomingMatchView" type="text/template">
+
+<!--
+    <td class="status">
+    </td>
+-->
+    <td class="pool">
+        <%= pool %>
+    </td>
+    <td class="team team1 text-right">
+    <% _.each(team1.players, function(player) { %>
+        <span class="player"><%= player.name %></span>
+    <% }); %>
+    </td>
+    <td class="team team2">
+    <% _.each(team2.players, function(player) { %>
+        <span class="player"><%= player.name %></span>
+    <% }); %>
+    </td>
+
+</script>

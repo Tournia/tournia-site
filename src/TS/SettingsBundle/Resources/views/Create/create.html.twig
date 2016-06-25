@@ -1,0 +1,352 @@
+{% trans_default_domain "settings" %}
+{% if form is defined %}{% form_theme form 'TSFrontBundle::form.html.twig' %}{% endif %}
+
+{% extends "TSFrontBundle::base.html.twig" %}
+
+{% set enableChatSupport = true %}
+
+{% block title "create.title"|trans %}
+
+{% set pageClass = "start" %}
+{% set useDefaultFlashbagNotifications = false %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets
+    'bundles/tssettings/css/settings.css'
+    'bundles/tsfront/template/css/vendor/daterangepicker.css'
+    'bundles/tssettings/css/fuelux.css'
+    filter='cssrewrite,?yui_css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent () }}
+
+    {% javascripts
+    '@TSSettingsBundle/Resources/public/js/settingsFunctions.js'
+    '@TSSettingsBundle/Resources/public/js/prototypeFunctions.js'
+    '@TSSettingsBundle/Resources/public/js/jquery.sortable.js'
+    '@TSFrontBundle/Resources/public/template/js/moment.min.js'
+    '@TSFrontBundle/Resources/public/template/js/jquery.daterangepicker.js'
+    '@TSSettingsBundle/Resources/public/js/fuelux.js'
+    filter='?yui_js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+        // Select option button
+        function selectOptionButton(selectedFinancialMethod) {
+            //Deactivate earlier chosen options
+            $(".optionButtons").find("li").each(function() {
+                $(this).removeClass("selected");
+                $(this).find(">span").remove();
+            });
+
+            $("#{{form.financialMethod.vars.id}}").val(selectedFinancialMethod);
+
+            //Show form additionals
+            selectedFinancialMethod = $("#{{form.financialMethod.vars.id}}").val();
+            if (selectedFinancialMethod == "free") {
+                $("#financialInvoice").hide();
+                $("#financialFormElements").hide();
+            } else if (selectedFinancialMethod == "invoice") {
+                $("#financialInvoice").show();
+                $("#financialFormElements").hide();
+            } else if (selectedFinancialMethod == "payments") {
+                $("#financialInvoice").hide();
+                $("#financialFormElements").show();
+            }
+
+            // Activate selected option
+            activeButton = $(".optionButtons button[data-value='"+ selectedFinancialMethod +"']");
+            activeButton.parent().addClass("selected");
+            activeButton.after("<span class='fa fa-check fa-2x'></span>");
+        }
+    </script>
+
+{% endblock %}
+
+{% block css %}
+    .actionsButtons {
+        margin: 0px 10px 20px 10px;
+    }
+
+    .actionsButtons .btn-next {
+        float: right;
+
+    }
+    .actionsButtons .btn-next span {
+        margin-left: 5px;
+    }
+
+    .steps-container .formError {
+        background: #f2dede !important;
+        color: #ce4844 !important;
+    }
+    .steps-container .formError .badge {
+        background-color: #ce4844 !important;
+    }
+    .steps-container .formError .chevron:before {
+        border-left-color: #f2dede !important;
+    }
+{% endblock %}
+
+{% block jQuery %}
+
+    $('#newTournamentWizard').wizard();
+
+    var finishedStep = 0;
+
+    // check for all pages with tabs and errors
+    $(".step-content .has-error").each(function() {
+        // for form elements with errors -> show error in step
+        stepId = $(this).closest(".step-pane").attr("data-step");
+        $(".steps-container .steps [data-step='"+ stepId +"']").addClass("formError");
+
+        // finished entire form
+        finishedStep = 99;
+        $(".steps-container .steps li").addClass("complete");
+        $(".steps-container .steps li .badge").addClass("badge-success");
+    });
+
+    $('#newTournamentWizard').on('changed.fu.wizard', function (evt, data) {
+        // CSS fix
+        $("#newTournamentWizard .steps").first().attr( 'style', 'margin-left: 0' );
+
+        // add "complete" class to previous completed steps
+        if (data.step > finishedStep) {
+            finishedStep = data.step;
+        }
+        $(".steps-container .steps li").each(function() {
+            if ($(this).attr("data-step") <= finishedStep) {
+                $(this).addClass("complete");
+                $(this).find(".badge").addClass("badge-success");
+            }
+        });
+
+        // Change action button last step
+        if($("#newTournamentWizard .steps li").last().hasClass("active")) {
+            $("#newTournamentWizard .actionsButtons .btn-next").removeClass("btn-custom-primary");
+            $("#newTournamentWizard .actionsButtons .btn-next").addClass("btn-custom-green");
+            $("#newTournamentWizard .actionsButtons .btn-next span").remove();
+            $("#newTournamentWizard .actionsButtons .btn-next").prepend("<span class='fa fa-thumbs-up'></span> ");
+            $("#goToFinish").hide();
+        } else {
+            $("#goToFinish").show();
+        }
+    });
+
+
+    $('#newTournamentWizard .optionButtons').on('click', 'button', function (e, data) {
+        e.preventDefault();
+        selectOptionButton($(this).attr("data-value"));
+    });
+    selectOptionButton('{{form.financialMethod.vars.data}}');
+
+    $('#newTournamentWizard').on('finished.fu.wizard', function (evt, data) {
+        // submit form
+        $("#newTournamentForm").submit();
+    });
+
+    // daterangepicker for start and end date tournament
+    $("#{{ form.startDateTime.vars.id }}, #{{ form.endDateTime.vars.id }}").dateRangePicker({
+        seperator: ' ~ ',
+        format: 'DD-MM-YYYY',
+        time: {
+            enabled: false
+        },
+        startOfWeek: 'monday',
+        getValue: function() {
+            if ($('#{{ form.startDateTime.vars.id }}').val() && $('#{{ form.endDateTime.vars.id }}').val() )
+                return $('#{{ form.startDateTime.vars.id }}').val() + ' to ' + $('#{{ form.endDateTime.vars.id }}').val();
+            else
+                return '';
+        },
+        setValue: function(s,s1,s2) {
+            $('#{{ form.startDateTime.vars.id }}').val(s1);
+            $('#{{ form.endDateTime.vars.id }}').val(s2);
+        },
+        showShortcuts:false
+    });
+
+    // set sport rules
+    $("#{{form.sport.vars.id}}").on("change", function() {
+        selectedSport = $("#{{form.sport.vars.id}}").val();
+        if (selectedSport == "badminton") {
+            $("#{{form.nrSets.vars.id}}").val('2');
+        } else {
+            $("#{{form.nrSets.vars.id}}").val('3');
+        }
+    }).trigger("change");
+
+    // change payout option depending on currency
+    $("#{{form.paymentCurrency.vars.id}}").on("change", function() {
+        if ($(this).val() == "EUR") {
+            //payout is via IBAN
+            $("#{{form.financialPayoutBankAccount.vars.id}}").closest(".form-group").show();
+            $("#{{form.financialPayoutPaypalEmail.vars.id}}").closest(".form-group").hide();
+        } else {
+            //payout is via paypal
+            $("#{{form.financialPayoutBankAccount.vars.id}}").closest(".form-group").hide();
+            $("#{{form.financialPayoutPaypalEmail.vars.id}}").closest(".form-group").show();
+        }
+    }).trigger("change");
+
+    $("#goToFinish a").on("click", function(e) {
+        e.preventDefault();
+        $('#newTournamentWizard').wizard('selectedItem', {step: 4});
+    });
+
+    {% if form.copyTournament is defined %}
+    // reload when selecting a tournament to copy
+    $("#{{form.copyTournament.vars.id}}").on("change", function() {
+        window.location.href = window.location.href.split('?')[0] +'?copy='+ $(this).val();
+    });
+    currentCopyTournamentValue = window.location.search.split('?copy=')[1];
+    $("#{{form.copyTournament.vars.id}}").val(currentCopyTournamentValue);
+    {% endif %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="editor block alt" style="background-image: url('{{ asset('bundles/tsfront/img/background/bg9.jpg') }}');">
+        <div class="container">
+            {{ macros.flashbagNotifications(useDefaultFlashbagNotifications) }}
+
+            <div class="row charts">
+                <div class="col-md-12">
+                    <div class="chart">
+                        <div class="wrapper" id="newTournamentWrapper">
+                            <div class="content">
+                                <div class="tab-content">
+                                    <div class="fuelux">
+
+                                        <form role="form" id="newTournamentForm" class="form-horizontal" action="{{ path('settings_tournament_create') }}{% if copy is defined %}?copy={{ copy }}{% endif %}" method="post" {{ form_enctype(form) }}>
+                                            {{ form_errors(form) }}
+                                            <div class="wizard" data-initialize="wizard" id="newTournamentWizard">
+                                                <div class="steps-container">
+                                                    <ul class="steps">
+                                                        <li data-step="1" class="active"><span class="badge">1</span>{{ 'create.tournament.step'|trans }}<span class="chevron"></span></li>
+                                                        <li data-step="2"><span class="badge">2</span>{{ 'create.sport.step'|trans }}<span class="chevron"></span></li>
+                                                        <li data-step="3"><span class="badge">3</span>{{ 'create.financial.step'|trans }}<span class="chevron"></span></li>
+                                                        <li data-step="4"><span class="badge">4</span>{{ 'create.finish.step'|trans }}<span class="chevron"></span></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="step-content">
+                                                    <div class="step-pane active sample-pane alert" data-step="1">
+                                                        <h3 class="tab-title">{{ 'create.tab.title'|trans({'%name%': tournamentName|capitalize}) }}!</h3>
+                                                        <p class="tab-subtitle">{{ 'create.tab.subtitle'|trans }}</p>
+                                                        <p>&nbsp;</p>
+                                                        {% if form.copyTournament is defined %}{{ form_row(form.copyTournament) }}{% endif %}
+                                                        {{ form_row(form.name) }}
+                                                        {{ form_row(form.url) }}
+                                                        {{ form_row(form.locationAddress) }}
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label">{{ 'create.tournament.date'|trans }}</label>
+                                                            <div class="col-sm-3 form-values">
+                                                                {{ form_widget(form.startDateTime, {'attr': {'class': 'form-control'}}) }}
+                                                            </div>
+                                                            <div class="col-sm-3 form-values">
+                                                                {{ form_widget(form.endDateTime, {'attr': {'class': 'form-control'}}) }}
+                                                            </div>
+                                                        </div>
+                                                        {{ form_row(form.contactName) }}
+                                                        {{ form_row(form.emailFrom) }}
+                                                    </div>
+                                                    <div class="step-pane sample-pane alert" data-step="2">
+                                                        <h3>{{ 'create.sport.heading'|trans }}</h3>
+                                                        {{ form_row(form.sport) }}
+                                                        {{ form_row(form.nrSets) }}
+                                                    </div>
+                                                    <div class="step-pane sample-pane alert" data-step="3">
+                                                        <h3>{{ 'create.financial.heading'|trans }}</h3>
+                                                        <p>{{ 'financial.general.text'|trans }}</p>
+                                                        <ul class="financialOptions optionButtons">
+                                                            <li>
+                                                                <button type="button" data-value="payments">
+                                                                    <span class="fa fa-euro fa-5x"></span>
+                                                                    <strong>{{ 'create.financial.payments.title'|trans }}</strong>
+                                                                    <p>{{ 'create.financial.payments.text'|trans|raw }}</p>
+                                                                </button>
+                                                            </li>
+                                                            <li>
+                                                                <button type="button" data-value="free">
+                                                                    <span class="fa fa-smile-o fa-5x"></span>
+                                                                    <strong>{{ 'create.financial.free.title'|trans }}</strong>
+                                                                    <p>{{ 'create.financial.free.text'|trans }}</p>
+                                                                </button>
+                                                            </li>
+                                                            <li class="inactive">
+                                                                <button type="button" data-value="invoice">
+                                                                    <span class="fa fa-money fa-5x"></span>
+                                                                    <strong>{{ 'create.financial.invoice.title'|trans }}</strong>
+                                                                    <p>{{ 'create.financial.invoice.text'|trans }}</p>
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                        <div style="display:none">{{ form_row(form.financialMethod) }}</div>
+                                                        <div id="financialInvoice" class="alert alert-info" style="display:none">
+                                                            <p>{{ 'financial.general.invoice' | trans | nl2br }}</p>
+                                                        </div>
+                                                        <div id="financialFormElements" style="display:none">
+                                                            {{ form_row(form.paymentCurrency) }}
+                                                            {{ form_row(form.financialPayoutBankAccount) }}
+                                                            {{ form_row(form.financialPayoutPaypalEmail) }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="step-pane sample-pane alert" data-step="4">
+                                                        <h3>{{ 'create.finish.heading'|trans }}</h3>
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading">
+                                                                <h3 class="panel-title">{{ 'create.conditions.title'| trans }}</h3>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <p>
+                                                                    By creating a tournament you agree to the following:
+
+                                                                    <ul>
+                                                                        <li>Pay for the service fees of Tournia, if this tournament is charging money.</li>
+                                                                        <li>Accepting the <a href="{{ path('front_privacy_statement') }}" target="_blank">privacy statement</a>.</li>
+                                                                    </ul>
+                                                                </p>
+                                                                <p>
+                                                                    For questions, please <a href="{{ path('front_contact') }}" target="_blank">contact us</a>.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <p class="{% if form.conditionsAgree.vars.errors|length > 0 %}has-error{% endif %}">
+                                                            <label>
+                                                                {{- form_errors(form.conditionsAgree) -}}
+                                                                {{ form_widget(form.conditionsAgree) }}
+                                                                {{ 'create.conditionsAgree.text'|trans }}
+                                                            </label>
+                                                        </p>
+
+                                                        {{ form_rest(form) }}
+                                                    </div>
+                                                </div>
+                                                <div class="actionsButtons">
+                                                    <button type="button" class="btn btn-lg btn-custom-primary btn-prev">
+                                                        <span class="fa fa-chevron-left"></span> {{ 'create.previous'|trans }}
+                                                    </button>
+                                                    <span id="goToFinish"><a href="#">{{ 'create.skip'|trans }}</a></span>
+                                                    <button type="button" class="btn btn-lg btn-custom-primary btn-next" data-last="{{ 'create.tournament'|trans }}">
+                                                        {{ 'create.next'|trans }} <span class="fa fa-chevron-right"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

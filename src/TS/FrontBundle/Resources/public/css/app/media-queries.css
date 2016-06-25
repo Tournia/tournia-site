@@ -1,0 +1,83 @@
+
+@media (min-width: 992px) and (max-width: 1199px) {
+	
+	.show-menu, .hide-menu { right: 30px; }
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+	.section-description p { padding: 0; }
+	
+	.top-content .text { padding-top: 10px; }
+	.top-content .text h1 br { display: none; }
+	.top-content .logo { padding-bottom: 30px; }
+	.top-content .description { margin-top: 30px; }
+	.top-content .top-button .button-1 { margin-right: 10px; font-size: 18px; }
+	.top-content .top-button .button-1 .button-1-right { width: 140px; margin-top: 9px; }
+	.top-content .top-button .button-1 .button-1-right .button-1-right-bottom { font-size: 30px; line-height: 30px; }
+	.top-content .top-button .button-2 { font-size: 18px; }
+	.top-content .top-button .button-2 .button-2-right { width: 116px; margin-top: 10px; }
+	.top-content .top-button .button-2 .button-2-right .button-2-right-bottom { font-size: 30px; line-height: 30px; }
+
+}
+
+@media (max-width: 991px) {
+
+	.show-menu { right: 30px; }
+	.hide-menu { position: static; top: auto; right: auto; z-index: auto; }
+	.hide-menu a { height: 42px; padding-top: 0; }
+
+}
+
+@media (max-width: 767px) {
+	
+	.section-description p { padding: 0; }
+    
+    .top-content .text { text-align: center; }
+    .top-content .text h1 br { display: none; }
+    
+    .faq-box:last-child { padding-top: 0; }
+    
+    .subscribe form input.subscribe-email, .subscribe form button { width: 95%; }
+	.subscribe form input.subscribe-email { margin-left: auto; margin-right: auto; }
+	
+	.contact-form, .contact-address { text-align: center; }
+	.contact-form form input, .contact-form form textarea { margin-left: auto; margin-right: auto; }
+	
+	footer, .footer-copyright { text-align: center; }
+	.footer-copyright { padding-bottom: 15px; }
+
+}
+
+@media (max-width: 499px) {
+	
+	.top-content .top-button .button-1, .call-to-action-button .button-1 { margin: 0 10px 10px 10px; }
+	
+}
+
+@media (max-width: 400px) {
+	
+	h1, h2 { font-size: 32px; }
+
+	.show-menu { right: 10px; }
+
+}
+
+@media (max-width: 290px) {
+	
+	.top-content .top-button .button-1, .call-to-action-button .button-1 { margin: 0 0 10px 0; }
+	
+}
+
+
+/* Retina-ize images/icons */
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 2dppx) {
+	
+	/* logo */
+    .top-content .logo a {
+    	background-image: url(../img/logo@2x.png) !important; background-repeat: no-repeat !important; background-size: 207px 74px !important;
+    }
+	
+}

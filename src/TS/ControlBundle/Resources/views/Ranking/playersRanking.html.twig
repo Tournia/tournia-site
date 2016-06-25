@@ -1,0 +1,73 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "playersRanking.title"|trans %}
+
+{% block javascript %}
+<script type="text/javascript">
+///// post and receive server messages /////
+// setting commands for refresh of server data
+function getRefreshCommands() {
+	command = {
+		command : 'Rankings.players',
+	}
+	return new Array(command);
+}
+
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+	if (commandKey == "Rankings.players") {
+		// go through players
+		$('#rankingTable').dataTable().fnClearTable();
+		
+		$.each(commandResponse, function(key2, playerObject) {
+			gender = (playerObject['gender'] == "M") ? "{{ 'general.male'|trans }}" : "{{ 'general.female'|trans }}";
+			playerArray = {};
+			playerId = playerObject['playerId'];
+			playerArray[playerId] = playerObject['name'];
+            groupName = (typeof playerObject['groupName'] != "undefined") ? playerObject['groupName'] : "-";
+			$('#rankingTable').dataTable().fnAddData( [
+				playerObject['rank'],
+				renderPlayerNames(playerArray, true),
+				playerObject['relative'],
+				playerObject['sumPoints'],
+				playerObject['nrSets'],
+                {% if tournament.registrationGroupEnabled %}groupName,{% endif %}
+				gender
+			]);
+		});
+		dataTableFinishedLoading("rankingTable");
+	}
+}
+
+</script>
+
+{% endblock %}
+
+{% block jQuery %}
+// retrieving initial data from server
+sendServerCommands(true);
+
+{% endblock %}
+
+{% block content %}
+{% set content %}
+<table class="table table-hover table-bordered ajaxDataTable" id="rankingTable">
+	<thead>
+		<tr>
+			<th>{{ 'ranking.table.rank'|trans }}</th>
+			<th>{{ 'ranking.table.player'|trans }}</th>
+			<th>{{ 'ranking.table.avgPoints'|trans }}</th>
+			<th>{{ 'ranking.table.totPoints'|trans }}</th>
+			<th>{{ 'ranking.table.sets'|trans }}</th>
+            {% if tournament.registrationGroupEnabled %}<th>{{ 'ranking.table.group'|trans }}</th>{% endif %}
+			<th>{{ 'ranking.table.gender'|trans }}</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+{% endset %}
+{{ macro.well(content) }}
+
+{% endblock %}

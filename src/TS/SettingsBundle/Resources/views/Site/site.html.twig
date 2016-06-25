@@ -1,0 +1,398 @@
+{% trans_default_domain "settings" %}
+{% extends "TSSettingsBundle::baseSettings.html.twig" %}
+
+{% block title "site.title"|trans %}
+
+{% block css %}
+.previewPopoverImage {
+	max-width: 400px;
+	max-height: 400px;
+}
+
+
+	.imagePositionPreview {
+		background-size: cover;
+	}
+
+	#imagePositionPreview-frontImage-lg {
+		width: 262px;
+		height: 160px;
+	}
+	#imagePositionPreview-frontImage-md {
+		width: 220px;
+		height: 160px;
+	}
+	#imagePositionPreview-frontImage-sm {
+		width: 737px;
+		height: 160px;
+	}
+	#imagePositionPreview-frontImage-xs {
+		width: 333px;
+		height: 160px;
+	}
+
+	#imagePositionPreview-headerBackgroundImage-lg {
+		width: 1155px;
+		height: 200px;
+	}
+	#imagePositionPreview-headerBackgroundImage-md {
+		width: 955px;
+		height: 200px;
+	}
+	#imagePositionPreview-headerBackgroundImage-sm {
+		width: 735px;
+		height: 200px;
+	}
+	#imagePositionPreview-headerBackgroundImage-xs {
+		width: 359px;
+		height: 200px;
+	}
+
+	#imagePositionPreview-infoBlockImage-lg {
+		max-width: 256px;
+	}
+	#imagePositionPreview-infoBlockImage-md {
+		max-width: 206px;
+	}
+	#imagePositionPreview-infoBlockImage-sm {
+		max-width: 650px;
+	}
+	#imagePositionPreview-infoBlockImage-xs {
+		max-width: 309px;
+	}
+
+	#imagePositionPreview-facebookImage {
+		max-width: 300px;
+	}
+
+
+{% endblock %}
+
+
+{% block javascript %}
+{{ parent() }}
+
+<script src="{{ asset('bundles/tscontrol/ckeditor/ckeditor.js') }}"></script>
+
+<script type="text/javascript">
+	function showPreviewImage(previewIcon) {
+		// preview selected image
+		previewImageSrc = '';
+		selectedImageId = $(previewIcon).parent().find('select').val();
+
+		{% for file in tournament.site.files %}
+		if (selectedImageId == '{{ file.id }}') {
+			previewImageSrc = '{{ app.request.getScheme() }}://{{ app.request.getHttpHost() }}{{ app.request.getBasePath()}}{{ file.webPath }}';
+		}
+		{% endfor %}
+		{% for file in specialFiles %}
+		if (selectedImageId == '{{ file.id }}') {
+			previewImageSrc = '{{ asset('bundles/tssite/img/backgrounds/'~ file.originalFileName) }}';
+		}
+		{% endfor %}
+
+		previewHtml = '{{ 'site.preview.noSelected'|trans }}';
+		if (previewImageSrc != '') {
+			previewHtml = '<img src="'+ previewImageSrc +'" class="previewPopoverImage"/>';
+		}
+		$(previewIcon).attr('data-content', previewHtml);
+		$(previewIcon).popover('show');
+	}
+
+    function newPrototypeHook(newObj) {
+        setupPopovers();
+
+        // initialize ckeditor
+        $(newObj).find(".ckeditor").each(function() {
+            CKEDITOR.replace($(this).attr("id"));
+        })
+    }
+
+	/**
+	 * Called when another image will be edited (e.g. front image, site header, etc.)
+	 * @param imageMode Selected value for select input
+	 */
+	function onChangedEditImage(imageMode) {
+		$(".editImage").hide();
+		if (imageMode == "frontImage") {
+			$("#frontImage").show();
+			$("#{{ form.frontImage.vars.id }}").off("change").on("change", function() {
+				onChangedSelectedImage($(this));
+			}).trigger("change");
+		} else if (imageMode == "headerBackgroundImage") {
+			$("#headerBackgroundImage").show();
+			$("#{{ form.headerBackgroundImage.vars.id }}").off("change").on("change", function() {
+				onChangedSelectedImage($(this));
+			}).trigger("change");
+		} else if (imageMode == "infoBlockImage") {
+			$("#infoBlockImage").show();
+			$("#{{ form.infoBlockImage.vars.id }}").off("change").on("change", function() {
+				onChangedSelectedImage($(this));
+			}).trigger("change");
+		} else if (imageMode == "facebookImage") {
+			$("#facebookImage").show();
+			$("#{{ form.facebookImage.vars.id }}").off("change").on("change", function() {
+				onChangedSelectedImage($(this));
+			}).trigger("change");
+		}
+	}
+
+	/**
+	 * Called when another image is selected
+	 * @param selectionObject The select of the image
+	 */
+	function onChangedSelectedImage(selectionObject) {
+		// preview selected image
+		previewImageSrc = '';
+		selectedImageId = $(selectionObject).val();
+
+		{% for file in tournament.site.files %}
+		if (selectedImageId == '{{ file.id }}') {
+			previewImageSrc = '{{ app.request.getScheme() }}://{{ app.request.getHttpHost() }}{{ app.request.getBasePath()}}{{ file.webPath }}';
+		}
+		{% endfor %}
+		{% for file in specialFiles %}
+		if (selectedImageId == '{{ file.id }}') {
+			previewImageSrc = '{{ asset('bundles/tssite/img/backgrounds/'~ file.originalFileName) }}';
+		}
+		{% endfor %}
+
+		if (previewImageSrc != '') {
+			// selected an image
+			$(".imagePositionSelection").closest(".form-group").show();
+			$(".imagePositionPreviewBox").show();
+			$(".imagePositionPreview:not(.img-responsive)").css("background-image", 'url(' + previewImageSrc + ')');
+			$(".imagePositionPreview.img-responsive").attr("src", previewImageSrc);
+		} else {
+			// selected default image
+			$(".imagePositionSelection").closest(".form-group").hide();
+			$(".imagePositionPreviewBox").hide();
+		}
+	}
+
+	/**
+	 * Called when image position is changed
+	 * @param position
+	 */
+	function onChangedImagePosition(position) {
+		$(".imagePositionPreview").css("background-position", position);
+	}
+
+</script>
+{% endblock %}
+
+{% block jQuery %}
+    {{ parent() }}
+
+	// add and remove options for sitePages
+	setupAccordion('pagesAccordion', '{{ 'site.page.add'|trans }}', true);
+
+	// preview image
+	$(".previewImage").each(function() {
+		$(this).closest(".form-values").append('<span class="infoIcon previewIcon" data-toggle="popover" data-placement="right" data-trigger="manual" onMouseOver="showPreviewImage(this);"><i class="fa fa-camera"></i></span>');
+	});
+	setupPopovers();
+
+	fixPrototypeColsize();
+
+	$('.tabLink').click(function (e) {
+		e.preventDefault();
+		$('a[href="' + $(this).attr('href') + '"]').tab('show');
+	})
+
+	$("#{{ form.editImage.vars.id }}").on("change", function() {
+		onChangedEditImage($(this).val());
+	}).trigger("change");
+
+	$(".imagePositionSelection").on("change", function() {
+		onChangedImagePosition($(this).val());
+	}).first().trigger("change");
+
+	
+{% endblock %}
+
+{% block settingsContent %}
+<form role="form" class="form-horizontal" action="{{ path('settings_site', {'tournamentUrl': tournament.url}) }}" method="post" {{ form_enctype(form) }}>
+    <header>
+        <h1 class="tab-title">{{ 'site.tab.title'|trans }}</h1>
+        <p class="tab-subtitle">{{ 'site.tab.subtitle'|trans }}</p>
+    </header>
+	
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#general" data-toggle="tab">{{ 'site.general.tab'|trans }}</a></li>
+		<li><a href="#pages" data-toggle="tab">{{ 'site.pages.tab'|trans }}</a></li>
+		<li><a href="#files" data-toggle="tab">{{ 'site.files.tab'|trans }}</a></li>
+		<li><a href="#advanced" data-toggle="tab">{{ 'site.advanced.tab'|trans }}</a></li>
+		<li><a href="#images" data-toggle="tab">{{ 'site.images.tab'|trans }}</a></li>
+	</ul>
+
+    {{ form_errors(form) }}
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="general">
+			<fieldset>
+		    	<legend>{{ 'site.general.legend'|trans }}</legend>
+		    		{{ form_row(form.locationAddress) }}
+		    		{{ form_row(form.htmlTitle) }}
+		    		{{ form_row(form.htmlSubtitle) }}
+			</fieldset>
+			<fieldset>
+		    	<legend>{{ 'site.general.screen'|trans }}</legend>
+                    <a href="{{ path('ts_live_presentationscreen', {'tournamentUrl':tournament.url}) }}" class="btn btn-success" target="_blank">{{ 'site.general.screen.open'|trans }}</a>
+			</fieldset>
+		</div>
+		<div class="tab-pane fade" id="pages">
+			<fieldset>
+				<legend>{{ 'site.pages.legend'|trans }}</legend>
+				<div class="panel-group" id="pagesAccordion" data-prototype="{{ form_widget(form.sitePages.vars.prototype)|e }}">
+					{% for index,page in form.sitePages %}
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<a data-toggle="collapse" data-parent="#pagesAccordion" href="#existingPageAccordion-{{ index }}">
+								<span class="accordion-title">{{ index }}</span>
+							</a>
+						</div>
+						<div id="existingPageAccordion-{{ index }}" class="panel-collapse collapse">
+							<div class="panel-body">
+								{% for row in page %}
+									{{ form_row(row) }}
+								{% endfor %}
+								<div class="form-group removeRow">
+									<label class="col-sm-2 control-label"></label>
+									<div class="col-sm-10 form-values"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</fieldset>
+		</div>
+		<div class="tab-pane fade" id="files">
+			<fieldset>
+		    	<legend>{{ 'site.files.legend'|trans }}</legend>
+		    		{{ form_row(form.upload) }}
+		    		<p>{{ 'site.files.text'|trans }}</p>
+		    		<table class="table table-hover table-bordered">
+						<thead>
+							<tr>
+								<th>{{ 'site.files.fileAddress'|trans }}</th>
+								<th>{{ 'site.files.size'|trans }}</th>
+								<th>{{ 'site.files.delete'|trans }}</th>
+							</tr>
+						</thead>
+						<tbody>
+						{% for file in tournament.site.files %}
+							<tr>
+								<td><a href="{{ app.request.getScheme() }}://{{ app.request.getHttpHost() }}{{ app.request.getBasePath()}}{{ file.webPath }}" target="_blank">{{ app.request.getScheme() }}://{{ app.request.getHttpHost() }}{{ app.request.getBasePath()}}{{ file.webPath }}</a></td>
+								<td>{{ file.sizeText }}</td>
+								<td><a href="{{ path('settings_site_delete_file', {'tournamentUrl':tournament.url, 'fileId':file.id}) }}"><i class="fa fa-trash-o"></i> {{ 'site.files.delete'|trans }}</a></td>
+							</tr>
+						{% else %}
+							<tr>
+								<td>{{ 'site.files.noFiles'|trans }}</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+
+			</fieldset>
+		</div>
+		<div class="tab-pane fade" id="advanced">
+			<fieldset>
+				<legend>{{ 'site.advanced.legend'|trans }}</legend>
+					{{ form_row(form.metaKeywords) }}
+					{{ form_row(form.metaDescription) }}
+					{{ form_row(form.isPublished) }}
+			</fieldset>
+		</div>
+		<div class="tab-pane fade" id="images">
+			<fieldset>
+				<legend>{{ 'site.images.legend'|trans }}</legend>
+				{{ form_row(form.editImage) }}
+				<div id="frontImage" class="editImage">
+					<p class="alert alert-info" role="alert">
+						{{ 'site.images.frontImage'|trans({'%linkStart%': '<a href="'~ path('front_index') ~'">', '%linkEnd%': '</a>'})|raw }}<br />
+						{{ 'site.images.upload'|trans({'%linkStart%': '<a href="#files" class="tabLink">', '%linkEnd%': '</a>'})|raw }}
+					</p>
+					{{ form_row(form.frontImage) }}
+					{{ form_row(form.frontImagePosition, {'attr': {'class': 'imagePositionSelection'}}) }}
+
+					<div class="form-group imagePositionPreviewBox">
+						<span id="imagePositionPreview-frontImage-lg" class="imagePositionPreview img-thumbnail" alt="{{ 'site.images.preview'|trans }} {{ 'site.images.desktoplarge'|trans }}"></span><br />
+						<p>{{ 'site.images.desktoplarge'|trans }}</p>
+						<span id="imagePositionPreview-frontImage-md" class="imagePositionPreview img-thumbnail" alt="{{ 'site.images.preview'|trans }} {{ 'site.images.desktopsmall'|trans }}"></span><br />
+						<p>{{ 'site.images.desktopsmall'|trans }}</p>
+						<span id="imagePositionPreview-frontImage-sm" class="imagePositionPreview img-thumbnail" alt="{{ 'site.images.preview'|trans }} {{ 'site.images.tablet'|trans }}"></span><br />
+						<p>{{ 'site.images.tablet'|trans }}</p>
+						<span id="imagePositionPreview-frontImage-xs" class="imagePositionPreview img-thumbnail" alt="{{ 'site.images.preview'|trans }} {{ 'site.images.mobile'|trans }}"></span><br />
+						<p>{{ 'site.images.mobile'|trans }}</p>
+					</div>
+				</div>
+				<div id="headerBackgroundImage" class="editImage">
+					<p class="alert alert-info" role="alert">
+						{{ 'site.images.headerBackgroundImage'|trans }}<br />
+						{{ 'site.images.upload'|trans({'%linkStart%': '<a href="#files" class="tabLink">', '%linkEnd%': '</a>'})|raw }}
+					</p>
+					{{ form_row(form.headerBackgroundImage) }}
+					{{ form_row(form.headerBackgroundImagePosition, {'attr': {'class': 'imagePositionSelection'}}) }}
+
+					<div class="form-group imagePositionPreviewBox">
+						<span id="imagePositionPreview-headerBackgroundImage-lg" class="imagePositionPreview img-thumbnail" alt="{{ 'site.images.preview'|trans }} {{ 'site.images.desktoplarge'|trans }}"></span><br />
+						<p>{{ 'site.images.desktoplarge'|trans }}</p>
+						<span id="imagePositionPreview-headerBackgroundImage-md" class="imagePositionPreview img-thumbnail" alt="{{ 'site.images.preview'|trans }} {{ 'site.images.desktopsmall'|trans }}"></span><br />
+						<p>{{ 'site.images.desktopsmall'|trans }}</p>
+						<span id="imagePositionPreview-headerBackgroundImage-sm" class="imagePositionPreview img-thumbnail" alt="{{ 'site.images.preview'|trans }} {{ 'site.images.tablet'|trans }}"></span><br />
+						<p>{{ 'site.images.tablet'|trans }}</p>
+						<span id="imagePositionPreview-headerBackgroundImage-xs" class="imagePositionPreview img-thumbnail" alt="{{ 'site.images.preview'|trans }} {{ 'site.images.mobile'|trans }}"></span><br />
+						<p>{{ 'site.images.mobile'|trans }}</p>
+					</div>
+				</div>
+				<div id="infoBlockImage" class="editImage">
+					<p class="alert alert-info" role="alert">
+						{{ 'site.images.infoBlockImage'|trans }}<br />
+						{{ 'site.images.upload'|trans({'%linkStart%': '<a href="#files" class="tabLink">', '%linkEnd%': '</a>'})|raw }}
+					</p>
+					{{ form_row(form.infoBlockImage) }}
+
+					<div class="form-group imagePositionPreviewBox">
+						<img id="imagePositionPreview-infoBlockImage-lg" class="img-responsive imagePositionPreview img-thumbnail" alt="{{ 'site.images.preview'|trans }} {{ 'site.images.desktoplarge'|trans }}" />
+						<p>{{ 'site.images.desktoplarge'|trans }}</p>
+						<img id="imagePositionPreview-infoBlockImage-md" class="img-responsive imagePositionPreview img-thumbnail" alt="{{ 'site.images.preview'|trans }} {{ 'site.images.desktopsmall'|trans }}" />
+						<p>{{ 'site.images.desktopsmall'|trans }}</p>
+						<img id="imagePositionPreview-infoBlockImage-sm" class="img-responsive imagePositionPreview img-thumbnail" alt="{{ 'site.images.preview'|trans }} {{ 'site.images.tablet'|trans }}" />
+						<p>{{ 'site.images.tablet'|trans }}</p>
+						<img id="imagePositionPreview-infoBlockImage-xs" class="img-responsive imagePositionPreview img-thumbnail" alt="{{ 'site.images.preview'|trans }} {{ 'site.images.mobile'|trans }}" />
+						<p>{{ 'site.images.mobile'|trans }}</p>
+					</div>
+				</div>
+				<div id="facebookImage" class="editImage">
+					<p class="alert alert-info" role="alert">
+						{{ 'site.images.facebookImage'|trans }}<br />
+						{{ 'site.images.upload'|trans({'%linkStart%': '<a href="#files" class="tabLink">', '%linkEnd%': '</a>'})|raw }}
+					</p>
+					{{ form_row(form.facebookImage) }}
+
+					<div class="form-group imagePositionPreviewBox">
+						<img id="imagePositionPreview-facebookImage" class="img-responsive imagePositionPreview img-thumbnail" alt="{{ 'site.images.preview'|trans }}" />
+						<p>{{ 'site.images.preview'|trans }}</p>
+					</div>
+				</div>
+
+
+
+			</fieldset>
+		</div>
+	</div>
+	
+    {{ form_rest(form) }}
+
+    <div class="form-group actions">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="button" onClick="$(this).closest('form').submit();" class="btn btn-custom-primary btn-lg"><span class="fa fa-check"></span> {{ 'save'|trans }}</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

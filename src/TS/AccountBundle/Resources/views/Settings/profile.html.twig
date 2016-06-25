@@ -1,0 +1,34 @@
+{% trans_default_domain "profile" %}
+{% extends "TSAccountBundle::baseAccount.html.twig" %}
+
+{% block title "profile.title"|trans %}
+
+{% block accountContent %}
+
+    <header>
+        <h1 class="tab-title">{{ 'profile.title'|trans }}</h1>
+        <p class="tab-subtitle">{{ 'profile.subtitle'|trans }}</p>
+    </header>
+
+    <form class="form-horizontal static-content" action="{{ path('account_settings_profile') }}" method="post" {{ form_enctype(form) }} role="form">
+        {{ form_errors(form) }}
+        <fieldset>
+            <legend>{{ 'profile.profileInfo.legend'|trans }}</legend>
+            {{ form_row(form.name) }}
+            {{ form_row(form.email) }}
+        </fieldset>
+        <br />
+        <fieldset>
+            <legend>{{ 'profile.prefilled.legend'|trans }}</legend>
+            <p>{{ 'profile.prefilled.text'|trans }}</p>
+            {{ form_rest(form) }}
+
+        </fieldset>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-custom-primary pull-right"><i class="fa fa-save"></i> {{ 'profile.submit'|trans }}</button>
+        </div>
+        {{ form_end(form) }}
+    </form>
+
+{% endblock %}

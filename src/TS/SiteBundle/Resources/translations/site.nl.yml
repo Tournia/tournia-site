@@ -1,0 +1,157 @@
+# Group edit page
+groupedit.title.new: Nieuwe groep
+groupedit.title.change: Wijzig groep info
+groupedit.required: is een verplicht veld
+groupedit.save: Opslaan
+groupedit.cancel: Annuleren
+groupedit.delete.button: Verwijder groep
+groupedit.delete.confirm: Weet je zeker dat je deze groep wilt verwijderen?
+# RegistrationGroupType
+registrationgroup.contact.label: Contactpersoon
+
+# Group overview page
+groups.title: Groepen
+groups.name: Naam
+groups.country: Land
+groups.players: Spelers
+
+# Player edit page
+playeredit.title.new: Nieuwe speler
+playeredit.title.change: Wijzig speler info
+playeredit.title2.new: Registreren
+playeredit.title2.change: Wijzig registratie
+
+# Player overview page
+players.title: Spelers
+players.name: Naam
+players.group: Groep
+players.gender: Geslacht
+players.partner: Partner
+players.status: Status
+players.wanted: Gezocht
+
+# RegistrationClosed
+registrationclosed.text1: De registratie is gesloten. Neem %startLink%contact op met de organisatie%endLink% voor meer informatie.
+registrationclosed.text2: %startLink%Wijzigen van een bestaande registratie%endLink% is nog wel mogelijk.
+
+# RegistrationLogin
+registrationlogin.title: Login om te registreren
+registrationlogin.header.title: Login om te registreren voro %tournament%
+registrationlogin.header.text: Om te registreren voor een toernooi, moeten we weten wie je bent. Login met je gebruikersnaam en wachtwoord, of gebruik je social media account.
+registrationlogin.anonymous.title: Registreer zonder account
+registrationlogin.anonymous.text: Het is ook mogelijk om te registreren voor een toernooi zonder account. Vul in dat geval de captcha code hieronder in, om te bevestigen dat je geen spam-bot bent.
+
+# Player edit
+player.tabs.personalia: Personalia
+player.tabs.tournament: Toernooi
+player.tabs.financial: Financieel
+player.tabs.summary: Samenvatting
+player.form.required: is een verplicht veld
+player.form.contact: Contact informatie
+player.form.person: Persoon
+player.form.notset: Niet ingevuld
+player.form.personal: Persoonlijk
+player.form.next: Volgende stap
+player.form.previous: Vorige stap
+player.form.group.legend: Groep
+player.form.group.notinlist: Jouw groep not in de lijst?
+player.form.group.create: Maak een nieuwe groep
+player.form.disciplines.legend: Poules
+player.form.disciplines.maxDisciplines: '{1} Je kan voor maximaal één poule registreren.|]1,Inf[ Je kan voor maximaal %maxNr% poules registreren.'
+player.form.disciplines.organizer: Echter, als organisator kan je voor alle poules registreren.
+player.form.tournament.legend: Toernooi specifiek
+player.form.transactions.legend: Eerdere transacties
+player.form.transactions.person: %quantity% %productName% (%amount%) ontvangen op %date% door %execName% (%execEmail%)
+player.form.transactions.anonymous: %quantity% %productName% (%amount%) ontvangen op %date% door anoniem
+player.form.transactions.none: Geen betalingen ontvangen.
+player.form.transactions.balance: Totaal bedrag
+player.form.payment.legend: Nieuwe betaling
+player.form.payment.none: Geen producten beschikbaar.
+player.form.payment.total: Totaal toernooi kosten
+player.form.summary.registration.legend: Registratie data
+player.form.summary.registration.date: Registratie datum
+player.form.summary.registration.status: Status
+player.form.summary.personalia.legend: Personalia samenvatting
+player.form.summary.personalia.name: Naam
+player.form.summary.personalia.gender: Geslacht
+player.form.summary.personalia.email: E-mail
+player.form.summary.tournament.legend: Toernooi samenvatting
+player.form.summary.tournament.group: Groep
+player.form.summary.tournament.disciplines: Poules
+player.form.summary.costs.legend: Kosten
+player.form.summary.finish.legend: Voltooien
+player.form.summary.finish.text: Accepteer de voorwaarden en ga verder naar de betaling om je registratie te voltooien.
+player.form.summary.finish.conditions: Ik ga akkoord met de %startLink%voorwaarden%endLink%.
+player.form.summary.finish.notify: Bericht speler
+player.form.summary.send: Ik bevestig mijn registratie
+player.form.summary.edit: Wijzig
+player.delete.button: Verwijder speler
+player.delete.confirm: Weet je zeker dat je deze speler wilt verwijderen?
+player.terms.close: Sluiten
+player.terms.label: Voorwaarden
+player.terms.text: |
+  Tournia.net is niet de verkoper van goederen of diensten die hier genoemd zijn, met de uitzondering van transactiekosten en servicekosten. Tournia.net is een tussenpersoon die handelt voor de genoemde toernooi organisatie, en daarom accepteerd Tournia.net geen aansprakelijk voor enige vorm van het niet leveren of anderszins.<br />
+  Neem s.v.p. direct contact op met de toernooi organisatie voor vragen omtrent facturatie, wijzigingen of terugbetaling.<br />
+  Ik begrijp deze voorwaarden en ga er mee akkord.
+player.jquery.genderfirst: Selecteer eerst een geslacht
+player.jquery.maxDisciplines: Geen delname, maximaal %maxNr% poules
+player.javascript.male: Man
+player.javascript.female: Vrouw
+player.javascript.yes: Ja
+player.javascript.no: Nee
+player.javascript.nopayments: Geen nieuwe betalingen geselecteerd
+player.javascript.total: Totaal
+player.javascript.agreeterms: Je moet akkoord gaan met de voorwaarden om door te kunnen gaan.
+# PlayerType
+playerType.registrationFor.me: Voor mij
+playerType.registrationFor.else: Voor iemand anders
+playerType.registrationFor.label: Registratie is
+playerType.registrationEmail.email: E-mailadres
+playerType.registrationEmail.info: Vul het e-mailadres van deze speler in zodat er informatie over het toernooi gestuurd kan worden, en zodat de toernooi organisatie contact kan opnemen.
+playerType.group.select: Selecteer een groep
+playerType.group.label: Groep
+playerType.group.emptyvalue: Geen group
+playerType.firstName.label: Voornaam
+playerType.firstName.placeholder: Voornaam
+playerType.lastName.label: Achternaam
+playerType.lastName.placeholder: Achternaam
+playerType.gender.label: Geslacht
+playerType.gender.male: Man
+playerType.gender.female: Vrouw
+playerType.discipline.notPlaying: Speelt niet
+playerType.disciplinePartner.label: Partner
+playerType.disciplinePartner.info: Vul de naam in van je partner, of laat leeg wanneer het wanted is
+playerType.sendPlayerNotification.label: Ja, bericht de speler van de registratie wijzigingen.
+playerType.addProduct.label: Nieuwe betaling
+
+
+# Base page
+base.copyright: Voor vragen over het toernooi, neem %startLink%contact op met de organisatie%endLink%
+base.navigation.live: Live
+base.navigation.groups: Groepen
+base.navigation.players: Spelers
+base.side.control: Beheer
+base.side.settings: Instellingen
+base.side.information.title: Informatie
+base.side.information.when: Wanneer
+base.side.information.registrationopen: Registratie opent
+base.side.information.registrationdeadline: Registratie deadline
+base.side.information.costs: Kosten
+base.side.information.excl: Excl.
+base.side.information.servicefeeand: servicekosten en
+base.side.information.transactioncosts: transactiekosten
+base.side.information.makepayment: Nieuwe betaling
+base.side.information.noproducts: Geen kosten opgegeven
+base.side.information.register: Registreer
+base.side.information.registrationclosed: Registraties zijn gesloten
+base.side.information.organizercreateregistration: Organisatie: nieuwe registratie
+base.side.organizer: Organisatie
+base.side.location: Locatie
+base.side.statistics.title: Statistieken
+base.side.statistics.total: Totaal registraties
+base.side.statistics.male: Man
+base.side.statistics.female: Vrouw
+base.side.statistics.groups: Totaal groepen
+
+
+

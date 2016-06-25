@@ -1,0 +1,72 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "inconsistencies.title"|trans %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        ///// post and receive server messages /////
+        // setting commands for refresh of server data
+        function getRefreshCommands() {
+            command = {
+                command : 'Inconsistencies.list',
+            }
+            return new Array(command);
+        }
+
+        // handling of response data
+        function handleResponse(commandKey, commandResponse){
+            if (commandKey == "Inconsistencies.list") {
+                // go through players
+                $('#inconsistenciesTable').dataTable().fnClearTable();
+
+                $.each(commandResponse, function(key2, inconsisencyObject) {
+                    /*player1Array = {};
+                    player1Id = ;
+                    player1Array[player1Id] = inconsisencyObject['player1']['name'];*/
+                    checkbox = '<input type="checkbox" />';
+                    console.log(inconsisencyObject);
+                    console.log(inconsisencyObject['player1']);
+                    $('#inconsistenciesTable').dataTable().fnAddData( [
+                        checkbox,
+                        renderPlayerNames(inconsisencyObject['player1'], true),
+                        inconsisencyObject['inconsistency'],
+                        '-',
+                        '-'
+                    ]);
+                });
+                dataTableFinishedLoading("inconsistenciesTable");
+            }
+        }
+
+    </script>
+
+{% endblock %}
+
+{% block jQuery %}
+    // retrieving initial data from server
+    sendServerCommands(true);
+
+    $('#inconsistenciesTable').checkboxes('range', true);
+
+{% endblock %}
+
+{% block content %}
+    {% set content %}
+        <table class="table table-hover table-bordered ajaxDataTable" id="inconsistenciesTable">
+            <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>{{ 'inconsistencies.table.player'|trans }}</th>
+                <th>{{ 'inconsistencies.table.inconsistency'|trans }}</th>
+                <th>{{ 'inconsistencies.table.explanation'|trans }}</th>
+                <th>{{ 'inconsistencies.table.solution'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    {% endset %}
+    {{ macro.well(content) }}
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% trans_default_domain "live" %}
+{% extends "TSSiteBundle:Live:index.html.twig" %}
+
+{% block title "overview.title"|trans %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('bundles/tssite/css/live.css') }}" rel="stylesheet" />
+{% endblock %}
+
+
+{% block content %}
+{{ parent() }}
+
+{% endblock %}

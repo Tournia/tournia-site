@@ -1,0 +1,13 @@
+# messages.en.yml
+
+#----------------------------------------#
+# General financial
+#----------------------------------------#
+
+form.label.paypal_express_checkout: Pay with PayPal
+form.label.test_payment: Test payment (dev only)
+form.label.mollie_ideal: iDeal
+ruudk_payment_mollie.ideal.bank.label: Only for iDeal
+ruudk_payment_mollie.ideal.bank.empty_value: Select your bank
+Data mollie ideal: Bank selection
+form.label.mollie_creditcard: Credit card

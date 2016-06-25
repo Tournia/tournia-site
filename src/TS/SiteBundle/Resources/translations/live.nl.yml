@@ -1,0 +1,95 @@
+# Live index
+index.title: Live
+index.current: Huidige wedstrijden
+index.upcoming: Komende wedstrijden
+index.search: Zoek wedstrijden
+index.rankings: Ranglijsten
+index.players: Spelers
+
+# Closed
+closed.title: Live is gesloten
+closed.text1: Live is gesloten
+closed.text2: Tijdens het toernooi zal het mogelijk zijn om live standen, wedstrijden en andere toernooi informatie op te vragen.
+
+# Login
+login.title: Live wachtwoord
+login.text1: Live login
+login.text2: Live standen, ranglijsten and speler informatie is nu real-time voor dit toernooi beschikbaar!
+login.text3: %startLink%Login met je account%endLink% of vul het wachtwoord hieronder in, om toegang te krijgen tot live informatie. Vraag de toernooi organisatie naar dit wachtwoord.
+login.password: Wachtwoord
+login.submit: Login met wachtwoord
+
+# Overview
+overview.title: Live overzicht
+
+# Speler
+player.title: Speler statistieken
+player.noscore: Nog niet gespeeld
+player.searchplayer.label: Zoek speler
+player.searchplayer.placeholder: Speler naam...
+
+# Upcoming wedstrijden
+upcoming.title: Komende wedstrijden
+
+# Ranglijst
+rankingPlayers.title: Spelers ranglijst
+rankingMain.title: Ranglijst
+rankingMain.pool: Ranglijst voor poule
+rankingMain.players: Ranglijst voor spelers
+rankingMain.groups: Ranglijst voor groepen
+rankingGroups.title: Groepen ranglijst
+rankingPool.title: Poule ranglijst
+rankingPool.table.player: Speler
+rankingPool.table.matches: Wedstrijden
+rankingPool.table.points: Punten
+rankingPool.table.played: Gespeeld
+rankingPool.table.won: Gewonnen
+rankingPool.table.draw: Gelijkspel
+rankingPool.table.lost: Verloren
+rankingPool.table.relative: Relatief
+rankingPool.table.tooltip.matches: Relatieve stand is tussen -1 en +1, waarbij gewonnen wedstrijden zorgen voor een hogere positie en verloren wedstrijden lagere positie. Telt als eerste (en belangrijkste) in de ranglijst.
+rankingPool.table.tooltip.sets: Relatieve stand is tussen 0 en +1, berekend door gewonnen sets te delen door het aantal sets. Counts second in ranglijst.
+rankingPool.table.tooltip.points: Relatieve stand is tussen 0 en +1, berekend door gewonnen punten te delen door het totaal aantal punten. Telt als 3e (en minst belangrijke) in de ranglijst.
+
+
+# Current wedstrijden
+currentMatches.title: Huidige wedstrijden
+currentMatches.enterScore: Vul stand in
+currentMatches.2ndCall: 2<sup>e</sup> oproep
+currentMatches.table.options: Opties
+currentMatches.undefined: Unbekend
+
+# Alle wedstrijden
+allMatches.title: Zoek wedstrijden
+
+
+# General translations
+table.team1: Team 1
+table.team2: Team 2
+table.pool: Poule
+table.round: Ronde
+table.score: Stand
+table.status: Status
+table.location: Locatie
+
+table.rank: Positie
+table.player: Speler
+table.avgPoints: Gemiddelde punten
+table.totPoints: Totale punten
+table.sets: Sets
+table.group: Groep
+table.gender: Geslacht
+table.players: Spelers
+
+
+label.priority: Prioriteit
+label.queued: Klaar om te beginnen
+label.postponed: Uitgesteld
+label.played: Gespeeld
+label.undefinedlocation: Onbekende locatie
+label.playing: Speelt
+label.players.playing: Spelers spelen
+label.players.notready: Spelers niet gereed
+
+gender.male: Man
+gender.female: Vrouw

@@ -1,0 +1,59 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "dashboard.title"|trans %}
+
+{% block javascript %}
+{{ parent() }}
+  {% javascripts
+    '@TSControlBundle/Resources/public/template/js/plugin/morris/raphael.js'
+    '@TSControlBundle/Resources/public/template/js/plugin/morris/morris.js'
+    filter='?yui_js' %}
+    <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+{% endblock %}
+
+{% block jQuery %}
+
+/* Cumulative registrations chart */
+var cumulativeRegistrations = [
+    {% for date,number in cumulativePoints %}
+        {"period": "{{ date|date('Y-m-d') }}", "registrations": {{ number }} },
+    {% endfor %}
+];
+Morris.Line({
+    element: 'cumulativeRegistrationsChart',
+    data: cumulativeRegistrations,
+    xkey: 'period',
+    ykeys: ['registrations'],
+    labels: ['Total registrations']
+})
+
+/* New registrations chart */
+var registrations_data = [
+    {% for date,number in points %}
+        {"period": "{{ date|date('Y-m-d') }}", "registrations": {{ number }} },
+    {% endfor %}
+];
+Morris.Line({
+    element: 'newRegistrationsChart',
+    data: registrations_data,
+    xkey: 'period',
+    ykeys: ['registrations'],
+    labels: ['New registrations']
+})
+
+{% endblock %}
+
+{% block content %}
+{% set content %}
+<h4>{{ 'dashboard.cumulativeRegistrations'|trans }}</h4>
+<div id="cumulativeRegistrationsChart" class="chart"></div>
+
+<h4>{{ 'dashboard.newRegistrations'|trans }}</h4>
+<div id="newRegistrationsChart" class="chart"></div>
+{% endset %}
+{{ macro.well(content) }}
+
+
+{% endblock %}

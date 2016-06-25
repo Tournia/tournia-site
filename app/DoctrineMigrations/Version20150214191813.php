@@ -1,0 +1,226 @@
+<?php
+
+namespace Application\Migrations;
+
+use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\DBAL\Schema\Schema;
+
+/**
+ * Auto-generated Migration: Please modify to your needs!
+ */
+class Version20150214191813 extends AbstractMigration
+{
+    public function up(Schema $schema)
+    {
+        // this up() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
+        $this->addSql('CREATE TABLE ext_translations (id INT AUTO_INCREMENT NOT NULL, locale VARCHAR(8) NOT NULL, object_class VARCHAR(255) NOT NULL, field VARCHAR(32) NOT NULL, foreign_key VARCHAR(64) NOT NULL, content LONGTEXT DEFAULT NULL, INDEX translations_lookup_idx (locale, object_class, foreign_key), UNIQUE INDEX lookup_unique_idx (locale, object_class, field, foreign_key), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE ext_log_entries (id INT AUTO_INCREMENT NOT NULL, action VARCHAR(8) NOT NULL, logged_at DATETIME NOT NULL, object_id VARCHAR(64) DEFAULT NULL, object_class VARCHAR(255) NOT NULL, version INT NOT NULL, data LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:array)\', username VARCHAR(255) DEFAULT NULL, INDEX log_class_lookup_idx (object_class), INDEX log_date_lookup_idx (logged_at), INDEX log_user_lookup_idx (username), INDEX log_version_lookup_idx (object_id, object_class, version), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE File (id INT AUTO_INCREMENT NOT NULL, site_id INT DEFAULT NULL, fileName VARCHAR(255) NOT NULL, size INT NOT NULL, specialType VARCHAR(255) DEFAULT NULL, INDEX IDX_2CAD992EF6BD1646 (site_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE Site (id INT AUTO_INCREMENT NOT NULL, tournament_id INT DEFAULT NULL, livePassword LONGTEXT NOT NULL, isRegistrationClosed TINYINT(1) NOT NULL, isLiveClosed TINYINT(1) NOT NULL, isEnterScoreLiveAllowed TINYINT(1) NOT NULL, htmlSubtitle LONGTEXT NOT NULL, locationAddress LONGTEXT NOT NULL, metaKeywords LONGTEXT NOT NULL, metaDescription LONGTEXT NOT NULL, isSecondCallLiveAllowed TINYINT(1) NOT NULL, registrationOpenDateTime DATETIME DEFAULT NULL, registrationClosedDateTime DATETIME DEFAULT NULL, isPublished TINYINT(1) NOT NULL, headerBackground_id INT DEFAULT NULL, facebookImage_id INT DEFAULT NULL, infoBlockImage_id INT DEFAULT NULL, UNIQUE INDEX UNIQ_C971A6DA33D1A3E7 (tournament_id), INDEX IDX_C971A6DAADA85231 (headerBackground_id), INDEX IDX_C971A6DAC6A0BA3D (facebookImage_id), INDEX IDX_C971A6DAE40AC43 (infoBlockImage_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE SitePage (id INT AUTO_INCREMENT NOT NULL, site_id INT DEFAULT NULL, url VARCHAR(255) NOT NULL, html LONGTEXT NOT NULL, title VARCHAR(255) NOT NULL, showInfoBlock TINYINT(1) NOT NULL, INDEX IDX_F4B85392F6BD1646 (site_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE Announcement (id INT AUTO_INCREMENT NOT NULL, tournament_id INT DEFAULT NULL, match_id INT DEFAULT NULL, type VARCHAR(255) NOT NULL, playerIds LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', dateTime DATETIME DEFAULT NULL, INDEX IDX_558802E433D1A3E7 (tournament_id), INDEX IDX_558802E42ABEACD6 (match_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE Discipline (id INT AUTO_INCREMENT NOT NULL, tournament_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, gender VARCHAR(1) NOT NULL, type VARCHAR(1) NOT NULL, nrPlayersInTeam INT NOT NULL, position INT NOT NULL, isHidden TINYINT(1) NOT NULL, INDEX IDX_3AE3EDEF33D1A3E7 (tournament_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE discipline_player (discipline_id INT NOT NULL, player_id INT NOT NULL, INDEX IDX_E059D474A5522701 (discipline_id), INDEX IDX_E059D47499E6F5DF (player_id), PRIMARY KEY(discipline_id, player_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE Location (id INT AUTO_INCREMENT NOT NULL, tournament_id INT DEFAULT NULL, name VARCHAR(255) DEFAULT NULL, onHold TINYINT(1) NOT NULL, nonreadyReason VARCHAR(255) DEFAULT NULL, position INT NOT NULL, INDEX IDX_A7E8EB9D33D1A3E7 (tournament_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE LoginAccount (id INT AUTO_INCREMENT NOT NULL, person_id INT DEFAULT NULL, username VARCHAR(255) NOT NULL, username_canonical VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, email_canonical VARCHAR(255) NOT NULL, enabled TINYINT(1) NOT NULL, salt VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, last_login DATETIME DEFAULT NULL, locked TINYINT(1) NOT NULL, expired TINYINT(1) NOT NULL, expires_at DATETIME DEFAULT NULL, confirmation_token VARCHAR(255) DEFAULT NULL, password_requested_at DATETIME DEFAULT NULL, roles LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', credentials_expired TINYINT(1) NOT NULL, credentials_expire_at DATETIME DEFAULT NULL, registrationName VARCHAR(255) DEFAULT NULL, method VARCHAR(16) NOT NULL, socialUrl VARCHAR(255) DEFAULT NULL, facebookId VARCHAR(255) DEFAULT NULL, googleId VARCHAR(40) DEFAULT NULL, UNIQUE INDEX UNIQ_A4ED74D992FC23A8 (username_canonical), UNIQUE INDEX UNIQ_A4ED74D9A0D96FBF (email_canonical), INDEX IDX_A4ED74D9217BBB47 (person_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE Matchh (id INT AUTO_INCREMENT NOT NULL, discipline_id INT DEFAULT NULL, tournament_id INT DEFAULT NULL, location_id INT DEFAULT NULL, team1_id INT DEFAULT NULL, team2_id INT DEFAULT NULL, localId INT NOT NULL, date DATETIME DEFAULT NULL, round VARCHAR(255) NOT NULL, priority TINYINT(1) NOT NULL, score LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', status VARCHAR(255) NOT NULL, nonreadyReason VARCHAR(255) DEFAULT NULL, INDEX IDX_E6D7AC9BA5522701 (discipline_id), INDEX IDX_E6D7AC9B33D1A3E7 (tournament_id), UNIQUE INDEX UNIQ_E6D7AC9B64D218E (location_id), INDEX IDX_E6D7AC9BE72BCFA4 (team1_id), INDEX IDX_E6D7AC9BF59E604A (team2_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE Person (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, email VARCHAR(255) DEFAULT NULL, isAdmin TINYINT(1) NOT NULL, firstName VARCHAR(255) DEFAULT NULL, lastName VARCHAR(255) DEFAULT NULL, gender VARCHAR(1) DEFAULT NULL, UNIQUE INDEX UNIQ_3370D440E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE Player (id INT AUTO_INCREMENT NOT NULL, person_id INT DEFAULT NULL, group_id INT DEFAULT NULL, tournament_id INT DEFAULT NULL, firstName VARCHAR(255) NOT NULL, lastName VARCHAR(255) NOT NULL, gender VARCHAR(1) NOT NULL, name VARCHAR(255) NOT NULL, partnerDoubles VARCHAR(255) DEFAULT NULL, partnerMixed VARCHAR(255) DEFAULT NULL, registrationDate DATETIME NOT NULL, status VARCHAR(255) NOT NULL, isContactPlayer TINYINT(1) NOT NULL, ready TINYINT(1) NOT NULL, nonreadyReason VARCHAR(255) DEFAULT NULL, singles_disciplineId INT DEFAULT NULL, doubles_disciplineId INT DEFAULT NULL, mixed_disciplineId INT DEFAULT NULL, INDEX IDX_9FB57F536ECABF9F (singles_disciplineId), INDEX IDX_9FB57F53D54E7AC0 (doubles_disciplineId), INDEX IDX_9FB57F53496B3B0D (mixed_disciplineId), INDEX IDX_9FB57F53217BBB47 (person_id), INDEX IDX_9FB57F53FE54D947 (group_id), INDEX IDX_9FB57F5333D1A3E7 (tournament_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE RegistrationFormField (id INT AUTO_INCREMENT NOT NULL, tournament_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, infoText LONGTEXT DEFAULT NULL, extraText LONGTEXT DEFAULT NULL, isRequired TINYINT(1) NOT NULL, type VARCHAR(255) NOT NULL, choiceOptions LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', choiceExpanded TINYINT(1) NOT NULL, position INT NOT NULL, isHidden TINYINT(1) NOT NULL, INDEX IDX_573C8BC333D1A3E7 (tournament_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE RegistrationFormValue (id INT AUTO_INCREMENT NOT NULL, player_id INT DEFAULT NULL, field_id INT DEFAULT NULL, value VARCHAR(255) DEFAULT NULL, INDEX IDX_11BE96AF99E6F5DF (player_id), INDEX IDX_11BE96AF443707B0 (field_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE RegistrationGroup (id INT AUTO_INCREMENT NOT NULL, tournament_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, country VARCHAR(255) NOT NULL, INDEX IDX_10B93EFC33D1A3E7 (tournament_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE Team (id INT AUTO_INCREMENT NOT NULL, discipline_id INT DEFAULT NULL, tournament INT DEFAULT NULL, name VARCHAR(255) DEFAULT NULL, playersPositionArray LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', givenUp TINYINT(1) NOT NULL, nonreadyReason VARCHAR(255) DEFAULT NULL, INDEX IDX_64D20921A5522701 (discipline_id), INDEX IDX_64D20921BD5FB8D9 (tournament), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE team_player (team_id INT NOT NULL, player_id INT NOT NULL, INDEX IDX_EE023DBC296CD8AE (team_id), INDEX IDX_EE023DBC99E6F5DF (player_id), PRIMARY KEY(team_id, player_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE Tournament (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, url VARCHAR(255) NOT NULL, startDateTime DATETIME NOT NULL, endDateTime DATETIME NOT NULL, emailFrom VARCHAR(255) NOT NULL, contactName LONGTEXT NOT NULL, organizationEmailOnChange LONGTEXT DEFAULT NULL, registrationGroupEnabled TINYINT(1) DEFAULT NULL, registrationGroupRequired TINYINT(1) DEFAULT NULL, paymentCurrency VARCHAR(16) NOT NULL, paymentUpdateStatus TINYINT(1) NOT NULL, paymentUpdateFromStatus VARCHAR(255) DEFAULT NULL, paymentUpdateToStatus VARCHAR(255) DEFAULT NULL, newPlayerStatus VARCHAR(255) DEFAULT NULL, statusOptions LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', nrSets INT NOT NULL, apiToken VARCHAR(32) NOT NULL, financialEnabled TINYINT(1) NOT NULL, financialPayoutPaypalEmail VARCHAR(255) DEFAULT NULL, financialPayoutBankAccount VARCHAR(255) DEFAULT NULL, organizationPaysServiceFee TINYINT(1) NOT NULL, partnerRegistration TINYINT(1) NOT NULL, checkScoreMin INT DEFAULT NULL, checkScoreMax INT DEFAULT NULL, UNIQUE INDEX UNIQ_F202BB09F47645AE (url), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE tournament_person (tournament_id INT NOT NULL, person_id INT NOT NULL, INDEX IDX_50762F2633D1A3E7 (tournament_id), INDEX IDX_50762F26217BBB47 (person_id), PRIMARY KEY(tournament_id, person_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE UpdateMessage (id INT AUTO_INCREMENT NOT NULL, tournament_id INT DEFAULT NULL, type VARCHAR(32) NOT NULL, title VARCHAR(255) NOT NULL, text LONGTEXT NOT NULL, datetime DATETIME NOT NULL, updateSection VARCHAR(255) NOT NULL, loginAccount_id INT DEFAULT NULL, INDEX IDX_309B237BF934D782 (loginAccount_id), INDEX IDX_309B237B33D1A3E7 (tournament_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE BoughtProduct (id INT AUTO_INCREMENT NOT NULL, tournament_id INT DEFAULT NULL, player_id INT NOT NULL, quantity INT NOT NULL, name VARCHAR(255) NOT NULL, amount INT NOT NULL, paidoutAmount INT NOT NULL, cartOrder_id INT NOT NULL, payOut_id INT DEFAULT NULL, INDEX IDX_7A172E3A33D1A3E7 (tournament_id), INDEX IDX_7A172E3A99E6F5DF (player_id), INDEX IDX_7A172E3AFB7B2614 (cartOrder_id), INDEX IDX_7A172E3AC17A1E49 (payOut_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE Cart (id INT AUTO_INCREMENT NOT NULL, number VARCHAR(255) DEFAULT NULL, state INT NOT NULL, completed_at DATETIME DEFAULT NULL, items_total INT NOT NULL, adjustments_total INT NOT NULL, total INT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, deleted_at DATETIME DEFAULT NULL, expires_at DATETIME NOT NULL, execPerson_id INT DEFAULT NULL, paymentInstruction_id INT DEFAULT NULL, UNIQUE INDEX UNIQ_AB91278996901F54 (number), INDEX IDX_AB912789603E7086 (execPerson_id), UNIQUE INDEX UNIQ_AB912789FD913E4D (paymentInstruction_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE CartItem (id INT AUTO_INCREMENT NOT NULL, order_id INT NOT NULL, product_id INT DEFAULT NULL, player_id INT DEFAULT NULL, quantity INT NOT NULL, unit_price INT NOT NULL, adjustments_total INT NOT NULL, total INT NOT NULL, INDEX IDX_3B24E2CF8D9F6D38 (order_id), INDEX IDX_3B24E2CF4584665A (product_id), INDEX IDX_3B24E2CF99E6F5DF (player_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE Invoice (id INT AUTO_INCREMENT NOT NULL, token VARCHAR(32) NOT NULL, cartOrder_id INT NOT NULL, payOut_id INT DEFAULT NULL, UNIQUE INDEX UNIQ_5FD82ED8FB7B2614 (cartOrder_id), UNIQUE INDEX UNIQ_5FD82ED8C17A1E49 (payOut_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE PaymentAdjustment (id INT AUTO_INCREMENT NOT NULL, order_id INT DEFAULT NULL, order_item_id INT DEFAULT NULL, `label` VARCHAR(255) NOT NULL, description VARCHAR(255) DEFAULT NULL, amount INT NOT NULL, is_neutral TINYINT(1) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, quantity INT NOT NULL, INDEX IDX_E6B2C7098D9F6D38 (order_id), INDEX IDX_E6B2C709E415FB15 (order_item_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE PayOut (id INT AUTO_INCREMENT NOT NULL, tournament_id INT DEFAULT NULL, paypalAccount VARCHAR(255) DEFAULT NULL, bankAccount VARCHAR(255) DEFAULT NULL, paidoutAmount INT NOT NULL, dateTime DATETIME DEFAULT NULL, INDEX IDX_71CFEAD433D1A3E7 (tournament_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE Product (id INT AUTO_INCREMENT NOT NULL, tournament_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, description LONGTEXT NOT NULL, available_on DATETIME NOT NULL, meta_keywords VARCHAR(255) DEFAULT NULL, meta_description VARCHAR(255) DEFAULT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, deleted_at DATETIME DEFAULT NULL, price INT NOT NULL, position INT NOT NULL, isHidden TINYINT(1) NOT NULL, initiallySelected TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_1CF73D31989D9B62 (slug), INDEX IDX_1CF73D3133D1A3E7 (tournament_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE VatCountry (id INT AUTO_INCREMENT NOT NULL, countryCode VARCHAR(255) NOT NULL, countryName VARCHAR(255) NOT NULL, vatPercentage NUMERIC(5, 2) NOT NULL, invoiceDescription VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE credits (id INT AUTO_INCREMENT NOT NULL, payment_instruction_id INT NOT NULL, payment_id INT DEFAULT NULL, attention_required TINYINT(1) NOT NULL, created_at DATETIME NOT NULL, credited_amount NUMERIC(10, 5) NOT NULL, crediting_amount NUMERIC(10, 5) NOT NULL, reversing_amount NUMERIC(10, 5) NOT NULL, state SMALLINT NOT NULL, target_amount NUMERIC(10, 5) NOT NULL, updated_at DATETIME DEFAULT NULL, INDEX IDX_4117D17E8789B572 (payment_instruction_id), INDEX IDX_4117D17E4C3A3BB (payment_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE financial_transactions (id INT AUTO_INCREMENT NOT NULL, credit_id INT DEFAULT NULL, payment_id INT DEFAULT NULL, extended_data LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:extended_payment_data)\', processed_amount NUMERIC(10, 5) NOT NULL, reason_code VARCHAR(100) DEFAULT NULL, reference_number VARCHAR(100) DEFAULT NULL, requested_amount NUMERIC(10, 5) NOT NULL, response_code VARCHAR(100) DEFAULT NULL, state SMALLINT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, tracking_id VARCHAR(100) DEFAULT NULL, transaction_type SMALLINT NOT NULL, INDEX IDX_1353F2D9CE062FF9 (credit_id), INDEX IDX_1353F2D94C3A3BB (payment_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE payments (id INT AUTO_INCREMENT NOT NULL, payment_instruction_id INT NOT NULL, approved_amount NUMERIC(10, 5) NOT NULL, approving_amount NUMERIC(10, 5) NOT NULL, credited_amount NUMERIC(10, 5) NOT NULL, crediting_amount NUMERIC(10, 5) NOT NULL, deposited_amount NUMERIC(10, 5) NOT NULL, depositing_amount NUMERIC(10, 5) NOT NULL, expiration_date DATETIME DEFAULT NULL, reversing_approved_amount NUMERIC(10, 5) NOT NULL, reversing_credited_amount NUMERIC(10, 5) NOT NULL, reversing_deposited_amount NUMERIC(10, 5) NOT NULL, state SMALLINT NOT NULL, target_amount NUMERIC(10, 5) NOT NULL, attention_required TINYINT(1) NOT NULL, expired TINYINT(1) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, INDEX IDX_65D29B328789B572 (payment_instruction_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE payment_instructions (id INT AUTO_INCREMENT NOT NULL, amount NUMERIC(10, 5) NOT NULL, approved_amount NUMERIC(10, 5) NOT NULL, approving_amount NUMERIC(10, 5) NOT NULL, created_at DATETIME NOT NULL, credited_amount NUMERIC(10, 5) NOT NULL, crediting_amount NUMERIC(10, 5) NOT NULL, currency VARCHAR(3) NOT NULL, deposited_amount NUMERIC(10, 5) NOT NULL, depositing_amount NUMERIC(10, 5) NOT NULL, extended_data LONGTEXT NOT NULL COMMENT \'(DC2Type:extended_payment_data)\', payment_system_name VARCHAR(100) NOT NULL, reversing_approved_amount NUMERIC(10, 5) NOT NULL, reversing_credited_amount NUMERIC(10, 5) NOT NULL, reversing_deposited_amount NUMERIC(10, 5) NOT NULL, state SMALLINT NOT NULL, updated_at DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE sylius_product_property (id INT AUTO_INCREMENT NOT NULL, product_id INT NOT NULL, property_id INT NOT NULL, value LONGTEXT NOT NULL, INDEX IDX_8109D8F34584665A (product_id), INDEX IDX_8109D8F3549213EC (property_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE sylius_property (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, presentation VARCHAR(255) NOT NULL, type VARCHAR(255) NOT NULL, configuration LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE sylius_prototype (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE sylius_prototype_property (prototype_id INT NOT NULL, property_id INT NOT NULL, INDEX IDX_99041F2A25998077 (prototype_id), INDEX IDX_99041F2A549213EC (property_id), PRIMARY KEY(prototype_id, property_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE sylius_exchange_rate (id INT AUTO_INCREMENT NOT NULL, currency VARCHAR(3) NOT NULL, rate NUMERIC(10, 5) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE sylius_number (id INT AUTO_INCREMENT NOT NULL, order_id INT NOT NULL, UNIQUE INDEX UNIQ_ACB1F1A88D9F6D38 (order_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE File ADD CONSTRAINT FK_2CAD992EF6BD1646 FOREIGN KEY (site_id) REFERENCES Site (id)');
+        $this->addSql('ALTER TABLE Site ADD CONSTRAINT FK_C971A6DA33D1A3E7 FOREIGN KEY (tournament_id) REFERENCES Tournament (id)');
+        $this->addSql('ALTER TABLE Site ADD CONSTRAINT FK_C971A6DAADA85231 FOREIGN KEY (headerBackground_id) REFERENCES File (id)');
+        $this->addSql('ALTER TABLE Site ADD CONSTRAINT FK_C971A6DAC6A0BA3D FOREIGN KEY (facebookImage_id) REFERENCES File (id)');
+        $this->addSql('ALTER TABLE Site ADD CONSTRAINT FK_C971A6DAE40AC43 FOREIGN KEY (infoBlockImage_id) REFERENCES File (id)');
+        $this->addSql('ALTER TABLE SitePage ADD CONSTRAINT FK_F4B85392F6BD1646 FOREIGN KEY (site_id) REFERENCES Site (id)');
+        $this->addSql('ALTER TABLE Announcement ADD CONSTRAINT FK_558802E433D1A3E7 FOREIGN KEY (tournament_id) REFERENCES Tournament (id)');
+        $this->addSql('ALTER TABLE Announcement ADD CONSTRAINT FK_558802E42ABEACD6 FOREIGN KEY (match_id) REFERENCES Matchh (id)');
+        $this->addSql('ALTER TABLE Discipline ADD CONSTRAINT FK_3AE3EDEF33D1A3E7 FOREIGN KEY (tournament_id) REFERENCES Tournament (id)');
+        $this->addSql('ALTER TABLE discipline_player ADD CONSTRAINT FK_E059D474A5522701 FOREIGN KEY (discipline_id) REFERENCES Discipline (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE discipline_player ADD CONSTRAINT FK_E059D47499E6F5DF FOREIGN KEY (player_id) REFERENCES Player (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE Location ADD CONSTRAINT FK_A7E8EB9D33D1A3E7 FOREIGN KEY (tournament_id) REFERENCES Tournament (id)');
+        $this->addSql('ALTER TABLE LoginAccount ADD CONSTRAINT FK_A4ED74D9217BBB47 FOREIGN KEY (person_id) REFERENCES Person (id)');
+        $this->addSql('ALTER TABLE Matchh ADD CONSTRAINT FK_E6D7AC9BA5522701 FOREIGN KEY (discipline_id) REFERENCES Discipline (id)');
+        $this->addSql('ALTER TABLE Matchh ADD CONSTRAINT FK_E6D7AC9B33D1A3E7 FOREIGN KEY (tournament_id) REFERENCES Tournament (id)');
+        $this->addSql('ALTER TABLE Matchh ADD CONSTRAINT FK_E6D7AC9B64D218E FOREIGN KEY (location_id) REFERENCES Location (id)');
+        $this->addSql('ALTER TABLE Matchh ADD CONSTRAINT FK_E6D7AC9BE72BCFA4 FOREIGN KEY (team1_id) REFERENCES Team (id)');
+        $this->addSql('ALTER TABLE Matchh ADD CONSTRAINT FK_E6D7AC9BF59E604A FOREIGN KEY (team2_id) REFERENCES Team (id)');
+        $this->addSql('ALTER TABLE Player ADD CONSTRAINT FK_9FB57F536ECABF9F FOREIGN KEY (singles_disciplineId) REFERENCES Discipline (id)');
+        $this->addSql('ALTER TABLE Player ADD CONSTRAINT FK_9FB57F53D54E7AC0 FOREIGN KEY (doubles_disciplineId) REFERENCES Discipline (id)');
+        $this->addSql('ALTER TABLE Player ADD CONSTRAINT FK_9FB57F53496B3B0D FOREIGN KEY (mixed_disciplineId) REFERENCES Discipline (id)');
+        $this->addSql('ALTER TABLE Player ADD CONSTRAINT FK_9FB57F53217BBB47 FOREIGN KEY (person_id) REFERENCES Person (id)');
+        $this->addSql('ALTER TABLE Player ADD CONSTRAINT FK_9FB57F53FE54D947 FOREIGN KEY (group_id) REFERENCES RegistrationGroup (id)');
+        $this->addSql('ALTER TABLE Player ADD CONSTRAINT FK_9FB57F5333D1A3E7 FOREIGN KEY (tournament_id) REFERENCES Tournament (id)');
+        $this->addSql('ALTER TABLE RegistrationFormField ADD CONSTRAINT FK_573C8BC333D1A3E7 FOREIGN KEY (tournament_id) REFERENCES Tournament (id)');
+        $this->addSql('ALTER TABLE RegistrationFormValue ADD CONSTRAINT FK_11BE96AF99E6F5DF FOREIGN KEY (player_id) REFERENCES Player (id)');
+        $this->addSql('ALTER TABLE RegistrationFormValue ADD CONSTRAINT FK_11BE96AF443707B0 FOREIGN KEY (field_id) REFERENCES RegistrationFormField (id)');
+        $this->addSql('ALTER TABLE RegistrationGroup ADD CONSTRAINT FK_10B93EFC33D1A3E7 FOREIGN KEY (tournament_id) REFERENCES Tournament (id)');
+        $this->addSql('ALTER TABLE Team ADD CONSTRAINT FK_64D20921A5522701 FOREIGN KEY (discipline_id) REFERENCES Discipline (id)');
+        $this->addSql('ALTER TABLE Team ADD CONSTRAINT FK_64D20921BD5FB8D9 FOREIGN KEY (tournament) REFERENCES Tournament (id)');
+        $this->addSql('ALTER TABLE team_player ADD CONSTRAINT FK_EE023DBC296CD8AE FOREIGN KEY (team_id) REFERENCES Team (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE team_player ADD CONSTRAINT FK_EE023DBC99E6F5DF FOREIGN KEY (player_id) REFERENCES Player (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE tournament_person ADD CONSTRAINT FK_50762F2633D1A3E7 FOREIGN KEY (tournament_id) REFERENCES Tournament (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE tournament_person ADD CONSTRAINT FK_50762F26217BBB47 FOREIGN KEY (person_id) REFERENCES Person (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE UpdateMessage ADD CONSTRAINT FK_309B237BF934D782 FOREIGN KEY (loginAccount_id) REFERENCES LoginAccount (id)');
+        $this->addSql('ALTER TABLE UpdateMessage ADD CONSTRAINT FK_309B237B33D1A3E7 FOREIGN KEY (tournament_id) REFERENCES Tournament (id)');
+        $this->addSql('ALTER TABLE BoughtProduct ADD CONSTRAINT FK_7A172E3A33D1A3E7 FOREIGN KEY (tournament_id) REFERENCES Tournament (id)');
+        $this->addSql('ALTER TABLE BoughtProduct ADD CONSTRAINT FK_7A172E3A99E6F5DF FOREIGN KEY (player_id) REFERENCES Player (id)');
+        $this->addSql('ALTER TABLE BoughtProduct ADD CONSTRAINT FK_7A172E3AFB7B2614 FOREIGN KEY (cartOrder_id) REFERENCES Cart (id)');
+        $this->addSql('ALTER TABLE BoughtProduct ADD CONSTRAINT FK_7A172E3AC17A1E49 FOREIGN KEY (payOut_id) REFERENCES PayOut (id)');
+        $this->addSql('ALTER TABLE Cart ADD CONSTRAINT FK_AB912789603E7086 FOREIGN KEY (execPerson_id) REFERENCES Person (id)');
+        $this->addSql('ALTER TABLE Cart ADD CONSTRAINT FK_AB912789FD913E4D FOREIGN KEY (paymentInstruction_id) REFERENCES payment_instructions (id)');
+        $this->addSql('ALTER TABLE CartItem ADD CONSTRAINT FK_3B24E2CF8D9F6D38 FOREIGN KEY (order_id) REFERENCES Cart (id)');
+        $this->addSql('ALTER TABLE CartItem ADD CONSTRAINT FK_3B24E2CF4584665A FOREIGN KEY (product_id) REFERENCES Product (id)');
+        $this->addSql('ALTER TABLE CartItem ADD CONSTRAINT FK_3B24E2CF99E6F5DF FOREIGN KEY (player_id) REFERENCES Player (id)');
+        $this->addSql('ALTER TABLE Invoice ADD CONSTRAINT FK_5FD82ED8FB7B2614 FOREIGN KEY (cartOrder_id) REFERENCES Cart (id)');
+        $this->addSql('ALTER TABLE Invoice ADD CONSTRAINT FK_5FD82ED8C17A1E49 FOREIGN KEY (payOut_id) REFERENCES PayOut (id)');
+        $this->addSql('ALTER TABLE PaymentAdjustment ADD CONSTRAINT FK_E6B2C7098D9F6D38 FOREIGN KEY (order_id) REFERENCES Cart (id)');
+        $this->addSql('ALTER TABLE PaymentAdjustment ADD CONSTRAINT FK_E6B2C709E415FB15 FOREIGN KEY (order_item_id) REFERENCES CartItem (id)');
+        $this->addSql('ALTER TABLE PayOut ADD CONSTRAINT FK_71CFEAD433D1A3E7 FOREIGN KEY (tournament_id) REFERENCES Tournament (id)');
+        $this->addSql('ALTER TABLE Product ADD CONSTRAINT FK_1CF73D3133D1A3E7 FOREIGN KEY (tournament_id) REFERENCES Tournament (id)');
+        $this->addSql('ALTER TABLE credits ADD CONSTRAINT FK_4117D17E8789B572 FOREIGN KEY (payment_instruction_id) REFERENCES payment_instructions (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE credits ADD CONSTRAINT FK_4117D17E4C3A3BB FOREIGN KEY (payment_id) REFERENCES payments (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE financial_transactions ADD CONSTRAINT FK_1353F2D9CE062FF9 FOREIGN KEY (credit_id) REFERENCES credits (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE financial_transactions ADD CONSTRAINT FK_1353F2D94C3A3BB FOREIGN KEY (payment_id) REFERENCES payments (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE payments ADD CONSTRAINT FK_65D29B328789B572 FOREIGN KEY (payment_instruction_id) REFERENCES payment_instructions (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE sylius_product_property ADD CONSTRAINT FK_8109D8F34584665A FOREIGN KEY (product_id) REFERENCES Product (id)');
+        $this->addSql('ALTER TABLE sylius_product_property ADD CONSTRAINT FK_8109D8F3549213EC FOREIGN KEY (property_id) REFERENCES sylius_property (id)');
+        $this->addSql('ALTER TABLE sylius_prototype_property ADD CONSTRAINT FK_99041F2A25998077 FOREIGN KEY (prototype_id) REFERENCES sylius_prototype (id)');
+        $this->addSql('ALTER TABLE sylius_prototype_property ADD CONSTRAINT FK_99041F2A549213EC FOREIGN KEY (property_id) REFERENCES sylius_property (id)');
+        $this->addSql('ALTER TABLE sylius_number ADD CONSTRAINT FK_ACB1F1A88D9F6D38 FOREIGN KEY (order_id) REFERENCES Cart (id)');
+    }
+
+    public function down(Schema $schema)
+    {
+        // this down() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
+        $this->addSql('ALTER TABLE Site DROP FOREIGN KEY FK_C971A6DAADA85231');
+        $this->addSql('ALTER TABLE Site DROP FOREIGN KEY FK_C971A6DAC6A0BA3D');
+        $this->addSql('ALTER TABLE Site DROP FOREIGN KEY FK_C971A6DAE40AC43');
+        $this->addSql('ALTER TABLE File DROP FOREIGN KEY FK_2CAD992EF6BD1646');
+        $this->addSql('ALTER TABLE SitePage DROP FOREIGN KEY FK_F4B85392F6BD1646');
+        $this->addSql('ALTER TABLE discipline_player DROP FOREIGN KEY FK_E059D474A5522701');
+        $this->addSql('ALTER TABLE Matchh DROP FOREIGN KEY FK_E6D7AC9BA5522701');
+        $this->addSql('ALTER TABLE Player DROP FOREIGN KEY FK_9FB57F536ECABF9F');
+        $this->addSql('ALTER TABLE Player DROP FOREIGN KEY FK_9FB57F53D54E7AC0');
+        $this->addSql('ALTER TABLE Player DROP FOREIGN KEY FK_9FB57F53496B3B0D');
+        $this->addSql('ALTER TABLE Team DROP FOREIGN KEY FK_64D20921A5522701');
+        $this->addSql('ALTER TABLE Matchh DROP FOREIGN KEY FK_E6D7AC9B64D218E');
+        $this->addSql('ALTER TABLE UpdateMessage DROP FOREIGN KEY FK_309B237BF934D782');
+        $this->addSql('ALTER TABLE Announcement DROP FOREIGN KEY FK_558802E42ABEACD6');
+        $this->addSql('ALTER TABLE LoginAccount DROP FOREIGN KEY FK_A4ED74D9217BBB47');
+        $this->addSql('ALTER TABLE Player DROP FOREIGN KEY FK_9FB57F53217BBB47');
+        $this->addSql('ALTER TABLE tournament_person DROP FOREIGN KEY FK_50762F26217BBB47');
+        $this->addSql('ALTER TABLE Cart DROP FOREIGN KEY FK_AB912789603E7086');
+        $this->addSql('ALTER TABLE discipline_player DROP FOREIGN KEY FK_E059D47499E6F5DF');
+        $this->addSql('ALTER TABLE RegistrationFormValue DROP FOREIGN KEY FK_11BE96AF99E6F5DF');
+        $this->addSql('ALTER TABLE team_player DROP FOREIGN KEY FK_EE023DBC99E6F5DF');
+        $this->addSql('ALTER TABLE BoughtProduct DROP FOREIGN KEY FK_7A172E3A99E6F5DF');
+        $this->addSql('ALTER TABLE CartItem DROP FOREIGN KEY FK_3B24E2CF99E6F5DF');
+        $this->addSql('ALTER TABLE RegistrationFormValue DROP FOREIGN KEY FK_11BE96AF443707B0');
+        $this->addSql('ALTER TABLE Player DROP FOREIGN KEY FK_9FB57F53FE54D947');
+        $this->addSql('ALTER TABLE Matchh DROP FOREIGN KEY FK_E6D7AC9BE72BCFA4');
+        $this->addSql('ALTER TABLE Matchh DROP FOREIGN KEY FK_E6D7AC9BF59E604A');
+        $this->addSql('ALTER TABLE team_player DROP FOREIGN KEY FK_EE023DBC296CD8AE');
+        $this->addSql('ALTER TABLE Site DROP FOREIGN KEY FK_C971A6DA33D1A3E7');
+        $this->addSql('ALTER TABLE Announcement DROP FOREIGN KEY FK_558802E433D1A3E7');
+        $this->addSql('ALTER TABLE Discipline DROP FOREIGN KEY FK_3AE3EDEF33D1A3E7');
+        $this->addSql('ALTER TABLE Location DROP FOREIGN KEY FK_A7E8EB9D33D1A3E7');
+        $this->addSql('ALTER TABLE Matchh DROP FOREIGN KEY FK_E6D7AC9B33D1A3E7');
+        $this->addSql('ALTER TABLE Player DROP FOREIGN KEY FK_9FB57F5333D1A3E7');
+        $this->addSql('ALTER TABLE RegistrationFormField DROP FOREIGN KEY FK_573C8BC333D1A3E7');
+        $this->addSql('ALTER TABLE RegistrationGroup DROP FOREIGN KEY FK_10B93EFC33D1A3E7');
+        $this->addSql('ALTER TABLE Team DROP FOREIGN KEY FK_64D20921BD5FB8D9');
+        $this->addSql('ALTER TABLE tournament_person DROP FOREIGN KEY FK_50762F2633D1A3E7');
+        $this->addSql('ALTER TABLE UpdateMessage DROP FOREIGN KEY FK_309B237B33D1A3E7');
+        $this->addSql('ALTER TABLE BoughtProduct DROP FOREIGN KEY FK_7A172E3A33D1A3E7');
+        $this->addSql('ALTER TABLE PayOut DROP FOREIGN KEY FK_71CFEAD433D1A3E7');
+        $this->addSql('ALTER TABLE Product DROP FOREIGN KEY FK_1CF73D3133D1A3E7');
+        $this->addSql('ALTER TABLE BoughtProduct DROP FOREIGN KEY FK_7A172E3AFB7B2614');
+        $this->addSql('ALTER TABLE CartItem DROP FOREIGN KEY FK_3B24E2CF8D9F6D38');
+        $this->addSql('ALTER TABLE Invoice DROP FOREIGN KEY FK_5FD82ED8FB7B2614');
+        $this->addSql('ALTER TABLE PaymentAdjustment DROP FOREIGN KEY FK_E6B2C7098D9F6D38');
+        $this->addSql('ALTER TABLE sylius_number DROP FOREIGN KEY FK_ACB1F1A88D9F6D38');
+        $this->addSql('ALTER TABLE PaymentAdjustment DROP FOREIGN KEY FK_E6B2C709E415FB15');
+        $this->addSql('ALTER TABLE BoughtProduct DROP FOREIGN KEY FK_7A172E3AC17A1E49');
+        $this->addSql('ALTER TABLE Invoice DROP FOREIGN KEY FK_5FD82ED8C17A1E49');
+        $this->addSql('ALTER TABLE CartItem DROP FOREIGN KEY FK_3B24E2CF4584665A');
+        $this->addSql('ALTER TABLE sylius_product_property DROP FOREIGN KEY FK_8109D8F34584665A');
+        $this->addSql('ALTER TABLE financial_transactions DROP FOREIGN KEY FK_1353F2D9CE062FF9');
+        $this->addSql('ALTER TABLE credits DROP FOREIGN KEY FK_4117D17E4C3A3BB');
+        $this->addSql('ALTER TABLE financial_transactions DROP FOREIGN KEY FK_1353F2D94C3A3BB');
+        $this->addSql('ALTER TABLE Cart DROP FOREIGN KEY FK_AB912789FD913E4D');
+        $this->addSql('ALTER TABLE credits DROP FOREIGN KEY FK_4117D17E8789B572');
+        $this->addSql('ALTER TABLE payments DROP FOREIGN KEY FK_65D29B328789B572');
+        $this->addSql('ALTER TABLE sylius_product_property DROP FOREIGN KEY FK_8109D8F3549213EC');
+        $this->addSql('ALTER TABLE sylius_prototype_property DROP FOREIGN KEY FK_99041F2A549213EC');
+        $this->addSql('ALTER TABLE sylius_prototype_property DROP FOREIGN KEY FK_99041F2A25998077');
+        $this->addSql('DROP TABLE ext_translations');
+        $this->addSql('DROP TABLE ext_log_entries');
+        $this->addSql('DROP TABLE File');
+        $this->addSql('DROP TABLE Site');
+        $this->addSql('DROP TABLE SitePage');
+        $this->addSql('DROP TABLE Announcement');
+        $this->addSql('DROP TABLE Discipline');
+        $this->addSql('DROP TABLE discipline_player');
+        $this->addSql('DROP TABLE Location');
+        $this->addSql('DROP TABLE LoginAccount');
+        $this->addSql('DROP TABLE Matchh');
+        $this->addSql('DROP TABLE Person');
+        $this->addSql('DROP TABLE Player');
+        $this->addSql('DROP TABLE RegistrationFormField');
+        $this->addSql('DROP TABLE RegistrationFormValue');
+        $this->addSql('DROP TABLE RegistrationGroup');
+        $this->addSql('DROP TABLE Team');
+        $this->addSql('DROP TABLE team_player');
+        $this->addSql('DROP TABLE Tournament');
+        $this->addSql('DROP TABLE tournament_person');
+        $this->addSql('DROP TABLE UpdateMessage');
+        $this->addSql('DROP TABLE BoughtProduct');
+        $this->addSql('DROP TABLE Cart');
+        $this->addSql('DROP TABLE CartItem');
+        $this->addSql('DROP TABLE Invoice');
+        $this->addSql('DROP TABLE PaymentAdjustment');
+        $this->addSql('DROP TABLE PayOut');
+        $this->addSql('DROP TABLE Product');
+        $this->addSql('DROP TABLE VatCountry');
+        $this->addSql('DROP TABLE credits');
+        $this->addSql('DROP TABLE financial_transactions');
+        $this->addSql('DROP TABLE payments');
+        $this->addSql('DROP TABLE payment_instructions');
+        $this->addSql('DROP TABLE sylius_product_property');
+        $this->addSql('DROP TABLE sylius_property');
+        $this->addSql('DROP TABLE sylius_prototype');
+        $this->addSql('DROP TABLE sylius_prototype_property');
+        $this->addSql('DROP TABLE sylius_exchange_rate');
+        $this->addSql('DROP TABLE sylius_number');
+    }
+}

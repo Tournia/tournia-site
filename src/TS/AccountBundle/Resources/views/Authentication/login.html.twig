@@ -1,0 +1,63 @@
+{% trans_default_domain "account" %}
+{% extends "TSFrontBundle::base.html.twig" %}
+{% use "TSAccountBundle:Authentication:loginBlocks.html.twig" %}
+
+{% block title "login.title"|trans %}
+
+{% set pageClass = "signin" %}
+{% set useDefaultFlashbagNotifications = false %}
+
+
+{% block head %}
+{{ parent() }}
+{% block login_javascript %}{{ parent() }}{% endblock %}
+{% endblock %}
+
+{% block jQuery %}
+{% block login_jQuery %}{{ parent() }}{% endblock %}
+{% endblock %}
+
+
+{% block content %}
+<div id="hero" class="block" style="background-image: url('{{ asset('bundles/tsfront/img/background/bg9.jpg') }}');">
+    <div class="container">
+        {{ macros.flashbagNotifications(useDefaultFlashbagNotifications) }}
+        <div class="row charts">
+            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
+                <div class="chart tournament">
+                    <div class="row">
+                        {% block login_html %}{{ parent() }}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- FAQs -->
+<div class="features second-option block">
+    <div class="container">
+        <div class="section_header">
+            <h3>{{ 'login.faq.title'|trans }}</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 feature">
+                <strong>{{ 'login.faq.1.question'|trans }}</strong>
+                <p>{{ 'login.faq.1.answer'|trans }}</p>
+            </div>
+            <div class="col-sm-6 feature">
+                <strong>{{ 'login.faq.2.question'|trans }}</strong>
+                <p>{{ 'login.faq.2.answer'|trans({'%startLink%' : '<a href="'~path('account_reset')~'">', '%endLink%' : '</a>'}) | raw }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 feature">
+                <strong>{{ 'login.faq.3.question'|trans }}</strong>
+                <p>{{ 'login.faq.3.answer'|trans({'%startLink%' : '<a href="'~path('front_contact')~'">', '%endLink%' : '</a>'}) | raw }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

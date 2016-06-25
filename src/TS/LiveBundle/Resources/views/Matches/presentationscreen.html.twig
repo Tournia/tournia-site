@@ -1,0 +1,38 @@
+<nav id="nav-select">
+    <ul class="nav nav-pills nav-pills-custom nav-justified">
+        <li><a href="#upcoming-matches" data-toggle="tab">Upcoming</a></li>
+        <li class="active"><a href="#current-matches" data-toggle="tab">Current</a></li>
+        <li><a href="#finished-matches" data-toggle="tab">Finished</a></li>
+    </ul>
+</nav>
+<!-- Tab panes -->
+<div class="tab-content">
+    <!-- Loadingpane for first pageload -->
+    <div class="loadingpane"><div class="logo spinner"><i class="glyphicon glyphicon-bookmark"></i> Tournia.net</div></div>
+
+    <div class="tab-pane" id="upcoming-matches">
+        <h2 class="table-title">
+            Upcoming matches
+        </h2>
+
+        {% include "TSLiveBundle:Matches:upcoming.html.underscore" %}
+        
+    </div>
+    <div class="tab-pane active" id="current-matches">
+        <h2 class="table-title">
+            Current matches
+        </h2>
+
+        {% include "TSLiveBundle:Matches:current.html.underscore" %}
+
+    </div>
+    <div class="tab-pane" id="finished-matches">
+        <h2 class="table-title">
+            Finished matches
+        </h2>
+        
+        {% include "TSLiveBundle:Matches:finished.html.underscore" %}
+
+    </div>
+
+</div><!-- /.tab-content -->

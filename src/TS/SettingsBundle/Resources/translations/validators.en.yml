@@ -1,0 +1,8 @@
+# CreateTournamentType and TournamentType
+tournamentUrl.regex: The url can only contain letters (a-z or A-Z), numbers (0-9), - and _
+tournamentUrl.notblank: Please fill in an url
+createTournamentType.conditionsAgree.constraint: You need to agree with the terms and conditions in order to be able to continue
+
+# DisciplineType
+disciplinesType.disciplineTypes.notempty: You must have at least one discipline type
+disciplinesType.disciplines.notempty: You must have at least one discipline

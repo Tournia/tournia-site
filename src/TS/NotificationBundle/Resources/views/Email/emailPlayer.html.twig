@@ -1,0 +1,68 @@
+{% trans_default_domain "notificationEmail" %}
+{% extends "TSNotificationBundle:Email:emailBase.html.twig" %}
+
+{% block subject %}{% set transVarSubject = 'email.player.'~ template ~'.subject' %}{{ transVarSubject|trans }}{% endblock %}
+
+{% block mailTextBody %}{% set transVarStart = 'email.player.'~ template ~'.start' %}{% set transVarChangesMadeBy = 'email.player.'~ template ~'.changesMadeBy' %}{% set transVarInfo = 'email.player.'~ template ~'.info' %}{% set transVarEnd = 'email.player.'~ template ~'.end' %}{{ transVarStart|trans({'%name%': name|raw, '%tournament%': tournament.name|raw}) }}
+
+{% if changesMadeBy is defined %}
+{{ transVarChangesMadeBy|trans({'%changesMadeBy%': changesMadeBy|raw}) }}
+{% endif %}{% set link = url('tournament_index', {'tournamentUrl': tournament.url}) %}
+{{ 'email.player.link'|trans({'%link%': link})|raw }}
+
+{{ transVarInfo|trans }}
+{% if player.registrationGroup is not empty %}
+- {{ 'email.player.group'|trans }}: {{ player.registrationGroup.name|raw }}
+- {{ 'email.player.contactPerson'|trans }}: {% if player.isContactPlayer %}{{ 'email.player.yes'|trans }}{% else %}{{ 'email.player.no'|trans }}{% endif %}
+
+{% endif %}
+- {{ 'email.player.firstName'|trans }}: {{ player.firstName|raw }}
+- {{ 'email.player.lastName'|trans }}: {{ player.lastName|raw }}
+- {{ 'email.player.gender'|trans }}: {% if player.gender == "M" %}{{ 'email.player.male'|trans }}{% else %}{{ 'email.player.female'|trans }}{% endif %}
+
+{% for disciplinePlayer in player.disciplinePlayers %}
+- {{ disciplinePlayer.discipline.disciplineType.name|raw }}: {{ disciplinePlayer.discipline.name|raw }}{% if disciplinePlayer.discipline.disciplineType.partnerRegistration %} ({{ 'email.player.partner'|trans }}: {% if disciplinePlayer.partner is null %}{{ 'email.player.wanted'|trans }}{% else %}{{ disciplinePlayer.partner|raw }}{% endif %}){% endif %}
+
+{% endfor %}
+{% for formValue in player.registrationFormValues %}
+- {{ formValue.field.name|raw }}: {% if formValue.field.type == "checkbox" %}{% if formValue.value %}{{ 'email.player.yes'|trans }}{% else %}{{ 'email.player.no'|trans }}{% endif %}{% else %}{{ formValue.value|raw }}{% endif %}
+
+{% endfor %}
+
+
+{{ transVarEnd|trans }}
+{% endblock %}
+
+{% block mailHtmlBody %}
+    {% set transVarStart = 'email.player.'~ template ~'.start' %}{% set transVarChangesMadeBy = 'email.player.'~ template ~'.changesMadeBy' %}{% set transVarInfo = 'email.player.'~ template ~'.info' %}{% set transVarEnd = 'email.player.'~ template ~'.end' %}
+    {{ transVarStart|trans({'%name%': name, '%tournament%': tournament.name})|nl2br }}
+
+    {% if changesMadeBy is defined %}
+        {{ transVarChangesMadeBy|trans({'%changesMadeBy%': changesMadeBy}) }}<br />
+    {% endif %}
+    {% set link = url('tournament_index', {'tournamentUrl': tournament.url}) %}
+    {% set linkA = '<a href="'~ link ~'">'~ link ~'</a>' %}
+    {{ 'email.player.link'|trans({'%link%': linkA})|raw }}
+    <br /><br />
+    {{ transVarInfo|trans }}
+    <ul>
+
+    {% if player.registrationGroup is not empty %}
+        <li>{{ 'email.player.group'|trans }}: {{ player.registrationGroup.name }}</li>
+        <li>{{ 'email.player.contactPerson'|trans }}: {% if player.isContactPlayer %}{{ 'email.player.yes'|trans }}{% else %}{{ 'email.player.no'|trans }}{% endif %}</li>
+    {% endif %}
+    <li>{{ 'email.player.firstName'|trans }}: {{ player.firstName }}</li>
+    <li>{{ 'email.player.lastName'|trans }}: {{ player.lastName }}</li>
+    <li>{{ 'email.player.gender'|trans }}: {% if player.gender == "M" %}{{ 'email.player.male'|trans }}{% else %}{{ 'email.player.female'|trans }}{% endif %}</li>
+
+    {% for disciplinePlayer in player.disciplinePlayers %}
+        <li>{{ disciplinePlayer.discipline.disciplineType.name }}: {{ disciplinePlayer.discipline.name }}{% if disciplinePlayer.discipline.disciplineType.partnerRegistration %} ({{ 'email.player.partner'|trans }}: {% if disciplinePlayer.partner is null %}{{ 'email.player.wanted'|trans }}{% else %}{{ disciplinePlayer.partner }}{% endif %}){% endif %}</li>
+    {% endfor %}
+    {% for formValue in player.registrationFormValues %}
+        <li>{{ formValue.field.name }}: {% if formValue.field.type == "checkbox" %}{% if formValue.value %}{{ 'email.player.yes'|trans }}{% else %}{{ 'email.player.no'|trans }}{% endif %}{% else %}{{ formValue.value }}{% endif %}</li>
+    {% endfor %}
+
+    </ul>
+    <br />
+    {{ transVarEnd|trans|nl2br }}
+{% endblock %}

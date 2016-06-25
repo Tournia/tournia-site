@@ -1,0 +1,190 @@
+{% trans_default_domain "live" %}
+{% import 'TSControlBundle::macro.html.twig' as macro %}
+
+{% extends "TSSiteBundle:Live:index.html.twig" %}
+{% use "TSControlBundle:Matches:scoreBlocks.html.twig" %}
+
+{% block title "currentMatches.title"|trans %}
+
+{% block javascript %}
+{{ parent() }}
+<script type="text/javascript">
+///// post and receive server messages /////
+// setting commands for refresh of server data
+function getRefreshCommands() {
+	command1 = {
+		command : 'Matches.listPlaying',
+	}
+	return new Array(command1);
+}
+
+// setting datatable options
+ajaxDataTableOptions.playingMatchesTable = {};
+ajaxDataTableOptions.playingMatchesTable.bFilter = false;
+ajaxDataTableOptions.playingMatchesTable.bInfo = false;
+ajaxDataTableOptions.playingMatchesTable.bPaginate = false;
+ajaxDataTableOptions.playingMatchesTable.bSort = false;
+
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+	if (commandKey == "Matches.listPlaying") {
+		// go through matches
+		$('#playingMatchesTable').dataTable().fnClearTable();
+		$.each(commandResponse, function(key2, matchObject) {
+			if (typeof matchObject['location'] == "undefined") {
+				locationTxt = "Undefined";
+			} else {
+				locationTxt = "<span id=\"locationId-"+ matchObject['locationId'] +"\">"+ matchObject['location'] +"</span>";
+			}
+            locationTxt += '<span class="hiddenMatchId">'+ matchObject['matchId'] +'</span>';
+
+			localMatchId = '';
+			team1 = '';
+			team2 = '';
+			pool = '';
+			round = '';
+			playingTime = '';
+			options = '';
+			if (typeof matchObject['matchId'] != "undefined") {
+				localMatchId = matchObject['localId'];
+				team1 = renderPlayerNames(matchObject['team1Players'], false);
+				team2 = renderPlayerNames(matchObject['team2Players'], false);
+				pool = matchObject['pool'];
+				round = matchObject['round'];
+				//options = "<button class=\"btn btn-warning\" onClick=\"openSecondCallMatch("+ matchObject['matchId'] +")\"><i class=\"fa fa-bullhorn\"></i> Request 2<sup>nd</sup> call</button>";
+				{% if tournament.authorization.liveScoreAllowed %}
+				options += "<button class=\"btn btn-primary\" onClick=\"openScoreMatch("+ matchObject['matchId'] +")\"><i class=\"fa fa-pencil\"></i> {{ 'currentMatches.enterScore'|trans }}</button>";
+				{% endif %}
+                {% if tournament.authorization.live2ndCallAllowed %}
+                options += " <button class=\"btn btn-warning\" onClick=\"openSecondCall("+ matchObject['matchId'] +")\"><i class=\"fa fa-bullhorn\"></i> {{ 'currentMatches.2ndCall'|trans|raw }}</button>";
+                {% endif %}
+			}
+			$('#playingMatchesTable').dataTable().fnAddData( [
+				locationTxt,
+				localMatchId,
+				team1,
+				team2,
+				pool,
+				round,
+				{% if tournament.authorization.liveScoreAllowed or tournament.authorization.live2ndCallAllowed %}options{% endif %}
+			]);
+		});
+		dataTableFinishedLoading("playingMatchesTable");
+	} else if (commandKey == "scoreMatchData") {
+		// for editing score screen, set data
+		scoreCommandResponse(commandResponse);
+	} else if (commandKey == "Matches.score") {
+		// show result of setting score
+		if (commandResponse['error'] != undefined) {
+			alert(commandResponse['error']);
+		} else {
+			alert("Successfully "+ commandResponse);
+			command = {
+				command : 'Matches.setStatus',
+				matchId: $("#scoreMatchModal .modalMatchId").val(),
+				status: 'played',
+			}
+			addServerCommand(command);
+			sendServerCommands(true);
+		}
+	} else if (commandKey == "Matches.secondCall") {
+        // show result of requesting second call
+        if (commandResponse['error'] != undefined) {
+            alert(commandResponse['error']);
+        } else {
+            alert("Successfully "+ commandResponse);
+        }
+    }
+}
+
+// process a new row in datatable
+function datatableProcessRow(row, table) {
+	stylePlayerNames(row);
+
+    // add matchId to rowId
+    if ($('td:first span', row).hasClass("hiddenMatchId")) {
+        $(row).prop("id", "matchId-"+ $('td:first .hiddenMatchId', row).text());
+    }
+    $('td:first .hiddenMatchId', row).remove();
+
+	if ($(table).prop("id") == "playingMatchesTable") {
+		// add row color code, dependent on the location
+		if ($('td:first', row).text() == "{{ 'currentMatches.undefined'|trans }}") {
+			// location is undefined
+			$(row).addClass("warning");
+		} else if ($('td:first .label-important', row).length > 0) {
+			// location is on hold
+			$(row).addClass("error");
+		} else if ($('td:nth-child(2)', row).text() == "") {
+			// location is available
+			$(row).addClass("success");
+		}
+	}
+}
+
+{% if tournament.authorization.liveScoreAllowed %}
+function openScoreMatch(matchId) {
+	command = {
+		command : 'Matches.get',
+		matchId: matchId,
+		setCommandKey: 'scoreMatchData',
+	}
+	addServerCommand(command);
+	sendServerCommands(false);
+	$("#scoreMatchModal").modal('show');
+}
+{% endif %}
+
+{% if tournament.authorization.live2ndCallAllowed %}
+function openSecondCall(matchId) {
+    /*command = {
+        command : 'Matches.get',
+        matchId: matchId,
+        setCommandKey: 'scoreMatchData',
+    }
+    addServerCommand(command);
+    sendServerCommands(false);
+    $("#secondCallModal").modal('show');*/
+    fillModalData("secondCallModal", matchId);
+    $("#secondCallModal").modal('show');
+}
+{% endif %}
+
+{{ block('scoreJavascript') }}
+
+</script>
+
+{% endblock %}
+
+{% block jQuery %}
+{{ parent() }}
+
+$("#scoreMatch").on("shown", function() {
+	$("#scoreMatch .input-prepend :input :first").focus();
+});
+
+// retrieving initial data from server
+sendServerCommands(true);
+{% endblock %}
+
+{% block content %}
+{{ parent() }}
+<div class="row">
+	<table class="table table-hover table-striped ajaxDataTable" id="playingMatchesTable">
+		<thead>
+			<tr>
+				<th>{{ 'table.location'|trans }}</th>
+				<th>#</th>
+				<th>{{ 'table.team1'|trans }}</th>
+				<th>{{ 'table.team2'|trans }}</th>
+				<th>{{ 'table.pool'|trans }}</th>
+				<th>{{ 'table.round'|trans }}</th>
+				{% if tournament.authorization.liveScoreAllowed or tournament.authorization.live2ndCallAllowed %}<th>{{ 'currentMatches.table.options'|trans }}</th>{% endif %}
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+{{block('scoreHtml') }}
+</div>
+{% endblock %}

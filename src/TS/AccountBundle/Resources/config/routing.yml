@@ -1,0 +1,92 @@
+# Account settings routings
+account_settings_index:
+    pattern:  /
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: account_settings_account
+        permanent: true
+
+account_settings_profile:
+    path:     /profile
+    defaults: { _controller: TSAccountBundle:Settings:profile }
+
+account_settings_account:
+    path:     /account
+    defaults: { _controller: TSAccountBundle:Account:account }
+account_settings_account_add:
+    pattern:  /account/add
+    defaults: { _controller: TSAccountBundle:Account:addAccount }
+account_settings_account_remove:
+    pattern:  /account/remove/{loginAccountId}
+    defaults: { _controller: TSAccountBundle:Account:removeAccount }
+
+fos_user_change_password:
+    pattern:  /account/change-password
+    defaults: { _controller: TSAccountBundle:ChangePassword:changePassword }
+    methods: [GET, POST]
+
+account_settings_financial:
+    path:     /financial
+    defaults: { _controller: TSAccountBundle:Settings:financial }
+
+account_settings_mytournaments:
+    pattern:  /mytournaments
+    defaults: { _controller: TSAccountBundle:Settings:mytournaments }
+
+
+# Other account routings
+account_login:
+    path:   /login
+    defaults:  { _controller: TSAccountBundle:Authentication:login }
+    schemes:  [%httpProtocol%]
+account_reset:
+    pattern:  /reset
+    defaults: { _controller: FOSUserBundle:Resetting:request }
+    methods: [GET]
+
+account_logout:
+    path: /logout
+    defaults: { _controller: FOSUserBundle:Security:logout }
+
+account_impersonate:
+    path:   /impersonate
+    defaults:  { _controller: TSAccountBundle:Authentication:impersonate }
+
+# FOS UserBundle pages
+fos_user_security_check:
+    pattern:  /login_check
+    defaults: { _controller: FOSUserBundle:Security:check }
+    methods: [POST]
+
+fos_user_registration_confirmed:
+    pattern:  /register/confirmed
+    defaults: { _controller: TSAccountBundle:Authentication:confirmed }
+    methods: [GET]
+
+fos_user_profile_show:
+    pattern:  /account-fos
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: account_settings_account
+        permanent: true
+
+fos_user_resetting_request:
+    pattern:  /resetting/request
+    defaults: { _controller: FOSUserBundle:Resetting:request }
+    methods: [GET]
+fos_user_resetting_send_email:
+    pattern:  /resetting/send-email
+    defaults: { _controller: FOSUserBundle:Resetting:sendEmail }
+    methods: [POST]
+fos_user_resetting_check_email:
+    pattern:  /resetting/check-email
+    defaults: { _controller: FOSUserBundle:Resetting:checkEmail }
+    methods: [GET]
+fos_user_resetting_reset:
+    pattern:  /resetting/reset/{token}
+    defaults: { _controller: FOSUserBundle:Resetting:reset }
+    methods: [GET, POST]
+fos_user_registration_confirmed:
+    pattern:  /register/confirmed
+    defaults: { _controller: TSAccountBundle:Authentication:confirmed }
+    methods: [GET]

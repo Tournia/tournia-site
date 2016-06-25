@@ -1,0 +1,1528 @@
+{% trans_default_domain "front" %}
+{% extends "TSFrontBundle::base.html.twig" %}
+
+{% block title 'API Documentation' %}
+
+{% set pageClass = "docs" %}
+{% set footerClass = "hidden" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    'bundles/tsfront/css/highlight.min.css'
+	'bundles/tsfront/css/highlight-agate.css'
+    filter='cssrewrite,?yui_css'  %}
+	<link rel="stylesheet" href="{{ asset_url }}" xmlns="http://www.w3.org/1999/html"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts filter='?yui_js'
+    '@TSFrontBundle/Resources/public/js/highlight.min.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+
+    <script type="text/javascript">
+		$(function () {
+			hljs.configure({
+				tabReplace: '  ',
+				//classPrefix: ''
+			});
+			hljs.initHighlightingOnLoad();
+
+            $('body').scrollspy({ target: '#guide' });
+        });
+    </script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block content %}
+
+	<div id="guide">
+		<h1 class="logo">
+			<a href="#intro">Tournia API</a>
+		</h1>
+		<ul class="menu nav">
+            <li>
+			  	<a href="#intro">Introduction</a>
+				<ul class="nav">
+					<li><a href="#intro-requests">Requests</a></li>
+					<li><a href="#intro-statuses">HTTP Statuses</a></li>
+					{#<li><a href="#intro-responses">Responses</a></li>#}
+					<li><a href="#intro-meta">Meta</a></li>
+					<li><a href="#intro-authentication">Authentication</a></li>
+					<li><a href="#intro-parameters">Parameters</a></li>
+					<li><a href="#intro-cors">CORS</a></li>
+				</ul>
+			</li>
+			<li><a href="#tournament">Tournament</a></li>
+			<li><a href="#player">Player</a></li>
+			<li><a href="#registrationGroup">Group</a></li>
+			<li><a href="#discipline">Discipline</a></li>
+			<li><a href="#pool">Pool</a></li>
+			<li><a href="#team">Team</a></li>
+			<li><a href="#round">Round</a></li>
+			<li><a href="#match">Match</a></li>
+			<li><a href="#ranking">Ranking</a></li>
+			<li><a href="#location">Location</a></li>
+			<li><a href="#announcement">Announcement</a></li>
+			<li><a href="#command">Command</a></li>
+
+			{#<li>
+				<a href="#games">Games</a>
+				<ul class="nav">
+				    <li><a href="#games-object">Retrieve a Game</a></li>
+				    <li><a href="#js-data-attrs">Create a Game</a></li>
+				    <li><a href="#js-programmatic-api">Delete a Game</a></li>
+			  	</ul>
+			</li>#}
+		</ul>
+	</div>
+
+	<div id="api-docs">
+		<div id="methods">
+			<div class="method" id="intro">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>API v2 Introduction</h3>
+						<p>
+							Welcome to the Tournia API documentation.
+						</p>
+						<p>
+							The Tournia API allows you to manage all the tournament functionality in a simple, programmatic way using conventional HTTP requests. The API is based on conventional <a href="https://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">REST</a> principles.
+						</p>
+						<p>
+							All of the functionality that you are familiar with in the Tournia match control panel is also available through the API, allowing you to script the complex actions that your situation requires.
+						<p>
+							The API documentation will start with a general overview about the design and technology that has been implemented, followed by reference information about specific endpoints.
+						</p>
+						<div class="alert alert-info" role="alert">
+							<i class="fa fa-info-circle fa-3x"></i>
+							<span>This documentation is intended as general introduction into the Tournia concepts. Also check out the <a href="{{ path('nelmio_api_doc_index', {'view': 'v2'}) }}" class="alert-link">full API reference</a>. If you have any questions, please <a href="{{ path('front_contact') }}" class="alert-link">contact us</a>.</span>
+						</div>
+						<div class="alert alert-success" role="alert">
+							<i class="fa fa-thumbs-up fa-3x"></i>
+							<span>There are already some examples you can use for free. Check out our <a href="https://github.com/Tournia" target="_blank" class="alert-link">GitHub repository</a> for examples. And if you have better ideas, create a pull request, or send us your code so we can make it available to everyone!</span>
+						</div>
+					</div>
+					<div class="method-example">
+						<h5>Code example</h5>
+<pre>
+<code class="Markdown">
+# You can already try out a request.
+# The url contains the tournament url, which can be set in the tournament settings.
+# For now, you can use the test tournament, which is open to everyone.
+
+{{ url('api_v2_tournaments_get', {'tournamentUrl': 'test'}) }}
+Put in the header X-API-token: TESTTESTTESTTESTTEST
+
+# If everything goes well, you should see some information about the tournament.
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+			<div class="method" id="intro-requests">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Requests</h3>
+						<p>
+							Any tool that is fluent in HTTP can communicate with the API simply by requesting the correct URI. Requests should be made using the HTTPS protocol so that traffic is encrypted. The interface responds to different methods depending on the action required.
+						</p>
+						<div class="alert alert-success" role="alert">
+							<i class="fa fa-thumbs-up fa-3x"></i>
+							<span>A great (free!) tool for trying out API requests is <a href="https://www.getpostman.com/" target="_blank" class="alert-link">Postman</a>. Of course, you can also use the more complex cURL, jQuery for websites or any other tool.</span>
+						</div>
+						<div class="info" id="intro-requests-object">
+							<h4>Requests</h4>
+							<div class="field clearfix">
+								<div class="key">GET</div>
+								<div class="desc">
+									<p>
+										For simple retrieval of information about your tournament, players, etc., you should use the <b>GET</b> method. The information you request will be returned to you as a JSON object.
+									</p>
+									<p>
+										Any request using the GET method is read-only and will not affect any of the objects you are querying.
+									</p>
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">DELETE</div>
+								<div class="desc">
+									<p>
+										To destroy a resource and remove it from your tournament, the <b>DELETE</b> method should be used. This will remove the specified object if it is found. If it is not found, the operation will return a response indicating that the object was not found.
+									</p><p>
+										This idempotency means that you do not have to check for a resource's availability prior to issuing a delete command, the final state will be the same regardless of its existence.
+									</p>
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">PUT</div>
+								<div class="desc">
+									<p>
+										To update the information about a resource in your account, the <b>PUT</b> method is available.
+									<p><p>
+										Like the DELETE Method, the PUT method is idempotent. It sets the state of the target using the provided values, regardless of their current values. Requests using the PUT method do not need to check the current attributes of the object.
+									</p>
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">POST</div>
+								<div class="desc">
+									<p>
+										To create a new object, your request should specify the <b>POST</b> method.
+									</p><p>
+										The POST request includes all of the attributes necessary to create a new object. When you wish to create a new object, send a POST request to the target endpoint.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="method-example">
+						<h5>Code example</h5>
+<pre>
+<code class="Markdown">
+GET {{ url('api_v2_locations_list', {'tournamentUrl': 'test'}) }} will return a list with all locations.
+
+GET {{ url('api_v2_locations_get', {'tournamentUrl': 'test', 'locationId': '15'}) }} will return information about the location with ID 15.
+
+POST {{ url('api_v2_locations_create', {'tournamentUrl': 'test'}) }} will create a new location.
+
+PUT {{ url('api_v2_locations_edit', {'tournamentUrl': 'test', 'locationId': '15'}) }} will edit the location with ID 15.
+
+DELETE {{ url('api_v2_locations_remove', {'tournamentUrl': 'test', 'locationId': '15'}) }} will remove the location with ID 15.
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+			<div class="method" id="intro-statuses">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>HTTP Statuses</h3>
+						<p>
+							Along with the HTTP methods that the API responds to, it will also return standard HTTP statuses, including error codes.
+						</p><p>
+							In the event of a problem, the status will contain the error code, while the body of the response will usually contain additional information about the problem that was encountered.
+						</p><p>
+							In general, if the status returned is in the 200 range, it indicates that the request was fulfilled successfully and that no error was encountered.
+						</p><p>
+							Return codes in the 400 range typically indicate that there was an issue with the request that was sent. Among other things, this could mean that you did not authenticate correctly, that you are requesting an action that you do not have authorization for, that the object you are requesting does not exist, or that your request is malformed.
+						</p><p>
+							If you receive a status in the 500 range, this generally indicates a server-side problem. This means that we are having an issue on our end and cannot fulfill your request currently.
+						</p>
+					</div>
+
+					<div class="method-example">
+						<h5>Example error response</h5>
+<pre>
+<code class="http">HTTP/1.1 403 Forbidden
+{
+	"id":       "forbidden",
+	"message":  "You do not have access, have you set X-API-KEY in the header?"
+}
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+			{#<div class="method" id="intro-responses">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Responses</h3>
+						<p>
+							When a request is successful, a response body will typically be sent back in the form of a JSON object. An exception to this is when a DELETE request is processed, which will result in a successful HTTP 204 status and an empty response body.
+						</p><p>
+							Inside of this JSON object, the resource root that was the target of the request will be set as the key. This will be the singular form of the word if the request operated on a single object, and the plural form of the word if a collection was processed.
+						</p><p>
+							For example, if you send a GET request to <code>/v2/players/$PLAYER_ID</code> you will get back an object with a key called "<code>player</code>". However, if you send the GET request to the general collection at <code>/v2/players</code>, you will get back an object with a key called "<code>players</code>".
+						</p><p>
+							The value of these keys will generally be a JSON object for a request on a single object and an array of objects for a request on a collection of objects.
+						</p>
+					</div>
+
+					<div class="method-example">
+						<h5>Response for a single object</h5>
+<pre>
+<code class="json">{
+	"player": {
+		"name": "Test Player 1"
+		. . .
+	}
+}
+</code>
+</pre>
+						<h5>Response for an object collection</h5>
+<pre>
+<code class="json">{
+	"players": [
+		{
+			"name": "Test Player 1",
+			. . .
+		},
+		{
+			"name": "Test Player 2"
+			. . .
+		}
+	]
+}
+</code>
+</pre>
+					</div>
+				</div>
+			</div>#}
+
+			<div class="method" id="intro-meta">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Meta</h3>
+						<p>
+							In addition to the main resource root, the response may also contain a <code>meta</code> object. This object contains information about the response itself.
+						<p></p>
+							The <code>meta</code> object can contains a <code>total</code> key that is set to the total number of objects returned by the request.
+						<p></p>
+							The <code>meta</code> object will only be displayed when it has a value.
+						</p>
+					</div>
+
+					<div class="method-example">
+						<h5>Sample Meta object</h5>
+<pre>
+<code class="json">{
+	. . .
+	"meta": {
+		"total": 43
+	},
+	"players": [
+		{
+			"name": "Player 1",
+			. . .
+		}
+	]
+	. . .
+}
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+			<div class="method" id="intro-authentication">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Authentication</h3>
+						<p>
+							There are three ways to authenticate for a web request:
+							<ol>
+								<li><b>X-API-KEY in headers</b>: the best way for you is to put the API key in the header. This can be done by sending <code>X-API-KEY: YOUR_KEY_VALUE</code> in the headers (of course replacing your YOUR_KEY_VALUE).</li>
+								<li><b>Logging in and sending the cookie</b>: this is the way the Tournia website works. You login on tournia.net, and using a cookie your authentication is checked.</li>
+								<li><b>Oauth</b>: currently in beta. If you are interested in using Oauth, contact us.</li>
+							</ol>
+						</p>
+						<p>
+							Generate an API key by going to the <a>API</a> section of the control panel. Use an existing key if you have saved one, or generate a new key with the "Create new API key" button.
+						</p>
+					</div>
+
+					<div class="method-example">
+						&nbsp;
+					</div>
+				</div>
+			</div>
+
+			<div class="method" id="intro-parameters">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Parameters</h3>
+						<p>
+							There are two different ways to pass parameters in a request with the API.
+						</p><p>
+							When passing parameters to filter a response on GET requests, parameters can be passed using standard query attributes. In this case, the parameters would be embedded into the URI itself by appending a <code>?</code> to the end of the URI and then setting each attribute with an equal sign. Attributes can be separated with a <code>&</code>.
+						</p><p>
+							When passing parameters to create (POST) or update (PUT) an object, there are two ways:
+							<ul>
+								<li>Parameters should preferably be passed as a JSON object containing the appropriate attribute names and values as key-value pairs. When you use this format, you should specify that you are sending a JSON object in the header. This is done by setting the <code>Content-Type</code> header to <code>application/json</code>. This ensures that your request is interpreted correctly.</li>
+								<li>Parameters can be submitted with <code>x-www-form-urlencoded</code>. Make sure that there is no <code>Content-Type</code> set in the headers.</li>
+							</ul>
+						</p>
+						<p>
+							By default the response will be in JSON. You can also request a XML response by defining <code>Content-Type</code> in the header with <code>application/xml</code>. The POST and PUT data in the body should in that case also be XML.
+						</p>
+					</div>
+
+					<div class="method-example">
+						<h5>cURL example in terminal</h5>
+<pre>
+	<code class="bash">
+export API_KEY=TESTTESTTESTTESTTEST
+	</code>
+</pre>
+						<h5>Pass filter parameters as a query string</h5>
+<pre>
+	<code class="bash">curl -H "X-API-KEY: $APIKEY" \
+	-X GET \
+	"{{ url('api_v2_messages_list', {'tournamentUrl': 'test', 'page': '2'}) }}"
+	</code>
+</pre>
+						<h5>Pass parameters as a JSON object</h5>
+<pre>
+	<code class="bash">curl -H "X-API-KEY: $APIKEY" \
+	-H "Content-Type: application/json" \
+	-d '{"name": "Pool name", "nrPlayersInTeam": "2"}' \
+	-X POST "{{ url('api_v2_pools_create', {'tournamentUrl': 'test'}) }}"
+	</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+			<div class="method" id="intro-cors">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Cross Origin Resource Sharing</h3>
+						<p>
+							In order to make requests to the API from other domains, the API implements Cross Origin Resource Sharing (CORS) support.
+						</p><p>
+							CORS support is generally used to create AJAX requests outside of the domain that the request originated from. This is necessary to implement projects utilizing the API. This tells the browser that it can send requests to an outside domain.
+						</p><p>
+							The procedure that the browser initiates in order to perform these actions (other than GET requests) begins by sending a "preflight" request. This sets the <code>Origin</code> header and uses the <code>OPTIONS</code> method. The server will reply back with the methods it allows and some of the limits it imposes. The client then sends the actual request if it falls within the allowed constraints.
+						</p><p>
+							This process is usually done in the background by the browser, and you don't have to worry about it. You can manually emulate this process using the example provided. The headers that will be set to show the constraints are:
+							<ul>
+								<li>Access-Control-Allow-Origin: This is the domain that is sent by the client or browser as the origin of the request. It can set through an <code>Origin</code> header.</li>
+								<li>Access-Control-Allow-Methods: This specifies the allowed options for requests from that domain. This will generally be all available methods.</li>
+								<li>Access-Control-Allow-Headers: This will contain the headers that will be available to requests from the origin domain.</li>
+							</ul>
+
+							You should not need to be concerned with the details of these headers, because the browser will typically do all of the work for you.
+						</p>
+					</div>
+
+					<div class="method-example">
+						<h5>Example preflight reequest</h5>
+<pre>
+<code class="bash">curl -I -H "Origin: https://example.com" -X OPTIONS "{{ url('api_v2_tournaments_get', {'tournamentUrl': 'test'}) }}"
+</code>
+</pre>
+						<h5>Example preflight response</h5>
+<pre>
+<code class="http">. . .
+Access-Control-Allow-Origin: https://example.com
+Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+. . .
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+			<div class="method" id="tournament">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<div class="alert alert-info" role="alert">
+							<i class="fa fa-info-circle fa-3x"></i>
+							<span>The documentation below will not cover all endpoints. Please check out the <a href="{{ path('nelmio_api_doc_index', {'view': 'v2'}) }}" class="alert-link">full API reference</a> as well. If you have any questions, <a href="{{ path('front_contact') }}" class="alert-link">contact us</a>.</span>
+						</div>
+						<h3>Tournament</h3>
+						<p>
+							With the Tournament entity you can get information about the tournament. In specific it is also possible to request the possible status options for registrations, and the unique registration options used for all current registrations.
+						</p>
+						<p>
+							Most values are self-explanatory, but some values will be explained in a bit more detail.
+						</p>
+						<div class="info">
+							<h4>Tournament Object</h4>
+							<div class="field clearfix">
+								<div class="key">name</div>
+								<div class="desc">
+									<strong>string</strong>
+									Name of the tournament.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">startDateTime</div>
+								<div class="desc">
+									<strong>DateTime</strong>
+									Start of the tournament, including timezone information.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">endDateTime</div>
+								<div class="desc">
+									<strong>DateTime</strong>
+									End of the tournament, including timezone information.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">dateText</div>
+								<div class="desc">
+									<strong>String</strong>
+									Written date for startDateTime to endDateTime
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">registrationOpenDateTime</div>
+								<div class="desc">
+									<strong>DateTime</strong>
+									When registrations open for public, including timezone information.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">registrationClosedDateTime</div>
+								<div class="desc">
+									<strong>DateTime</strong>
+									When registrations close for public, including timezone information.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">pageHtml</div>
+								<div class="desc">
+									<strong>String</strong>
+									HTML of first page of the tournament
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="method-example">
+						<h5>Tournament example</h5>
+<pre>
+<code class="Markdown">
+{{ url('api_v2_tournaments_get', {'tournamentUrl': 'test'}) }}
+Header X-API-token: TESTTESTTESTTESTTEST
+</code>
+<code class="json"># Response Object
+{
+  "tournamentId": 4,
+  "url": "test",
+  "name": "Test Tournament",
+  "startDateTime": {
+    "timezone": {
+      "name": "Europe/Amsterdam",
+      "location": {
+        "country_code": "NL",
+        "latitude": 52.36667,
+        "longitude": 4.9,
+        "comments": ""
+      }
+    },
+    "offset": 3600,
+    "timestamp": 1449010800
+  },
+  "endDateTime": {
+    "timezone": {
+      "name": "Europe/Amsterdam",
+      "location": {
+        "country_code": "NL",
+        "latitude": 52.36667,
+        "longitude": 4.9,
+        "comments": ""
+      }
+    },
+    "offset": 3600,
+    "timestamp": 1449097200
+  },
+  "dateText": "Wednesday 2 December 2015 - Thursday 3 December 2015",
+  "registrationOpenDateTime": {
+    "timezone": {
+      "name": "Europe/Amsterdam",
+      "location": {
+        "country_code": "NL",
+        "latitude": 52.36667,
+        "longitude": 4.9,
+        "comments": ""
+      }
+    },
+    "offset": 3600,
+    "timestamp": 1446332400
+  },
+  "registrationClosedDateTime": {
+    "timezone": {
+      "name": "Europe/Amsterdam",
+      "location": {
+        "country_code": "NL",
+        "latitude": 52.36667,
+        "longitude": 4.9,
+        "comments": ""
+      }
+    },
+    "offset": 3600,
+    "timestamp": 1451602740
+  },
+  "pageHtml": "<p>Lorem Ipsum</p>",
+  "isLiveScoreAllowed": true,
+  "isLive2ndCallAllowed": true,
+  "nrSets": 3,
+  "checkScoreMin": null,
+  "checkScoreMax": null
+}
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="method" id="player">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Player</h3>
+						<p>
+							Players register themselves for the tournament. This doesn't immediately mean they play in the tournament as well; some are spectators, some cancel their registration or don't show up.
+						</p>
+						<div class="info">
+							<h4>Player Object</h4>
+							<div class="field clearfix">
+								<div class="key">name</div>
+								<div class="desc">
+									<strong>string</strong>
+									Name of the tournament.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">startDateTime</div>
+								<div class="desc">
+									<strong>DateTime</strong>
+									Start of the tournament, including timezone information.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">endDateTime</div>
+								<div class="desc">
+									<strong>DateTime</strong>
+									End of the tournament, including timezone information.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">dateText</div>
+								<div class="desc">
+									<strong>String</strong>
+									Written date for startDateTime to endDateTime
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">registrationOpenDateTime</div>
+								<div class="desc">
+									<strong>DateTime</strong>
+									When registrations open for public, including timezone information.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">registrationClosedDateTime</div>
+								<div class="desc">
+									<strong>DateTime</strong>
+									When registrations close for public, including timezone information.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">pageHtml</div>
+								<div class="desc">
+									<strong>String</strong>
+									HTML of first page of the tournament
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="method-example">
+						<h5>Player example</h5>
+<pre>
+<code class="Markdown">
+{{ url('api_v2_players_get', {'tournamentUrl': 'test', 'playerId': 'PLAYER_ID'}) }}
+</code>
+<code class="json"># Response Object
+{
+  "playerId": 152,
+  "firstName": "Test",
+  "lastName": "Player 1",
+  "fullName": "Test Player 1",
+  "registrationDate": "18-May-2013 23:56:49",
+  "status": "Registered",
+  "ready": false,
+  "nonreadyReason": null,
+  "gender": "Male",
+  "disciplines": {
+    "Singles": {
+      "disciplineId": 105,
+      "disciplineName": "Men Singles A",
+      "partner": null
+    },
+    "Doubles": {
+      "disciplineId": 115,
+      "disciplineName": "Men Doubles C",
+      "partner": ""
+    },
+    "Mixed doubles": {
+      "disciplineId": 121,
+      "disciplineName": "Mixed Doubles A",
+      "partner": ""
+    }
+  },
+  "teams": [
+    {
+      "poolId": 105,
+      "poolName": "Men Singles A",
+      "teamId": 472,
+      "teamName": "Test Player 1",
+      "givenUp": true,
+      "registeredForDiscipline": {
+        "disciplineType": "Singles",
+        "disciplineId": 105,
+        "disciplineName": "Men Singles A"
+      }
+    }
+  ],
+  "registrationGroup": "Test team 1",
+  "registrationGroupContactPlayer": "Yes",
+  "paymentBalance": "EUR 0",
+  "personEmail": "sjoerdsmink@gmail.com",
+  "personName": "Sjoerd Smink",
+  "boughtProducts": []
+}
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+			<div class="method" id="registrationGroup">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Group</h3>
+						<p>
+							Groups (a.k.a. RegistrationGroup) can be used for registration. The player indicates which group he/she belongs to, and a contact person for that group can be appointed.
+						</p>
+						<div class="info">
+							<h4>Group Object</h4>
+							<div class="field clearfix">
+								<div class="key">name</div>
+								<div class="desc">
+									<strong>string</strong>
+									Name of the group
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">country</div>
+								<div class="desc">
+									<strong>string</strong>
+									Country of the group
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="method-example">
+						<h5>Group example</h5>
+<pre>
+<code class="Markdown">
+{{ url('api_v2_groups_get', {'tournamentUrl': 'test', 'groupId': 'GROUP_ID'}) }}
+</code>
+<code class="json"># Response Object
+{
+  "groupId": 47,
+  "name": "Test team 1",
+  "country": "NL"
+}
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+			<div class="method" id="discipline">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Discipline</h3>
+						<p>
+							When a Player registers, he/she has to indicate in which Discipline he/she is playing. The tournament organization can configure the Discipline Types (e.g. "Singles") and Disciplines (e.g. "Men Singles A").
+						</p>
+						<div class="info">
+							<h4>Discipline Object</h4>
+							<div class="field clearfix">
+								<div class="key">name</div>
+								<div class="desc">
+									<strong>string</strong>
+									Name of the discipline.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">pools</div>
+								<div class="desc">
+									<strong>array</strong>
+									The connected Pool (see next section). The key is the poolId and value the pool name.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="method-example">
+						<h5>Discipline example</h5>
+<pre>
+<code class="Markdown">
+{{ url('api_v2_disciplines_get', {'tournamentUrl': 'test', 'disciplineId': 'DISCIPLINE_ID'}) }}
+</code>
+<code class="json"># Response Object
+{
+  "disciplineId": 105,
+  "name": "Men Singles A",
+  "pools": {
+    "105": "Men Singles A"
+  }
+}
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="method" id="pool">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Pool</h3>
+						<p>
+							The Pool is similar to a Discipline, with the only difference that Disciplines are used for the registrations, and Pools are used for the tournaments (matches, teams, etc.). This distinction is made to make it possible to have finals (which is something you don't register for...) and make is easy to combine multiple disciplines to one pool (when there are not enough registrations).
+						</p>
+						<div class="info">
+							<h4>Pool Object</h4>
+							<div class="field clearfix">
+								<div class="key">position</div>
+								<div class="desc">
+									<strong>integer</strong>
+									The order of displaying pools can be changed. Lowest positions are displayed first.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">algorithm</div>
+								<div class="desc">
+									<strong>string</strong>
+									The way new matches are generated.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">inputDisciplines</div>
+								<div class="desc">
+									<strong>array</strong>
+									Registrations of players can be imported automatically. Therefore we need to know which reigistration disciplines will result in which pools. It is possible to have multiple disciplines connected to have multiple pools (many-to-many relation).
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">totTeams</div>
+								<div class="desc">
+									<strong>integer</strong>
+									The total number of teams in this pool
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">nrPlayersInTeam</div>
+								<div class="desc">
+									<strong>integer</strong>
+									The number of players in a team. I.e. 1 for singles, 2 for doubles.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">teams</div>
+								<div class="desc">
+									<strong>array</strong>
+									Information about the teams in this pool
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="method-example">
+						<h5>Pool example</h5>
+<pre>
+<code class="Markdown">
+{{ url('api_v2_pools_get', {'tournamentUrl': 'test', 'poolId': 'POOL_ID'}) }}
+</code>
+<code class="json"># Response Object
+{
+  "poolId": 105,
+  "position": 0,
+  "name": "Men Singles A",
+  "algorithm": "swissladder",
+  "inputDisciplines": {
+    "105": "Men Singles A"
+  },
+  "totTeams": 6,
+  "nrPlayersInTeam": 1,
+  "teams": {
+    "470": {
+      "id": 470,
+      "name": "Test Player 4",
+      "givenUp": true,
+      "nonreadyReason": null,
+      "players": [
+        {
+          "id": 155,
+          "name": "Test Player 4",
+          "registrationGroup": "Test team 1",
+          "gender": "M",
+          "hasReplacementPlayer": false
+        }
+      ]
+    },
+    "471": {
+      "id": 471,
+      "name": "Test player 2",
+      "givenUp": false,
+      "nonreadyReason": null,
+      "players": [
+        {
+          "id": 153,
+          "name": "Test player 2",
+          "registrationGroup": "Test Team 2",
+          "gender": "M",
+          "hasReplacementPlayer": false
+        }
+      ]
+    }
+  }
+}
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="method" id="team">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Team</h3>
+						<p>
+							A team belongs to a pool, and consists of players.
+						</p>
+						<p>
+							It is possible to add/remove players to a team, set a replacement player or let the team give up. Given up teams won't have new matches, and won't be counted in the ranking.
+						</p>
+						<div class="info">
+							<h4>Team Object</h4>
+							<div class="field clearfix">
+								<div class="key">name</div>
+								<div class="desc">
+									<strong>string</strong>
+									Name of the team, composed of all the player's names
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">givenUp</div>
+								<div class="desc">
+									<strong>boolean</strong>
+									Whether the team has given up
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">nonreadyReason</div>
+								<div class="desc">
+									<strong>string</strong>
+									Optional reason for giving up
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">players</div>
+								<div class="desc">
+									<strong>array</strong>
+									Information about players in the team. In the example you can see that it's possible to have empty spots in the team (indicated by a null).
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="method-example">
+						<h5>Team example</h5>
+<pre>
+<code class="Markdown">
+{{ url('api_v2_teams_get', {'tournamentUrl': 'test', 'teamId': 'TEAM_ID'}) }}
+</code>
+<code class="json"># Response Object
+{
+  "id": 481,
+  "name": "Test Player 10",
+  "givenUp": false,
+  "nonreadyReason": null,
+  "players": [
+    {
+      "id": 161,
+      "name": "Test Player 10",
+      "registrationGroup": "Test team 1",
+      "gender": "M",
+      "hasReplacementPlayer": false,
+      "partnerName": "wanted"
+    },
+    null
+  ]
+}
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="method" id="round">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Round</h3>
+						<p>
+							A pool has one or more rounds. A match is played in a specific round, in a pool.
+						</p>
+						<div class="info">
+							<h4>Round Object</h4>
+							<div class="field clearfix">
+								<div class="key">key</div>
+								<div class="desc">
+									<strong>string</strong>
+									The key of the result indicates the round number
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">value</div>
+								<div class="desc">
+									<strong>string</strong>
+									The value of the result is the name of the round
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="method-example">
+						<h5>Round example</h5>
+<pre>
+<code class="Markdown">
+{{ url('api_v2_rounds_list', {'tournamentUrl': 'test', 'poolId': 'POOL_ID'}) }}
+</code>
+<code class="json"># Response Object
+{
+  "1": "Round 1",
+  "2": "Round 2"
+}
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="method" id="match">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Match</h3>
+						<p>
+							A match is pretty self-explanatory. It contains scores, and it has a field to indicate the match has to be played with priority. A match has two teams who play against each other (team1 vs. team2). The match number (localId) is different from the matchId in the database, to make numbering for this specific tournament possible.
+						</p>
+						<p>
+							A match can be postponed, with optionally a nonreadyReason. Other statuses are: ready, playing, finished or played. These statuses can be set manually, or be called by starting/stopping/finishing a match.
+						</p>
+						<div class="info">
+							<h4>Match Object</h4>
+							<div class="field clearfix">
+								<div class="key">localId</div>
+								<div class="desc">
+									<strong>string</strong>
+									Match number, but different from the database matchId
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">poolId</div>
+								<div class="desc">
+									<strong>string</strong>
+									ID of pool where the matches is played in
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">team1Id</div>
+								<div class="desc">
+									<strong>integer</strong>
+									ID of team 1
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">team1Name</div>
+								<div class="desc">
+									<strong>string</strong>
+									Name of team 1
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">round</div>
+								<div class="desc">
+									<strong>string</strong>
+									Round where the matches is played in
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">status</div>
+								<div class="desc">
+									<strong>string</strong>
+									Status of the match. Can be: ready, playing, finished, played or postponed.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">nonreadyReason</div>
+								<div class="desc">
+									<strong>string</strong>
+									When a match is postponed, optionally a reason can be given.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">priority</div>
+								<div class="desc">
+									<strong>boolean</strong>
+									Indicator whether this match has to be played with priority.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">scoreText</div>
+								<div class="desc">
+									<strong>string</strong>
+									Score of the match, in textual format
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">score</div>
+								<div class="desc">
+									<strong>array</strong>
+									Score of the match, in array format. First scores are for the first set, where 1 indicates the score for team1, and 2 the score for team2.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="method-example">
+						<h5>Match example</h5>
+<pre>
+<code class="Markdown">
+{{ url('api_v2_matches_get', {'tournamentUrl': 'test', 'matchId': 'MATCH_ID'}) }}
+</code>
+<code class="json"># Response Object
+{
+  "id": 210,
+  "localId": 3,
+  "poolId": 105,
+  "team1Id": 471,
+  "team1Name": "Test player 2",
+  "team2Id": 471,
+  "team2Name": "Test player 2",
+  "poolName": "Men Singles A",
+  "round": "Round 1",
+  "status": "played",
+  "nonreadyReason": null,
+  "priority": false,
+  "scoreText": "3-21 12-21",
+  "score": [
+    {
+      "1": "3",
+      "2": "21"
+    },
+    {
+      "1": "12",
+      "2": "21"
+    }
+  ]
+}
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="method" id="ranking">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Ranking</h3>
+						<p>
+							A tournament always have winners. And it's good to know how you're doing compared to others.
+						</p>
+						<p>
+							It is possible to have ranking for a specific pool, top-x winners of all pools, ranking of players or ranking of (registration)groups.
+						</p>
+						<div class="info">
+							<h4>Ranking Object</h4>
+							<div class="field clearfix">
+								<div class="key">matchesWon</div>
+								<div class="desc">
+									<strong>integer</strong>
+									Number of matches won
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">matchesDraw</div>
+								<div class="desc">
+									<strong>integer</strong>
+									Number of matches in a draw
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">matchesLost</div>
+								<div class="desc">
+									<strong>integer</strong>
+									Number of matches lost
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">setsWon</div>
+								<div class="desc">
+									<strong>integer</strong>
+									Number of sets won
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">setsLost</div>
+								<div class="desc">
+									<strong>integer</strong>
+									Number of sets lost
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">pointsWon</div>
+								<div class="desc">
+									<strong>integer</strong>
+									Number of points won
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">pointsLost</div>
+								<div class="desc">
+									<strong>integer</strong>
+									Number of points lost
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">teamId</div>
+								<div class="desc">
+									<strong>integer</strong>
+									The team with this ranking
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">players</div>
+								<div class="desc">
+									<strong>array</strong>
+									Players in the team
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">matchesPlayed</div>
+								<div class="desc">
+									<strong>integer</strong>
+									Number of matches in total played
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">matchesRelative</div>
+								<div class="desc">
+									<strong>float</strong>
+									Relative score is between -1 en +1, with won matches resulting in a positive score and lost matches in a negative score. Counts first (most important) in ranking.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">setsRelative</div>
+								<div class="desc">
+									<strong>float</strong>
+									Relative score is between 0 en +1, calculated as won sets divided by total sets. Counts second in ranking.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">pointsRelative</div>
+								<div class="desc">
+									<strong>float</strong>
+									Relative score is between 0 en +1, calculated as won points divided by total points. Counts third (least important) in ranking.
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">rank</div>
+								<div class="desc">
+									<strong>integer</strong>
+									Rank of this team
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="method-example">
+						<h5>Ranking example</h5>
+<pre>
+<code class="Markdown">
+{{ url('api_v2_rankings_pool', {'tournamentUrl': 'test', 'poolId': 'POOL_ID'}) }}
+</code>
+<code class="json"># Response Object
+[
+  {
+    "matchesWon": 1,
+    "matchesDraw": 0,
+    "matchesLost": 0,
+    "setsWon": 2,
+    "setsLost": 0,
+    "pointsWon": 42,
+    "pointsLost": 15,
+    "teamId": 474,
+    "players": {
+      "161": "Test Player 10"
+    },
+    "givenUp": false,
+    "matchesPlayed": 1,
+    "matchesRelative": "1.000",
+    "setsRelative": "1.000",
+    "pointsRelative": "0.737",
+    "rank": 1
+  },
+  {
+    "matchesWon": 0,
+    "matchesDraw": 0,
+    "matchesLost": 0,
+    "setsWon": 0,
+    "setsLost": 0,
+    "pointsWon": 0,
+    "pointsLost": 0,
+    "teamId": 475,
+    "players": {
+      "346": "Test Player 4"
+    },
+    "givenUp": false,
+    "matchesPlayed": 0,
+    "matchesRelative": "0.000",
+    "setsRelative": "0.500",
+    "pointsRelative": "0.500",
+    "rank": 2
+  }
+]
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="method" id="location">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Location</h3>
+						<p>
+							A match is played on a location (although it is possible to play a match on an undefined location). This location has a name, and the order for displaying can be set.
+						</p>
+						<div class="info">
+							<h4>Location Object</h4>
+							<div class="field clearfix">
+								<div class="key">name</div>
+								<div class="desc">
+									<strong>string</strong>
+									Name of the location
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">onHold</div>
+								<div class="desc">
+									<strong>boolean</strong>
+									Whether the location is on hold (i.e. not usable)
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">nonreadyReason</div>
+								<div class="desc">
+									<strong>string</strong>
+									Optional reason for when the location is onHOld
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">position</div>
+								<div class="desc">
+									<strong>integer</strong>
+									The order of displaying locations can be changed. Lowest positions are displayed first.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="method-example">
+						<h5>Location example</h5>
+<pre>
+<code class="Markdown">
+{{ url('api_v2_locations_get', {'tournamentUrl': 'test', 'locationId': 'LOCATION_ID'}) }}
+</code>
+<code class="json"># Response Object
+{
+  "id": 18,
+  "name": "Court 1",
+  "onHold": false,
+  "nonreadyReason": null,
+  "position": 0
+}
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="method" id="announcement">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Announcement</h3>
+						<p>
+							There are two kind of announcements: for new matches, and for a second call (i.e. no-show). When a new match is started, an announcement is automatically created. When a match is finished, the announcement is obsolete, and therefore deleted. When a second call for a specific player is requested, this results in an announcement.
+						</p>
+						<div class="info">
+							<h4>Announcement Object</h4>
+							<div class="field clearfix">
+								<div class="key">playerIds</div>
+								<div class="desc">
+									<strong>string</strong>
+									The players that require the second call
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">deltaStartTime</div>
+								<div class="desc">
+									<strong>integer</strong>
+									Time since start of the match
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="method-example">
+						<h5>Announcement example</h5>
+<pre>
+<code class="Markdown">
+{{ url('api_v2_announcements_list', {'tournamentUrl': 'test'}) }}
+</code>
+<code class="json"># Response Object
+{
+  "secondCall": [
+    {
+      "announcementId": 2942,
+      "playerIds": [
+        "153"
+      ],
+      "locationId": 19,
+      "location": "Court 2",
+      "locationOnHold": false,
+      "matchId": 210,
+      "localId": 3,
+      "team1": {
+        "teamId": 471,
+        "name": "Test player 2",
+        "players": [
+          {
+            "playerId": 153,
+            "name": "Test player 2",
+            "currentlyPlaying": false,
+            "ready": true
+          }
+        ]
+      },
+      "team2": {
+        "teamId": 474,
+        "name": "Test Player 10",
+        "players": [
+          {
+            "playerId": 161,
+            "name": "Test Player 10",
+            "currentlyPlaying": false,
+            "ready": true
+          }
+        ]
+      },
+      "pool": "Men Singles A",
+      "round": "Round 1",
+      "status": "Played",
+      "nonreadyReason": null,
+      "priority": false,
+      "score": "3-21 12-21",
+      "deltaStartTime": 53223290
+    }
+  ],
+  "newMatches": [
+    {
+      "announcementId": 2941,
+      "playerIds": [],
+      "locationId": 18,
+      "location": "Court 1",
+      "locationOnHold": false,
+      "matchId": 211,
+      "localId": 4,
+      "team1": {
+        "teamId": 479,
+        "name": "Test Player 9",
+        "players": [
+          {
+            "playerId": 160,
+            "name": "Test Player 9",
+            "currentlyPlaying": true,
+            "ready": true
+          }
+        ]
+      },
+      "team2": {
+        "teamId": 476,
+        "name": "Test Player 3",
+        "players": [
+          {
+            "playerId": 154,
+            "name": "Test Player 3",
+            "currentlyPlaying": true,
+            "ready": true
+          }
+        ]
+      },
+      "pool": "Ladies Singles A",
+      "round": "Round 1",
+      "status": "Playing",
+      "nonreadyReason": null,
+      "priority": false,
+      "score": "",
+      "deltaStartTime": 519171
+    }
+  ]
+}
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="method" id="command">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Command</h3>
+						<p>
+							Congrats, you made it to the end of this documentation :-) Therefore we have something special for you: we made it easy to combine multiple REST-calls into one request. In the <a href="{{ path('nelmio_api_doc_index', {'view': 'v2'}) }}" class="alert-link">full API reference</a> you can see on the right side for every endpoint a shortcut, e.g. Groups.list or Announcements.remove. Use this shortcut when sending to the command endpoint, and you'll get the same response as the shortcut endpoint.
+						</p>
+						<div class="info">
+							<h4>Command Object</h4>
+							<div class="field clearfix">
+								<div class="key">playerIds</div>
+								<div class="desc">
+									<strong>string</strong>
+									The players that require the second call
+								</div>
+							</div>
+							<div class="field clearfix">
+								<div class="key">deltaStartTime</div>
+								<div class="desc">
+									<strong>integer</strong>
+									Time since start of the match
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="method-example">
+						<h5>Command example</h5>
+<pre>
+<code class="Markdown">
+{{ url('api_v2_commands', {'tournamentUrl': 'test'}) }}
+</code>
+<code class="Markdown"># Response Object
+Depending on the requested shortcut.
+</code>
+</pre>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+
+
+
+{% endblock %}

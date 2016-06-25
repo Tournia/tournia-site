@@ -1,0 +1,124 @@
+{% extends "TSLiveBundle::layout.html.twig" %}
+
+{% block matches_content %}
+
+    {% include "TSLiveBundle:Matches:mobile.html.twig" %}
+
+{% endblock %}
+
+{% block rankings_content %}
+
+    {% include "TSLiveBundle:Rankings:mobile.html.twig" %}
+
+{% endblock %}
+
+{% block search_content %}
+
+    {% include "TSLiveBundle:Search:mobile.html.twig" %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+	{% javascripts
+		'@TSLiveBundle/Resources/public/js/utils.js'
+		'@TSLiveBundle/Resources/public/js/models/matches.js'
+		'@TSLiveBundle/Resources/public/js/models/rankings.js'
+		'@TSLiveBundle/Resources/public/js/models/pools.js'
+		'@TSLiveBundle/Resources/public/js/views/matches/currentmatchlist.js'
+		'@TSLiveBundle/Resources/public/js/views/matches/upcomingmatchlist.js'
+		'@TSLiveBundle/Resources/public/js/views/matches/finishedmatchlist.js'
+		'@TSLiveBundle/Resources/public/js/views/search/matchlist.js'
+		'@TSLiveBundle/Resources/public/js/views/rankings/rankinglist.js'
+		'@TSLiveBundle/Resources/public/js/views/pools/poolselector.js'
+		'@TSLiveBundle/Resources/public/js/app.js'
+		filter='?yui_js' %}
+		<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+
+{% endblock %}
+
+{% block javascript %}
+    var urlApi = '{{ path('api_v2_commands', {'tournamentUrl':tournament.url}) }}';
+{% endblock %}
+
+
+{% block jQuery %}
+// Show search input
+$("[role=search][data-target=player-search]").on( "click", function()
+{
+    $(this).parent().find('.navbar-form').toggle();
+    $(this).parent().find('.navbar-form input').focus();
+});
+
+$(".navbar-form[role=search]").on( "focusout", function()
+{
+    $(this).parent().find('.navbar-form').toggle();
+});
+$(".navbar-form[role=search]").on( "submit", function(e)
+{
+    window.location.hash = 'search/' + $(this).find('input').val().split(' ').join('+');
+    return false;
+});
+
+// Show pool select
+$("#pool-select").on( "click", function()
+{
+    $(this).toggleClass('on-top');
+    $(this).find('.caret').toggleClass('caret-right');
+
+    $(this).find('.list').slideToggle();
+});
+
+// Go to pool ranking
+$(document).on('click','#pool-select .list > div',function(){
+    window.location.hash = $(this).find('a').prop('hash');
+});
+
+{#
+// Go to player/team ranking
+$(document).on('click','#ranking-table tr',function(){
+    window.location.hash = $(this).find('a').prop('hash');
+});
+#}
+
+
+//Handle custom data-toggle to show/hide grouped matches
+$("[data-toggle=collapse-custom]").on( "click", function()
+{
+    if($(this).find("td span.caret").hasClass("caret-right"))
+    {
+        $(this).find("td span.caret").removeClass("caret-right");
+    }
+    else
+    {
+        $(this).find("td span.caret").addClass("caret-right");
+    }
+    
+    var childId = $(this).data("target");
+    $(childId).toggle("fast");
+});
+
+// Update URL in address bar on tab click to trigger Backbone.js's router
+$('#matches a[data-toggle="tab"]').on('click', function(e) {
+    window.location.hash = "matches/" + e.target.hash.substring(1);
+});
+
+// Activate active tab which is in URL
+if (location.hash !== '')
+{
+    var routeArray = location.hash.split("/");
+
+    // The selected tab has to be the last arary element
+    var selectedTab = routeArray[routeArray.length-1];
+
+    if(routeArray[0].substr(0,7) == '#search')
+    {
+        $(routeArray[0].substr(0,7)).addClass('active');
+        return false;
+    }
+
+    $('a[href="#' + selectedTab + '"]').tab('show');
+}
+{% endblock %}

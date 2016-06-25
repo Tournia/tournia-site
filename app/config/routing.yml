@@ -1,0 +1,196 @@
+# Login
+account_login_redirect1:
+    pattern:  /login/
+    schemes: [%httpProtocol%]
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: account_login
+        permanent: true
+login_facebook:
+    pattern: /login/check-facebook
+    schemes: [%httpProtocol%]
+login_google:
+    pattern: /login/check-google
+    schemes: [%httpProtocol%]
+login_twitter:
+    pattern: /login/check-twitter
+    schemes: [%httpProtocol%]
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /login-redirect
+    schemes:  [%httpProtocol%]
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /login
+    schemes: [%httpProtocol%]
+hwi_oauth_login2:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix:   /login-connect
+    schemes: [%httpProtocol%]
+
+
+# Javascript translation
+_bazinga_jstranslation:
+    resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"
+    schemes: [%httpProtocol%]
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+    schemes: [%httpProtocol%]
+    
+sylius_cart:
+    resource: @SyliusCartBundle/Resources/config/routing.yml
+    prefix:   /{_locale}/cart
+    schemes: [%httpProtocol%]
+
+ts_root:
+    path: /
+    schemes: [%httpProtocol%]
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /en
+
+app_redirect:
+    pattern:  /app
+    schemes: [%httpProtocol%]
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: front_app
+        permanent: true
+
+ts_front:
+    resource: "@TSFrontBundle/Resources/config/routing.yml"
+    schemes: [%httpProtocol%]
+    prefix:   /{_locale}/
+    defaults: { _locale:en }
+    requirements:
+        _locale: en|nl
+
+settings_tournament_create:
+    path:     /{_locale}/create
+    schemes: [%httpProtocol%]
+    defaults: {_controller: TSSettingsBundle:Create:create, _locale:en }
+    requirements:
+        _locale: en|nl
+
+ts_financial:
+    resource: "@TSFinancialBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/financial/
+    schemes: [%httpProtocol%]
+    defaults: { _locale:en }
+    requirements:
+        _locale: en|nl
+
+ts_notification:
+    resource: "@TSNotificationBundle/Resources/config/routing.yml"
+    prefix: /{_locale}/notification
+    schemes: [%httpProtocol%]
+    defaults: { _locale:en }
+    requirements:
+        _locale: en|nl
+
+ts_account:
+    resource: "@TSAccountBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/account
+    schemes: [%httpProtocol%]
+    defaults: { _locale:en }
+    requirements:
+        _locale: en|nl
+
+ts_admin:
+    resource: "@TSAdminBundle/Resources/config/routing.yml"
+    prefix: /{_locale}/admin
+    schemes: [%httpProtocol%]
+    defaults: { _locale:en }
+    requirements:
+        _locale: en|nl
+
+ts_live:
+    resource: "@TSLiveBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/{tournamentUrl}/live
+    defaults: { _locale:en }
+    schemes:  [%httpProtocol%]
+    requirements:
+        _locale: en|nl
+
+ts_site:
+    resource: "@TSSiteBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/{tournamentUrl}
+    schemes: [%httpProtocol%]
+    defaults: { _locale:en }
+    requirements:
+        _locale: en|nl
+
+        
+#temporary for old urls without locale in url
+languageless_redirect1:
+    pattern:  /{tournamentUrl}/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: tournament_index
+        permanent: true
+languageless_redirect2:
+    pattern:  /{tournamentUrl}/players.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: player_overview
+        permanent: true
+languageless_redirect3:
+    pattern:  /{tournamentUrl}/players/create.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: player_create
+        permanent: true
+languageless_redirect4:
+    pattern:  /{tournamentUrl}/groups.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: player_overview
+        permanent: true
+languageless_redirect5:
+    pattern:  /{tournamentUrl}/payment/info.html
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: player_overview
+        permanent: true
+languageless_redirect6:
+    pattern:  /{tournamentUrl}/{page}
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: website_page
+        permanent: true
+
+
+ts_control:
+    resource: "@TSControlBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/{tournamentUrl}/control
+    defaults: { _locale:en }
+    schemes:  [%httpProtocol%]
+    requirements:
+        _locale: en|nl
+
+ts_settings:
+    resource: "@TSSettingsBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/{tournamentUrl}/settings
+    schemes: [%httpProtocol%]
+    defaults: { _locale:en }
+    requirements:
+        _locale: en|nl
+
+ts_api:
+    resource: "@TSApiBundle/Resources/config/routing.yml"
+    prefix:   /api
+    schemes: [%httpProtocol%]
+
+    
+# Sylius PaymentBundle
+sylius_product:
+    resource: @SyliusProductBundle/Resources/config/routing.yml
+    schemes: [%httpProtocol%]
+
+ruudk_payment_mollie_notifications:
+    pattern:  /webhook/mollie
+    defaults: { _controller: ruudk_payment_mollie.controller.notification:processNotification }
+    methods:  [GET, POST]
+    schemes: [%httpProtocol%]
+

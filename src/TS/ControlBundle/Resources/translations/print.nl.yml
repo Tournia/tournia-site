@@ -1,0 +1,43 @@
+# Wedstrijdbriefjes
+courtNotes.title: Wedstrijdbriefjes
+courtNotes.fileName: westrijdBriefjes
+
+# Wedstrijden list
+matchesList.title: Wedstrijden lijst
+matchesList.fileName: wedstrijdenLijst
+
+# Wedstrijd results
+matchResults.title: Wedstrijd resultaten
+matchResults.fileName: wedstrijdResultaten
+
+# Ranglijst
+ranking.title: Ranglijst
+ranking.fileName: ranglijst
+
+# Teams
+teams.title: Teams
+teams.fileName: teams
+
+print.match: Wedstrijd
+print.court: Baan
+print.pool: Poule
+print.vs: tegen
+print.set: Set
+print.rank: Positie
+print.players: Speler(s)
+print.matches: Wedstrijden
+print.sets: Sets
+print.points: Punten
+print.played: Gespeeld
+print.won: Gewonnen
+print.draw: Gelijkspel
+print.lost: Verloren
+print.relative: Relatief
+print.player: Speler
+print.replacement: Vervanger
+
+normalFooter.liveText: Kijk voor Live standen, ranglijsten and speler informatie
+normalFooter.powered: Powered by Tournia.net
+invoiceFooter.text1: Tournia.net is een product van Agonian v.o.f.
+invoiceFooter.text2: Kamer van Koophandel 61505838 - BTW NL854371692B01
+invoiceFooter.invoice: Factuur

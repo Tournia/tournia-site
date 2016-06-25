@@ -1,0 +1,74 @@
+# Login
+login.title: Log in
+login.faq.title: Frequently asked questions
+login.faq.1.question: Why do I need an account?
+login.faq.1.answer: With your account you can register, create teams, make payments and show scores for a tournament. It is also possible to create your own tournament. By using accounts we prevent spam-bots signing up for tournaments and making your contact information available for the tournament organization (if you choose to).
+login.faq.2.question: I forgot my password
+login.faq.2.answer: If you've created an account, you can %startLink%reset your password here%endLink%. If you forgot your password of Facebook or Google, you have to reset it there.
+login.faq.3.question: I have another question...
+login.faq.3.answer: Please %startLink%contact us%endLink%
+login.with: With:
+login.facebook: Facebook
+login.google: Google
+login.or: or
+login.haveaccount: I have an account
+login.createaccount: Create a new account
+login.rememberMe: Remember me
+login.submit: Log in
+login.username.label: Username
+login.username.placeholder: Username or email address
+login.password.label: Password
+login.password.placeholder: Password
+login.forgotPassword: Forgot password?
+
+# Reset password
+reset.checkEmail.title: Reset password
+reset.checkEmail.text: An email has been sent to %email%. It contains a link you must click to reset your password.
+reset.email.subject: Reset Password request
+reset.email.text: |
+  Dear %name%,
+
+  You have requested to reset your password.
+  You can do that by going to this page: %confirmationUrl%
+
+  Your username is: %username%
+
+  If you did not requested to change your password, please disregard this email. No changes have been made to your account.
+
+  Kind regards,
+  Tournia.net
+reset.alreadyRequested.title: Reset password
+reset.alreadyRequested.text: The password for this user has already been requested within the last 24 hours.
+reset.request.title: Reset password
+reset.request.text: Enter your email address below to receive instructions on how to reset your password.
+reset.request.emailNotexist: The email address "%email%" does not exist.
+reset.request.placeholder: Email address
+reset.request.submit: Reset password
+reset.request.login: Know your password? %startLink%Log in%endLink%
+reset.content.submit: Submit
+reset.change.submit: Save
+
+# Registration
+confirmed.title: Account created
+confirmed.text1: Congrats %name%, your account is now created.
+confirmed.text2: Check out %startLink%your profile%endLink% to set-up your account.
+register.name: Name
+register.username: Username
+register.email: Email
+register.password: Password
+register.confirmPassword: Confirm Password
+register.signUp: Sign up
+
+# Flash messages
+flash.account.saved: Account saved
+flash.account.addAccount.error: Please set an email address first in the %startLink%profile page%endLink%.
+flash.account.addAccount.success: An email has been sent to %email% with your account details
+flash.account.removeAccount.error: This user has not been found
+flash.account.removeAccount.success: The connection has been removed
+flash.authentication.login.error: The username or password you entered is incorrect
+flash.authentication.registration.error: The registration form has errors, please scroll down and check your entered values
+flash.authentication.alreadyLoggedin: You are already logged in
+flash.changePassword.noEmailAccount: There is no email account, please create a normal account first
+flash.settings.profile.saved: Profile saved
+
+

@@ -1,0 +1,31 @@
+invoice.anonymous: Anonymous
+invoice.invoice: Invoice
+invoice.invoiceNumber: Invoice number
+invoice.invoiceDate: Invoice date
+invoice.dateFormat: d-M-Y H:i
+invoice.mail.title: Mail
+invoice.mail.email: info@tournia.net
+invoice.mail.name: Tournia.net / Agonian v.o.f.
+invoice.tel.title: Tel
+invoice.kvk.title: KvK
+invoice.vat.title: VAT
+invoice.vat.nl: The Netherlands
+invoice.quantity: Quantity
+invoice.product: Product
+invoice.total: Total
+invoice.tournamentPaymentsNexPage: Tournament payments (see next page)
+invoice.totalPayable: Total payable
+invoice.hasBeenPayed: This invoice has already been payed.
+invoice.pleaseTransfer: Please transfer the total of %amount% to our above mentioned bank account.
+invoice.hasBeenTransferred: %amount% has been transferred
+invoice.hasBeenTransferred.toBankAccount: ' to your bank account %account%.'
+invoice.hasBeenTransferred.toPaypalAccount: ' to your PayPal account %account%.'
+invoice.hasBeenTransferred.toYou: ' to you.'
+
+invoice.tournamentPayments: Tournament payments
+invoice.player: Player
+invoice.tournament: Tournament
+invoice.totalTournamentPayments: Total tournament payments
+invoice.disclaimer: |
+  Tournia.net is not the seller of the goods or services of these tournament payments. Tournia.net acts only as a limited commercial agent on behalf of the respective tournament organization, and therefore Tournia.net assumes no liability for any acts, omissions or otherwise.<br />
+  For questions regarding invoicing, changes or refunds of orders, please contact the tournament organization directly.

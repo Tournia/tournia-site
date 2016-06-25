@@ -1,0 +1,9 @@
+parameters:
+#    ts_front.example.class: TS\FrontBundle\Example
+
+services:
+    ts_front.pre_action:
+        class: TS\FrontBundle\EventListener\PreActionListener
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }

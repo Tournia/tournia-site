@@ -1,0 +1,352 @@
+{% trans_default_domain "control" %}
+{% extends "TSControlBundle::base.html.twig" %}
+
+{% set title = "announcements.title"|trans %}
+
+{% block css %}
+#upcomingMatchesTitle {
+	margin-bottom: 0px;
+	padding-bottom: 15px;
+	padding-top: 15px;
+	cursor: pointer; 
+}
+
+#upcomingMatchesTitle i {
+	margin-top: 3px;
+}
+
+.well {
+	border-radius: 0px;
+	background-color: #ffffff;
+}
+
+.ajaxDataTable .complete {
+    text-decoration: line-through;
+    font-style: italic;
+    background-color: #e6e6e6;
+}
+
+.secondCallNotPlayer {
+    text-decoration: line-through;
+}
+.secondCallNotPlayer span.label {
+    background-color: #999999;
+}
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+///// post and receive server messages /////
+
+// setting commands for refresh of server data
+function getRefreshCommands() {
+	command1 = {
+		command : 'Matches.listStatus',
+		status: 'ready',
+		setCommandKey: 'upcomingMatches',
+	}
+	command2 = {
+		command : 'Announcements.list',
+	}
+	return new Array(command1, command2);
+}
+
+// // setting datatable options
+ajaxDataTableOptions.newMatchesTable = {};
+ajaxDataTableOptions.newMatchesTable.aaSorting = [[1, 'asc']];
+
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+	if (commandKey == "Announcements.list") {
+		
+		$.each(commandResponse, function(key, val) {
+			if ((key == "secondCall") || (key == "newMatches")) {
+				
+				if (key == "secondCall") {
+                    // clear rows, except for .complete
+                    $('#secondCallTable tbody tr:not(.complete)').each(function() {
+                        $('#secondCallTable').dataTable().fnDeleteRow($(this));
+                    });
+				} else if (key == "newMatches") {
+					// clear rows, except for .complete
+                    $('#newMatchesTable tbody tr:not(.complete)').each(function() {
+                        $('#newMatchesTable').dataTable().fnDeleteRow($(this));
+                    });
+				}
+				
+				// go through matches
+				$.each(val, function(key2, matchObject) {
+					if (typeof matchObject['location'] == "undefined") {
+						locationTxt = "Undefined";
+					} else {
+						locationTxt = matchObject['location'];
+					}
+					called = '<span class="smart-form"> <label class="checkbox"><input type="checkbox" name="checkbox-inline" onClick="sendRemoveAnnouncement(this, '+ matchObject['announcementId'] +')"><i></i> </label> </span>';
+					if (key == "secondCall") {
+                        // only displays players that are in second call
+                        //playerIds = matchObject['playerIds'];
+
+                        /*team1Players = {};
+                        i = 0;
+                        for (playerObject in matchObject['team1']['players']) {
+                            console.log("playerId = ");
+                            console.log(playerObject.playerId);
+                            if (playerIds.indexOf(playerObject['playerId']) >= 0) {
+                                team1Players[i] = playerObject;
+                                console.log(playerObject);
+                                console.log("ed object");
+                                i++;
+                            }
+                        }*/
+
+                        playerIds = matchObject['playerIds'];
+                        localMatchTxt = '<a href="javascript:editMatch(\''+ matchObject['matchId'] +'\')">'+ matchObject['localId'] +'</a>';
+                        team1 = renderPlayerNames(matchObject['team1']['players'], true);
+                        $(team1).find("a").each(function() {
+                            playerId = $(this).attr("data-playerid");
+                            if (playerIds.indexOf(playerId) == -1) {
+                                // player not in second call
+                                playerAltered = $(team1).find("a[data-playerid="+ playerId +"]").addClass("secondCallNotPlayer");
+                                team1 = '<span class="playerNames">'+ $(playerAltered).closest("span").html() +'</span>';
+                            }
+                        })
+                        team2 = renderPlayerNames(matchObject['team2']['players'], true);
+                        $(team2).find("a").each(function() {
+                            playerId = $(this).attr("data-playerid");
+                            if (playerIds.indexOf(playerId) == -1) {
+                                // player not in second call
+                                playerAltered = $(team2).find("a[data-playerid="+ playerId +"]").addClass("secondCallNotPlayer");
+                                team2 = '<span class="playerNames">'+ $(playerAltered).closest("span").html() +'</span>';
+                            }
+                        })
+
+                        $('#secondCallTable').dataTable().fnAddData( [
+                            called,
+                            localMatchTxt,
+                            locationTxt,
+                            team1,
+							team2,
+							matchObject['pool'],
+							matchObject['round'],
+						]);
+					} else if (key == "newMatches") {
+                        localMatchTxt = '<a href="javascript:editMatch(\''+ matchObject['matchId'] +'\')">'+ matchObject['localId'] +'</a>';
+                        team1 = renderPlayerNames(matchObject['team1']['players'], true);
+                        team2 = renderPlayerNames(matchObject['team2']['players'], true);
+                        $('#newMatchesTable').dataTable().fnAddData( [
+                            called,
+                            localMatchTxt,
+							locationTxt,
+							team1,
+							team2,
+							matchObject['pool'],
+							matchObject['round'],
+						]);
+					}
+				});
+				
+				if (key == "secondCall") {
+					dataTableFinishedLoading("secondCallTable");
+				} else if (key == "newMatches") {
+					dataTableFinishedLoading("newMatchesTable");
+				}
+			}
+		});
+	} else if (commandKey == "upcomingMatches") {
+		// go through matches
+		$('#upcomingMatchesTable').dataTable().fnClearTable();
+		$.each(commandResponse, function(key2, matchObject) {
+			playersPlaying = false;
+			playersNotReady = false;
+
+            localMatchTxt = '<a href="javascript:editMatch(\''+ matchObject['matchId'] +'\')">'+ matchObject['localId'] +'</a>';
+			team1 = renderPlayerNames(matchObject['team1']['players'], true);
+			team2 = renderPlayerNames(matchObject['team2']['players'], true);
+			
+			status = "";
+			if (matchObject['priority'] || (matchObject['status'] == "Ready")) {
+				if (playersNotReady || playersPlaying) {
+					if (playersNotReady) {
+						status += '<span class="label label-danger">{{ 'label.playersNotReady'|trans }}</span>';
+					}
+					if (playersNotReady && playersPlaying) {
+						status += "<br />";
+					}
+					if (playersPlaying) {
+						status += '<span class="label label-warning">{{ 'label.playersPlaying'|trans }}</span>';
+					}
+				} else if (matchObject['priority']) {
+					status += '<span class="label label-info">{{ 'label.priority'|trans }}</span>';
+				} else if (matchObject['status'] == "Ready") {
+					status += '<span class="label label-success">{{ 'label.readyToStart'|trans }}</span>';
+				}
+			} else if (matchObject['status'] == "Postponed") {
+				status += "<span class=\"label label-danger\">{{ 'label.postponed'|trans }}</span>";
+			} else if (matchObject['status'] == "Played") {
+				status += "<span class=\"label label-danger\">{{ 'label.played'|trans }}</span>";
+			}
+
+			$('#upcomingMatchesTable').dataTable().fnAddData( [
+                localMatchTxt,
+				team1,
+				team2,
+				matchObject['pool'],
+				matchObject['round'],
+				status
+			]);
+		});
+		dataTableFinishedLoading("upcomingMatchesTable");
+	}
+}
+
+// process a new row in datatable
+function datatableProcessRow(row, table) {
+	stylePlayerNames(row);
+
+	if (($(table).prop("id") == "newMatchesTable") || ($(table).prop("id") == "secondCallTable")) {
+		// for new matches and second call table: when location is undefined -> show warning color in row
+		if ($('td:first', row).text() == "Undefined") {
+			$(row).addClass("warning");
+		}
+	}
+}
+
+function sendRemoveAnnouncement(checkElement, announcementId) {
+    var rowObject = $(checkElement).closest("tr");
+    $(checkElement).attr("disabled", true);
+
+    if ($(checkElement).closest(".jarviswidget").find(".autoClearCalled").prop("checked")) {
+        // auto-clear called announcements -> remove
+        $(rowObject).closest("table").dataTable().fnDeleteRow($(rowObject));
+    } else {
+        // mark announcement as complete
+        $(rowObject).addClass("complete");
+    }
+
+    command = {
+		command : 'Announcements.remove',
+		announcementId: announcementId,
+	}
+	addServerCommand(command);
+	sendServerCommands(true);
+}
+
+function manualClearCalled(tableId) {
+    $("#"+ tableId +" tbody .complete").each(function() {
+        $("#"+ tableId).dataTable().fnDeleteRow($(this));
+    });
+}
+
+</script>
+
+{% endblock %}
+
+{% block jQuery %}
+$("#upcomingMatchesTitle").on("click", function() {
+	// hide or display upcoming matches
+	if ($("#upcomingMatchesBox").is(':visible')) {
+		$("#upcomingMatchesTitle .close").html('<i class="fa fa-chevron-down"></i>');
+	} else {
+		$("#upcomingMatchesTitle .close").html('<i class="fa fa-chevron-up"></i>');
+	}
+	$("#upcomingMatchesBox").slideToggle('normal');
+});
+
+$(".autoClearCalled").on("change", function() {
+    tableId = $(this).closest(".jarviswidget").find("table").attr("id");
+    manualClearCalled(tableId);
+});
+
+// retrieving initial data from server
+sendServerCommands(true);
+{% endblock %}
+
+{% block content %}
+<article class="col-sm-12">
+
+{% set content %}
+<table class="table table-hover table-bordered ajaxDataTable" id="secondCallTable">
+    <thead>
+    <tr>
+        <th>{{ 'announcements.table.called'|trans }}</th>
+        <th>{{ 'table.matchNr'|trans }}</th>
+        <th>{{ 'table.location'|trans }}</th>
+        <th>{{ 'table.team1'|trans }}</th>
+        <th>{{ 'table.team1'|trans }}</th>
+        <th>{{ 'table.pool'|trans }}</th>
+        <th>{{ 'table.round'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+{% endset %}
+{% set toolbar %}
+    <a href="javascript:manualClearCalled('secondCallTable');" class="btn btn-primary">{{ 'announcements.clearOnce'|trans }}</a>
+</div>
+<div class="widget-toolbar">
+    <span class="onoffswitch-title">{{ 'announcements.autoClear'|trans }}</span>
+    <span class="onoffswitch">
+        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox autoClearCalled" id="autoClearCalled-secondCall">
+        <label class="onoffswitch-label" for="autoClearCalled-secondCall">
+            <span class="onoffswitch-inner" data-swchon-text="{{ 'switch.on'|trans }}" data-swchoff-text="{{ 'switch.off'|trans }}"></span>
+            <span class="onoffswitch-switch"></span>
+        </label>
+    </span>
+{% endset %}
+{% set options = {'sortable': true, 'toolbar': toolbar} %}
+{{ macro.widget("widgetSecondCall", content, "announcements.widget.2ndCall"|trans, options) }}
+
+{% set content %}
+<table class="table table-hover table-bordered ajaxDataTable" id="newMatchesTable">
+    <thead>
+    <tr>
+        <th>{{ 'announcements.table.called'|trans }}</th>
+        <th>{{ 'table.matchNr'|trans }}</th>
+        <th>{{ 'table.location'|trans }}</th>
+        <th>{{ 'table.team1'|trans }}</th>
+        <th>{{ 'table.team2'|trans }}</th>
+        <th>{{ 'table.pool'|trans }}</th>
+        <th>{{ 'table.round'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+{% endset %}
+{% set toolbar %}
+    <a href="javascript:manualClearCalled('newMatchesTable');" class="btn btn-primary">{{ 'announcements.clearOnce'|trans }}</a>
+</div>
+<div class="widget-toolbar">
+    <span class="onoffswitch-title">{{ 'announcements.autoClear'|trans }}</span>
+    <span class="onoffswitch">
+        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox autoClearCalled" id="autoClearCalled-newMatches">
+        <label class="onoffswitch-label" for="autoClearCalled-newMatches">
+            <span class="onoffswitch-inner" data-swchon-text="{{ 'switch.on'|trans }}" data-swchoff-text="{{ 'switch.off'|trans }}"></span>
+            <span class="onoffswitch-switch"></span>
+        </label>
+    </span>
+{% endset %}
+{% set options = {'sortable': true, 'toolbar': toolbar} %}
+{{ macro.widget("widgetNewMatches", content, "announcements.widget.newMatches"|trans, options) }}
+
+{% set content %}
+<table class="table table-hover ajaxDataTable" id="upcomingMatchesTable">
+    <thead>
+    <tr>
+        <th>{{ 'table.matchNr'|trans }}</th>
+        <th>{{ 'table.team1'|trans }}</th>
+        <th>{{ 'table.team2'|trans }}</th>
+        <th>{{ 'table.pool'|trans }}</th>
+        <th>{{ 'table.round'|trans }}</th>
+        <th>{{ 'table.status'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+{% endset %}
+{% set options = {'sortable': true} %}
+{{ macro.widget("widgetUpcomingMatches", content, "announcements.widget.upcomingMatches"|trans, options) }}
+
+</article>
+{% endblock %}

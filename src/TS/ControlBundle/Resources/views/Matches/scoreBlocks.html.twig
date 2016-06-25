@@ -1,0 +1,142 @@
+{% trans_default_domain "control" %}
+
+
+{% block scoreJavascript %}
+
+function checkScore(setNr, scoreTeam1, scoreTeam2) {
+	correctScore = true;
+	
+	if (correctScore && (isNaN(scoreTeam1) || isNaN(scoreTeam2))) {
+		correctScore = false;
+	}
+
+    {% if tournament.checkScoreMin is not empty %}
+    if (correctScore && (scoreTeam1 < {{ tournament.checkScoreMin }} || scoreTeam2 < {{ tournament.checkScoreMin }})) {
+        correctScore = false;
+    }
+    {% endif %}
+
+    {% if tournament.checkScoreMax is not empty %}
+    if (correctScore && (scoreTeam1 > {{ tournament.checkScoreMax }} || scoreTeam2 > {{ tournament.checkScoreMax }})) {
+        correctScore = false;
+    }
+    {% endif %}
+
+    /*
+    if (correctScore && (scoreTeam1 < 0 || scoreTeam1 > 30 || scoreTeam2 < 0 || scoreTeam2 > 30)) {
+		correctScore = false;
+	}
+	if (correctScore && (scoreTeam1 < 21 && scoreTeam2 < 21)) {
+		correctScore = false;
+	}
+	
+	if (correctScore && (scoreTeam1 == scoreTeam2)) {
+		correctScore = false;
+	}
+	
+	if (correctScore && (scoreTeam1 > 21 || scoreTeam2 > 21) && (Math.abs(scoreTeam1 - scoreTeam2) != 2)) {
+		correctScore = false;
+	}
+	
+	// Only remaining 'incorrect' score that is not verified is 21-20.
+    */
+	
+	if (!correctScore) {
+		confirmMsg = '{{ 'scoreBlocks.confirm.incorrectScore'|trans }}';
+        return confirm(confirmMsg.replace('%setNr%', setNr));
+	} else {
+		return true;
+	}
+}
+
+function sendScoreMatch() {
+	scoreArray = new Array();
+	{% for setNr in 1..tournament.nrSets %}
+	scoreTeam1 = $("#scoreMatchModal #set{{ setNr }}-1").val();
+	scoreTeam2 = $("#scoreMatchModal #set{{ setNr }}-2").val();
+	if ((scoreTeam1 != '') || (scoreTeam2 != ''){% if setNr in [1,2] %} || true{% endif %}) { // when set is empty (and not first or second set) -> don't send to server
+		if (!checkScore({{ setNr }}, scoreTeam1, scoreTeam2)) {
+			// incorrect score and pressed cancel
+			return;
+		}
+		scoreSet = new Array(scoreTeam1, scoreTeam2);
+		scoreArray.push(scoreSet);
+	}
+	{% endfor %}
+	
+	command = {
+		command : 'Matches.score',
+		matchId: $("#scoreMatchModal .modalMatchId").val(),
+		score: scoreArray,
+	}
+	addServerCommand(command);
+	sendServerCommands(true);
+	$("#scoreMatchModal").modal('hide');
+}
+
+{% endblock %}
+
+
+{% block scoreHtml %}
+<!-- Score match modal -->
+{% set modalContent %}
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>{{ 'matchModal.match'|trans }} <span class="modalLocalId"></span></th>
+				<th><span class="modalRound"></span></th>
+				<th><span class="modalPool"></span></th>
+			</tr>
+			<tr>
+				<td><span class="modalTeam1"></span></td>
+				<td>{{ 'matchModal.vs'|trans }}</td>
+				<td><span class="modalTeam2"></span></td>
+			</tr>
+		</tbody>
+	</table>
+	{% for setNr in 1..tournament.nrSets %}
+	<div class="input-prepend">
+		<span class="add-on">{{ 'general.set'|trans }} {{ setNr }}</span>
+		<input class="span2" id="set{{ setNr }}-1" type="text" placeholder="__" size="8" maxlength="2" />
+		<span class="add-on"> - </span>
+		<input class="span2" id="set{{ setNr }}-2" type="text" placeholder="__" size="8" maxlength="2" />
+		
+	</div>
+		{% if setNr != tournament.nrSets %}
+	<br />
+		{% endif %}
+	{% endfor %}
+	<input type="hidden" class="modalMatchId" value="" />
+{% endset %}
+{% set modalFooter %}
+	<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.cancel'|trans }}</button>
+	<button type="button" class="btn btn-primary" onClick="sendScoreMatch();"><i class="fa fa-pencil"></i> {{ 'scoreBlocks.score.save'|trans }}</button>
+{% endset %}
+{{ macro.modal("scoreMatchModal", "scoreBlocks.score.title"|trans, modalContent, modalFooter) }}
+
+<!-- second Call modal -->
+{% set modalContent %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>{{ 'matchModal.match'|trans }} <span class="modalLocalId"></span></th>
+            <th><span class="modalRound"></span></th>
+            <th><span class="modalPool"></span></th>
+        </tr>
+        <tr>
+            <td><span class="modalTeam1"></span></td>
+            <td>{{ 'matchModal.vs'|trans }}</td>
+            <td><span class="modalTeam2"></span></td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="hidden" class="modalMatchId" value="" />
+    <p>{{ 'scoreBlocks.2ndcall.text'|trans|raw }}</p>
+{% endset %}
+{% set modalFooter %}
+    <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.cancel'|trans }}</button>
+    <button type="button" class="btn btn-primary" onClick="sendSecondCall();"><i class="fa fa-bullhorn"></i> {{ 'scoreBlocks.2ndcall.save'|trans }}</button>
+{% endset %}
+{{ macro.modal("secondCallModal", "scoreBlocks.2ndcall.title"|trans, modalContent, modalFooter) }}
+
+{% endblock %}

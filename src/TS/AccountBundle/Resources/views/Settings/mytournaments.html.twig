@@ -1,0 +1,64 @@
+    {% trans_default_domain "profile" %}
+{% extends "TSAccountBundle::baseAccount.html.twig" %}
+
+{% block title 'tournaments.title'|trans %}
+
+{% block accountContent %}
+    <header>
+        <h1 class="tab-title">{{ 'tournaments.title'|trans }}</h1>
+        <p class="tab-subtitle">
+           {{ 'tournaments.subtitle'|trans({'%name%': person.informalName}) }}
+        </p>
+    </header>
+
+    <div id="mytournaments">
+        <div class="content">
+            <a class="btn btn-custom-green btn-lg no-margin pull-right" href="{{ path('front_start_tournament') }}"><span class="fa fa-plus"></span> {{ 'tournaments.startTournament'|trans }}</a>
+        </div>
+        <table class="table tournament-table">
+            <thead>
+            <tr>
+                <th class="name">{{ 'tournaments.table.name'|trans }}</th>
+                <th>{{ 'tournaments.table.period'|trans }}</th>
+                <th>{{ 'tournaments.table.role'|trans }}</th>
+                <th>{{ 'tournaments.table.status'|trans }}</th>
+                <th>{{ 'tournaments.table.options'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for organizingTournament in app.user.person.organizingTournaments %}
+                <tr>
+                    <td class="name"><a href="{{ path('tournament_index', {'tournamentUrl': organizingTournament.url}) }}"><span class="icon fa fa-bookmark"></span> {{ organizingTournament.name }}</a></td>
+                    {% if organizingTournament.startDateTime == organizingTournament.endDateTime %}
+                        <td>{{ organizingTournament.startDateTime|date('j F Y') }}</td>
+                    {% else %}
+                        <td>{{ organizingTournament.startDateTime|date('j F Y') }} - <wbr />{{ organizingTournament.endDateTime|date('j F Y') }}</td>
+                    {% endif %}
+                    <td><span class="fa fa-th-large"></span> {{ 'tournaments.organizer'|trans }}</td>
+                    <td>&nbsp;</td>
+                    <td>
+                        <a class="btn btn-custom-default" href="{{ path('settings_index', {'tournamentUrl': organizingTournament.url}) }}"><span class="fa fa-cogs"></span> {{ 'tournaments.settings'|trans }}</a>
+                        <a class="btn btn-custom-primary" href="{{ path('control_index', {'tournamentUrl': organizingTournament.url}) }}"><span class="fa fa-cogs"></span> {{ 'tournaments.control'|trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            {% for player in players %}
+                <tr>
+                    <td class="name"><a href="{{ path('tournament_index', {'tournamentUrl': player.tournament.url}) }}"><span class="icon fa fa-bookmark"></span> {{ player.tournament.name }}</a></td>
+                    {% if player.tournament.startDateTime == player.tournament.endDateTime %}
+                        <td>{{ player.tournament.startDateTime|date('j F Y') }}</td>
+                    {% else %}
+                        <td>{{ player.tournament.startDateTime|date('j F Y') }} - <wbr />{{ player.tournament.endDateTime|date('j F Y') }}</td>
+                    {% endif %}
+                    <td><span class="fa fa-user"></span> {{ 'tournaments.player'|trans }}</td>
+                    <td><span class="label label-success">{{ player.status }}</span></td>
+                    <td>
+                        <a class="btn btn-custom-default" href="{{ path('player_edit', {'tournamentUrl': player.tournament.url, 'playerId': player.id}) }}"><span class="fa fa-pencil"></span> {{ 'tournaments.edit'|trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

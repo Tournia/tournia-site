@@ -1,0 +1,8 @@
+# ContactUsType
+contactUsType.name.notblank: Please enter your name
+contactUsType.email.notblank: Please enter your email address
+contactUsType.message.notblank: Please enter your message
+
+# StartTournamentType
+startTournamentType.name.notblank: Please enter a tournament title
+

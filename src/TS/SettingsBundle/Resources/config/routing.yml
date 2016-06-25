@@ -1,0 +1,43 @@
+settings_index:
+    path:     /index
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: settings_tournament
+        permanent: true
+
+settings_disciplines:
+    path:     /disciplines
+    defaults: {_controller: TSSettingsBundle:Disciplines:disciplines }
+
+settings_financial:
+    path:     /financial
+    defaults: {_controller: TSSettingsBundle:Financial:financial }
+
+settings_organizers:
+    path:     /organizers
+    defaults: {_controller: TSSettingsBundle:Organizers:organizers }
+
+settings_authorizations:
+    path:     /authorizations
+    defaults: {_controller: TSSettingsBundle:Authorizations:authorizations }
+
+settings_api:
+    path:     /api
+    defaults: {_controller: TSSettingsBundle:Api:api }
+
+settings_site:
+    path: /site
+    defaults: {_controller: TSSettingsBundle:Site:edit }
+settings_site_delete_file:
+    path: /site/deleteFile/{fileId}
+    defaults: {_controller: TSSettingsBundle:Site:deleteFile }
+settings_site_publish:
+    path: /site/publish
+    defaults: {_controller: TSSettingsBundle:Site:publish }
+
+settings_tournament:
+    path: /tournament
+    defaults: {_controller: TSSettingsBundle:Tournament:edit }
+settings_tournament_delete:
+    path: /tournament/delete
+    defaults: {_controller: TSSettingsBundle:Tournament:delete }

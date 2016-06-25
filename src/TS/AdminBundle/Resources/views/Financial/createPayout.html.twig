@@ -1,0 +1,145 @@
+{% form_theme form 'TSFrontBundle::form.html.twig' %}
+
+{% extends "TSAdminBundle::baseAdmin.html.twig" %}
+
+{% block title "Create PayOut" %}
+
+{% block css %}
+    {{ parent() }}
+    #formBoughtProducts {
+        height: 100%;
+    }
+
+    #additionalPaymentsExplanation {
+        margin-top: 8px;
+    }
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent () }}
+
+    {% javascripts
+    '@TSSettingsBundle/Resources/public/js/prototypeFunctions.js'
+    filter='?yui_js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+        function calculateTotalAmount() {
+            totalAmount = 0;
+            $("#formBoughtProducts input").each(function() {
+                if ($(this).prop("checked")) {
+                    totalAmount += parseInt($(this).attr('data-amount'));
+                }
+            });
+            $("#adjustmentsAccordion .adjustmentAmount").each(function() {
+                totalAmount -= parseInt($(this).val());
+            });
+            amountTxt = parseFloat(totalAmount / 100).toFixed(2).toString().replace(".", ",");
+            $("#totalAmount").text(amountTxt);
+        }
+    </script>
+{% endblock %}
+
+{% block jQuery %}
+    {{ parent() }}
+
+    // add and remove options for adjustments
+    setupAccordion('adjustmentsAccordion', 'Add a new invoice rule', false);
+
+    // daterangepicker for start and end date tournament
+    $("#{{ form.dateTime.vars.id }}").dateRangePicker({
+        format: 'DD-MM-YYYY HH:mm',
+        time: {
+            enabled: true
+        },
+        startOfWeek: 'monday',
+        showShortcuts:false,
+        singleDate: true,
+        getValue: function() {
+            return $('#{{ form.dateTime.vars.id }}').val();
+        },
+    });
+
+    calculateTotalAmount();
+    $("#formBoughtProducts input, #adjustmentsAccordion .adjustmentAmount").each(function() {
+        $(this).on("change", calculateTotalAmount);
+    });
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Create PayOut - <a href="{{ path('tournament_index', {'tournamentUrl': tournament.url}) }}">{{ tournament.name }}</a></h2>
+                <form class="form-horizontal" action="{{ path('admin_financial_payout_create', {'tournamentId': tournament.id}) }}" method="post" {{ form_enctype(form) }} role="form">
+                    {{ form_errors(form) }}
+                    {{ form_row(form.paypalAccount) }}
+                    {{ form_row(form.bankAccount) }}
+                    {{ form_row(form.dateTime) }}
+                    {{ form_row(form.vatCountry) }}
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label required">BoughtProducts</label>
+                        <div class="col-sm-10 form-values">
+                            <div class="form-control" id="formBoughtProducts">
+                                {% for boughtProduct in outstandingBoughtProducts %}
+                                    <input type="checkbox" name="boughtProducts[]" value="{{ boughtProduct.id }}" checked="checked" id="boughtProducts-{{ boughtProduct.id }}" data-amount="{{ boughtProduct.outstandingAmount }}" /><label for="boughtProducts-{{ boughtProduct.id }}">
+                                        {{ boughtProduct.quantity }} {{ boughtProduct.name }} {{ boughtProduct.tournament.paymentCurrency }} {{ (boughtProduct.outstandingAmount/100)|number_format(2, ',', '.') }} via {{ boughtProduct.cartOrder.paymentInstruction.paymentSystemName }} for <a href="{{ path('player_edit', {'tournamentUrl': tournament.url, 'playerId': boughtProduct.player.id}) }}">{{ boughtProduct.player.name }}</a>
+                                    </label><br />
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label required">Additional payments</label>
+                        <div class="col-sm-10 form-values">
+                            <p id="additionalPaymentsExplanation">Positive numbers mean that the tournament has to pay (e.g. for use of Tournia services), negative could be for refunds.<br />
+                            VAT (BTW) is calculated automatically (based on the country of the tournament) by deducting this from additional payments.</p>
+                            <div class="panel-group" id="adjustmentsAccordion" data-prototype="{{ form_widget(form.adjustments.vars.prototype)|e }}">
+                                {% for index,adjustment in form.adjustments %}
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <a data-toggle="collapse" data-parent="#adjustmentsAccordion" href="#existingAdjustmentAccordion-{{ index }}">
+                                                <span class="accordion-title">{{ index }}</span>
+                                            </a>
+                                        </div>
+                                        <div id="existingAdjustmentAccordion-{{ index }}" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                {% for row in adjustment %}
+                                                    {{ form_row(row) }}
+                                                {% endfor %}
+                                                <div class="form-group removeRow">
+                                                    <label class="col-sm-2 control-label"></label>
+                                                    <div class="col-sm-10 form-values"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% do form.adjustments.setRendered %}
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label required">Total amount</label>
+                        <div class="col-sm-10 form-values">
+                            <p class="form-control-static">
+                                {{ tournament.paymentCurrency }}
+                                <span id="totalAmount">0.00</span>
+                                 [<a href="javascript:calculateTotalAmount()">Recalculate</a>]
+                            </p>
+                        </div>
+                    </div>
+
+                    {{ form_rest(form) }}
+
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i>  Create PayOut</button>
+                    {{ form_end(form) }}
+                </form>
+            </div>
+        </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% trans_default_domain "live" %}
+{% extends "TSSiteBundle:Live:rankingMain.html.twig" %}
+
+{% block title "rankingGroups.title"|trans %}
+
+{% block javascript %}
+{{ parent() }}
+<script type="text/javascript">
+///// post and receive server messages /////
+// setting commands for refresh of server data
+function getRefreshCommands() {
+	command = {
+		command : 'Rankings.groups',
+	}
+	return new Array(command);
+}
+
+// handling of response data
+function handleResponse(commandKey, commandResponse){
+	if (commandKey == "Rankings.groups") {
+		// go through players
+		$('#rankingTable').dataTable().fnClearTable();
+		$.each(commandResponse, function(key2, playerObject) {
+			$('#rankingTable').dataTable().fnAddData( [
+				playerObject['rank'],
+				playerObject['groupName'],
+				playerObject['relative'],
+				playerObject['sumPoints'],
+				playerObject['nrSets'],
+				playerObject['nrPlayers']
+			]);
+		});
+		dataTableFinishedLoading("rankingTable");
+	}
+}
+</script>
+{% endblock %}
+
+{% block jQuery %}
+{{ parent() }}
+
+// retrieving initial data from server
+sendServerCommands(true);
+
+{% endblock %}
+
+{% block content %}
+{{ parent() }}
+
+<table class="table table-hover table-bordered ajaxDataTable" id="rankingTable">
+	<thead>
+		<tr>
+			<th>{{ 'table.rank'|trans }}</th>
+			<th>{{ 'table.group'|trans }}</th>
+			<th>{{ 'table.avgPoints'|trans }}</th>
+			<th>{{ 'table.totPoints'|trans }}</th>
+			<th>{{ 'table.sets'|trans }}</th>
+			<th># {{ 'table.players'|trans }}</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+
+{% endblock %}

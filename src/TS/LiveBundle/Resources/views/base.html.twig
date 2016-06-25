@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	{% block meta %}
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	{% endblock %}
+
+	<title>{% block title %}Tournia.net | Beta{% endblock %}</title>
+	
+	<!-- Styles -->
+{% block stylesheets %}
+	{% stylesheets 
+		'bundles/tslive/css/bootstrap.css'
+		'bundles/tslive/css/index.css'
+		filter='cssrewrite,?yui_css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" />
+	{% endstylesheets %}
+
+	<style type="text/css">
+		{% block css %}{% endblock %}
+	</style>
+{% endblock %}
+
+	<!--[if lt IE 9]>
+	  <script src="{{ asset('bundles/tslive/js/html5shiv.js') }}"></script>
+	<![endif]-->
+
+	<!-- Fav and touch icons -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-144-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-114-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-72-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/tsfront/img/ico/apple-touch-icon-57-precomposed.png') }}">
+	<link rel="shortcut icon" href="{{ asset('bundles/tsfront/img/ico/favicon.png') }}">
+
+	{% block head %}{% endblock %}
+</head>
+<body{% if app.request.attributes.get('_route') == 'ts_live_presentationscreen' %} class="presentationscreen"{% endif %}>
+
+
+{% block body %}{% endblock %}
+
+	<!-- Scripts -->
+{% block javascripts %}
+	<script type="text/javascript">
+        {% if app.debug %}
+            var hideGoogleAnalytics = true;
+        {% endif %}
+    </script>
+
+	{% javascripts
+        '@TSLiveBundle/Resources/public/js/jquery.js'
+		'@TSLiveBundle/Resources/public/js/jquery.scrollz.js'
+		'@TSLiveBundle/Resources/public/js/bootstrap.js'
+		'@TSLiveBundle/Resources/public/js/underscore.js'
+		'@TSLiveBundle/Resources/public/js/backbone.js'
+        '@TSFrontBundle/Resources/public/js/everywhere.js'
+		filter='?yui_js' %}
+		<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+
+	<script type="text/javascript">
+	    {% block javascript %}{% endblock %}
+    </script>
+
+	
+	<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		{% block jQuery %}{% endblock %}
+	});
+	</script>
+{% endblock %}	
+</body>
+</html>

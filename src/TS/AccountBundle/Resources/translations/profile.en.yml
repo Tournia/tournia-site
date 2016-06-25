@@ -1,0 +1,68 @@
+# My Accounts
+account.title: My Accounts
+account.subtitle: Setup your accounts to login
+account.login.legend: Login
+account.login.createLoginAccount: You don't have a Tournia account with a username/password, but currently login with a social media account. This is not a problem, but you can also create a username/password account. The login details will be emailed to you, and you can change these later.
+account.login.createAccount: Create account
+account.login.password: Password
+account.login.changePassword: Change password
+account.login.save: Save
+account.socialLogins.legend: Social logins
+account.socialLogins.text: |
+  It is possible to log in with a Facebook or Google account.
+  After connecting your social media account, you can simply login on Tournia with one click.
+account.socialLogins.google: Google
+account.socialLogins.facebook: Facebook
+account.socialLogins.connect: Connect
+account.socialLogins.removeConnection: Remove connection
+accountType.username.label: Username
+
+# Base template
+base.title: Profile
+base.tournaments: My Tournaments
+base.profile: Profile
+base.account: Account
+base.financial: Financial
+
+# Financial
+financial.title: My Invoices
+financial.subtitle: Download your invoices for your personal administration
+financial.table.date: Date
+financial.table.tournament: Tournament
+financial.table.invoiceNr: Invoice number
+financial.table.amount: Amount
+financial.table.open: Open
+financial.open: Open
+financial.noInvoices: You don't have any invoices. This might be because some else paid for you (this person has the invoice), or simply because you have no financial transactions.
+finacial.tournamentInvoices: Tournament invoices
+
+# My tournaments
+tournaments.title: My Tournaments
+tournaments.subtitle:  Hi there %name%, welcome to your tournaments page. From here you can manage your tournaments.
+tournaments.startTournament: Start your own tournament
+tournaments.table.name: Tournament name
+tournaments.table.period: Period
+tournaments.table.role: Role
+tournaments.table.status: Status
+tournaments.table.options: Options
+tournaments.organizer: Organizer
+tournaments.settings: Settings
+tournaments.control: Control
+tournaments.player: Player
+tournaments.edit: edit
+
+# My profile
+profile.title: My Profile
+profile.subtitle: Edit your personal information
+profile.profileInfo.legend: Profile info
+profile.prefilled.legend: Prefilled for new registrations
+profile.prefilled.text: The information entered here is used for new registrations.
+profile.submit: Save
+profileType.name.label: Name
+profileType.email.label: Email address
+profileType.email.info: This email address will be used to send your information about the tournaments you registerd for.
+profileType.firstName.label: First name
+profileType.lastName.label: Last name
+profileType.gender.label: Gender
+profileType.gender.male: Male
+profileType.gender.female: Female

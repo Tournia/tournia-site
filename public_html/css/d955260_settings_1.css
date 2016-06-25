@@ -1,0 +1,26 @@
+.tab-content {
+    margin-bottom: 20px;
+}
+
+.editor .chart .wrapper .content header {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.editor .chart .wrapper .content .static-content {
+    margin-top: 20px;
+}
+
+.panel-group .sortable-placeholder {
+    border: 1px dashed #CCC;
+    background: none;
+    height: 40px;
+}
+
+.formError a {
+    color: #a94442 !important;
+}
+
+.sidebar nav ul {
+    padding: 0px;
+}

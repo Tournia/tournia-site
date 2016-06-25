@@ -1,0 +1,177 @@
+{% trans_default_domain "notificationEmail" %}
+
+{% block mailSubject %}{% if tournament is not empty %}{{ tournament.name }} - {% endif %}{% block subject %}{% endblock %}{% endblock %}
+
+{% block mailText %}{% autoescape false %}
+{% block mailTextBody %}{% endblock %}
+
+    {% if person is defined %}
+
+-------
+{{ 'email.base.footer.1'|trans({'%email%': person.email}) }}{% if tournament is not empty %} {{ 'email.base.footer.2'|trans({'%tournament%': tournament.name}) }}{% endif %}. {{ 'email.base.footer.3'|trans}}: {{ url('account_settings_profile') }}
+    {% endif %}{% endautoescape %}
+{% endblock %}
+
+{% block mailHtml %}
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+            "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>{{ htmlTitle }}</title>
+
+    </head>
+
+<body bgcolor="#FFFFFF"
+      style="margin: 0;padding: 0;font-family: 'Helvetica Neue','Helvetica',Helvetica,Arial,sans-serif;-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;height: 100%;width: 100% !important;">
+
+
+    <!-- BODY -->
+<table style="width: 100%;">
+    <tr>
+        <td style="margin: 0 auto !important;padding: 0;display: block !important;max-width: 600px !important;clear: both !important;">
+            <img src="{{ htmlLogoImg }}" width="140" height="55" alt="" />
+        </td>
+    </tr>
+    <tr>
+        <td class="container" bgcolor="#FFFFFF"
+            style="margin: 0 auto !important;padding: 0;display: block !important;max-width: 600px !important;clear: both !important;">
+
+            <div class="content"
+                 style="margin: 0 auto;padding: 0px 15px 15px 15px;max-width: 600px;display: block;">
+                <table style="width: 100%;">
+                    <tr>
+                        <td>
+                            <p style="margin-bottom: 10px;margin-top: 0px; font-weight: normal;font-size: 14px;line-height: 1.6;">
+
+                                {% block mailHtmlBody %}{% endblock %}
+
+                            </p>
+                            <br /><br />
+                            <!-- Callout Panel -->
+                            {% if person is defined %}
+                                <p class="callout"
+                                   style="margin: 0;padding: 15px;margin-bottom: 15px;font-weight: normal;font-size: 14px;line-height: 1.6;background-color: #ecf8ff;">
+                                    {{ 'email.base.footer.1'|trans({'%email%': person.email}) }}{% if tournament is not empty %} {{ 'email.base.footer.2'|trans({'%tournament%': tournament.name}) }}{% endif %}. {{ 'email.base.footer.3'|trans}}.
+                                    <a href="{{ url('account_settings_profile') }}" style="color: #2ba6cb;font-weight: bold;">{{ 'email.base.goToProfile'|trans }} &raquo;</a>
+                                </p><!-- /Callout Panel -->
+                            {% endif %}
+
+                            <!-- social & contact -->
+                            <table class="social" width="100%"
+                                   style="background-color: #ebebeb;width: 100%;">
+                                <tr>
+                                    <td>
+
+                                        <!-- column 1 -->
+                                        <table align="left" class="column"
+                                               style="width: 279px;float: left;min-width: 279px;">
+                                            <tr>
+                                                <td style="margin: 0;padding: 15px;">
+
+                                                    <h5 style="margin: 0;padding: 0;font-family: 'HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;line-height: 1.1;margin-bottom: 15px;color: #000;font-weight: 900;font-size: 17px;">
+                                                        {{ 'email.base.connect'|trans }}
+                                                    </h5>
+
+                                                    <p class=""
+                                                       style="margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">
+                                                        <a href="https://www.facebook.com/tournia.net" target="_blank"
+                                                           style="margin: 0;padding: 3px 7px;color: #FFF;border-radius: 2px;-webkit-border-radius: 2px;-moz-border-radius: 2px;font-size: 12px;margin-bottom: 10px;text-decoration: none;font-weight: bold;display: block;text-align: center;background-color: #3b5998 !important;">Facebook</a>
+                                                        <a href="https://twitter.com/tournia" target="_blank"
+                                                           style="margin: 0;padding: 3px 7px;color: #FFF;border-radius: 2px;-webkit-border-radius: 2px;-moz-border-radius: 2px;font-size: 12px;margin-bottom: 10px;text-decoration: none;font-weight: bold;display: block;text-align: center;background-color: #1daced !important;">Twitter</a>
+                                                        {#<a href="#" class="soc-btn gp">Google+</a></p>-->
+                                                        <!--<a href="#">Download our app</a>#}
+                                                    </p></td>
+                                            </tr>
+                                        </table>
+                                        <!-- /column 1 -->
+
+                                        <!-- column 2 -->
+                                        <table align="left" class="column"
+                                               style="width: 279px;float: left;min-width: 279px;">
+                                            <tr>
+                                                <td style="margin: 0;padding: 15px;">
+
+                                                    <h5 style="margin: 0;padding: 0;font-family: 'HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;line-height: 1.1;margin-bottom: 15px;color: #000;font-weight: 900;font-size: 17px;">
+                                                        {{ 'email.base.contactInfo'|trans }}
+                                                    </h5>
+
+                                                    <p style="margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">
+                                                        {{ 'email.base.email'|trans }}
+                                                        <strong>
+                                                            <a href="mailto:info@tournia.net" style="color: #2ba6cb;">info@tournia.net</a>
+                                                        </strong><br />
+                                                        <a href="{{ url('front_about') }}">{{ url('front_about') }}</a>
+                                                    </p>
+
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <!-- /column 2 -->
+
+                                        <span class="clear"
+                                              style="display: block;clear: both;"></span>
+
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- /social & contact -->
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- /content -->
+
+        </td>
+    </tr>
+</table>
+    <!-- /BODY -->
+    {#
+    <!-- FOOTER -->
+    <table class="footer-wrap"
+           style="width: 100%;clear: both !important;">
+        <tr>
+            <td></td>
+            <td class="container"
+                style="margin: 0 auto !important;padding: 0;display: block !important;max-width: 600px !important;clear: both !important;">
+
+                <!-- content -->
+                <div class="content"
+                     style="margin: 0 auto;padding: 15px;max-width: 600px;display: block;">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td align="center">
+                                <p style="margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">
+                                    <a href="#"
+                                       style="color: #2ba6cb;">Terms</a>
+                                    |
+                                    <a href="#"
+                                       style="color: #2ba6cb;">Privacy</a>
+                                    |
+                                    <a href="#"
+                                       style="color: #2ba6cb;">
+                                        <unsubscribe>
+                                            Unsubscribe
+                                        </unsubscribe>
+                                    </a>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- /content -->
+
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    <!-- /FOOTER -->
+    #}
+
+</body>
+</html>
+
+
+{% endblock %}
