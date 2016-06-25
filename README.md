@@ -9,7 +9,7 @@ Also, if you find issues, please open an issue in this repository, and if you al
 TL;DR
 ----------------------------------
 1. Install [Vagrant](http://www.vagrantup.com)
-2. Enter in the terminal: *vagrant up*
+2. Enter in the terminal: `vagrant up`
 3. Go to http://192.168.50.4/app_dev.php to check if Tournia is working. You can login with username: *tournia* and password: *pocahontas*
 3. You can login the system with the username: *tournia* and password: *pocahontas*
 
@@ -25,8 +25,8 @@ The repository files contain a Vagrant file, which can be used to setup a MAMP/W
 
 1. [Download](http://www.vagrantup.com/downloads.html) and install Vagrant.
 2. Vagrant uses virtualization software, for example VMWare Fusion, Parallels, or the free [VirtualBox](https://www.virtualbox.org/). Download and install one of these (VirtualBox is probably fine).
-3. Go in your terminal to the repository files, and type: *vagrant up* which will start your virtual machine. 
-4. You can connect to your virtual server by typing *vagrant ssh*
+3. Go in your terminal to the repository files, and type: `vagrant up` which will start your virtual machine. 
+4. You can connect to your virtual server by typing `vagrant ssh`
 5. Go to [http://192.168.50.4/app_dev.php](http://192.168.50.4/app_dev.php) to check if your virtual server is working. You can login with the username: *tournia* and password: *pocahontas*
 6. You can login the system with the username: *tournia* and password: *pocahontas*
 7. Happy coding! :)
@@ -34,10 +34,10 @@ The repository files contain a Vagrant file, which can be used to setup a MAMP/W
 #### Vagrant tips
 Some tips for when you've got things working:
 
-- Every time you want to start your virtual Vagrant OS, just type: *vagrant up*. You can open the virtual OS with *vagrant ssh*. For other commands, see [https://docs.vagrantup.com/v2/cli/index.html](https://docs.vagrantup.com/v2/cli/index.html)
+- Every time you want to start your virtual Vagrant OS, just type: `vagrant up`. You can open the virtual OS with `vagrant ssh`. For other commands, see [https://docs.vagrantup.com/v2/cli/index.html](https://docs.vagrantup.com/v2/cli/index.html)
 - You can change the Vagrant settings in the Vagrantfile in the repository (check the [docs](https://docs.vagrantup.com/v2/vagrantfile/index.html)), or the Vagrant_bootstrap.sh file for specific provisioning configuration ([docs](https://docs.vagrantup.com/v2/provisioning/index.html)). The Vagranfile also contains the default IP-adress, so you can change this if you want to.
 - You can make changes to files on your local hard-drive, which are synced with the virtual Vagrant machine (via the NFS protocol). However, it might take 1-2 seconds to synchronize, so if you don't immediately see your changes, wait a few seconds, and reload the page in your browser.
-- To update the Vagrant virtual machine, you can run the command vagrant *reload --provision* This runs the bash script (Vagrant_bootstrap.sh) again. You can also destroy the virtual machine, and re-create it by: *vagrant destroy* and *vagrant up*
+- To update the Vagrant virtual machine, you can run the command `vagrant reload --provision` This runs the bash script (Vagrant_bootstrap.sh) again. You can also destroy the virtual machine, and re-create it by: `vagrant destroy` and `vagrant up`
 
 ### Make Symfony work
 By now you should be able to see http://192.168.50.4/app.php/ and have a fully working website. 
@@ -58,8 +58,8 @@ This is useful because if you change something in src/TS/*Bundle/Resources/publi
 ### Development tips
 When changing from one branch to the other, you might run into some problems.
 
-- The database scheme might be different. When there have been made changes to entity files, the system will display an error when using this entity. The entity is in that case not the same as your database. To check your database with the entities, run the command: php app/console doctrine:migrations:migrate (-n)
-- The javascript, css and image files in public_html/bundles or old. Update these with the command: php app/console assets:install public_html (--symlink)
+- The database scheme might be different. When there have been made changes to entity files, the system will display an error when using this entity. The entity is in that case not the same as your database. To check your database with the entities, run the command: `php app/console doctrine:migrations:migrate (-n)`
+- The javascript, css and image files in public_html/bundles or old. Update these with the command: `php app/console assets:install public_html (--symlink)`
 - Cached files might not be up-to-date anymore. Simply delete app/cache/*
 
 Background information
