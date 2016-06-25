@@ -8,7 +8,10 @@ Also, if you find issues, please open an issue in this repository, and if you al
 
 TL;DR
 ----------------------------------
-1. 
+1. Install [Vagrant](http://www.vagrantup.com)
+2. Enter in the terminal: *vagrant up*
+3. Go to http://192.168.50.4/app.php to check if Tournia is working.
+3. You can login the system with the username: *tournia* and password: *pocahontas*
 
 
 Introduction
@@ -31,16 +34,16 @@ The repository files contain a Vagrant file, which can be used to setup a MAMP/W
 #### Vagrant tips
 Some tips for when you've got things working:
 
-- Every time you want to start your virtual Vagrant OS, just type: vagrant up For other commands, see [https://docs.vagrantup.com/v2/cli/index.html]
+- Every time you want to start your virtual Vagrant OS, just type: vagrant up For other commands, see [https://docs.vagrantup.com/v2/cli/index.html](https://docs.vagrantup.com/v2/cli/index.html)
 - You can change the Vagrant settings in the Vagrantfile in the repository (check the [docs](https://docs.vagrantup.com/v2/vagrantfile/index.html)), or the Vagrant_bootstrap.sh file for specific provisioning configuration ([docs](https://docs.vagrantup.com/v2/provisioning/index.html)). The Vagranfile also contains the default IP-adress, so you can change this if you want to.
 - You can make changes to files on your local hard-drive, which are synced with the virtual Vagrant machine (via the NFS protocol). However, it might take 1-2 seconds to synchronize, so if you don't immediately see your changes, wait a few seconds, and reload the page in your browser.
 - To update the Vagrant virtual machine, you can run the command vagrant *reload --provision* This runs the bash script (Vagrant_bootstrap.sh) again. You can also destroy the virtual machine, and re-create it by: *vagrant destroy* and *vagrant up*
 
 ### Make Symfony work
-By now you should be able to see [http://192.168.50.4/app_dev.php/] and have a fully working website. 
-The data is used from the file testDump.sql, which is imported in the MySQL database. You can check this at [http://192.168.50.4/phpmyadmin/] in the *tournament* table.
+By now you should be able to see http://192.168.50.4/app.php/ and have a fully working website. 
+The data is used from the file testDump.sql, which is imported in the MySQL database. You can check this at http://192.168.50.4/phpmyadmin/ in the *tournament* table.
 
-**Because of licensing reasons, the external templates used for Tournia.net are not in this repository. Therefore it's not possible to re-create the Assetic files in [public_html/css] and [public_html/js]**
+**Because of licensing reasons, the external templates used for Tournia.net are not in this repository. Therefore it's not possible to re-create the Assetic files in public_html/css and public_html/js**
 
 
 ### Development tips
@@ -71,7 +74,7 @@ SiteBundle related:
 
 - **User**: someone that can log in to the website and get access rights.
 - **AuthorizationInvite**: to grant a user access to a tournament (as an organizer) or player (as the controlling user), an invite with a secret code is emailed. The user can click the link in the email to activate the access right.
-- **Tournament**: the main entity which is used to save the name, url (e.g. utrecht2013, used for www.tournia.net/utrecht2013/), players, users that are organizer and some other settings
+- **Tournament**: the main entity which is used to save the name, url (e.g. utrecht2013, used for www.tournia.net/isbt-london-2016/), players, users that are organizer and some other settings
 - **Site**: a tournament has an own (web)site. A site can have files, pages, an address and some settings about payment and Live
 - **SitePage**: a page on a Site. A page has html content, title and url (e.g. index.html)
 - **File**: an uploaded file, which has a name, size and reference to the location of the file. Files can have a specialType, for e.g. standard header or background images that can be used by all tournaments.
