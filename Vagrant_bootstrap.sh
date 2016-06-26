@@ -154,9 +154,6 @@ gem install sass
 apt-get install -y ruby-dev #bug in compass needs this
 gem install compass
 
-# Create symlink to assets
-php app/console assets:install /var/www/public_html --symlink
-
 # Create MySQL user and database if it hasn't been created before
 if [ ! -f /var/log/databasesetup ];
 then
@@ -169,3 +166,6 @@ then
 fi
 # Run migrations (again) when redoing provisioning
 php /var/www/app/console doctrine:migrations:migrate -n
+
+# Create symlink to assets
+php app/console assets:install public_html --symlink
