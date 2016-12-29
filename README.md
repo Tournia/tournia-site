@@ -5,6 +5,7 @@ These are the files that are hosted on [Tournia.net](https://www.tournia.net/).
 Feel free to use it, but read the [LICENSE](LICENSE) file when using the code for other purposes than personal use.
 Also, if you find issues, please open an issue in this repository, and if you already know how to fix it, create a pull request.
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 TL;DR
 ----------------------------------

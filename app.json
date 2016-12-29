@@ -1,0 +1,7 @@
+{
+    "name": "Tournia",
+    "description": "Tournia is an online platform to organize sports tournaments",
+    "repository": "https://github.com/Tournia/tournia-site",
+    "logo": "https://www.tournia.net/bundles/tsfront/img/app/logo.png",
+    "keywords": ["node", "express", "static"]
+}
