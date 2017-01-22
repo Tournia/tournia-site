@@ -26,7 +26,7 @@ parameters:
     google_secret: null
     twitter_client_id: null
     twitter_secret: null
-    email_from_email: null
+    email_from_email: noreply@changethis.com
     email_from_name: Tournia.net
     payment_secret: null
     payment_paypal_username: null
