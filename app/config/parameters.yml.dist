@@ -33,4 +33,4 @@ parameters:
     payment_paypal_signature: changethis
     payment_mollie_key_prod: changethis
     payment_mollie_key_test: changethis
-    push_google_key: v
+    push_google_key: changethis
