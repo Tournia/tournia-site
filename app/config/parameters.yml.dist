@@ -31,6 +31,6 @@ parameters:
     payment_paypal_username: changethis
     payment_paypal_password: changethis
     payment_paypal_signature: changethis
-    payment_mollie_key_prod: null
-    payment_mollie_key_test: null
+    payment_mollie_key_prod: changethis
+    payment_mollie_key_test: changethis
     push_google_key: null
