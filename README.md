@@ -17,7 +17,7 @@ TL;DR
 
 Introduction
 ----------------------------------
-The Tournia system uses [Symfony](http://symfony.com/)
+The Tournia system uses [Symfony](http://symfony.com/).
 There is a lot of official documentation for Symfony available. It is highly recommended to at least go through the [quick tour](http://symfony.com/doc/current/quick_tour/the_big_picture.html). This explain the basics of Symfony; it's an advanced framework and might seem complicated, but we use a great deal of functionality out of it, and makes development easier and better.
 If you're having some time left, you can move onto reading the [official Symfony2 book](http://symfony.com/doc/current/index.html).
 
