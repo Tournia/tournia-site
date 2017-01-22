@@ -39,7 +39,7 @@
         "friendsofsymfony/rest-bundle": "1.*",
         "friendsofsymfony/oauth-server-bundle": "1.4.*",
         "richsage/rms-push-notifications-bundle": "dev-master",
-        "gos/web-socket-bundle": "1.6.*"
+        "gos/web-socket-bundle": "1.8.*"
 },
     "scripts": {
         "post-install-cmd": [
