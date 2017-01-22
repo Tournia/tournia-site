@@ -28,9 +28,9 @@ parameters:
     email_from_email: noreply@changethis.com
     email_from_name: Tournia.net
     payment_secret: changethis
-    payment_paypal_username: null
-    payment_paypal_password: null
-    payment_paypal_signature: null
+    payment_paypal_username: changethis
+    payment_paypal_password: changethis
+    payment_paypal_signature: changethis
     payment_mollie_key_prod: null
     payment_mollie_key_test: null
     push_google_key: null
