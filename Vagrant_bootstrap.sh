@@ -4,12 +4,12 @@ apt-get update
 apt-get install -y apache2 php5 git debconf-utils npm
 
 # Install bower (for Ionic app)
-if command -v bower > /dev/null 2>&1; then
-  echo bower is installed
-else
-    ln -s /usr/bin/nodejs /usr/bin/node
-    npm install -g bower ionic cordova gulp
-fi
+#if command -v bower > /dev/null 2>&1; then
+#  echo bower is installed
+#else
+#    ln -s /usr/bin/nodejs /usr/bin/node
+#    npm install -g bower ionic cordova gulp
+#fi
 
 # Make symbolic link from /vagrant to /var/www (but only if that hasn't been done)
 if [ ! -L "/var/www" ]; then
