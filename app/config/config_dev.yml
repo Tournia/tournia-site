@@ -29,7 +29,7 @@ assetic:
     use_controller: false
 
 swiftmailer:
-    delivery_address: %email_from%
+    delivery_address: %email_from_email%
     disable_delivery: true
     #spool: { type: memory }
 

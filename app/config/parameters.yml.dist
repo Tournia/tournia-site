@@ -11,7 +11,6 @@ parameters:
     mailer_password: null
     mailer_port: 465
     mailer_encryption: ssl
-    email_from: null
     email_bounces: null
     locale: en
     secret: 109f6ckmsn3k294bf9a251edlms9e832d
@@ -28,7 +27,7 @@ parameters:
     twitter_secret: null
     email_from_email: noreply@changethis.com
     email_from_name: Tournia.net
-    payment_secret: null
+    payment_secret: changethis
     payment_paypal_username: null
     payment_paypal_password: null
     payment_paypal_signature: null
