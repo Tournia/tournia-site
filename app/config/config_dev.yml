@@ -1,0 +1,46 @@
+imports:
+    - { resource: config.yml }
+
+framework:
+    router:   { resource: "%kernel.root_dir%/config/routing_dev.yml" }
+    profiler: { only_exceptions: false }
+
+gregwar_captcha:
+    disabled: true
+
+web_profiler:
+    toolbar: true
+    #intercept_redirects: true
+
+monolog:
+    handlers:
+        main:
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%.log
+            level: debug
+        firephp:
+            type:  firephp
+            level: info
+        chromephp:
+            type:  chromephp
+            level: info
+
+assetic:
+    use_controller: false
+
+swiftmailer:
+    delivery_address: %email_from%
+    disable_delivery: true
+    #spool: { type: memory }
+
+services:
+    ts_site_mails.twig.extension.debug:
+        class:        Twig_Extension_Debug
+        tags:
+             - { name: 'twig.extension' }
+
+ruudk_payment_mollie:
+    api_key:  %payment_mollie_key_test%
+
+#bit_google:
+#    callback_url: http://www.tournia.net/app_dev.php/login_check_google?google=true

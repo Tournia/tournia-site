@@ -7,16 +7,31 @@ parameters:
     database_password: tournament
     mailer_transport: smtp
     mailer_host: smtp.sendgrid.net
-    mailer_user: tournia_test
-    mailer_password: as+kj2,23kaQ
+    mailer_user: null
+    mailer_password: null
     mailer_port: 465
     mailer_encryption: ssl
-    email_from: info@tournia.net
-    email_bounces: bounces@tournia.net
+    email_from: null
+    email_bounces: null
     locale: en
-    secret: d106f6c8132f294bf9a251ed56b7e832c
+    secret: null
     database_path: null
     httpProtocol: http
     websocketHost_internal: 192.168.50.4
     websocketPort_internal: 8080
     websocketPort_external: 8080
+    facebook_client_id: null
+    facebook_secret: null
+    google_client_id: null
+    google_secret: null
+    twitter_client_id: null
+    twitter_secret: null
+    email_from_email: null
+    email_from_name: Tournia.net
+    payment_secret: null
+    payment_paypal_username: null
+    payment_paypal_password: null
+    payment_paypal_signature: null
+    payment_mollie_key_prod: null
+    payment_mollie_key_test: null
+    push_google_key: null
