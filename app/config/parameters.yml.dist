@@ -14,7 +14,7 @@ parameters:
     email_from: null
     email_bounces: null
     locale: en
-    secret: null
+    secret: 109f6ckmsn3k294bf9a251edlms9e832d
     database_path: null
     httpProtocol: http
     websocketHost_internal: 192.168.50.4
