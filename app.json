@@ -2,6 +2,36 @@
     "name": "Tournia",
     "description": "Tournia is an online platform to organize sports tournaments",
     "repository": "https://github.com/Tournia/tournia-site",
+    "website": "https://tournia.net",
     "logo": "https://www.tournia.net/bundles/tsfront/img/app/logo.png",
-    "keywords": ["node", "express", "static"]
+    "keywords": ["node", "express", "static"],
+    "success_url": "/welcome",
+    "addons": ["jawsdb:kitefin", "papertrail"],
+    "env": {
+        "RAILS_ENV": "production",
+        "SYMFONY__DATABASE_DRIVER": {
+            "description": "DB driver",
+            "value": "pdo_mysql"
+        },
+        "SYMFONY__DATABASE_HOST": {
+            "description": "DB host",
+            "value": "127.0.0.1"
+        },
+        "SYMFONY__DATABASE_PORT": {
+            "description": "DB port",
+            "value": "3306"
+        },
+        "SYMFONY__DATABASE_NAME": {
+            "description": "DB name",
+            "value": "tournament"
+        },
+        "SYMFONY__DATABASE_USER": {
+            "description": "DB user",
+            "value": "tournament"
+        },
+        "SYMFONY__DATABASE_PASSWORD": {
+            "description": "DB password",
+            "value": "tournament"
+        }
+    }
 }
