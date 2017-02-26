@@ -69,7 +69,7 @@ abstract class MainListener extends Controller
 
         // generate and send mail
         $message = $message
-            ->setFrom($this->container->getParameter('email_from'))
+            ->setFrom($this->container->getParameter('email_from_email'))
             ->setReturnPath($this->container->getParameter('email_bounces'))
             ->setSubject($subject)
             ->setTo($to)

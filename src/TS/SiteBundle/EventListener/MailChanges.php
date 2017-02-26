@@ -133,7 +133,7 @@ class MailChanges
     		->setContentType('text/plain')
     		->setBody($this->container->get('templating')->render($templateName, $templateArray));
     	
-    	$message->setFrom($this->container->getParameter('email_from'));
+    	$message->setFrom($this->container->getParameter('email_from_email'));
     	if (!is_null($tournamentEntity)) {
     		$message->setReplyTo(array($tournamentEntity->getEmailFrom() => $tournamentEntity->getContactName()));
             if (($tournamentEntity->getOrganizationEmailOnChange() != null) && ($tournamentEntity->getOrganizationEmailOnChange() != '')) {

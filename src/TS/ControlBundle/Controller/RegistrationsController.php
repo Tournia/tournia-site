@@ -44,7 +44,7 @@ class RegistrationsController extends MainController
 		            	
 		            	$email = \Swift_Message::newInstance()
 					        ->setSubject($subject)
-					        ->setFrom($this->container->getParameter('email_from'))
+					        ->setFrom($this->container->getParameter('email_from_email'))
 					        ->setReplyTo($this->tournament->getEmailFrom())
 					        ->setTo($player->getPerson()->getEmail())
 					        ->setBody($renderedMessage);
