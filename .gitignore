@@ -11,3 +11,5 @@
 /.idea/*
 /app/mailspool/
 /public_html/captcha
+/tournia_deploy.sh
+/private/*
