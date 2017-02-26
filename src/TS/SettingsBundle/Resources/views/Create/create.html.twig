@@ -53,7 +53,7 @@
                 $("#financialInvoice").hide();
                 $("#financialFormElements").hide();
             } else if (selectedFinancialMethod == "invoice") {
-                $("#financialInvoice").show();
+                $("#financialInvoice").hide();
                 $("#financialFormElements").hide();
             } else if (selectedFinancialMethod == "payments") {
                 $("#financialInvoice").hide();
@@ -266,13 +266,13 @@
                                                         <h3>{{ 'create.financial.heading'|trans }}</h3>
                                                         <p>{{ 'financial.general.text'|trans }}</p>
                                                         <ul class="financialOptions optionButtons">
-                                                            <li>
+                                                            <!--<li>
                                                                 <button type="button" data-value="payments">
                                                                     <span class="fa fa-euro fa-5x"></span>
                                                                     <strong>{{ 'create.financial.payments.title'|trans }}</strong>
                                                                     <p>{{ 'create.financial.payments.text'|trans|raw }}</p>
                                                                 </button>
-                                                            </li>
+                                                            </li>-->
                                                             <li>
                                                                 <button type="button" data-value="free">
                                                                     <span class="fa fa-smile-o fa-5x"></span>

@@ -115,7 +115,7 @@ class CreateTournamentType extends AbstractType
             'choices' => array(
                 'free' => 'financialType.financialMethod.free',
                 'invoice' => 'financialType.financialMethod.invoice',
-                'payments' => 'financialType.financialMethod.payments'
+                //'payments' => 'financialType.financialMethod.payments'
             ),
             'label' => 'financialType.financialMethod.label',
             'attr' => array("formComment"=>"financialType.financialMethod.formComment"),

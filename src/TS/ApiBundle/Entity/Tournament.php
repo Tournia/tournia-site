@@ -340,7 +340,7 @@ class Tournament
         $this->startDateTime = new \DateTime("now");
         $this->endDateTime = new \DateTime("now");
         $this->authorization = new Authorization();
-        $this->financialMethod = "payments";
+        $this->financialMethod = "invoice";
         $this->maxRegistrationDisciplines = 0;
     }
 
