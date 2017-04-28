@@ -36,18 +36,6 @@ class PayOutType extends AbstractType
             'widget' => 'single_text',
             'format' => 'dd-MM-yyyy HH:mm',
         ));
-        $builder->add('vatCountry', ChoiceType::class, array(
-            'label' => 'VAT Country',
-            'required' => true,
-            'expanded' => false,
-            'multiple' => false,
-            'mapped' => false,
-            'choices' => $options['financialModel']->getVatCountryChoices(),
-            'data' => "NL",
-            'attr' => array(
-                'info' => "In which country is the tournament? The EU has ruled that Value Added Tax (VAT) on electronic services have to be paid to the country of the customer.",
-            )
-        ));
         $builder->add('adjustments', CollectionType::class, array(
             'type' => new PayOutAdjustmentType(),
             'options' => array(

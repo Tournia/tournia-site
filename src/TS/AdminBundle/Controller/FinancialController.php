@@ -201,17 +201,6 @@ class FinancialController extends MainController
 
                 $payOut->setPaidoutAmount($payOutAmount);
 
-                // Adding VAT
-                /* @var \TS\FinancialBundle\Entity\VatCountry $selectedVatCountry */
-                $selectedVatCountry = $this->getDoctrine()
-                    ->getRepository('TSFinancialBundle:VatCountry')
-                    ->findOneByCountryCode($form->get('vatCountry')->getData());
-                $vatAdjustment = new PaymentAdjustment();
-                $vatAdjustment->setOrder($cart);
-                $vatAdjustment->setAmount($financialModel->calculateVatMakeExcl($cart, $selectedVatCountry->getVatPercentage()));
-                $vatAdjustment->setLabel("Tournament ". $selectedVatCountry->getInvoiceDescription());
-                $cart->addAdjustment($vatAdjustment);
-
                 $cart->calculateTotal();
                 $cart->setTotal($cart->getTotal() - $payOutAmount);
                 $cart->setState(OrderInterface::STATE_RETURNED);

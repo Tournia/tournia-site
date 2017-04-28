@@ -70,61 +70,16 @@ class CartController extends BaseCartController
         }
 
         // finding selected payment method
-        $selectedVatCountry = $this->getDoctrine()
-            ->getRepository('TSFinancialBundle:VatCountry')
-            ->findOneByCountryCode("");
-        $selectUserVatCountry = true; // select in template the user's country based on IP address
         $selectedPaymentMethod = "paypal_express_checkout";
         if ($this->get('request')->request->has('jms_choose_payment_method')) {
             $requestPaymentMethodForm = $this->get('request')->request->get('jms_choose_payment_method');
             $selectedPaymentMethod = $requestPaymentMethodForm['method'];
-            $dbVatCountry = $this->getDoctrine()
-                ->getRepository('TSFinancialBundle:VatCountry')
-                ->findOneByCountryCode($requestPaymentMethodForm['vatCountry']);
-            if (is_object($dbVatCountry)) {
-                $selectedVatCountry = $dbVatCountry;
-            }
-            $selectUserVatCountry = false;
         }
 
         // remove all existing adjustments, to prevent double fees
         foreach ($cart->getAdjustments() as $adjustment) {
             $cart->removeAdjustment($adjustment);
         }
-        $cart->calculateTotal();
-
-        // adding transaction fee
-        $transactionFeeAdjustment = new PaymentAdjustment();
-        $transactionFeeAdjustment->setOrder($cart);
-        $transactionFeeAdjustment->setAmount($this->calculatePaymentFee($selectedPaymentMethod, $cart->getTotal()));
-        $transLabel = $this->get('translator')->trans('cart.adjustment.transaction.label', array(), 'financial');
-        $transactionFeeAdjustment->setLabel($transLabel);
-        $transDescription = $this->get('translator')->trans('cart.adjustment.transaction.description', array(), 'financial');
-        $transactionFeeAdjustment->setDescription($transDescription);
-        $cart->addAdjustment($transactionFeeAdjustment);
-
-        // Adding service fee, but only if there is a tournament, and the organization doesn't pay the service fee
-        if (($tournament != null ) && (!$tournament->getOrganizationPaysServiceFee())) {
-            $serviceFeeAdjustment = new PaymentAdjustment();
-            $serviceFeeAdjustment->setOrder($cart);
-            $serviceFeeAdjustment->setAmount($this->calculateServiceFee($tournament));
-            $transLabel = $this->get('translator')->trans('cart.adjustment.service.label', array(), 'financial');
-            $serviceFeeAdjustment->setLabel($transLabel);
-            $transDescription = $this->get('translator')->trans('cart.adjustment.service.description', array(), 'financial');
-            $serviceFeeAdjustment->setDescription($transDescription);
-            $cart->addAdjustment($serviceFeeAdjustment);
-        }
-
-        // Adding VAT
-        $financialModel = new FinancialModel($this->container);
-        $vatAdjustment = new PaymentAdjustment();
-        $vatAdjustment->setOrder($cart);
-        $vatAdjustment->setAmount($financialModel->calculateVat($cart, $selectedVatCountry->getVatPercentage()));
-        $vatAdjustment->setLabel($selectedVatCountry->getInvoiceDescription());
-        $transDescription = $this->get('translator')->trans('cart.adjustment.vat.description', array(), 'financial');
-        $vatAdjustment->setDescription($transDescription);
-        $cart->addAdjustment($vatAdjustment);
-
         $cart->calculateTotal();
         $cartForm = $this->createForm('sylius_cart', $cart);
 
@@ -166,21 +121,6 @@ class CartController extends BaseCartController
             'translation_domain' => 'financial',
         ));
 
-        // add VAT country to payment form
-        $paymentForm->add('vatCountry', 'choice', array(
-            'label' => 'Country',
-            'required' => true,
-            'expanded' => false,
-            'multiple' => false,
-            'choices' => $financialModel->getVatCountryChoices(),
-            'data' => $selectedVatCountry->getCountryCode(),
-            'attr' => array(
-                'info' => "cart.vatCountry.info",
-                'formComment' => "cart.vatCountry.formComment",
-            ),
-            'translation_domain' => 'financial',
-        ));
-
         if (!$this->get('kernel')->isDebug()) {
             // not debug -> remove option to make test payment
             $paymentForm->get("method")->remove(0);
@@ -218,43 +158,7 @@ class CartController extends BaseCartController
             'paymentForm' => $paymentForm->createView(),
             'addItemForm' => $addItemForm,
             'addItemTournament' => $addItemTournament,
-            'selectUserVatCountry' => $selectUserVatCountry,
         ));
     }
-
-    /**
-     * Calculates the payment fee. This is dependent on the selected payment method and order amount
-     * @param string $paymentMethod
-     * @param int $amount
-     * @return int
-     */
-    private function calculatePaymentFee($paymentMethod, $cartAmount) {
-        if ($paymentMethod == "paypal_express_checkout") {
-            $amountPaypal = ($cartAmount + 35) / 0.966;
-            $fee = $amountPaypal - $cartAmount;
-        } else if ($paymentMethod == "mollie_ideal") {
-            $fee = 45;
-        } else if ($paymentMethod == "mollie_creditcard") {
-            $amountCreditcard = ($cartAmount + 25) / 0.972;
-            $fee = $amountCreditcard - $cartAmount;
-        } else if ($paymentMethod == "test_payment") {
-            $fee = 123;
-        } else {
-            // possible hack attempt to select non-existing payment method -> return highest amount
-            $fee = 9999;
-        }
-
-        return round($fee);
-    }
-
-    /**
-     * Calculates the service fee. This is dependent on the tournament settings
-     * @param \TS\ApiBundle\Entity\Tournament $tournament
-     * @return int
-     */
-    private function calculateServiceFee() {
-        return 50;
-    }
-
 
 }

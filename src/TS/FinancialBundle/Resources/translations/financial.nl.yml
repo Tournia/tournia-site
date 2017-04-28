@@ -26,15 +26,8 @@ flash.payment.complete.success: Betaling geslaagd, bedankt voor je aankoop
 flash.payment.cancelled: Betaling geannuleerd, er is geen bedrag overgemaakt
 
 # CartController
-cart.adjustment.transaction.label: Transactiekosten
-cart.adjustment.transaction.description: De transactiekosten zijn afhankelijk van de geselecteerde betaalmethode.
-cart.adjustment.service.label: Servicekosten
-cart.adjustment.service.description: Blijven ontwikkelen van Tournia.net kost tijd en geld. Denk je dat het gratis is om een server te draaien? ;)
-cart.adjustment.vat.description: Wij zijn bij wet verplicht om BTW te heffen op onze diensten. Dit is niet op de toernooiproducten die je koopt, aangezien Tournia.net slechts een tussenpersoon is en je koopt de producten van de toernooi organisatie. Voor een (BTW) factuur van de geselecteerde toernooi producten, neem s.v.p. contact op met de toernooi organisatie.
 cart.conditions.formComment: |
-  Tournia.net is niet de verkoper van goederen of diensten die hier genoemd zijn, met de uitzondering van transactiekosten en servicekosten. Tournia.net is een tussenpersoon die handelt voor de genoemde toernooi organisatie, en daarom accepteerd Tournia.net geen aansprakelijk voor enige vorm van het niet leveren of anderszins.
+  Tournia.net is niet de verkoper van goederen of diensten die hier genoemd zijn. Tournia.net is een platform voor de genoemde toernooi organisatie, en daarom accepteert Tournia.net geen aansprakelijk voor enige vorm van het niet leveren of anderszins.
   Neem s.v.p. direct contact op met de toernooi organisatie voor vragen omtrent facturatie, wijzigingen of terugbetaling.
   I begrijp deze voorwaarden en ga er mee akkord.
-cart.vatCountry.info: De EU heeft bepaald dat BTW op elektronische diensten moeten worden betaald aan het land waar de klant woont. Dus selecteer je land, om jouw bijdrage te leveren aan je eigen overheid.
-cart.vatCountry.formComment: In welk land woon je?
 

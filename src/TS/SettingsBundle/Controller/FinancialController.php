@@ -76,19 +76,9 @@ class FinancialController extends MainController
             ->getRepository('TSFinancialBundle:BoughtProduct');
         $outstandingAmount = $boughtProductRepository->getOutstandingAmount($this->tournament);
 
-        $currentPlan = "";
-        if (!$this->tournament->getFinancialEnabled() && !$this->tournament->getOrganizationPaysServiceFee()) {
-            $currentPlan = "noncommercial";
-        } else if ($this->tournament->getFinancialEnabled() && !$this->tournament->getOrganizationPaysServiceFee()) {
-            $currentPlan = "free";
-        } else if ($this->tournament->getFinancialEnabled() && $this->tournament->getOrganizationPaysServiceFee()) {
-            $currentPlan = "paid";
-        }
-
         return $this->render('TSSettingsBundle:Financial:financial.html.twig', array(
             'form' => $form->createView(),
             'outstandingAmount' => $outstandingAmount,
-            'currentPlan' => $currentPlan,
         ));
     }
 }

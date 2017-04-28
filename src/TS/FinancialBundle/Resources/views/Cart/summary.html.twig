@@ -30,25 +30,7 @@
 {% endblock %}
 
 {% block javascript %}
-    {% if selectUserVatCountry %}
-        <script type="text/javascript" src="https://www.google.com/jsapi?key=AIzaSyAOUh6pRbt-zjyvEJRFrLsPFfXgDqzdq6k"></script>
-        <script type="text/javascript">
-            google.load("maps", "3",  {callback: initialize, other_params:"sensor=false"});
-
-            function initialize() {
-                // If ClientLocation was filled in by the loader, use that info instead
-                if (google.loader.ClientLocation) {
-                    countryCode = google.loader.ClientLocation.address.country_code;
-                    $("#{{ paymentForm.vatCountry.vars.id }}").val(countryCode).trigger("change");
-                }
-            }
-        </script>
-    {% endif %}
     <script type="text/javascript">
-        function submitPaymentForm() {
-            $("#paymentFormPay").val('true');
-            $("#{{ paymentForm.vatCountry.vars.id }}").closest("form").submit();
-        }
     </script>
 {% endblock %}
 
@@ -58,7 +40,7 @@
 $("#{{ paymentForm.method.vars.id }} label").after("<br />");
 
 // do submit form when payment method or country has changed, so payment fees / VAT can be recalculated
-$("#{{ paymentForm.method.vars.id }} :radio, #{{ paymentForm.vatCountry.vars.id }}").change(function() {
+$("#{{ paymentForm.method.vars.id }} :radio").change(function() {
     $(this).closest("form").submit();
 });
 
@@ -201,12 +183,11 @@ $("#{{ paymentForm.method.vars.id }} :radio, #{{ paymentForm.vatCountry.vars.id 
                                                     {{ form(paymentForm.data_paypal_express_checkout) }}
                                                 </div>
                                                 {{ form_row(paymentForm.method) }}
-                                                {{ form_row(paymentForm.vatCountry) }}
                                                 {{ form_row(paymentForm.conditions) }}
                                                 {{ form_rest(paymentForm) }}
-                                                <input type="hidden" name="paymentFormPay" value="" id="paymentFormPay" />
+                                                <input type="hidden" name="paymentFormPay" value="true" id="paymentFormPay" />
                                                 <div class="form-actions text-center">
-                                                    <button type="button" class="btn btn-custom-green btn-lg" onClick="submitPaymentForm()"><i class="fa fa-angle-double-right"></i> {{ 'summary.payment.submit'|trans }}</button>
+                                                    <button type="button" class="btn btn-custom-green btn-lg"><i class="fa fa-angle-double-right"></i> {{ 'summary.payment.submit'|trans }}</button>
                                                 </div>
                                             </fieldset>
                                         </form>

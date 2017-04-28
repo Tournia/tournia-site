@@ -59,23 +59,4 @@ class FinancialModel
 
         return $totalInclAmount - $totalExclAmount;
     }
-
-    /**
-     * Get VAT Country choices
-     * @return array() with key the countryCode and value the countryName
-     */
-    public function getVatCountryChoices() {
-        $repository = $this->container->get('doctrine')
-            ->getRepository('TSFinancialBundle:VatCountry');
-        $query = $repository->createQueryBuilder('vc')
-            ->orderBy('vc.countryName', 'ASC')
-            ->getQuery();
-        $vatCountries = $query->getResult();
-
-        $choices = array();
-        foreach ($vatCountries as $vatCountry) { /* @var \TS\FinancialBundle\Entity\VatCountry $vatCountry */
-            $choices[$vatCountry->getCountryCode()] = $vatCountry->getCountryName();
-        }
-        return $choices;
-    }
 }

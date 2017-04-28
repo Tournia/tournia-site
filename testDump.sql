@@ -11251,16 +11251,6 @@ INSERT INTO `UpdateMessage` (`id`, `tournament_id`, `type`, `title`, `text`, `da
 (4162, 4, 'success', 'Match started', 'started match 2 on Court 2', '2013-11-02 11:12:57', 'all', 49),
 (4163, 4, 'success', 'Match stopped', 'stopped match 2', '2013-11-02 11:13:24', 'all', 49);
 
---
--- Dumping data for table `VatCountry`
---
-
-INSERT INTO `VatCountry` (`id`, `countryCode`, `countryName`, `vatPercentage`, `invoiceDescription`) VALUES
-(1, 'NL', 'The Netherlands', 21.00, 'VAT NL - 21%'),
-(2, 'EN', 'England', 19.00, 'VAT EN - 19%'),
-(3, 'LUX', 'Luxembourg', 15.00, 'VAT LUX - 15%'),
-(4, '', ' Outside EU', 21.00, 'VAT NONEU - 21%');
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
