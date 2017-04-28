@@ -115,41 +115,10 @@ class CreateTournamentType extends AbstractType
             'choices' => array(
                 'free' => 'financialType.financialMethod.free',
                 'invoice' => 'financialType.financialMethod.invoice',
-                //'payments' => 'financialType.financialMethod.payments'
+                'payments' => 'financialType.financialMethod.payments'
             ),
             'label' => 'financialType.financialMethod.label',
             'attr' => array("formComment"=>"financialType.financialMethod.formComment"),
-        ));
-        $builder->add('paymentCurrency', ChoiceType::class, array(
-            'choices' => array(
-                'EUR' => 'financialType.paymentCurrency.currency.eur',
-                'GBP' => 'financialType.paymentCurrency.currency.gbp',
-                'NOK' => 'financialType.paymentCurrency.currency.nok'
-            ),
-            'required' => true,
-            'expanded' => false,
-            'multiple' => false,
-            'empty_value' => false,
-            'label' => 'financialType.paymentCurrency.label',
-        ));
-
-        $builder->add('financialPayoutBankAccount', TextType::class, array(
-            'label' => 'financialType.financialPayoutBankAccount.label',
-            'required' => false,
-            'constraints' => new Assert\Iban(),
-            'attr' => array(
-                "info"=>"financialType.financialPayoutBankAccount.info",
-                "formComment"=>"createTournamentType.financialPayoutBankAccount.formComment"
-            )
-        ));
-        $builder->add('financialPayoutPaypalEmail', EmailType::class, array(
-            'label' => 'financialType.financialPayoutPaypalEmail.label',
-            'required' => false,
-            'constraints' => new Email(array("checkMX" => true)),
-            'attr' => array(
-                "info"=>"financialType.financialPayoutPaypalEmail.info",
-                "formComment"=>"createTournamentType.financialPayoutPaypalEmail.formComment"
-            )
         ));
 
         // finish

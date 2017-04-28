@@ -9,11 +9,11 @@ create.sport.heading: Sport
 create.financial.step: Financial
 create.financial.heading: Financial
 create.financial.payments.title: I let Tournia handle my payments
-create.financial.payments.text: Tournia can handle payments players make for your tournament for you. We offer loads of different payment options making it easy for the player to pay and saving you hassle with a lot of financial stuff. To use this Tournia charges &euro;0.50 per player who pays using the system. Sit back and enjoy!
+create.financial.payments.text: Tournia can handle payments of players and will put the money directly on your PayPal account. To use this Tournia charges &euro;0.50 per player. Sit back and enjoy!
 create.financial.free.title: My tournament is free of charge
 create.financial.free.text: You're a do-gooder philanthropist! We respect that and therefore won't charge you on this tournament. We hope our system will be of good use to you.
 create.financial.invoice.title: I handle payments myself
-create.financial.invoice.text: We think it is way easier and securer to let us handle your payments. If you want to charge your players yourself you can still use our system off course, but we do charge you the service fee (see below).
+create.financial.invoice.text: We think it is way easier and securer to let us handle your payments automatically. If you want to charge your players yourself you can still use our system off course, but we do charge you &euro;0.50 per player.
 create.finish.step: Finish
 create.finish.heading: Finish
 create.conditions.title: Terms and Conditions
@@ -38,19 +38,17 @@ disciplines.maxRegistrationDisciplines.legend: Registration limit
 # Financial
 financial.title: Financial - Settings
 financial.tab.title: Financial settings
-financial.tab.subtitle: Setup your products and pay-out
+financial.tab.subtitle: Setup your products and payments
 financial.product.add: Add a new product
 financial.general.tab: General
 financial.general.legend: General information
 financial.general.text: It's free for organizers to use Tournia.net as long as you're not charging money for your tournament. There are no monthly charges, enrollment costs, or setup fees. For tournament with a paid registration, Tournia charges a service fee.
-financial.general.invoice: |
-  Of course you can choose to handle payments yourself. But in our experience it's easier to handle payments through Tournia. You have the certainty that the player has paid for the tournamnet, and accepting credit cards, PayPal and other methods are working instantly. When a player has paid for the tournament, the money will be transferred to you.
-  If you choose for this option, we do however send you an invoice for the service fees of using Tournia; this amount depends on the actual players during the tournament.
 financial.general.readMore.button: Read more
 financial.general.readMore.1: If you organize a tournament which is free of charge (e.g. internal competition, friendly matches, etc.) you can use Tournia for free including all the features you need to organize your tournament. We offer this free of charge, because we believe that sports should be available to everyone.
-financial.general.readMore.2: However, if you ask money for your tournament, we do ask a small contribution to use Tournia. We ask &euro; 0.50 as a service fee from the player for every money transfer. Depending on the selected payment method (credit card, iDeal, etc.) the transaction costs are also to be paid by the player. Of course you can decide to ask money when the player arrives at the tournament (to overcome the fees), but are you sure the player will show up? By asking money to the player on beforehand you have the guarantee that the player will come for your tournament (or you at least have your money).
-financial.general.readMore.3: So how does payments work? Tournia.net has the option to let players buy certain "products". These products can for example be a deposit, t-shirt or the full participation fee. Players buy these products from your tournament website, and Tournia will handle the entire payment process. So no worries about a PayPal account, credit cards or iDeal account; Tournia has this covered. The money from the player will be transferred to an account of your choosing, which can be set in the pay out tab.
-financial.serviceFee.legend: Service fee
+financial.general.readMore.2: However, if you ask money for your tournament, we do ask a small contribution to use Tournia. We ask &euro; 0.50 per player, which we will invoiced to you after the tournament.
+financial.general.readMore.3: If you ask money from your participants, you have two options. 1. You can handle payments yourself. 2. Use your PayPal account; payments can be done by players on registration for the tournament. Tournia.net has the option to let players buy certain "products". These products can for example be a deposit, t-shirt or the full participation fee. Players buy these products on your tournament website, and the money will be transfered to your PayPal account.
+financial.paypalAccount.legend: PayPal account
+financial.paypalAccount.readMore.1: To be able to receive PayPal payments, you need a PayPal business account (which is free to create). After that, go to <a href="https://www.paypal.com/businessprofile/mytools/apiaccess">https://www.paypal.com/businessprofile/mytools/apiaccess</a>, click on <i>Add or edit API permissions</i>, choose option 2 (API signature) and fill in the values below.
 financial.products.tab: Products
 financial.products.legend: Products
 financial.paymentInfo.tab: Payment information
@@ -58,9 +56,6 @@ financial.paymentInfo.legend: Payment information
 financial.paymentInfo.statusUpdate: Automatic status update
 financial.payout.tab: Pay out
 financial.payout.legend: Payout information
-financial.payout.text: |
-  Payments from players are transferred to your chosen account automatically, every month.
-  The current outstanding amount is %outstanding%
 
 # Organizers
 organizers.title: Organizers - Settings
@@ -216,13 +211,12 @@ financialType.financialPayoutPaypalEmail.info: The outstanding amount will be tr
 financialType.financialPayoutPaypalEmail.formComment: Because you have another currency than euros, we prefer to transfer the outstanding amount to a PayPal account. Please keep in mind that PayPal charges 0,5% transfer fees. Please contact us to discuss other transfer options.
 financialType.financialMethod.free: This tournament is free of charge.
 financialType.financialMethod.invoice: This tournament is charging money for participation, but we don't want Tournia to handle payments.
-financialType.financialMethod.payments: This tournament is charging money for participation, and we would like to offer participants the option to pay via Tournia.
+financialType.financialMethod.payments: This tournament is charging money for participation, and we would like to offer participants the option to pay via PayPal.
 financialType.financialMethod.label: Payments
 financialType.financialMethod.formComment: You can change this later.
-financialType.organizationPaysServiceFee.no: Player pays the service fee
-financialType.organizationPaysServiceFee.yes: Tournament organization pays the service fee
-financialType.organizationPaysServiceFee.label: Service fee
-financialType.organizationPaysServiceFee.formComment: You can decide to pay for the service fee of the player.
+financialType.paypalAccountUsername.label: API username
+financialType.paypalAccountPassword.label: API password
+financialType.paypalAccountSignature.label: Signature
 
 # OrganizerPersonType
 organizerPersonType.email.label: Email address

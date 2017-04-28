@@ -32,28 +32,15 @@
         if (selectedFinancialMethod == "free") {
             $("#financialInvoice").hide();
             $(".nav-tabs").hide();
-            $("#seriviceFeeBlock").hide();
+            $("#paypalAccountBlock").hide();
         } else if (selectedFinancialMethod == "invoice") {
             $("#financialInvoice").hide();
             $(".nav-tabs").hide();
-            $("#seriviceFeeBlock").hide();
+            $("#paypalAccountBlock").hide();
         } else {
             $("#financialInvoice").hide();
             $(".nav-tabs").show();
-            $("#seriviceFeeBlock").show();
-        }
-    }).trigger("change");
-
-    // change payout option depending on currency
-    $("#{{form.paymentCurrency.vars.id}}").on("change", function() {
-        if ($(this).val() == "EUR") {
-            //payout is via IBAN
-            $("#{{form.financialPayoutBankAccount.vars.id}}").closest(".form-group").show();
-            $("#{{form.financialPayoutPaypalEmail.vars.id}}").closest(".form-group").hide();
-        } else {
-            //payout is via paypal
-            $("#{{form.financialPayoutBankAccount.vars.id}}").closest(".form-group").hide();
-            $("#{{form.financialPayoutPaypalEmail.vars.id}}").closest(".form-group").show();
+            $("#paypalAccountBlock").show();
         }
     }).trigger("change");
 
@@ -70,7 +57,6 @@
             <li class="active"><a href="#generalTab" data-toggle="tab">{{ 'financial.general.tab'|trans }}</a></li>
             <li><a href="#productsTab" data-toggle="tab">{{ 'financial.products.tab'|trans }}</a></li>
             <li><a href="#paymentInfoTab" data-toggle="tab">{{ 'financial.paymentInfo.tab'|trans }}</a></li>
-            <li><a href="#payoutTab" data-toggle="tab">{{ 'financial.payout.tab'|trans }}</a></li>
         </ul>
 
         {{ form_errors(form) }}
@@ -98,9 +84,21 @@
                         <p>{{ 'financial.general.invoice' | trans | nl2br }}</p>
                     </div>
                 </fieldset>
-                <fieldset id="seriviceFeeBlock">
-                    <legend>{{ 'financial.serviceFee.legend'|trans }}</legend>
-                    {{ form_row(form.organizationPaysServiceFee) }}
+                <fieldset id="paypalAccountBlock">
+                    <legend>{{ 'financial.paypalAccount.legend'|trans }}</legend>
+                    <p>
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapsePaypalAccountExplanation" aria-expanded="false" aria-controls="collapsePaypalAccountExplanation">
+                            {{ 'financial.general.readMore.button'|trans }} <span class="caret"></span>
+                        </button>
+                    </p>
+                    <div class="collapse" id="collapsePaypalAccountExplanation">
+                        <div class="alert alert-success">
+                            <p>{{ 'financial.paypalAccount.readMore.1'|trans|raw }}</p>
+                        </div>
+                    </div>
+                    {{ form_row(form.paypalAccountUsername) }}
+                    {{ form_row(form.paypalAccountPassword) }}
+                    {{ form_row(form.paypalAccountSignature) }}
                 </fieldset>
             </div>
             <div class="tab-pane fade" id="productsTab">
@@ -143,15 +141,6 @@
                         {{ form_row(form.paymentUpdateFromStatus) }}
                         {{ form_row(form.paymentUpdateToStatus) }}
                     </div>
-                </fieldset>
-            </div>
-            <div class="tab-pane fade" id="payoutTab">
-                <fieldset>
-                    <legend>{{ 'financial.payout.legend'|trans }}</legend>
-                    {{ 'financial.payout.text'|trans({'%outstanding%': outstandingAmount|sylius_price})|raw|nl2br }}
-                    <br /><br />
-                    {{ form_row(form.financialPayoutBankAccount) }}
-                    {{ form_row(form.financialPayoutPaypalEmail) }}
                 </fieldset>
             </div>
         </div>

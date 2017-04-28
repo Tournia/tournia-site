@@ -26,19 +26,21 @@ class FinancialType extends AbstractType
             'choices' => array(
                 'free' => 'financialType.financialMethod.free',
                 'invoice' => 'financialType.financialMethod.invoice',
-                //'payments' => 'financialType.financialMethod.payments'
+                'payments' => 'financialType.financialMethod.payments'
             ),
             'label' => 'financialType.financialMethod.label',
         ));
-        $builder->add('organizationPaysServiceFee', ChoiceType::class, array(
-            'choices' => array(
-                '0' => 'financialType.organizationPaysServiceFee.no',
-                '1' => 'financialType.organizationPaysServiceFee.yes',
-            ),
-            'label' => 'financialType.organizationPaysServiceFee.label',
-            'attr' => array(
-                "formComment"=>"financialType.organizationPaysServiceFee.formComment"
-            )
+        $builder->add('paypalAccountUsername', TextType::class, array(
+            'label' => 'financialType.paypalAccountUsername.label',
+            'required' => false,
+        ));
+        $builder->add('paypalAccountPassword', TextType::class, array(
+            'label' => 'financialType.paypalAccountPassword.label',
+            'required' => false,
+        ));
+        $builder->add('paypalAccountSignature', TextType::class, array(
+            'label' => 'financialType.paypalAccountSignature.label',
+            'required' => false,
         ));
 
         $financialProductType = new FinancialProductType("TS\FinancialBundle\Entity\Product", array());
@@ -86,21 +88,6 @@ class FinancialType extends AbstractType
                 'empty_value' => false
             ))->addModelTransformer($transformer)
         );
-        $builder->add('financialPayoutBankAccount', TextType::class, array(
-            'label' => 'financialType.financialPayoutBankAccount.label',
-            'required' => false,
-            'constraints' => new Assert\Iban(),
-            'attr' => array("info"=>"financialType.financialPayoutBankAccount.info")
-        ));
-        $builder->add('financialPayoutPaypalEmail', EmailType::class, array(
-            'label' => 'financialType.financialPayoutPaypalEmail.label',
-            'required' => false,
-            'constraints' => new Email(array("checkMX" => true)),
-            'attr' => array(
-                "info"=>"financialType.financialPayoutPaypalEmail.info",
-                "formComment"=>"financialType.financialPayoutPaypalEmail.formComment"
-            )
-        ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

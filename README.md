@@ -101,3 +101,9 @@ ControlBundle related:
 - **Match**: a match is between two teams, in a category, on a location (although not necessary), between teams, has a start time, a round, can be given priority, has a status (ready, played, etc.) and has a score.
 - **Announcement**: when a match is created, this can be announced. Announcements can also be for 2nd calls or other things that should be announced. An announcement has a type, match, players it relates to and a time.
 - **UpdateMessage**: to be able to notify clients of changes made, and to have a log of all the changes, all changes are saved as a message. It has a type, title, text, time, user that executed it and section it relates to (to be able only to update the parts on the client that relate to it).
+
+Development tips
+----------------------------------
+
+### Migrations
+To create a new migration: `php app/console doctrine:migrations:generate` (or possibly `php app/console doctrine:migrations:diff`) and `php app/console doctrine:migrations:migrate`

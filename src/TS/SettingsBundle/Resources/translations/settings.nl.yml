@@ -9,11 +9,11 @@ create.sport.heading: Sport
 create.financial.step: Financieel
 create.financial.heading: Financieel
 create.financial.payments.title: Ik kies voor betalingen via Tournia
-create.financial.payments.text: Tournia kan betalingen afhandelen die spelers maken voor jouw toernooi. We bieden diverse betaalmogelijkheden, die het de speler makkelijk maken om te betalen het jou makkelijker maken. Om dit te gebruiken rekent &euro;0,50 per speler. Leun achterover en geniet van het gemak!
+create.financial.payments.text: Tournia kan betalingen van spelers afhandelen en boekt direct het bedrag op je PayPal account. Om dit te gebruiken rekent &euro;0,50 per speler. Leun achterover en geniet van het gemak!
 create.financial.free.title: Mijn toernooi is gratis
 create.financial.free.text: Je bent een echte mensenvriend! Wij respecteren dat en daarvoor brengen we voor het gebruik van Tournia niks in rekening. We hopen dat ons systeem door jou goed gebruikt kan worden.
 create.financial.invoice.title: Ik regel betalingen zelf
-create.financial.invoice.text: Wij denken dat het een stuk makkelijker en veiliger is om betalingen via Tournia te laten verlopen. Als je kosten van spelers zelf wil incasseren kan je natuurlijk nog steeds ons systeem gebruiken, maar we brengen wel servicekosten in rekening (zie hieronder).
+create.financial.invoice.text: Wij denken dat het een stuk makkelijker en veiliger is om betalingen via Tournia automatisch te laten verlopen. Als je kosten van spelers zelf wil incasseren kan je natuurlijk nog steeds ons systeem gebruiken, maar we brengen je wel &euro;0,50 per speler in rekening.
 create.finish.step: Finish
 create.finish.heading: Finish
 create.conditions.title: Voorwaarden
@@ -38,19 +38,17 @@ disciplines.maxRegistrationDisciplines.legend: Registratie maximum
 # Financial
 financial.title: Financieel - Instellingen
 financial.tab.title: Financiële instellingen
-financial.tab.subtitle: Instellen van je producten en uitbetaling
+financial.tab.subtitle: Instellen van je producten en betalingen
 financial.product.add: Nieuw product
 financial.general.tab: Algemeen
 financial.general.legend: Algemene informatie
 financial.general.text: Het is voor organisatoren gratis om Tournia te gebruiken, zolang je geen geld vraagt voor deelname. Er zijn geen maandelijkse kosten, aanmeldkosten of installatie kosten. Voor toernooien waar deelnamekosten worden gerekend, brengt Tournia servicekosten in rekening.
-financial.general.invoice: |
-  Je kunt er natuurlijk voor kiezen om betalingen zelf af te handelen. Onze ervaring is echter dat het makkelijker is om dit via Tournia te doen. Je hebt dan zekerheid dat een speler heeft betaald voor het toernooi, en credit-cards, PayPal en iDeal werken meteen. De betalingen van spelers worden naar de toernooiorganisatie overgemaakt.
-    Indien je kost voor deze optie brengen we wel servicekosten voor het gebruik van Tournia in rekening. Dit bedrag is afhankelijk van het het aantal spelers tijdens het toernooi.
 financial.general.readMore.button: Lees verder
 financial.general.readMore.1: Als je een toernooi organiseert die gratis is (bijv. interne competitie, vriendschappelijke wedstrijden, etc.) kan je Tournia gratis gebruiken, inclusief alle functies die je nodig hebt om een toernooi te organiseren. We bieden dit gratis aan, omdat we er in geloven dat sport beschikbaar zou moeten zijn voor iedereen.
-financial.general.readMore.2: Echter, als je geld vraagt voor je toernooi, vragen we een kleine bijdrage voor het gebruik van Tournia. We vragen &euro; 0.50 voor servicekosten aan de speler voor elke transacitie. Afhankelijk van de gekozen betalingsmethode (credit card, iDeal, etc.) worden de transactiekosten ook in rekening gebracht aan de speler. Natuurlijk kan je er voor kiezen om geld te vragen aan spelers zodra ze arriveren voor het toernooi, maar (om servicekosten te voorkomen), maar weet je zeker dat de speler komt opdagen? Door geld aan de speler van te voren te vragen heb je de garantie dat de speler komt voor je toernooi (of je hebt tenminste je geld).
-financial.general.readMore.3: Dus hoe werken betalingen? Tournia.net biedt de mogelijkheid voor spelers om bepaalde "producten" te kopen. Deze producten kunnen bijvoorbeeld een aanbetaling, t-shirt of volledige inschrijfkosten zijn. Spelers kopen deze producten op je toernooi website, en Tournia handelt het gehele betaalproces af. Dus geen zorgen over een PayPal rekening, credit cards of iDeal rekening; Tournia regelt dit. Het geld van de spelers wordt overgemaakt naar jouw bankrekening of PayPal rekening, die je kan instellen in de uitbetaling tab.
-financial.serviceFee.legend: Servicekosten
+financial.general.readMore.2: Echter, als je geld vraagt voor je toernooi, vragen we een kleine bijdrage voor het gebruik van Tournia. We vragen &euro; 0.50 per speler, wat achteraf gefactureerd wordt.
+financial.general.readMore.3: Als je geld vraagt voor het toernooi, heb je twee mogelijkheden. 1. Je kan betalingen zelf uitvoeren. 2. Gebruik je PayPal account; betalingen worden uitgevoerd bij registratie voor het toernooi. Tournia.net biedt de mogelijkheid voor spelers om bepaalde "producten" te kopen. Deze producten kunnen bijvoorbeeld een aanbetaling, t-shirt of volledige inschrijfkosten zijn. Spelers kopen deze producten op je toernooi website, en het geld wordt op je PayPal rekening bijgeschreven.
+financial.paypalAccount.readMore.1: Om via PayPal betalingen te ontvangen, heb je een zakelijk PayPal account nodig (gratis aan te maken). Ga daarna naar <a href="https://www.paypal.com/businessprofile/mytools/apiaccess">https://www.paypal.com/businessprofile/mytools/apiaccess</a>, klik op <i>API-toegangsrechten toevoegen of aanpassen</i>, kies voor Optie 2 (API-handtekening) en vul de waarden hieronder in.
+financial.paypalAccount.legend: PayPal account
 financial.products.tab: Producten
 financial.products.legend: Producten
 financial.paymentInfo.tab: Betaling informatie
@@ -58,9 +56,6 @@ financial.paymentInfo.legend: Betaling informatie
 financial.paymentInfo.statusUpdate: Automatische status update
 financial.payout.tab: Uitbetaling
 financial.payout.legend: Uitbetaling informatie
-financial.payout.text: |
-  Betalingen van spelers worden elke maand overgemaakt naar een account van jouw keuze.
-  Het huidige uitstaande bedrag is %outstanding%
 
 # Organizers
 organizers.title: Organisatoren - Instellingen
@@ -216,13 +211,12 @@ financialType.financialPayoutPaypalEmail.info: Het uitstaande bedrag wordt naar 
 financialType.financialPayoutPaypalEmail.formComment: Omdat je een andere valuta dan euro's hebt geselecteerd, geven we de voorkeur aan uitbetaling via PayPal. Neem in overweging dat PayPal 0,5% transactiekosten in rekening brengt. Neem contact met ons op om alternatieve uitbetalingsopties te bespreken.
 financialType.financialMethod.free: Dit toernooi is kostenloos.
 financialType.financialMethod.invoice: Dit toernooi vraagt geld voor deelname, maar we willen niet Tournia gebruiken voor betalingen.
-financialType.financialMethod.payments: Dit toernooi vraagt geld voor deelname, en we willen spelers de mogelijkheid bieden om direct te betalen via Tournia.
+financialType.financialMethod.payments: Dit toernooi vraagt geld voor deelname, en we willen spelers de mogelijkheid bieden om direct te betalen via PayPal.
 financialType.financialMethod.label: Betalingen
 financialType.financialMethod.formComment: Je kan dit later nog wijzigen.
-financialType.organizationPaysServiceFee.no: Speler betaalt de servicekosten
-financialType.organizationPaysServiceFee.yes: Toernooi organisatie betaalt de servicekosten
-financialType.organizationPaysServiceFee.label: Servicekosten
-financialType.organizationPaysServiceFee.formComment: Je kan er voor kiezen om de servicekosten van de speler te betalen.
+financialType.paypalAccountUsername.label: API-gebruikersnaam
+financialType.paypalAccountPassword.label: API-wachtwoord
+financialType.paypalAccountSignature.label: Handtekening
 
 # OrganizerPersonType
 organizerPersonType.email.label: E-mailadres

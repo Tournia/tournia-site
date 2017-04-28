@@ -47,19 +47,6 @@
 
             $("#{{form.financialMethod.vars.id}}").val(selectedFinancialMethod);
 
-            //Show form additionals
-            selectedFinancialMethod = $("#{{form.financialMethod.vars.id}}").val();
-            if (selectedFinancialMethod == "free") {
-                $("#financialInvoice").hide();
-                $("#financialFormElements").hide();
-            } else if (selectedFinancialMethod == "invoice") {
-                $("#financialInvoice").hide();
-                $("#financialFormElements").hide();
-            } else if (selectedFinancialMethod == "payments") {
-                $("#financialInvoice").hide();
-                $("#financialFormElements").show();
-            }
-
             // Activate selected option
             activeButton = $(".optionButtons button[data-value='"+ selectedFinancialMethod +"']");
             activeButton.parent().addClass("selected");
@@ -182,19 +169,6 @@
         }
     }).trigger("change");
 
-    // change payout option depending on currency
-    $("#{{form.paymentCurrency.vars.id}}").on("change", function() {
-        if ($(this).val() == "EUR") {
-            //payout is via IBAN
-            $("#{{form.financialPayoutBankAccount.vars.id}}").closest(".form-group").show();
-            $("#{{form.financialPayoutPaypalEmail.vars.id}}").closest(".form-group").hide();
-        } else {
-            //payout is via paypal
-            $("#{{form.financialPayoutBankAccount.vars.id}}").closest(".form-group").hide();
-            $("#{{form.financialPayoutPaypalEmail.vars.id}}").closest(".form-group").show();
-        }
-    }).trigger("change");
-
     $("#goToFinish a").on("click", function(e) {
         e.preventDefault();
         $('#newTournamentWizard').wizard('selectedItem', {step: 4});
@@ -266,13 +240,6 @@
                                                         <h3>{{ 'create.financial.heading'|trans }}</h3>
                                                         <p>{{ 'financial.general.text'|trans }}</p>
                                                         <ul class="financialOptions optionButtons">
-                                                            <!--<li>
-                                                                <button type="button" data-value="payments">
-                                                                    <span class="fa fa-euro fa-5x"></span>
-                                                                    <strong>{{ 'create.financial.payments.title'|trans }}</strong>
-                                                                    <p>{{ 'create.financial.payments.text'|trans|raw }}</p>
-                                                                </button>
-                                                            </li>-->
                                                             <li>
                                                                 <button type="button" data-value="free">
                                                                     <span class="fa fa-smile-o fa-5x"></span>
@@ -280,7 +247,14 @@
                                                                     <p>{{ 'create.financial.free.text'|trans }}</p>
                                                                 </button>
                                                             </li>
-                                                            <li class="inactive">
+                                                            <li>
+                                                                <button type="button" data-value="payments">
+                                                                    <span class="fa fa-euro fa-5x"></span>
+                                                                    <strong>{{ 'create.financial.payments.title'|trans }}</strong>
+                                                                    <p>{{ 'create.financial.payments.text'|trans|raw }}</p>
+                                                                </button>
+                                                            </li>
+                                                            <li>
                                                                 <button type="button" data-value="invoice">
                                                                     <span class="fa fa-money fa-5x"></span>
                                                                     <strong>{{ 'create.financial.invoice.title'|trans }}</strong>
@@ -289,14 +263,6 @@
                                                             </li>
                                                         </ul>
                                                         <div style="display:none">{{ form_row(form.financialMethod) }}</div>
-                                                        <div id="financialInvoice" class="alert alert-info" style="display:none">
-                                                            <p>{{ 'financial.general.invoice' | trans | nl2br }}</p>
-                                                        </div>
-                                                        <div id="financialFormElements" style="display:none">
-                                                            {{ form_row(form.paymentCurrency) }}
-                                                            {{ form_row(form.financialPayoutBankAccount) }}
-                                                            {{ form_row(form.financialPayoutPaypalEmail) }}
-                                                        </div>
                                                     </div>
                                                     <div class="step-pane sample-pane alert" data-step="4">
                                                         <h3>{{ 'create.finish.heading'|trans }}</h3>

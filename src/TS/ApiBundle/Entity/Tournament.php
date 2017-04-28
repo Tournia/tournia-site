@@ -258,6 +258,27 @@ class Tournament
     /**
      * @var string
      *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $paypalAccountUsername;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $paypalAccountPassword;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $paypalAccountSignature;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $financialPayoutPaypalEmail;
@@ -340,7 +361,7 @@ class Tournament
         $this->startDateTime = new \DateTime("now");
         $this->endDateTime = new \DateTime("now");
         $this->authorization = new Authorization();
-        $this->financialMethod = "invoice";
+        $this->financialMethod = "payments";
         $this->maxRegistrationDisciplines = 0;
     }
 
@@ -1384,6 +1405,75 @@ class Tournament
     public function getFinancialMethod()
     {
         return $this->financialMethod;
+    }
+
+    /**
+     * Set paypalAccountUsername
+     *
+     * @param string $paypalAccountUsername
+     * @return Tournament
+     */
+    public function setPaypalAccountUsername($paypalAccountUsername)
+    {
+        $this->paypalAccountUsername = $paypalAccountUsername;
+
+        return $this;
+    }
+
+    /**
+     * Get paypalAccountUsername
+     *
+     * @return string
+     */
+    public function getPaypalAccountUsername()
+    {
+        return $this->paypalAccountUsername;
+    }
+
+    /**
+     * Set paypalAccountPassword
+     *
+     * @param string $paypalAccountPassword
+     * @return Tournament
+     */
+    public function setPaypalAccountPassword($paypalAccountPassword)
+    {
+        $this->paypalAccountPassword = $paypalAccountPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get paypalAccountPassword
+     *
+     * @return string
+     */
+    public function getPaypalAccountPassword()
+    {
+        return $this->paypalAccountPassword;
+    }
+
+    /**
+     * Set paypalAccountSignature
+     *
+     * @param string $paypalAccountSignature
+     * @return Tournament
+     */
+    public function setPaypalAccountSignature($paypalAccountSignature)
+    {
+        $this->paypalAccountSignature = $paypalAccountSignature;
+
+        return $this;
+    }
+
+    /**
+     * Get paypalAccountSignature
+     *
+     * @return string
+     */
+    public function getPaypalAccountSignature()
+    {
+        return $this->paypalAccountSignature;
     }
 
     /**
