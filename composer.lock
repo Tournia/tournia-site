@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "99c8f8e88f0e43975c363c4d03d057dd",
+    "content-hash": "35201167b0e3e4f2a74b94a315cf6e71",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -49,6 +49,65 @@
                 "transliterator"
             ],
             "time": "2017-04-04T11:38:05+00:00"
+        },
+        {
+            "name": "defuse/php-encryption",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/defuse/php-encryption.git",
+                "reference": "2c6fea3d9a4eaaa8cef86b2a89f3660818117b33"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/defuse/php-encryption/zipball/2c6fea3d9a4eaaa8cef86b2a89f3660818117b33",
+                "reference": "2c6fea3d9a4eaaa8cef86b2a89f3660818117b33",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "paragonie/random_compat": "~2.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "nikic/php-parser": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Hornby",
+                    "email": "taylor@defuse.ca",
+                    "homepage": "https://defuse.ca/"
+                },
+                {
+                    "name": "Scott Arciszewski",
+                    "email": "info@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "Secure PHP Encryption Library",
+            "keywords": [
+                "aes",
+                "authenticated encryption",
+                "cipher",
+                "crypto",
+                "cryptography",
+                "encrypt",
+                "encryption",
+                "openssl",
+                "security",
+                "symmetric key cryptography"
+            ],
+            "time": "2016-10-10T15:20:26+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -1268,16 +1327,16 @@
         },
         {
             "name": "friendsofsymfony/user-bundle",
-            "version": "dev-master",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "730a8a5f6633ae913a838d26b1c7156faa6ed697"
+                "reference": "2e0243e9e8a3ca0dab753fc5f2e79b4b3093ac9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/730a8a5f6633ae913a838d26b1c7156faa6ed697",
-                "reference": "730a8a5f6633ae913a838d26b1c7156faa6ed697",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/2e0243e9e8a3ca0dab753fc5f2e79b4b3093ac9a",
+                "reference": "2e0243e9e8a3ca0dab753fc5f2e79b4b3093ac9a",
                 "shasum": ""
             },
             "require": {
@@ -1341,7 +1400,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2017-04-21 12:31:59"
+            "time": "2017-03-29T13:21:34+00:00"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -2478,45 +2537,55 @@
         },
         {
             "name": "jms/payment-core-bundle",
-            "version": "1.1.0",
+            "version": "1.3.0",
             "target-dir": "JMS/Payment/CoreBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSPaymentCoreBundle.git",
-                "reference": "1bde57ad5629c139ee298bc842f982028a6a6383"
+                "reference": "8ea0b3a10cba35af038ce63713ac7d27b0d01f8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSPaymentCoreBundle/zipball/1bde57ad5629c139ee298bc842f982028a6a6383",
-                "reference": "1bde57ad5629c139ee298bc842f982028a6a6383",
+                "url": "https://api.github.com/repos/schmittjoh/JMSPaymentCoreBundle/zipball/8ea0b3a10cba35af038ce63713ac7d27b0d01f8d",
+                "reference": "8ea0b3a10cba35af038ce63713ac7d27b0d01f8d",
                 "shasum": ""
             },
             "require": {
-                "ext-mcrypt": "*",
-                "php": ">=5.3.2",
-                "symfony/framework-bundle": "~2.0"
+                "defuse/php-encryption": "~2.0",
+                "doctrine/common": "~2.3",
+                "doctrine/dbal": "~2.3",
+                "doctrine/orm": "~2.3",
+                "php": ">=5.4",
+                "symfony/browser-kit": "~2.3|~3.0",
+                "symfony/config": "~2.3|~3.0",
+                "symfony/dependency-injection": "~2.3|~3.0",
+                "symfony/event-dispatcher": "~2.3|~3.0",
+                "symfony/form": "~2.3|~3.0",
+                "symfony/http-foundation": "~2.3|~3.0",
+                "symfony/http-kernel": "~2.3|~3.0",
+                "symfony/options-resolver": "~2.3|~3.0",
+                "symfony/validator": "~2.3|~3.0"
             },
             "require-dev": {
-                "doctrine/doctrine-bundle": "*",
-                "doctrine/orm": "*",
-                "jms/aop-bundle": "*",
-                "jms/di-extra-bundle": "*",
-                "jms/payment-paypal-bundle": "*@dev",
-                "sensio/framework-extra-bundle": "*",
-                "symfony/browser-kit": "*",
-                "symfony/class-loader": "*",
-                "symfony/css-selector": "*",
-                "symfony/finder": "*",
-                "symfony/form": "*",
-                "symfony/process": "*",
-                "symfony/twig-bundle": "*",
-                "symfony/validator": "*",
-                "symfony/yaml": "*"
+                "doctrine/doctrine-bundle": "~1.6",
+                "jms/payment-paypal-bundle": "~1.0",
+                "matthiasnoback/symfony-config-test": "^2.1",
+                "phpunit/phpunit": "~4.8|~5.4",
+                "sensio/framework-extra-bundle": "~3.0",
+                "symfony/doctrine-bridge": "~2.3|~3.0",
+                "symfony/dom-crawler": "~2.3|~3.0",
+                "symfony/framework-bundle": "~2.3|~3.0",
+                "symfony/phpunit-bridge": "~2.7",
+                "symfony/routing": "~2.3|~3.0",
+                "symfony/templating": "~2.3|~3.0",
+                "symfony/twig-bridge": "~2.3|~3.0",
+                "symfony/twig-bundle": "~2.3|~3.0",
+                "twig/twig": "~1.0"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
@@ -2530,41 +2599,53 @@
             ],
             "authors": [
                 {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "name": "Paulo Rodrigues Pinto",
+                    "email": "regularjack@gmail.com"
+                },
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/schmittjoh/JMSPaymentCoreBundle/contributors"
                 }
             ],
-            "description": "This bundle is providing the foundation for various payment plugins.",
-            "homepage": "http://jmsyst.com/bundles/JMSPaymentCoreBundle",
+            "description": "A unified API for processing payments with Symfony",
+            "homepage": "http://jmspaymentcorebundle.readthedocs.io",
             "keywords": [
                 "payment"
             ],
-            "time": "2014-01-21T07:45:46+00:00"
+            "time": "2017-01-22T17:49:09+00:00"
         },
         {
             "name": "jms/payment-paypal-bundle",
-            "version": "1.0.0",
+            "version": "1.1.2",
             "target-dir": "JMS/Payment/PaypalBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSPaymentPaypalBundle.git",
-                "reference": "5c58d9957814d83712b1e07a0acbf97c4f7d1f5b"
+                "reference": "8986862ac94ddfbbbb47473a7bb8f96ad14f595c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSPaymentPaypalBundle/zipball/5c58d9957814d83712b1e07a0acbf97c4f7d1f5b",
-                "reference": "5c58d9957814d83712b1e07a0acbf97c4f7d1f5b",
+                "url": "https://api.github.com/repos/schmittjoh/JMSPaymentPaypalBundle/zipball/8986862ac94ddfbbbb47473a7bb8f96ad14f595c",
+                "reference": "8986862ac94ddfbbbb47473a7bb8f96ad14f595c",
                 "shasum": ""
             },
             "require": {
                 "jms/payment-core-bundle": "~1.0",
                 "php": ">=5.3.2",
-                "symfony/framework-bundle": "~2.0"
+                "symfony/browser-kit": "~2.0|~3.0",
+                "symfony/config": "~2.0|~3.0",
+                "symfony/dependency-injection": "~2.0|~3.0",
+                "symfony/form": "~2.0|~3.0",
+                "symfony/http-foundation": "~2.0|~3.0",
+                "symfony/http-kernel": "~2.0|~3.0"
             },
             "require-dev": {
-                "symfony/browser-kit": "*"
+                "phpunit/phpunit": "~4.8|~5.4",
+                "symfony/phpunit-bridge": "~2.7"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -2578,10 +2659,8 @@
             ],
             "authors": [
                 {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
             "description": "Payment Bundle providing access to the PayPal API",
@@ -2590,7 +2669,7 @@
                 "payment",
                 "paypal"
             ],
-            "time": "2013-08-14T16:58:12+00:00"
+            "time": "2017-04-09T12:34:22+00:00"
         },
         {
             "name": "jms/serializer",
@@ -3072,12 +3151,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "3727d043cb7bc47e9bfe70d2957fa0fb32694d78"
+                "reference": "ae184417638807e50f3fbdddfd236a57960ac374"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/3727d043cb7bc47e9bfe70d2957fa0fb32694d78",
-                "reference": "3727d043cb7bc47e9bfe70d2957fa0fb32694d78",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/ae184417638807e50f3fbdddfd236a57960ac374",
+                "reference": "ae184417638807e50f3fbdddfd236a57960ac374",
                 "shasum": ""
             },
             "require": {
@@ -3148,7 +3227,7 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2017-03-15 12:54:04"
+            "time": "2017-04-28 15:27:09"
         },
         {
             "name": "ocramius/proxy-manager",
@@ -6350,7 +6429,6 @@
         "doctrine/migrations": 20,
         "doctrine/doctrine-migrations-bundle": 0,
         "nelmio/api-doc-bundle": 20,
-        "friendsofsymfony/user-bundle": 20,
         "friendsofsymfony/jsrouting-bundle": 0,
         "gregwar/captcha-bundle": 20,
         "stof/doctrine-extensions-bundle": 20,

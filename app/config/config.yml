@@ -233,13 +233,14 @@ stof_doctrine_extensions:
 jms_payment_core:
     secret: %payment_secret%
 jms_payment_paypal:
-    username: %payment_paypal_username%
-    password: %payment_paypal_password%
-    signature: %payment_paypal_signature%
-    #debug: true/false # when true, connect to PayPal sandbox; uses kernel debug value when not specified
+    username: bytournamentconfigured
+    password: bytournamentconfigured
+    signature: bytournamentconfigured
+    debug: false # when true, connect to PayPal sandbox; uses kernel debug value when not specified
+    useraction: commit
 # Mollie
 ruudk_payment_mollie:
-    api_key:  %payment_mollie_key_prod%
+    api_key:  disabled
     logger:   true   # Default true
     methods:
       - ideal
@@ -328,4 +329,7 @@ services:
     my.oauth_aware.user_provider.service:
         class: TS\AccountBundle\SecurityProvider\OauthLoginProvider
         arguments: [@fos_user.user_manager,{facebook: facebookId, google: googleId}, @session, @service_container]
+    payment.paypal.authentication_strategy.token:
+        class: TS\FinancialBundle\EventListener\OverrideTokenAuthenticationStrategy
+        arguments: [@session]
 

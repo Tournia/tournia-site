@@ -1,6 +1,7 @@
 <?php
 namespace TS\FinancialBundle\Controller;
 
+use JMS\Payment\CoreBundle\Form\ChoosePaymentMethodType;
 use Sylius\Bundle\CartBundle\Controller\CartController as BaseCartController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -72,6 +73,10 @@ class CartController extends BaseCartController
             $paymentConfig["paypal_express_checkout"]["username"] = $addItemTournament->getPaypalAccountUsername();
             $paymentConfig["paypal_express_checkout"]["password"] = $addItemTournament->getPaypalAccountPassword();
             $paymentConfig["paypal_express_checkout"]["signature"] = $addItemTournament->getPaypalAccountSignature();
+            $this->get('payment.paypal.authentication_strategy.token')
+                ->setUsername($addItemTournament->getPaypalAccountUsername())
+                ->setPassword($addItemTournament->getPaypalAccountPassword())
+                ->setSignature($addItemTournament->getPaypalAccountSignature());
             /*
                 'mollie_ideal' => array(
                     'return_url' => $this->generateUrl('financial_payment_complete', array(), true),
@@ -113,7 +118,7 @@ class CartController extends BaseCartController
             $em->flush($cart);
         }
 
-        $paymentForm = $this->createForm('jms_choose_payment_method', null, array(
+        $paymentForm = $this->createForm("jms_choose_payment_method", null, array(
             'amount' => $cart->getTotal(),
             'currency' => $currency,
             'default_method' => $selectedPaymentMethod, // Optional
