@@ -29,7 +29,7 @@
         "gregwar/captcha-bundle": "dev-master",
         "jms/payment-core-bundle": "1.1.0",
         "jms/payment-paypal-bundle": "1.0.0",
-        "ruudk/payment-mollie-bundle": "3.*",
+        "ruudk/payment-mollie-bundle": "4.*",
         "stof/doctrine-extensions-bundle": "~1.1@dev",
         "sylius/product-bundle": "0.9.*@dev",
         "sylius/cart-bundle": "0.9.*@dev",
