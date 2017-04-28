@@ -1477,6 +1477,14 @@ class Tournament
     }
 
     /**
+     * Is PayPal Account enabled?
+     * @return bool
+     */
+    public function isPaypalAccountEnabled() {
+        return $this->paypalAccountUsername != null && $this->paypalAccountPassword != null && $this->paypalAccountSignature != null;
+    }
+
+    /**
      * Add notificationLogs
      *
      * @param \TS\NotificationBundle\Entity\NotificationLog $notificationLogs

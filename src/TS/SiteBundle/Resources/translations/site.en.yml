@@ -137,9 +137,6 @@ base.side.information.when: When?
 base.side.information.registrationopen: Registrions open
 base.side.information.registrationdeadline: Registrions deadline
 base.side.information.costs: Costs
-base.side.information.excl: Excl.
-base.side.information.servicefeeand: service fee and
-base.side.information.transactioncosts: transaction costs
 base.side.information.makepayment: Make a payment
 base.side.information.noproducts: No costs defined
 base.side.information.register: Register

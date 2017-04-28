@@ -44,7 +44,16 @@ class CartController extends BaseCartController
                 ->getRepository('TSApiBundle:Tournament')
                 ->findOneByUrl($request->query->get('tournament'));
         }
-        if (($addItemTournament != null) && $addItemTournament->getFinancialEnabled() && (sizeof($addItemTournament->getProducts()) > 0)) {
+
+        $router = $this->get('router');
+        $paymentConfig = [
+            'paypal_express_checkout' => [
+                'return_url' => $router->generate('financial_payment_complete', array(), true),
+                'cancel_url' => $router->generate('financial_payment_cancel', array(), true),
+            ],
+        ];
+
+        if (($addItemTournament != null) && $addItemTournament->getFinancialEnabled() && (sizeof($addItemTournament->getProducts()) > 0) && $addItemTournament->isPaypalAccountEnabled()) {
             $addItemForm = $this->createForm(new CartAddItemType(), null, array('em'=>$this->getDoctrine()->getManager(), 'tournament'=>$addItemTournament));
 
             // handle addItemForm submit
@@ -59,10 +68,23 @@ class CartController extends BaseCartController
                 }
             }
             $addItemForm = $addItemForm->createView();
+
+            $paymentConfig["paypal_express_checkout"]["username"] = $addItemTournament->getPaypalAccountUsername();
+            $paymentConfig["paypal_express_checkout"]["password"] = $addItemTournament->getPaypalAccountPassword();
+            $paymentConfig["paypal_express_checkout"]["signature"] = $addItemTournament->getPaypalAccountSignature();
+            /*
+                'mollie_ideal' => array(
+                    'return_url' => $this->generateUrl('financial_payment_complete', array(), true),
+                    'description' => "Tournia.net payment, ref. ". $cart->getId(),
+                ),
+                'mollie_creditcard' => array(
+                    'return_url' => $this->generateUrl('financial_payment_complete', array(), true),
+                    'description' => "Tournia.net payment, ref. ". $cart->getId(),
+                ),
+            */
         } else {
             $addItemForm = null;
         }
-
 
 
         if (!is_object($cart->getExecPerson()) && is_object($this->getUser())){
@@ -84,7 +106,6 @@ class CartController extends BaseCartController
         $cartForm = $this->createForm('sylius_cart', $cart);
 
         $formFactory = $this->get('form.factory');
-        $router = $this->get('router');
         $em = $this->getDoctrine()->getManager();
         $paymentPluginController = $this->get('payment.plugin_controller');
 
@@ -96,20 +117,7 @@ class CartController extends BaseCartController
             'amount' => $cart->getTotal(),
             'currency' => $currency,
             'default_method' => $selectedPaymentMethod, // Optional
-            'predefined_data' => array(
-                'paypal_express_checkout' => array(
-                    'return_url' => $router->generate('financial_payment_complete', array(), true),
-                    'cancel_url' => $router->generate('financial_payment_cancel', array(), true)
-                ),
-                'mollie_ideal' => array(
-                    'return_url' => $this->generateUrl('financial_payment_complete', array(), true),
-                    'description' => "Tournia.net payment, ref. ". $cart->getId(),
-                ),
-                'mollie_creditcard' => array(
-                    'return_url' => $this->generateUrl('financial_payment_complete', array(), true),
-                    'description' => "Tournia.net payment, ref. ". $cart->getId(),
-                ),
-            ),
+            'predefined_data' => $paymentConfig,
         ));
 
         // add conditions element to payment form

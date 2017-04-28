@@ -31,6 +31,10 @@
 
 {% block javascript %}
     <script type="text/javascript">
+        function submitPaymentForm() {
+            $("#paymentFormPay").val('true');
+            $("#{{ paymentForm.conditions.vars.id }}").closest("form").submit();
+        }
     </script>
 {% endblock %}
 
@@ -182,12 +186,14 @@ $("#{{ paymentForm.method.vars.id }} :radio").change(function() {
                                                     {{ form(paymentForm.data_test_payment) }}
                                                     {{ form(paymentForm.data_paypal_express_checkout) }}
                                                 </div>
-                                                {{ form_row(paymentForm.method) }}
+                                                <div style="display: none">
+                                                    {{ form_row(paymentForm.method) }}
+                                                </div>
                                                 {{ form_row(paymentForm.conditions) }}
                                                 {{ form_rest(paymentForm) }}
-                                                <input type="hidden" name="paymentFormPay" value="true" id="paymentFormPay" />
+                                                <input type="hidden" name="paymentFormPay" value="" id="paymentFormPay" />
                                                 <div class="form-actions text-center">
-                                                    <button type="button" class="btn btn-custom-green btn-lg"><i class="fa fa-angle-double-right"></i> {{ 'summary.payment.submit'|trans }}</button>
+                                                    <button type="button" class="btn btn-custom-green btn-lg" onClick="submitPaymentForm()"><i class="fa fa-angle-double-right"></i> {{ 'summary.payment.submit'|trans }}</button>
                                                 </div>
                                             </fieldset>
                                         </form>

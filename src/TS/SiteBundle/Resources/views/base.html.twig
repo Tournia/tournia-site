@@ -212,12 +212,6 @@
                                             {% for product in tournament.products if not product.isHidden %}
                                                 <small>{{ product.name }} {{ product.price|sylius_price }}</small>
                                             {% endfor %}
-                                            <small>{{ 'base.side.information.excl'|trans }}
-                                                    {% if not tournament.organizationPaysServiceFee %}
-                                                        {{ 50|sylius_price }} {{ 'base.side.information.servicefeeand'|trans }}
-                                                    {% endif %}
-                                                    {{ 'base.side.information.transactioncosts'|trans }}
-                                            </small>
                                             <p><small><a href="{{ path('sylius_cart_summary', {'tournament': tournament.url}) }}">{{ 'base.side.information.makepayment'|trans }}</a></small></p>
                                         {% else %}
                                             {{ 'base.side.information.noproducts'|trans }}

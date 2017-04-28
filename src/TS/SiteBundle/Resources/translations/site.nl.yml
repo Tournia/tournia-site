@@ -137,9 +137,6 @@ base.side.information.when: Wanneer
 base.side.information.registrationopen: Registratie opent
 base.side.information.registrationdeadline: Registratie deadline
 base.side.information.costs: Kosten
-base.side.information.excl: Excl.
-base.side.information.servicefeeand: servicekosten en
-base.side.information.transactioncosts: transactiekosten
 base.side.information.makepayment: Nieuwe betaling
 base.side.information.noproducts: Geen kosten opgegeven
 base.side.information.register: Registreer
