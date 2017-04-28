@@ -118,6 +118,7 @@ class MatchListener extends MainListener {
      * @param \TS\ApiBundle\Entity\Tournament $tournament
      */
     private function sendMessage($notificationSubscription, $messageText, $tournament) {
+        return; // TODO messages disabled
         $notificationSubscription->getDeviceToken();
         if ($notificationSubscription->getPlatform() == 'ios') {
             $message = new iOSMessage();
