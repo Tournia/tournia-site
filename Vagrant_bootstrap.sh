@@ -64,6 +64,7 @@ apt-get install -y mysql-server php7.1-mysql
 
 # Change the mysql bind-address
 sed -i "s/^bind-address.*/bind-address=0.0.0.0/" /etc/mysql/my.cnf
+echo "sql_mode = STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" >> /etc/mysql/mysql.conf.d/mysqld.cnf
 
 # Restart mysql
 service mysql restart
