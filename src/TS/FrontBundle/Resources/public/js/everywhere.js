@@ -9,28 +9,6 @@ if (typeof hideGoogleAnalytics == "undefined") {
   ga('send', 'pageview');
 }
 
-function showFeedbackPopover() {
-  Zenbox.show()
-}
-// Zendesk feedback tab
-$.getScript("//assets.zendesk.com/external/zenbox/v2.6/zenbox.js").done(function() {
-  if (typeof(Zenbox) != "undefined") {
-    Zenbox.init({
-      dropboxID:   "20265238",
-      url:         "https://tournia.zendesk.com",
-      tabTooltip:  "Feedback",
-      tabImageURL: "https://assets.zendesk.com/external/zenbox/images/tab_feedback_right.png",
-      tabColor:    "black",
-      tabPosition: "Right",
-      hide_tab:    "true"
-    });
-  }
-})
-$('<style type="text/css"></style>')
-    .html('@import url("//assets.zendesk.com/external/zenbox/v2.6/zenbox.css")')
-    .appendTo("head");
-
-
 // placeholder support in internet explorer
 // Source https://github.com/parndt/jquery-html5-placeholder-shim/blob/master/jquery.html5-placeholder-shim.js
 (function($) {
