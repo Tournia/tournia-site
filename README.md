@@ -107,3 +107,6 @@ Development tips
 
 ### Migrations
 To create a new migration: `php app/console doctrine:migrations:generate` (or possibly `php app/console doctrine:migrations:diff`) and `php app/console doctrine:migrations:migrate`
+
+### Websocket
+Run `php app/console gos:websocket:server --port 8080` to start accepting websocket connections for Match Control.
