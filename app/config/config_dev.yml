@@ -33,12 +33,6 @@ swiftmailer:
     disable_delivery: true
     #spool: { type: memory }
 
-services:
-    ts_site_mails.twig.extension.debug:
-        class:        Twig_Extension_Debug
-        tags:
-             - { name: 'twig.extension' }
-
 #ruudk_payment_mollie:
 #    api_key:  %payment_mollie_key_test%
 

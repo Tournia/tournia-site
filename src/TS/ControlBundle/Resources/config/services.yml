@@ -10,9 +10,3 @@ services:
         arguments: [@service_container]
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
-
-    ts_control.financial.twig.money_extension:
-        class: Sylius\Bundle\MoneyBundle\Twig\SyliusMoneyExtension
-        arguments: [@sylius.currency_context, @sylius.currency_converter]
-        tags:
-            - { name: twig.extension }
