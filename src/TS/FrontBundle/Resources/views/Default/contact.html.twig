@@ -25,6 +25,10 @@
 				<p>
                     {{ 'contact.form.text'|trans|raw }}
 				</p>
+				<div class="alert alert-info" role="alert">
+					<span class="fa fa-info-circle" aria-hidden="true"></span>
+					{{ 'contact.form.tournament'|trans|raw }}
+				</div>
 				<form action="{{ path('front_contact') }}" method="post" {{ form_enctype(form) }} role="form">
 					<div class="form-group">
 			    		<label for="name">{{ 'contact.form.name.label'|trans }}</label>

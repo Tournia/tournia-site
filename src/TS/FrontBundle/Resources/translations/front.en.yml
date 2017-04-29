@@ -137,6 +137,7 @@ privacyStatement.text.title: Privacy Statement
 contact.title: Contact
 contact.form.title: Contact us
 contact.form.text: Interested in using our software? Or questions about it? We’d love to hear from you!<br /> Fill out the form below with some info about yourself and we'll get back to you as soon as possible.
+contact.form.tournament: For tournament related questions, please contact the tournament organzation directly. Contact details can be found on their site on the right side (under Organizer).
 contact.form.name.label: Your name
 contact.form.email.label: Email address
 contact.form.phone.label: Phone
