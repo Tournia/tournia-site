@@ -41,7 +41,7 @@ class GroupController extends MainController
 	    }
         
         // check for edit access
-        if (false === $this->get('security.context')->isGranted("EDIT", $group)) {
+        if (false === $this->get('security.authorization_checker')->isGranted("EDIT", $group)) {
             throw new AccessDeniedException();
         }
 
@@ -95,7 +95,7 @@ class GroupController extends MainController
         $group = new RegistrationGroup();
         
         // check for create access
-        if (false === $this->get('security.context')->isGranted("CREATE", $group)) {
+        if (false === $this->get('security.authorization_checker')->isGranted("CREATE", $group)) {
             throw new AccessDeniedException();
         }
         
@@ -139,7 +139,7 @@ class GroupController extends MainController
 	    }
 	    
 	    // check for delete access
-        if (false === $this->get('security.context')->isGranted("DELETE", $group)) {
+        if (false === $this->get('security.authorization_checker')->isGranted("DELETE", $group)) {
             throw new AccessDeniedException();
         }
         

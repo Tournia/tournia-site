@@ -32,7 +32,7 @@ class DefaultController extends Controller
 	    }
 	    
 	    // check for view access
-        if (false === $this->get('security.context')->isGranted("VIEW", $tournament)) {
+        if (false === $this->get('security.authorization_checker')->isGranted("VIEW", $tournament)) {
             throw new AccessDeniedException();
         }
 

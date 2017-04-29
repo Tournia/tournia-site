@@ -26,7 +26,7 @@ abstract class MainController extends Controller
         }
 	    
 	    // check for edit access
-        if (!$newTournament && (false === $this->get('security.context')->isGranted("EDIT", $tournament))) {
+        if (!$newTournament && (false === $this->get('security.authorization_checker')->isGranted("EDIT", $tournament))) {
             throw new AccessDeniedException();
         }
 

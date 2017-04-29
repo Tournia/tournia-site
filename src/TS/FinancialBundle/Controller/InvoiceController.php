@@ -26,7 +26,7 @@ class InvoiceController extends Controller
         }
 
         // check for view access
-        if (false === $this->get('security.context')->isGranted("VIEW", $invoice)) {
+        if (false === $this->get('security.authorization_checker')->isGranted("VIEW", $invoice)) {
             throw $this->createAccessDeniedException();
         }
 

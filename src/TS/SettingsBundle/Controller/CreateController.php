@@ -40,7 +40,7 @@ class CreateController extends Controller
             $copyTournament = $this->getDoctrine()
                 ->getRepository('TSApiBundle:Tournament')
                 ->find($copyTournamentId);
-            if (false === $this->get('security.context')->isGranted("EDIT", $copyTournament)) {
+            if (false === $this->get('security.authorization_checker')->isGranted("EDIT", $copyTournament)) {
                 $copyTournament = null;
             }
         }

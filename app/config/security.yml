@@ -63,7 +63,7 @@ security:
             form_login:
                 provider: fos_userbundle
                 check_path: fos_user_security_check
-                csrf_provider: form.csrf_provider
+                csrf_provider: security.csrf.token_manager
                 login_path: account_login
             anonymous:    true
             context: default_context

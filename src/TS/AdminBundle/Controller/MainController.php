@@ -14,7 +14,7 @@ abstract class MainController extends Controller
      */
     protected function checkAccess() {
         // check for edit access
-        if (false === $this->get('security.context')->isGranted("ROLE_ADMIN")) {
+        if (false === $this->get('security.authorization_checker')->isGranted("ROLE_ADMIN")) {
             throw $this->createAccessDeniedException("You're not authorized to access this page!");
         }
     }

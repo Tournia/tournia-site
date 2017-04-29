@@ -50,7 +50,7 @@ class PlayerController extends MainController
         }
 
         // check for create access
-        if ((false === $this->get('security.context')->isGranted("CREATE", new Player())) && (!$request->query->has("anonymous"))) {
+        if ((false === $this->get('security.authorization_checker')->isGranted("CREATE", new Player())) && (!$request->query->has("anonymous"))) {
             // not logged in -> show registration login form
             $form = $this->createFormBuilder()
                 ->add('captcha', 'captcha', array(
@@ -148,7 +148,7 @@ class PlayerController extends MainController
 	    }
 	    
 	    // check for delete access
-        if (false === $this->get('security.context')->isGranted("DELETE", $player)) {
+        if (false === $this->get('security.authorization_checker')->isGranted("DELETE", $player)) {
             throw new AccessDeniedException();
         }
 

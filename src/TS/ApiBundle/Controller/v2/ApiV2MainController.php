@@ -111,7 +111,7 @@ class ApiV2MainController extends Controller
 			} else if ($writeRequest && !$apiKey->getWriteAccess()) {
 				throw $this->throwError('No write access with this API key: '. $apiKeyTxt, self::$ERROR_FORBIDDEN);
 			}
-		} else if ($this->get('security.context')->isGranted("EDIT", $this->tournament)) {
+		} else if ($this->get('security.authorization_checker')->isGranted("EDIT", $this->tournament)) {
 			// Logged in organizer
 		} else if ($this->request->get('_route') == 'api_v2_tournaments_get') {
 			// Always allow to request general information about the tournament (also to check for isApiAllowed)

@@ -47,7 +47,7 @@ class CommandsController extends ApiV2MainController
             if (in_array($command['command'], $liveCommands)) {
                 $accessLevel = "VIEW";
             }
-            if (false === $this->get('security.context')->isGranted($accessLevel, $this->tournament)) {
+            if (false === $this->get('security.authorization_checker')->isGranted($accessLevel, $this->tournament)) {
                 throw new AccessDeniedException();
             }*/
 

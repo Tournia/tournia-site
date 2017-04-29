@@ -17,7 +17,7 @@ class LiveController extends MainController
 	 */
     public function indexAction(Request $request)
     {
-        if (!$this->tournament->getAuthorization()->isApiAllowed() && (false === $this->get('security.context')->isGranted("EDIT", $this->tournament))) {
+        if (!$this->tournament->getAuthorization()->isApiAllowed() && (false === $this->get('security.authorization_checker')->isGranted("EDIT", $this->tournament))) {
         	// live is closed (although it is never closed for organizers)
         	return $this->render('TSSiteBundle:Live:closed.html.twig');
         }

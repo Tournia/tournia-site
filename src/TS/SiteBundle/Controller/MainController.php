@@ -22,7 +22,7 @@ abstract class MainController extends Controller
 	    }
 	    
 	    // check for view access
-        if (false === $this->get('security.context')->isGranted("VIEW", $tournament)) {
+        if (false === $this->get('security.authorization_checker')->isGranted("VIEW", $tournament)) {
             throw new AccessDeniedException();
         }
 
@@ -40,7 +40,7 @@ abstract class MainController extends Controller
         }
         // check for unpublished site
         if (!$this->tournament->getSite()->getIsPublished()) {
-            if (false === $this->get('security.context')->isGranted("EDIT", $tournament)) {
+            if (false === $this->get('security.authorization_checker')->isGranted("EDIT", $tournament)) {
                 throw $this->createNotFoundException('The tournament '. $this->tournament->getName() .' is not online yet');
             } else {
                 $publishUrl = $this->generateUrl('settings_site_publish', array('tournamentUrl'=>$this->tournament->getUrl()));

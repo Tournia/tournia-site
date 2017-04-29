@@ -107,7 +107,7 @@ class TournamentController extends MainController
       */
     public function deleteAction() {	
 	    // check for delete access
-        if (false === $this->get('security.context')->isGranted("DELETE", $this->tournament)) {
+        if (false === $this->get('security.authorization_checker')->isGranted("DELETE", $this->tournament)) {
             throw new AccessDeniedException();
         }
         
