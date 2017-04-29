@@ -149,12 +149,14 @@ service apache2 restart
 #fi
 
 # Install Java for Assetic
+sudo add-apt-repository -y ppa:openjdk-r/ppa
+apt-get update
 apt-get install -y openjdk-7-jre
 
 # Install sass and Compass
-gem install sass
 apt-get install -y ruby-dev #bug in compass needs this
 gem install compass
+gem install sass
 
 # Update composer
 cd /var/www
