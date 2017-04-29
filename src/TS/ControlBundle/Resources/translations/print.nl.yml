@@ -38,6 +38,6 @@ print.replacement: Vervanger
 
 normalFooter.liveText: Kijk voor Live standen, ranglijsten and speler informatie
 normalFooter.powered: Powered by Tournia.net
-invoiceFooter.text1: Tournia.net is een product van Agonian v.o.f.
-invoiceFooter.text2: Kamer van Koophandel 61505838 - BTW NL854371692B01
-invoiceFooter.invoice: Factuur
+invoiceFooter.text1: This is geen factuur, vraag de toernooi organisatie voor een officiële factuur.
+invoiceFooter.text2: www.touria.net
+invoiceFooter.invoice: Betaling

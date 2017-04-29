@@ -71,7 +71,7 @@ start.features.2.button: Flexible registrations &amp; payments
 start.features.2.title: Simple registrations and payments
 start.features.2.text1: Players can register for your tournament in a few simple steps. Afterwards players receive a confirmation email, and can also change the information later on. This helps you as an organizer, as players don't need to email you anymore with changes.
 start.features.2.text2: You have complete control over the registration form. You can add additional text fields, selection boxes or remarks boxes. All information will be saved automatically for this player.
-start.features.2.text3: Tournia also offers payments. You set up the amount and products you have, and Tournia takes care of the rest. Payments are transferred to your bank account periodically.
+start.features.2.text3: Tournia also offers payments. You set up the amount and products you have, and Tournia takes care of the rest. Payments are transferred to your PayPal account directly.
 start.features.3.button: Live tournament information
 start.features.3.title: Let players participate online
 start.features.3.text1: During the tournament you can turn on the Live functionality. Available on a desktop computer, tablet or smartphone, people can see upcoming and current matches, scores, rankings, etc.
@@ -87,7 +87,7 @@ start.screenshots.title: Manage your tournament in an easy and intiutive way
 start.pricing.title: Pricing
 start.pricing.subtitle: Free if your tournament is free or &euro; 0.50 per player
 start.pricing.explain1: It's free for organizers to use Tournia as long as you're not charging for tickets! There are no monthly charges, enrollment costs, or setup fees.
-start.pricing.explain2: If you organize a commercial tournament (i.e. ask money for participation), we charge a service fee of &euro; 0.50 per transaction which the player will pay. The tournament organization can choose to absorb these costs and pay for the service fee.
+start.pricing.explain2: If you organize a commercial tournament (i.e. ask money for participation), we charge you &euro; 0.50 per player.
 start.pricing.explain3: Although the organizer can pay for the service fee, there might also be payment transaction fee. Paying with a credit-card or online provider costs money, and the price for this (depening on the selected payment method) will be charged to the player.
 start.pricing.features: Features
 start.pricing.features.1.title: Tournament website
@@ -109,15 +109,15 @@ start.pricing.message: All our prices are excluding VAT. The final price depends
 # startTournament page - FAQ
 start.faq.title: Frequently Asked Questions
 start.faq.1.title: How does payments work?
-start.faq.1.text: When a player registers for your tournament, he/she has the option to make a payment as well. The money is paid to Tournia, and periodically transferred to your account. This way you don't need to set-up any technical things to accept credit-cards or online payments. Tournia arranges everything, and puts the money on an account of your choosing.
+start.faq.1.text: When a player registers for your tournament, he/she has the option to make a payment as well. The money is paid directly to your PayPal account. This way you don't need to set-up any technical things to accept credit-cards or online payments.
 start.faq.2.title: Are other currencies possible?
-start.faq.2.text: We prefer euros, although Tournia supports all currencies. However, we might charge you some additional exchange fees, as we need to transfer money from our euro account to your foreign currency. Please contact us directly to discuss the options.
+start.faq.2.text: Tournia supports all currencies. Please contact us directly if your currency is not in the list of possible currencies.
 start.faq.3.title: Do I need a credit card?
-start.faq.3.text: No, you don't. You only need to fill in your bank account, where Tournia should transfer your money to.
+start.faq.3.text: No, you don't. You only need to create a business PayPal account (is free to create), and enter the API key int the settings of your tournament.
 start.faq.4.title: How does it work with VAT?
-start.faq.4.text: We assume you don't have a VAT (Value Added Taxes) number, if you have, please contact us directly. Tournia is a middle man and payments from players are intended for you. Tournia transfers the money from players directly to you, and therefore doesn't charge any VAT. We do however charge VAT on service and payment fees. The VAT percentage depends on the country the player is living.
+start.faq.4.text: You should charge the players for VAT, if necessary. Tournia acts only as a platform to help you organise your tournament; the payment transactions between you and your player is your responsibilty.
 start.faq.5.title: Which fees do you charge?
-start.faq.5.text: Tournia charges two fees to players' transactions: payment fee and services fee. The payment fee is dependent on the chosen payment method (e.g. credit-card or iDeal), and we don't make any profit on that. The service fee is &euro; 0.50 per transaction. We are legally obliged to charge VAT on top if this as well; the VAT percentage depends on the country of the player.
+start.faq.5.text: Tournia charges &euro; 0.50 per player. An invoice is sent to you after the tournament.
 start.faq.6.title: Where can I configure payments?
 start.faq.6.text: In the settings screen, under the payment tab, you can adjust this.
 startTournamentType.name.placeholder: title...
@@ -184,7 +184,7 @@ header.else.cart: CART
 header.else.tournaments: My tournaments
 header.else.profile: My profile
 header.else.account: Account settings
-header.else.invoices: Invoices
+header.else.invoices: Payments
 header.else.logout: Logout
 header.else.login: Log in
 header.language.title: Choose language:

@@ -71,7 +71,7 @@ start.features.2.button: Flexibele registraties &amp; betalingen
 start.features.2.title: Simpele registraties en betalingen
 start.features.2.text1: Spelers kunnen registreren voor je toernooi in slechts enkele simpele stappen. Daarna ontvangt de speler een bevestiging e-mail, en kan dan ook de informatie later wijzigen. Dit helpt jouw als organisator, omdat spelers je niet meer hoeven te mailen met wijzigingen.
 start.features.2.text2: Je hebt volledige controle over het registratieformulier. Je kan aanvullende tekstvelden, selectielijsten of opmerkingenvelden toevoegen. Alle informatie wordt voor deze speler automatisch opgeslagen.
-start.features.2.text3: Tournia biedt ook betalingen aan. Je kan het bedrag en de producten instellen, en Tournia zorgt voor de rest. Betalingen worden periodiek naar jouw bankrekening overgemaakt.
+start.features.2.text3: Tournia biedt ook betalingen aan. Je kan het bedrag en de producten instellen, en Tournia zorgt voor de rest. Betalingen worden direct naar jouw PayPal account overgemaakt.
 start.features.3.button: Live toernooi informatie
 start.features.3.title: Laat spelers online meekijken
 start.features.3.text1: Tijdens het toernooi kan je Live functionaliteit aanzetten. Beschikbaar op een desktop computer, tablet of smartphone, kunnen mensen komende en huidige wedstrijden bekijken, standen zien en ranglijsten opvragen.
@@ -87,8 +87,7 @@ start.screenshots.title: Beheer je toernooi op een simpele en intuïtieve manier
 start.pricing.title: Kosten
 start.pricing.subtitle: Gratis als je toernooi gratis, of &euro; 0,50 per speler
 start.pricing.explain1: Het is gratis voor organisatoren om Tournia te gebruiken, zolang je geen geld vraagt voor deelname! Er zijn geen maandelijkse kosten, aanmeldkosten of installatie kosten.
-start.pricing.explain2: Als je een commercieel toernooi organiseert (d.w.z. geld vraagt voor deelname), brengen we servicekosten in rekening van &euro; 0.50 per transactie die de speler betaalt. De toernooiorganisatie kan ervoor kiezen om de servicekosten zelf te betalen.
-start.pricing.explain3: Alhoewel de organisator kan kiezen voor het betalen van de servicekosten, kunnen er ook transactiekosten zijn. Betalen met een credit-cart of iDeal kost geld, en de prijs hiervan (afhankelijk van de gekozen betaalmethode) wordt doorberekend aan de speler.
+start.pricing.explain2: Als je een commercieel toernooi organiseert (d.w.z. geld vraagt voor deelname), brengen we &euro; 0.50 per speler in rekening.
 start.pricing.features: Functionaliteit
 start.pricing.features.1.title: Toernooi website
 start.pricing.features.1.text: Maak je eigen toernooi website.
@@ -109,15 +108,15 @@ start.pricing.message: Alle prijzen zijn exclusief BTW. Het uiteindelijk bedrag 
 # startToernooi page - FAQ
 start.faq.title: Veel gestelde vragen
 start.faq.1.title: Hoe werkt het met betalingen?
-start.faq.1.text: Wanneer een speler registreerd voor een toernooi, heeft hij/zij ook de mogelijkheid om een betaling te doen. Het geld wordt betaald aan Tournia, en periodiek overgemaakt naar jouw bankrekening. Hierdoor hoef je geen technische dingen op te zetten om credit-cards of iDeal te acceptern. Tournia regelt alles, en maakt het geld over de rekening die je instelt.
+start.faq.1.text: Wanneer een speler registreerd voor een toernooi, heeft hij/zij ook de mogelijkheid om een betaling te doen. Het geld wordt direct naar jouw PayPal account overgemaakt. Hierdoor hoef je geen technische dingen op te zetten om credit-cards of iDeal te acceptern.
 start.faq.2.title: Zijn andere valuta's mogelijk?
-start.faq.2.text: We geven de voorkeur aan euro's, alhoewel Tournia alle valuta's ondersteunt. Echter, we kunnen extra transactiekosten in rekening brengen, aangezien we geld moeten overmaken van een euro rekening naar een buitenlandse valuta. Neem a.u.b. contact met ons op om de mogelijkheden te bespreken.
+start.faq.2.text: Tournia ondersteutn alle valuta's. Neem a.u.b. contact met ons op als de valuta niet in de lijst staat met mogelijkheden.
 start.faq.3.title: Heb ik een credit-card nodig?
-start.faq.3.text: Nee, dat is niet nodig. Je moet alleen een bankrekeningnummer invullen, waar Tournia het geld naar moet overmaken.
+start.faq.3.text: Nee, dat is niet nodig. Je moet alleen een zakelijk PayPal account hebben (is gratis om aan te maken), en de API key invullen bij de instellingen van het toernooi.
 start.faq.4.title: Hoe werkt het met BTW?
-start.faq.4.text: We gaan er vanuit dat je geen BTW-nummer hebt; als dat wel zo is, neem dan contact met ons op. Tournia is een tussenpersoon, en betalingen van spelers zijn bedoeld voor jouw toernooi. Tournia maakt het geld van spelers direct over naar jou, en brengt daarom geen BTW in rekening. We moeten echter wel BTW in rekening brengen op servicekosten en transactiekosten. Het BTW-percentage is afhankelijk van waar de speler woont.
+start.faq.4.text: Jij moet de BTW in rekening brengen, als dat nodig is. Tournia is slechts een platform om jou te helpen met de toernooi organisatie; alle betalinen tussen jou en de spelers is jouw verantwoordelijkheid.
 start.faq.5.title: Welke kosten worden in rekening gebracht?
-start.faq.5.text: Tournia brengt twee soorten kosten in rekening op de transacties van spelers: transactiekosten en servicekosten. De transactiekosten zijn afhankelijk van de gekozen betalingsmethode (bijv. credit-card of iDeal), en daar maken we geen winst op. De servicekosten zijn &euro; 0.50 per transactie. We zijn wettelijk verplicht om hier ook BTW voor in rekening te brengen; thet BTW-percentage is afhankelijk van waar de speler woont.
+start.faq.5.text: Tournia brengt &euro; 0,50 per speler in rekening. Na het toernooi wordt een factuur gestuurd.
 start.faq.6.title: Waar kan ik betalingen configureren?
 start.faq.6.text: In het instellingen scherm, onder de betalingen tab, kan je dit aanpassen.
 startTournamentType.name.placeholder: jouw toernooi...
@@ -184,7 +183,7 @@ header.else.cart: WINKELWAGEN
 header.else.tournaments: Mijn toernooien
 header.else.profile: Mijn profiel
 header.else.account: Account instellingen
-header.else.invoices: Facturen
+header.else.invoices: Betalingen
 header.else.logout: Uitloggen
 header.else.login: Inloggen
 header.language.title: Selecteer taal:

@@ -1,7 +1,7 @@
 invoice.anonymous: Anonymous
-invoice.invoice: Invoice
-invoice.invoiceNumber: Invoice number
-invoice.invoiceDate: Invoice date
+invoice.invoice: Payment
+invoice.invoiceNumber: Payment number
+invoice.invoiceDate: Payment date
 invoice.dateFormat: d-M-Y H:i
 invoice.mail.title: Mail
 invoice.mail.email: info@tournia.net
@@ -15,7 +15,7 @@ invoice.product: Product
 invoice.total: Total
 invoice.tournamentPaymentsNexPage: Tournament payments (see next page)
 invoice.totalPayable: Total payable
-invoice.hasBeenPayed: This invoice has already been payed.
+invoice.hasBeenPayed: This payment has already been paid.
 invoice.pleaseTransfer: Please transfer the total of %amount% to our above mentioned bank account.
 invoice.hasBeenTransferred: %amount% has been transferred
 invoice.hasBeenTransferred.toBankAccount: ' to your bank account %account%.'
@@ -23,9 +23,10 @@ invoice.hasBeenTransferred.toPaypalAccount: ' to your PayPal account %account%.'
 invoice.hasBeenTransferred.toYou: ' to you.'
 
 invoice.tournamentPayments: Tournament payments
+invoice.tournamentPayments.text: The following tournament payments belong to payment
 invoice.player: Player
 invoice.tournament: Tournament
 invoice.totalTournamentPayments: Total tournament payments
 invoice.disclaimer: |
-  Tournia.net is not the seller of the goods or services of these tournament payments. Tournia.net acts only as a limited commercial agent on behalf of the respective tournament organization, and therefore Tournia.net assumes no liability for any acts, omissions or otherwise.<br />
+  Tournia.net is not the seller of the goods or services mentioned. Tournia.net acts only as a platform for the respective tournament organization, and therefore Tournia.net assumes no liability for any acts, omissions or otherwise.<br />
   For questions regarding invoicing, changes or refunds of orders, please contact the tournament organization directly.

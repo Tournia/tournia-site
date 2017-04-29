@@ -25,16 +25,16 @@ base.account: Account
 base.financial: Financial
 
 # Financial
-financial.title: My Invoices
-financial.subtitle: Download your invoices for your personal administration
+financial.title: My payments
+financial.subtitle: See your payments for your personal administration
 financial.table.date: Date
 financial.table.tournament: Tournament
-financial.table.invoiceNr: Invoice number
+financial.table.invoiceNr: Payment number
 financial.table.amount: Amount
 financial.table.open: Open
 financial.open: Open
-financial.noInvoices: You don't have any invoices. This might be because some else paid for you (this person has the invoice), or simply because you have no financial transactions.
-finacial.tournamentInvoices: Tournament invoices
+financial.noInvoices: You don't have any payments. This might be because some else paid for you (this person sees the payment), or simply because you have no financial transactions.
+finacial.tournamentInvoices: Tournament payments
 
 # My tournaments
 tournaments.title: My Tournaments

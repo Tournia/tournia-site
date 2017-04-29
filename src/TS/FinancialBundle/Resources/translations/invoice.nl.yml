@@ -1,7 +1,7 @@
 invoice.anonymous: Anoniem
-invoice.invoice: Factuur
-invoice.invoiceNumber: Factuurnummer
-invoice.invoiceDate: Factuur datum
+invoice.invoice: Betaling
+invoice.invoiceNumber: Betalingsnummer
+invoice.invoiceDate: Betalingsdatum
 invoice.dateFormat: d-M-Y H:i
 invoice.mail.title: Mail
 invoice.mail.email: info@tournia.net
@@ -15,7 +15,7 @@ invoice.product: Product
 invoice.total: Totaal
 invoice.tournamentPaymentsNexPage: Toernooi betalingen (zie volgende pagina)
 invoice.totalPayable: Totaalbedrag
-invoice.hasBeenPayed: Deze factuur is al betaald.
+invoice.hasBeenPayed: Deze betaling is al voldaan.
 invoice.pleaseTransfer: Maak a.u.b het totaalbedrag van %amount% over naar bovengenoemde bankrekening.
 invoice.hasBeenTransferred: %amount% is overgemaakt
 invoice.hasBeenTransferred.toBankAccount: ' naar je bankrekening %account%.'
@@ -23,9 +23,10 @@ invoice.hasBeenTransferred.toPaypalAccount: ' naar je PayPal account %account%.'
 invoice.hasBeenTransferred.toYou: ' to you.'
 
 invoice.tournamentPayments: Toernooi betalingen
+invoice.tournamentPayments.text: De volgende toernooi betalingen horen bij betaling
 invoice.player: Speler
 invoice.tournament: Toernooi
 invoice.totalToernooiPayments: Totaal toernooi betalingen
 invoice.disclaimer: |
-  Tournia.net is niet de verkoper van goederen of diensten die hier genoemd zijn, met de uitzondering van transactiekosten en servicekosten. Tournia.net is een tussenpersoon die handelt voor de genoemde toernooi organisatie, en daarom accepteerd Tournia.net geen aansprakelijk voor enige vorm van het niet leveren of anderszins.<br />
+  Tournia.net is niet de verkoper van goederen of diensten die hier genoemd zijn. Tournia.net is een platform voor de genoemde toernooi organisatie, en daarom accepteert Tournia.net geen aansprakelijk voor enige vorm van het niet leveren of anderszins.<br />
   Neem s.v.p. direct contact op met de toernooi organisatie voor vragen omtrent facturatie, wijzigingen of terugbetaling.

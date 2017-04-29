@@ -230,15 +230,12 @@ editPayment.delete.btn: Verwijder betaling
 # Overview betalingen
 overviewPayment.title: Betalingen
 overviewPayment.add: Nieuwe handmatige betaling
-overviewPayment.totalAmount: Totaal bedrag: <b>%totalAmount%</b> waarvan <b>%outstandingAmount%</b> uitstaand is.
-overviewPayment.financialPage: Zie de %startLink%financiële instellingen%endLink% om het uitstaande bedrag over te maken naar je rekening.
 overviewPayment.table.date: Datum
 overviewPayment.table.product: Product
 overviewPayment.table.amount: Bedrag
 overviewPayment.table.player: Speler
 overviewPayment.table.method: Methode
 overviewPayment.table.execPerson: Uitvoerende persoon
-overviewPayment.table.outstandingAmount: Uitstaand bedrag
 overviewPayment.table.edit: Wijzig
 
 # Speler create

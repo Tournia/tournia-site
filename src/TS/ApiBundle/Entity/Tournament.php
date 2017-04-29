@@ -1210,7 +1210,7 @@ class Tournament
      */
     public function getFinancialEnabled()
     {
-        return $this->financialMethod == "payments";
+        return $this->financialMethod == "payments" && $this->isPaypalAccountEnabled();
     }
 
     /**

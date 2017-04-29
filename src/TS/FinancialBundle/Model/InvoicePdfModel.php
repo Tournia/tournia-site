@@ -195,41 +195,6 @@ class InvoicePdfModel
             </table>
         </td>
         <td>
-            <table style="color: grey">
-                <tr>
-                    <td width="50">'. $this->trans('invoice.mail.title') .': </td>
-                    <td width="150">'. $this->trans('invoice.mail.email') .'</td>
-                    <td width="200">'. $this->trans('invoice.mail.name') .'</td>
-                </tr>
-                <tr>
-                    <td>'. $this->trans('invoice.tel.title') .': </td>
-                    <td>+31 6 4961 24823</td>
-                    <td>Lauwerecht 235</td>
-                </tr>
-                <tr>
-                    <td>'. $this->trans('invoice.kvk.title') .'</td>
-                    <td>61505838</td>
-                    <td>3552 XB Utrecht</td>
-                </tr>
-                <tr>
-                    <td>'. $this->trans('invoice.vat.title') .'</td>
-                    <td>NL854371692B01</td>
-                    <td>'. $this->trans('invoice.vat.nl') .'</td>
-                </tr>
-                <tr>
-                    <td>IBAN</td>
-                    <td>NL48 INGB 0006 6707 19</td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td>BIC</td>
-                    <td>INGBNL2A</td>
-                    <td>&nbsp;</td>
-                </tr>
-
-            </table>
-
-
         </td>
     </tr>
 </table>
@@ -307,7 +272,7 @@ class InvoicePdfModel
     private function generatePage2(&$pdf, $invoice) {
         $tableHtml = '
 <h1>'. $this->trans('invoice.tournamentPayments') .'</h1>
-<p>The following tournament payments belong to invoice '. $invoice->getInvoiceNr() .'.</p>
+<p>'. $this->trans('invoice.tournamentPayments.text') .' '. $invoice->getInvoiceNr() .'.</p>
 <table border="0" cellpadding="4" cellspacing="0" nobr="true">
     <tr style="background-color: lightgray">
         <td width="80">'. $this->trans('invoice.quantity') .'</td>

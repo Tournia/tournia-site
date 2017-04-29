@@ -22,7 +22,7 @@ class InvoiceController extends Controller
         /* @var \TS\FinancialBundle\Entity\Invoice $invoice */
         $invoice = $invoiceRepository->findOneBy(array('invoiceNr' => $invoiceNr));
         if (!$invoice) {
-            throw $this->createNotFoundException("Invoice ". $invoiceNr ." not found");
+            throw $this->createNotFoundException("Payment ". $invoiceNr ." not found");
         }
 
         // check for view access
@@ -34,7 +34,7 @@ class InvoiceController extends Controller
         $pdf = $invoicePdfModel->generatePdf($invoice);
 
         // Close and output PDF document
-        $invoiceName = "Tournia-invoice-". $invoice->getInvoiceNr();
+        $invoiceName = "Tournia-payment-". $invoice->getInvoiceNr();
         $pdf->Output($invoiceName, 'I');
         return new Response();
     }
@@ -49,7 +49,7 @@ class InvoiceController extends Controller
         /* @var \TS\FinancialBundle\Entity\Invoice $invoice */
         $invoice = $invoiceRepository->findOneBy(array('invoiceNr' => $invoiceNr));
         if (!$invoice) {
-            throw $this->createNotFoundException("Invoice ". $invoiceNr ." not found");
+            throw $this->createNotFoundException("Payment ". $invoiceNr ." not found");
         }
 
         // check token
@@ -62,7 +62,7 @@ class InvoiceController extends Controller
         $pdf = $invoicePdfModel->generatePdf($invoice);
 
         // Close and output PDF document
-        $invoiceName = "Tournia-invoice-". $invoice->getInvoiceNr();
+        $invoiceName = "Tournia-payment-". $invoice->getInvoiceNr();
         $pdf->Output($invoiceName, 'I');
         return new Response();
     }

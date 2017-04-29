@@ -25,16 +25,16 @@ base.account: Accounts
 base.financial: Financieel
 
 # Financial
-financial.title: Mijn facturen
-financial.subtitle: Download je facturen voor je persoonlijke administratie
+financial.title: Mijn betalingen
+financial.subtitle: Bekijk je betalingen voor je persoonlijke administratie
 financial.table.date: Datum
 financial.table.tournament: Toernooi
-financial.table.invoiceNr: Factuurnummer
+financial.table.invoiceNr: Betalingsnummer
 financial.table.amount: Bedrag
 financial.table.open: Openen
 financial.open: Openen
-financial.noInvoices: Je hebt geen facturen. Dit kan zijn omdat iemand anders voor je betaald heeft (deze persoon heeft de factuur), of simpelweg omdat geen financiële transacties hebt.
-finacial.tournamentInvoices: Toernooi facturen
+financial.noInvoices: Je hebt geen betalingen. Dit kan zijn omdat iemand anders voor je betaald heeft (deze persoon ziet de betaling), of simpelweg omdat geen financiële transacties hebt.
+finacial.tournamentInvoices: Toernooi betalingen
 
 # My toernoois
 tournaments.title: Mijn toernooien

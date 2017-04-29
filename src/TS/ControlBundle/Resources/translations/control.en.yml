@@ -230,15 +230,12 @@ editPayment.delete.btn: Delete payment
 # Overview payments
 overviewPayment.title: Payments
 overviewPayment.add: Add manual payment
-overviewPayment.totalAmount: Total amount: <b>%totalAmount%</b> of which <b>%outstandingAmount%</b> is outstanding.
-overviewPayment.financialPage: To transfer this outstanding amount to your account, go to the %startLink%financial settings page%endLink%
 overviewPayment.table.date: Date
 overviewPayment.table.product: Product
 overviewPayment.table.amount: Amount
 overviewPayment.table.player: Player
 overviewPayment.table.method: Method
 overviewPayment.table.execPerson: Executing person
-overviewPayment.table.outstandingAmount: Outstanding amount
 overviewPayment.table.edit: Edit
 
 # Player create

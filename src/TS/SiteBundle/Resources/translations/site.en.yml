@@ -90,7 +90,7 @@ player.delete.confirm: Are you sure you want to delete this player?
 player.terms.close: Close
 player.terms.label: Terms of Service
 player.terms.text: |
-  Tournia.net is not the seller of the goods or services mentioned, with the exception of possible service and payment fees. Tournia.net acts only as a limited commercial agent on behalf of the respective tournament organization, and therefore Tournia.net assumes no liability for any acts, omissions or otherwise.<br />
+  Tournia.net is not the seller of the goods or services mentioned. Tournia.net acts only as a platform for the respective tournament organization, and therefore Tournia.net assumes no liability for any acts, omissions or otherwise.<br />
   For questions regarding invoicing, changes or refunds of orders, please contact the tournament organization directly.<br />
   I agree to these terms and conditions.
 player.jquery.genderfirst: Select a gender first

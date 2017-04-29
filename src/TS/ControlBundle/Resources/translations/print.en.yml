@@ -38,6 +38,6 @@ print.replacement: Replacement
 
 normalFooter.liveText: Check out Live scores, rankings and player information
 normalFooter.powered: Powered by Tournia.net
-invoiceFooter.text1: Tournia.net is a product of Agonian v.o.f.
-invoiceFooter.text2: Chamber of Comerce (KvK, Netherlands) 61505838 - VAT (BTW) NL854371692B01
-invoiceFooter.invoice: Invoice
+invoiceFooter.text1: This is not an invoice, please ask your tournament organization for an official invoice.
+invoiceFooter.text2: www.touria.net
+invoiceFooter.invoice: Payment

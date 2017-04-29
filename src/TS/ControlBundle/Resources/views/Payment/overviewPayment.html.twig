@@ -19,11 +19,6 @@ $(".dataTableLoadingIndicator").remove();
         <a href="{{ path('control_payment_create', {'tournamentUrl': tournament.url}) }}" class="btn btn-primary"><i class="fa fa-plus"></i> {{ 'overviewPayment.add'|trans }}</a>
     </p>
 
-    <p>
-        {{ 'overviewPayment.totalAmount'|trans({'%totalAmount%': totalAmount|sylius_price, '%outstandingAmount%': outstandingAmount|sylius_price})|raw }}<br />
-        {% set financialLink = '<a href="'~ path('settings_financial', {'tournamentUrl': tournament.url}) ~'?tab=payoutTab">' %}
-        {{ 'overviewPayment.financialPage'|trans({'%startLink%': financialLink, '%endLink%': '</a>'})|raw }}
-    </p>
     <br />
 
 	<table class="table table-hover table-bordered ajaxDataTable">
@@ -35,7 +30,6 @@ $(".dataTableLoadingIndicator").remove();
                 <th>{{ 'overviewPayment.table.player'|trans }}</th>
                 <th>{{ 'overviewPayment.table.method'|trans }}</th>
                 <th>{{ 'overviewPayment.table.execPerson'|trans }}</th>
-                <th>{{ 'overviewPayment.table.outstandingAmount'|trans }}</th>
                 <th>{{ 'overviewPayment.table.edit'|trans }}</th>
 			</tr>
 		</thead>
@@ -56,7 +50,6 @@ $(".dataTableLoadingIndicator").remove();
                 {% else %}
                     <td>Anonymous</td>
                 {% endif %}
-                <td>{{ boughtProduct.outstandingAmount|sylius_price }}</td>
                 <td>{% if boughtProduct.cartOrder.paymentInstruction.paymentSystemName != "manual" %}&nbsp;{% else %}<a href="{{ path('control_payment_edit', {'tournamentUrl': tournament.url, 'boughtProductId': boughtProduct.id}) }}"><i class="fa fa-edit"></i> {{ 'overviewPayment.table.edit'|trans }}</a>{% endif %}</td>
             </tr>
 		{% endfor %}

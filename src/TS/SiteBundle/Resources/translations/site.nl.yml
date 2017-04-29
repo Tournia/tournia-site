@@ -90,7 +90,7 @@ player.delete.confirm: Weet je zeker dat je deze speler wilt verwijderen?
 player.terms.close: Sluiten
 player.terms.label: Voorwaarden
 player.terms.text: |
-  Tournia.net is niet de verkoper van goederen of diensten die hier genoemd zijn, met de uitzondering van transactiekosten en servicekosten. Tournia.net is een tussenpersoon die handelt voor de genoemde toernooi organisatie, en daarom accepteerd Tournia.net geen aansprakelijk voor enige vorm van het niet leveren of anderszins.<br />
+  Tournia.net is niet de verkoper van goederen of diensten die hier genoemd zijn. Tournia.net is een platform voor de genoemde toernooi organisatie, en daarom accepteert Tournia.net geen aansprakelijk voor enige vorm van het niet leveren of anderszins.<br />
   Neem s.v.p. direct contact op met de toernooi organisatie voor vragen omtrent facturatie, wijzigingen of terugbetaling.<br />
   Ik begrijp deze voorwaarden en ga er mee akkord.
 player.jquery.genderfirst: Selecteer eerst een geslacht
