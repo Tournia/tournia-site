@@ -21,21 +21,20 @@
 				<p>
                     {{ 'about.text.1'|trans|raw }}
 				</p>
-				<p>
-                    {{ 'about.text.2'|trans|raw }}
-				</p>
-                <a href="{{ path('front_contact') }}" class="btn btn-custom-primary btn-lg">{{ 'about.button'|trans }}</a>
-                <br /><br />
 			</div>
 			<div class="col-md-6">
 				<p>
-                    {{ 'about.text.3'|trans|raw }}
+                    {{ 'about.text.2'|trans|raw }}
 				</p>
-                {#<p>
-                    Agonian VOF is registered at the Dutch chamber of commerce, under number xxxx.
-                </p>#}
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-12" style="text-align: center">
+				<a href="{{ path('front_contact') }}" class="btn btn-custom-primary btn-lg">{{ 'about.button'|trans }}</a>
+				<br /><br />
+			</div>
+		</div>
+
         {#
 		<div class="row stats">
 			<div class="col-sm-3">

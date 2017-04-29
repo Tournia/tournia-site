@@ -3,13 +3,6 @@ invoice.invoice: Betaling
 invoice.invoiceNumber: Betalingsnummer
 invoice.invoiceDate: Betalingsdatum
 invoice.dateFormat: d-M-Y H:i
-invoice.mail.title: Mail
-invoice.mail.email: info@tournia.net
-invoice.mail.name: Tournia.net / Agonian v.o.f.
-invoice.tel.title: Tel
-invoice.kvk.title: KvK
-invoice.vat.title: BTW
-invoice.vat.nl: Nederland
 invoice.quantity: Aantal
 invoice.product: Product
 invoice.total: Totaal
