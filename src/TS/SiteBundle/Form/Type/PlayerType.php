@@ -11,11 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use TS\SiteBundle\Form\ChoiceList\GroupChoiceList;
 use Doctrine\ORM\EntityRepository;
 
-use TS\ApiBundle\Entity\Tournament;
-use TS\ApiBundle\Entity\RegistrationGroup;
 use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList;
 use TS\SiteBundle\Form\DataTransformer\RegistrationGroupToNumberTransformer;
 use TS\SiteBundle\Form\DataTransformer\StatusToNumberTransformer;
@@ -23,7 +20,7 @@ use TS\SiteBundle\Form\DataTransformer\ChoiceToIndexTransformer;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\True;
+use Symfony\Component\Validator\Constraints\IsTrue;
 
 class PlayerType extends AbstractType
 {
@@ -207,7 +204,7 @@ class PlayerType extends AbstractType
 	    		$optionsArray['constraints'] = new NotNull(array('message' => 'playerType.notempty'));
                 $optionsArray['constraints'] = new NotBlank(array('message' => 'playerType.notempty'));
                 if ($field->getType() == 'checkbox') {
-                    $optionsArray['constraints'] = new True(array('message' => 'playerType.notchecked'));
+                    $optionsArray['constraints'] = new IsTrue(array('message' => 'playerType.notchecked'));
                 }
 	    	} else {
 	    		$optionsArray['required'] = false;

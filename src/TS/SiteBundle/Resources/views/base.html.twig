@@ -63,7 +63,7 @@
 	var controlBaseUrl = '{{ path('control_index', {'tournamentUrl': tournament.url}) }}';
 	var locale = '{{ app.request.locale }}';
     var webSocketUri = "ws{% if app.request.isSecure %}s{% endif %}://{{ app.request.getHttpHost() }}:{{ websocketPort_external }}";
-    var loginAccountId = '{{ app.user.id }}';
+    var loginAccountId = '{% if app.user is not null %}{{ app.user.id }}{% endif %}';
 	
 </script>
 
