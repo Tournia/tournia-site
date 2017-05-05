@@ -45,7 +45,7 @@ sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php/7.1/apache2/php.ini
 
 
 # Show errors, because it's a development server
-sed -i 's/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = E_ALL/g' /etc/php/7.1/apache2/php.ini
+sed -i 's/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = E_ALL & ~E_DEPRECATED/g' /etc/php/7.1/apache2/php.ini
 sed -i 's/display_errors = Off/display_errors = On/g' /etc/php/7.1/apache2/php.ini
 sed -i 's/display_startup_errors = Off/display_startup_errors = On/g' /etc/php/7.1/apache2/php.ini
 
