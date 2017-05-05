@@ -126,7 +126,7 @@
  * These elements are ignored during DOM object deletion for ajax version 
  * It will delete all objects during page load with these exceptions:
  */
-	ignore_key_elms = ["header, #left-panel, #right-panel, #main, div.page-footer, #shortcut, #divSmallBoxes, #divMiniIcons, #divbigBoxes, #voiceModal, script, .ui-chatbox, .suggestions-footer, #zenbox_tab, #zenbox_overlay, .zopim, #editMatchModal, #scoreMatchModal, #secondCallModal, .offline-ui"],
+	ignore_key_elms = ["header, #left-panel, #right-panel, #main, div.page-footer, #shortcut, #divSmallBoxes, #divMiniIcons, #divbigBoxes, #voiceModal, script, .ui-chatbox, .suggestions-footer, #editMatchModal, #scoreMatchModal, #secondCallModal, .offline-ui"],
 /*
  * VOICE COMMAND CONFIG
  * dependency: js/speech/voicecommand.js
