@@ -14,8 +14,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\IsTrue;
 
 
 class CreateTournamentType extends AbstractType
@@ -125,7 +125,7 @@ class CreateTournamentType extends AbstractType
         $builder->add('conditionsAgree', CheckboxType::class, array(
             'required' => true,
             'mapped' => false,
-            'constraints' => new Assert\True(array("message"=>"createTournamentType.conditionsAgree.constraint")),
+            'constraints' => new IsTrue(array("message"=>"createTournamentType.conditionsAgree.constraint")),
         ));
     }
     
