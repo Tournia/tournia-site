@@ -34,8 +34,8 @@ monolog:
             level: critical
         swift:
             type:       swift_mailer
-            from_email: info@tournia.net
-            to_email:   system@tournia.net
+            from_email: %email_from_email%
+            to_email:   %email_from_email%
             subject:    An error at Tournia.net has occurred!
             level:      error
         login:
@@ -43,8 +43,3 @@ monolog:
             path:       "%kernel.logs_dir%/auth.log"
             level:      info
             channels:   security
-
-jms_payment_paypal:
-    username: finance_api1.tournia.net
-    password: 53Y6NP9ZQZR6YPY7
-    signature: A9r3x6pR3FEiJ.lMrNEBw504ax5LAjCmmj7MEL2KnYJZbDHVxOrxB1Ce
