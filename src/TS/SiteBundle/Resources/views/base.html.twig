@@ -179,10 +179,12 @@
                                             {% endif %}
                                             {% endspaceless %}" alt="" class="img-responsive" />
                                     </div>
+                                    {% if (tournament.authorization.isApiAllowed) %}
                                     <p>&nbsp;</p>
                                     <p>
-                                        <a class="btn btn-custom-danger btn-lg justified" href="#"><span class="fa fa-circle"></span> {{ 'base.navigation.live'|trans }}</a>
+                                        <a class="btn btn-custom-red btn-lg justified" href="{{ path('live_index', {'tournamentUrl': tournament.url}) }}"><span class="fa fa-circle"></span> {{ 'base.navigation.live'|trans }}</a>
                                     </p>
+                                    {% endif %}
                                 </div>
                                 {% endif %}
 
