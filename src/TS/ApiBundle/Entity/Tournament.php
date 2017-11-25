@@ -116,7 +116,7 @@ class Tournament
      *
      * @ORM\Column(type="string", length=16)
      * @Assert\NotBlank(message = "Choose a currency")
-     * @Assert\Choice(choices = {"EUR", "GBP", "NOK"}, message = "Choose a valid currency")
+     * @Assert\Choice(choices = {"EUR", "GBP", "NOK", "USD"}, message = "Choose a valid currency")
      */
     private $paymentCurrency;
     

@@ -201,6 +201,7 @@ financialType.paymentCurrency.label: Currency
 financialType.paymentCurrency.currency.eur: Euro
 financialType.paymentCurrency.currency.gbp: GBP
 financialType.paymentCurrency.currency.nok: Norwegian Krone
+financialType.paymentCurrency.currency.usd: US Dollar
 financialType.paymentUpdateStatus.label: Automatically update status on new payment
 financialType.paymentUpdateFromStatus.label: From status
 financialType.paymentUpdateToStatus.label: To status
@@ -309,6 +310,7 @@ createTournamentType.paymentCurrency.label: Currency
 createTournamentType.paymentCurrency.currency.eur: Euro
 createTournamentType.paymentCurrency.currency.gbp: GBP
 createTournamentType.paymentCurrency.currency.nok: Norwegian Krone
+createTournamentType.paymentCurrency.currency.usd: US Dollar
 createTournamentType.url.notUnique: This tournament url is already used
 
 createTournamentType.sport.badminton: Badminton

@@ -201,6 +201,7 @@ financialType.paymentCurrency.label: Valuta
 financialType.paymentCurrency.currency.eur: Euro
 financialType.paymentCurrency.currency.gbp: GBP
 financialType.paymentCurrency.currency.nok: Noorweegse Kroon
+financialType.paymentCurrency.currency.usd: US Dollar
 financialType.paymentUpdateStatus.label: Automatisch updaten van status bij nieuwe betaling
 financialType.paymentUpdateFromStatus.label: Van status
 financialType.paymentUpdateToStatus.label: Naar status
@@ -308,6 +309,7 @@ createTournamentType.registrationGroupEnabled.info: Maak het mogelijk voor spele
 createTournamentType.paymentCurrency.label: Valuta
 createTournamentType.paymentCurrency.currency.eur: Euro
 createTournamentType.paymentCurrency.currency.gbp: GBP
+createTournamentType.paymentCurrency.currency.usd: US Dollar
 createTournamentType.paymentCurrency.currency.nok: Noorweegse Kroon
 createTournamentType.url.notUnique: Deze toernooi url wordt al gebruikt
 

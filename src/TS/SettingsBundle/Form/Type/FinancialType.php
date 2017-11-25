@@ -59,7 +59,8 @@ class FinancialType extends AbstractType
             'choices' => array(
                 'EUR' => 'financialType.paymentCurrency.currency.eur',
                 'GBP' => 'financialType.paymentCurrency.currency.gbp',
-                'NOK' => 'financialType.paymentCurrency.currency.nok'
+                'NOK' => 'financialType.paymentCurrency.currency.nok',
+                'USD' => 'financialType.paymentCurrency.currency.usd'
             ),
             'required' => true,
             'expanded' => false,
