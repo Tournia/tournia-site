@@ -180,3 +180,10 @@ php /var/www/app/console doctrine:migrations:migrate -n
 
 # Create symlink to assets
 php app/console assets:install public_html --symlink
+
+# Useful for Docker
+rm -rfd /var/tournia -R
+mkdir /var/tournia
+mkdir /var/tournia/cache
+mkdir /var/tournia/logs
+chown www-data:www-data /var/tournia -R

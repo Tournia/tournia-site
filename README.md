@@ -48,7 +48,7 @@ $ docker-compose up
 ```
 You can stop the container with Ctrl-C. Tournia is available on http://localhost/app_dev.php
 
-To clean up the docker images, run `docker-compose rm`
+To clean up the docker images, run `docker-compose rm`. To execute a command in the container, run `docker-compose exec web bash`.
 
 
 ### Make Symfony work
