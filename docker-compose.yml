@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  #mysql:
+  #  image: 'mysql'
+  #  restart: always
+  #  environment:
+  #    MYSQL_ROOT_PASSWORD: 'abcdef12'
+  #  ports:
+  #    - '3308:3306'
+  #  volumes:
+  #    - 'mysql:/data'
+
+  web:
+    build: .
+    #environment
+    # - FLACK_DEBUG: 'true'
+    #depends_on:
+    #  - 'mysql'
+    env_file:
+      - '.env'
+    ports:
+      - '80:80'
+    volumes:
+      - '.:/app'
+    tty: true
+
+#volumes:
+#  mysql: {}

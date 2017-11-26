@@ -40,6 +40,17 @@ Some tips for when you've got things working:
 - You can make changes to files on your local hard-drive, which are synced with the virtual Vagrant machine (via the NFS protocol). However, it might take 1-2 seconds to synchronize, so if you don't immediately see your changes, wait a few seconds, and reload the page in your browser.
 - To update the Vagrant virtual machine, you can run the command `vagrant reload --provision` This runs the bash script (Vagrant_bootstrap.sh) again. You can also destroy the virtual machine, and re-create it by: `vagrant destroy` and `vagrant up`
 
+## Docker
+There is a Docker compose configuration available, although this needs to be tweaked. Run
+```bash
+$ docker-compose build
+$ docker-compose up
+```
+You can stop the container with Ctrl-C. Tournia is available on http://localhost/app_dev.php
+
+To clean up the docker images, run `docker-compose rm`
+
+
 ### Make Symfony work
 By now you should be able to see http://192.168.50.4/app.php/ and have a fully working website. 
 The data is used from the file testDump.sql, which is imported in the MySQL database. You can check this at http://192.168.50.4/phpmyadmin/ in the *tournament* table.
