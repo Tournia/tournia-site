@@ -6,12 +6,11 @@
     "logo": "https://www.tournia.net/bundles/tsfront/img/app/logo.png",
     "keywords": ["node", "express", "static"],
     "success_url": "/welcome",
+    "scripts": {
+        "postdeploy": "SYMFONY__DB_URL=$JAWSDB_URL"
+    },
     "addons": ["jawsdb:kitefin", "papertrail"],
     "env": {
-        "RAILS_ENV": "production",
-        "SYMFONY__DB_URL": {
-            "description": "DB url",
-            "value": "CLEARDB_DATABASE_URL"
-        }
+        "RAILS_ENV": "production"
     }
 }
