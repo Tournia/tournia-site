@@ -9,6 +9,7 @@
     "require": {
         "php": "<7.2",
         "ext-intl": "*",
+        "ext-mcrypt": "*",
         "symfony/symfony": "2.8.*",
         "doctrine/dbal": "2.5.*",
         "doctrine/orm": "2.5.6",
