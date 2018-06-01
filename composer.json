@@ -70,7 +70,10 @@
         "symfony-app-dir": "app",
         "symfony-web-dir": "public_html",
         "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
+            "file": "app/config/parameters.yml",
+            "env-map": {
+                "database_url": "DATABASE_URL"
+            }
         }
     }
 }
