@@ -61,6 +61,10 @@
         ],
         "app-live": [
             "external/app-custom/composer.sh"
+        ],
+        "warmup": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache"
         ]
     },
     "config": {
