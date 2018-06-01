@@ -38,6 +38,9 @@ fi
 cd /var/www
 php composer.phar update
 
+chmod a+rwx /var/tournia -R
+chown www-data /var/tournia -R
+
 ## Run migrations (again) when redoing provisioning
 php /var/www/app/console doctrine:migrations:migrate -n
 
