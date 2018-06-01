@@ -11,6 +11,7 @@
     },
     "addons": ["jawsdb:kitefin", "papertrail"],
     "env": {
-        "RAILS_ENV": "production"
+        "RAILS_ENV": "production",
+        "HEROKU": "true"
     }
 }
