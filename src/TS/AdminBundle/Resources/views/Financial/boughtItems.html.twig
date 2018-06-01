@@ -119,7 +119,7 @@
             {% elseif cartTransaction.state == 8 %}Returned
             {% endif %}
         </td>
-        <td>{{ cartTransaction.total|sylius_price }}</td>
+        <td>{{ cartTransaction.total|number_format(2) }}</td>
         <td>
             {% if cartTransaction.paymentInstruction is not empty %}
                 {{ cartTransaction.paymentInstruction.paymentSystemName }}

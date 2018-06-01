@@ -313,7 +313,7 @@ function editNonreadyReason(playerId, newReason) {
 					<tr>
 						<td>{{ boughtProduct.cartOrder.updatedAt|date("d-M-Y H:i:s") }}</td>
                         <td>{{ boughtProduct.quantity }} {{ boughtProduct.name }}</td>
-						<td>{{ boughtProduct.amount|sylius_price }}</td>
+						<td>{{ boughtProduct.amount|number_format(2) }}</td>
                         {% if boughtProduct.cartOrder.execPerson is not empty %}
 						    <td>{{ boughtProduct.cartOrder.execPerson.name }} ({{ boughtProduct.cartOrder.execPerson.email }})</td>
                         {% else %}
@@ -323,7 +323,7 @@ function editNonreadyReason(playerId, newReason) {
 				{% endfor %}
 					<tr>
 						<td><b>{{ 'playerInfo.payments.total'|trans }}</b></td>
-						<td><b>{{ tournament.paymentCurrency }} {{ player.paymentBalance|sylius_price }}</b></td>
+						<td><b>{{ tournament.paymentCurrency }} {{ player.paymentBalance|number_format(2) }}</b></td>
 						<td></td>
 						<td></td>
 						<td></td>

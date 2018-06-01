@@ -110,10 +110,10 @@ $("#{{ paymentForm.method.vars.id }} :radio").change(function() {
                                                             <a href="{{ path('sylius_cart_item_remove', {'id': item.id}) }}" class="btn btn-custom-danger"><i class="fa fa-trash-o"></i> {{ 'summary.cart.remove'|trans }}</a>
                                                         </td>
                                                         <td class="col-md-1">
-                                                            {{ item.unitPrice|sylius_price }}
+                                                            {{ item.unitPrice|number_format(2) }}
                                                         </td>
                                                         <td class="col-md-1" style="text-align: right">
-                                                            {{ item.total|sylius_price }}
+                                                            {{ item.total|number_format(2) }}
                                                         </td>
                                                     </tr>
                                                 {% endfor %}
@@ -122,20 +122,20 @@ $("#{{ paymentForm.method.vars.id }} :radio").change(function() {
                                                 {% if cart.promotionTotal is defined and cart.promotionTotal %}
                                                     <tr>
                                                         <td colspan="7" style="text-align: right;">
-                                                            <strong>{{ 'sylius.order.promotion_total'|trans }}</strong>: {{ cart.promotionTotal|sylius_price }}
+                                                            <strong>{{ 'sylius.order.promotion_total'|trans }}</strong>: {{ cart.promotionTotal|number_format(2) }}
                                                         </td>
                                                     </tr>
                                                 {% endif %}
                                                 {% for adjustment in cart.adjustments %}
                                                 <tr>
                                                     <td colspan="7" style="text-align: right;">
-                                                        <strong>{{ adjustment.label }}</strong> <span class="fa fa-info-circle infoIcon" data-toggle="popover" data-content="{{ adjustment.description }}"></span> : {{ adjustment.amount|sylius_price }}
+                                                        <strong>{{ adjustment.label }}</strong> <span class="fa fa-info-circle infoIcon" data-toggle="popover" data-content="{{ adjustment.description }}"></span> : {{ adjustment.amount|number_format(2) }}
                                                     </td>
                                                 </tr>
                                                 {% endfor %}
                                                 <tr>
                                                     <td colspan="7" style="text-align: right;">
-                                                        <strong>{{ 'summary.cart.total'|trans }}</strong>: {{ cart.total|sylius_price }}
+                                                        <strong>{{ 'summary.cart.total'|trans }}</strong>: {{ cart.total|number_format(2) }}
                                                     </td>
                                                 </tr>
                                                 </tfoot>
