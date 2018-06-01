@@ -9,29 +9,9 @@
     "addons": ["jawsdb:kitefin", "papertrail"],
     "env": {
         "RAILS_ENV": "production",
-        "SYMFONY__DATABASE_DRIVER": {
-            "description": "DB driver",
-            "value": "pdo_mysql"
-        },
-        "SYMFONY__DATABASE_HOST": {
-            "description": "DB host",
-            "value": "127.0.0.1"
-        },
-        "SYMFONY__DATABASE_PORT": {
-            "description": "DB port",
-            "value": "3306"
-        },
-        "SYMFONY__DATABASE_NAME": {
-            "description": "DB name",
-            "value": "tournament"
-        },
-        "SYMFONY__DATABASE_USER": {
-            "description": "DB user",
-            "value": "tournament"
-        },
-        "SYMFONY__DATABASE_PASSWORD": {
-            "description": "DB password",
-            "value": "tournament"
+        "SYMFONY__DB_URL": {
+            "description": "DB url",
+            "value": "CLEARDB_DATABASE_URL"
         }
     }
 }

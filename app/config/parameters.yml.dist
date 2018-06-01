@@ -1,10 +1,6 @@
 parameters:
     database_driver: pdo_mysql
-    database_host: 127.0.0.1
-    database_port: 3306
-    database_name: tournament
-    database_user: tournament
-    database_password: tournament
+    database_url: mysql://tournament:tournament@127.0.0.1:3306/tournament
     mailer_transport: smtp
     mailer_host: smtp.sendgrid.net
     mailer_user: null

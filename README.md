@@ -51,7 +51,8 @@ You can stop the container with Ctrl-C. Tournia is available on http://localhost
 To clean up the docker images, run `docker-compose rm`. To execute a command in the container, run `docker-compose exec web bash`.
 
 
-### Make Symfony work
+Running Symfony
+----------------------------------
 By now you should be able to see http://192.168.50.4/app.php/ and have a fully working website. 
 The data is used from the file testDump.sql, which is imported in the MySQL database. You can check this at http://192.168.50.4/phpmyadmin/ in the *tournament* table.
 
