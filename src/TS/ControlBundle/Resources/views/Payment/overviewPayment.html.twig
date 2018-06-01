@@ -38,7 +38,7 @@ $(".dataTableLoadingIndicator").remove();
 			<tr>
                 <td>{{ boughtProduct.cartOrder.updatedAt|date("d-M-Y H:i:s") }}</td>
                 <td>{{ boughtProduct.quantity }} {{ boughtProduct.name }}</td>
-                <td>{{ boughtProduct.amount|number_format(2) }}</td>
+                <td>{{ boughtProduct.amount|sylius_price }}</td>
 				<td><a href="{{ path('control_player_info', {'tournamentUrl': tournament.url, 'playerId': boughtProduct.player.id}) }}">{{ boughtProduct.player.name }}</a></td>
                 <td>
                     {% if boughtProduct.cartOrder.paymentInstruction.paymentSystemName == "paypal_express_checkout" %}Paypal

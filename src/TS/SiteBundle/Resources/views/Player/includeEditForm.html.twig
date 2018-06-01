@@ -122,16 +122,16 @@
                     <div class="checkbox">
                         <label>
                             {% if boughtProduct.cartOrder.execPerson is not empty %}
-                                {{ 'player.form.transactions.person'|trans({'%quantity%': boughtProduct.quantity, '%productName%': boughtProduct.name, '%amount%': boughtProduct.amount|number_format(2), '%date%': boughtProduct.cartOrder.updatedAt|date('d-M-Y H:i:s'), '%execName%': boughtProduct.cartOrder.execPerson.name, '%execEmail%': boughtProduct.cartOrder.execPerson.email})|raw }}
+                                {{ 'player.form.transactions.person'|trans({'%quantity%': boughtProduct.quantity, '%productName%': boughtProduct.name, '%amount%': boughtProduct.amount|sylius_price, '%date%': boughtProduct.cartOrder.updatedAt|date('d-M-Y H:i:s'), '%execName%': boughtProduct.cartOrder.execPerson.name, '%execEmail%': boughtProduct.cartOrder.execPerson.email})|raw }}
                             {% else %}
-                                {{ 'player.form.transactions.anonymous'|trans({'%quantity%': boughtProduct.quantity, '%productName%': boughtProduct.name, '%amount%': boughtProduct.amount|number_format(2), '%date%': boughtProduct.cartOrder.updatedAt|date('d-M-Y H:i:s')})|raw }}
+                                {{ 'player.form.transactions.anonymous'|trans({'%quantity%': boughtProduct.quantity, '%productName%': boughtProduct.name, '%amount%': boughtProduct.amount|sylius_price, '%date%': boughtProduct.cartOrder.updatedAt|date('d-M-Y H:i:s')})|raw }}
                             {% endif %}
                         </label>
                     </div>
                 </div>
                 <div class="col-sm-3 col-sm-offset-1 text-right">
                     <div class="priceBoughtProduct">
-                        {{ tournament.paymentCurrency }} {{ boughtProduct.amount|number_format(2) }}
+                        {{ tournament.paymentCurrency }} {{ boughtProduct.amount|sylius_price }}
                     </div>
                 </div>
             </div>
@@ -148,7 +148,7 @@
         <div class="form-group sum">
             <div class="col-sm-4 col-sm-offset-7 text-right">
                 <div class="total">
-                    <strong>{{ 'player.form.transactions.balance'|trans }}: {{ tournament.paymentCurrency }} {{ player.paymentBalance|number_format(2) }}</strong>
+                    <strong>{{ 'player.form.transactions.balance'|trans }}: {{ tournament.paymentCurrency }} {{ player.paymentBalance|sylius_price }}</strong>
                 </div>
             </div>
         </div>
@@ -179,7 +179,7 @@
                 </div>
                 <div class="col-sm-3 col-sm-offset-1 text-right">
                     <div class="price">
-                        {{ product.price|number_format(2) }}
+                        {{ product.price|sylius_price }}
                         <span class="priceInCents">{{ product.price }}</span>
                     </div>
                 </div>

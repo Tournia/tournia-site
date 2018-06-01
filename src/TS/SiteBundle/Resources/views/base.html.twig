@@ -212,7 +212,7 @@
                                         <strong>{{ 'base.side.information.costs'|trans }}:</strong>
                                         {% if tournament.products|length > 0 %}
                                             {% for product in tournament.products if not product.isHidden %}
-                                                <small>{{ product.name }} {{ product.price|number_format(2) }}</small>
+                                                <small>{{ product.name }} {{ product.price|sylius_price }}</small>
                                             {% endfor %}
                                             <p><small><a href="{{ path('sylius_cart_summary', {'tournament': tournament.url}) }}">{{ 'base.side.information.makepayment'|trans }}</a></small></p>
                                         {% else %}
