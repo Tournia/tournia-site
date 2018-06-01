@@ -71,7 +71,7 @@ class AppKernel extends Kernel
 
     public function getCacheDir()
     {
-        if ($_ENV["HEROKU"] != null) {
+        if (getenv("HEROKU") != null) {
             return parent::getCacheDir();
         }
 
@@ -84,7 +84,7 @@ class AppKernel extends Kernel
 
     public function getLogDir()
     {
-        if ($_ENV["HEROKU"] != null) {
+        if (getenv("HEROKU") != null) {
             return parent::getLogDir();
         }
 
