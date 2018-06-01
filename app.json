@@ -6,12 +6,13 @@
     "logo": "https://www.tournia.net/bundles/tsfront/img/app/logo.png",
     "keywords": ["node", "express", "static"],
     "success_url": "/welcome",
-    "scripts": {
-        "postdeploy": "SYMFONY__DB_URL=$JAWSDB_URL"
-    },
     "addons": ["jawsdb:kitefin", "papertrail"],
     "env": {
         "RAILS_ENV": "production",
-        "HEROKU": "true"
+        "HEROKU": "true",
+        "SYMFONY__DB_URL": {
+            "description": "Database connection url (use jawsdb:kitefin first, to get JAWSDB_URL)",
+            "value": "'mysql://username:password@127.0.0.1:3306/database"
+        }
     }
 }
