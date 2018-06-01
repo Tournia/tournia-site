@@ -12,7 +12,7 @@
     "addons": ["papertrail"],
     "env": {
         "HEROKU": "true",
-        "SYMFONY__DATABASE_URL": {
+        "DATABASE_URL": {
             "description": "Database connection url (use jawsdb:kitefin first, to get JAWSDB_URL)",
             "value": "mysql://username:password@127.0.0.1:3306/database"
         }
