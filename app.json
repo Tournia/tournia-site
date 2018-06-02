@@ -7,7 +7,8 @@
     "keywords": ["node", "express", "static"],
     "success_url": "/welcome",
     "scripts": {
-        "postdeploy": "SYMFONY__DB_URL=$JAWSDB_URL"
+        "postdeploy": "SYMFONY__DB_URL=$JAWSDB_URL",
+        "postdeploy": "php /app/app/console doctrine:migrations:migrate -n"
     },
     "addons": ["papertrail"],
     "env": {

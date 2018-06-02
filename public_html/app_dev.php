@@ -21,14 +21,14 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
 	    //exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
 	    
 	    // not localhost -> login via htpasswd
-	    require_once('../htpasswd.inc.php');
+	    /*require_once('../htpasswd.inc.php');
 	    $pass_array = load_htpasswd();
 	    if (!isset($_SERVER['PHP_AUTH_USER']) || !test_htpasswd( $pass_array,  $_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'] )) {
 			header('WWW-Authenticate: Basic realm="Restricted area"');
 			header('HTTP/1.0 401 Unauthorized');
 			echo 'Access denied for '.basename(__FILE__).'. Please enter correct credentials.';
 			exit;
-		} 
+		} */
 	    
 } 
 

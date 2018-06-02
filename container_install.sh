@@ -16,11 +16,12 @@ apt-get update
 apt-get install -y apache2 php7.1 git debconf-utils npm
 
 # Install additional PHP modules
-apt-get install -y php7.1-intl php7.1-mcrypt php7.1-curl memcached php7.1-memcached php7.1-xml php7.1-gd
+apt-get install -y php7.1-intl php7.1-mcrypt php7.1-curl memcached php7.1-memcached php7.1-xml php7.1-gd php7.1-mbstring
 
 # Enable php extensions
 phpenmod mcrypt
 phpenmod xml
+phpenmod mbstring
 
 # Install bower (for Ionic app)
 #if command -v bower > /dev/null 2>&1; then
@@ -52,7 +53,7 @@ sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php/7.1/apache2/php.ini
 
 
 # Show errors, because it's a development server
-sed -i 's/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = E_ALL & ~E_DEPRECATED/g' /etc/php/7.1/apache2/php.ini
+#sed -i 's/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = E_ALL & ~E_DEPRECATED/g' /etc/php/7.1/apache2/php.ini
 sed -i 's/display_errors = Off/display_errors = On/g' /etc/php/7.1/apache2/php.ini
 sed -i 's/display_startup_errors = Off/display_startup_errors = On/g' /etc/php/7.1/apache2/php.ini
 
@@ -88,6 +89,7 @@ apt-get install -y phpmyadmin
 if [ ! -f "/etc/phpmyadmin/conf.d/autologin.php" ]; then
     cat >/etc/phpmyadmin/conf.d/autologin.php <<EOL
 <?php
+\$i=1;
 \$cfg['Servers'][\$i]['auth_type'] = 'config';
 \$cfg['Servers'][\$i]['user'] = 'root';
 \$cfg['Servers'][\$i]['password'] = 'vagrant';

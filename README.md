@@ -21,6 +21,9 @@ The Tournia system uses [Symfony](http://symfony.com/).
 There is a lot of official documentation for Symfony available. It is highly recommended to at least go through the [quick tour](http://symfony.com/doc/current/quick_tour/the_big_picture.html). This explain the basics of Symfony; it's an advanced framework and might seem complicated, but we use a great deal of functionality out of it, and makes development easier and better.
 If you're having some time left, you can move onto reading the [official Symfony2 book](http://symfony.com/doc/current/index.html).
 
+### Heroku
+You can terminal into the Heroku environment with `heroku run bash -a app_name`
+
 ### Vagrant installation
 The repository files contain a Vagrant file, which can be used to setup a MAMP/WAMP environment quickly. [Vagrant](https://www.vagrantup.com/) is free software which creates a virtual OS, on which the Apache, MySQL and PHP server is installed. Just follow the simple steps:
 
