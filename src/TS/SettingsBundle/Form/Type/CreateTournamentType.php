@@ -1,6 +1,7 @@
 <?php
 namespace TS\SettingsBundle\Form\Type;
 
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -126,6 +127,10 @@ class CreateTournamentType extends AbstractType
             'required' => true,
             'mapped' => false,
             'constraints' => new IsTrue(array("message"=>"createTournamentType.conditionsAgree.constraint")),
+        ));
+
+        $builder->add('captcha', CaptchaType::class, array(
+            'label' => false,
         ));
     }
     

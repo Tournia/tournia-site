@@ -289,6 +289,8 @@
                                                                 {{ 'create.conditionsAgree.text'|trans }}
                                                             </label>
                                                         </p>
+                                                        
+                                                        {{ form_row(form.captcha, {'attr': {'class': 'form-control'}}) }}
 
                                                         {{ form_rest(form) }}
                                                     </div>
