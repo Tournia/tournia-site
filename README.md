@@ -7,24 +7,20 @@ Also, if you find issues, please open an issue in this repository, and if you al
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-TL;DR
-----------------------------------
-1. Install [Vagrant](http://www.vagrantup.com)
-2. Enter in the terminal: `vagrant up`
-3. Go to http://192.168.50.4/app_dev.php to check if Tournia is working. You can login with username: *tournia* and password: *pocahontas*
-3. You can login the system with the username: *tournia* and password: *pocahontas*
-
-
 Introduction
 ----------------------------------
 The Tournia system uses [Symfony](http://symfony.com/).
 There is a lot of official documentation for Symfony available. It is highly recommended to at least go through the [quick tour](http://symfony.com/doc/current/quick_tour/the_big_picture.html). This explain the basics of Symfony; it's an advanced framework and might seem complicated, but we use a great deal of functionality out of it, and makes development easier and better.
 If you're having some time left, you can move onto reading the [official Symfony2 book](http://symfony.com/doc/current/index.html).
 
-### Heroku
-You can terminal into the Heroku environment with `heroku run bash -a app_name`
+## Heroku
+Heroku deployment is the easiest way to install Tournia. With a few clicks you have new installation running.
 
-### Vagrant installation
+If you need to update the environment, you can change the database connection by changing the `JAWSDB_URL` in the Config vars. 
+
+It's possible to terminal into the Heroku environment with `heroku run bash -a app_name`
+
+## Vagrant
 The repository files contain a Vagrant file, which can be used to setup a MAMP/WAMP environment quickly. [Vagrant](https://www.vagrantup.com/) is free software which creates a virtual OS, on which the Apache, MySQL and PHP server is installed. Just follow the simple steps:
 
 1. [Download](http://www.vagrantup.com/downloads.html) and install Vagrant.
@@ -49,7 +45,7 @@ There is a Docker compose configuration available, although this needs to be twe
 $ docker-compose build
 $ docker-compose up
 ```
-You can stop the container with Ctrl-C. Tournia is available on http://localhost/app_dev.php
+You can stop the container with Ctrl-C. Tournia is available on http://localhost/app_dev.php (login with tournia/pocahontas)
 
 To clean up the docker images, run `docker-compose rm`. To execute a command in the container, run `docker-compose exec web bash`.
 
