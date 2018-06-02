@@ -16,7 +16,7 @@ If you're having some time left, you can move onto reading the [official Symfony
 ## Heroku
 Heroku deployment is the easiest way to install Tournia. With a few clicks you have new installation running.
 
-If you need to update the environment, you can change the database connection by changing the `JAWSDB_URL` in the Config vars. 
+If you need to update the environment (with a new Heroku App), you can change the database connection of this new app by changing the `JAWSDB_URL` in the Config vars, and refer it to the database in your old app.
 
 It's possible to terminal into the Heroku environment with `heroku run bash -a app_name`
 
