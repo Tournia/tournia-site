@@ -78,7 +78,7 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml",
             "env-map": {
-                "database_url": "DATABASE_URL"
+                "database_url": "JAWSDB_URL"
             }
         }
     }
