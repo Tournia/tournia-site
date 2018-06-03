@@ -192,6 +192,7 @@ header.js.settings: Settings
 header.js.control: Match Control
 header.js.modules: Organizer Modules
 header.js.tournamentOptions: Tournament Options
+header.js.dashboard: Dashboard
 
 # base - footer
 base.footer.overview: Overview

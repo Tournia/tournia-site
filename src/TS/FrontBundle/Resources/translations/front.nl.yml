@@ -191,6 +191,7 @@ header.js.settings: Instellingen
 header.js.control: Wedstrijd beheer
 header.js.modules: Organisator Opties
 header.js.tournamentOptions: Toernooi opties
+header.js.dashboard: Dashboard
 
 # base - footer
 base.footer.overview: Overzicht
