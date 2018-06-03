@@ -40,7 +40,7 @@ Some tips for when you've got things working:
 - To update the Vagrant virtual machine, you can run the command `vagrant reload --provision` This runs the bash script (Vagrant_bootstrap.sh) again. You can also destroy the virtual machine, and re-create it by: `vagrant destroy` and `vagrant up`
 
 ## Docker
-There is a Docker compose configuration available, although this needs to be tweaked. Run
+There is a Docker compose configuration available. Run
 ```bash
 $ docker-compose build
 $ docker-compose up
