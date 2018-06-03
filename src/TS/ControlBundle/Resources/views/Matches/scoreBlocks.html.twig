@@ -97,9 +97,9 @@ function sendScoreMatch() {
 	{% for setNr in 1..tournament.nrSets %}
 	<div class="input-prepend">
 		<span class="add-on">{{ 'general.set'|trans }} {{ setNr }}</span>
-		<input class="span2" id="set{{ setNr }}-1" type="text" placeholder="__" size="8" maxlength="2" />
+		<input class="span2" id="set{{ setNr }}-1" type="text" placeholder="__" size="8" maxlength="3" />
 		<span class="add-on"> - </span>
-		<input class="span2" id="set{{ setNr }}-2" type="text" placeholder="__" size="8" maxlength="2" />
+		<input class="span2" id="set{{ setNr }}-2" type="text" placeholder="__" size="8" maxlength="3" />
 		
 	</div>
 		{% if setNr != tournament.nrSets %}
