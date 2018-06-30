@@ -36,7 +36,7 @@ monolog:
             from_email: %email_from_email%
             to_email:   %email_from_email%
             subject:    An error at Tournia.net has occurred!
-            level:      error
+            level:      critical
         login:
             type:       stream
             path:       "%kernel.logs_dir%/auth.log"
