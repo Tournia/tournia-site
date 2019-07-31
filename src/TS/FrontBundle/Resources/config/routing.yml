@@ -24,6 +24,13 @@ front_developers:
 
 front_start_tournament:
     pattern:  /start
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        path: https://github.com/Tournia/tournia-site
+        permanent: true
+
+front_start_tournament_hidden:
+    pattern:  /start_hidden
     defaults: { _controller: TSFrontBundle:Default:startTournament }
 
 front_app:
