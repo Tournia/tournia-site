@@ -2,7 +2,7 @@ Tournia.net site
 ========================
 
 ## Tournia is no longer maintained
-You can host Tournia yourself by following the documentation below. If you really need to host your tournament on tournia.net, please contact info at tournia.net
+You can host Tournia yourself by following the documentation below. If you really need to host your tournament on tournia.net, please contact info a t tournia.net
 
 ----------------------------------
 
