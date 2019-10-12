@@ -105,9 +105,11 @@ class TeamsController extends ApiV2MainController
         $teamModel = new TeamModel($this->getDoctrine(), $this->tournament);
         $team = $teamModel->addPlayerToTeam($pool, $team, $position, $player);
 
-        $res = 'added player '. $player->getName() .' to team '. $team->getName();
-        $this->newMessage('success', 'Added player', $res);
-
+        $res = array(
+			'message' => 'added player '. $player->getName() .' to team '. $team->getId();
+			'teamId' => $team->getId();
+		)
+		$this->newMessage('success', 'Added player', $res);
         return $this->handleResponse($res);
     }
 
