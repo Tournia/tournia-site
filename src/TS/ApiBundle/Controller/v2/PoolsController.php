@@ -91,7 +91,11 @@ class PoolsController extends ApiV2MainController
         }
 
         $this->em()->persist($pool);
-        $res = 'created a new pool '. $name;
+        $res = array(
+			'message' => 'created a new pool '. $name .' with id '. $pool->getId(); 
+			'name' => $name
+			'poolId'=> $pool->getId() 
+		)
         $this->newMessage('success', 'Added pool', $res);
         return $this->handleResponse($res);
     }
