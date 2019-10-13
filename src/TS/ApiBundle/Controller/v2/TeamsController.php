@@ -106,9 +106,9 @@ class TeamsController extends ApiV2MainController
         $team = $teamModel->addPlayerToTeam($pool, $team, $position, $player);
 
         $res = array(
-			'message' => 'added player '. $player->getName() .' to team '. $team->getId();
-			'teamId' => $team->getId();
-		)
+			'message' => 'added player '. $player->getName() .' to team '. $team->getId(),
+			'teamId' => $team->getId(),
+		);
 		$this->newMessage('success', 'Added player', $res);
         return $this->handleResponse($res);
     }
